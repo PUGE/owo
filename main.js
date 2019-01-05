@@ -1,8 +1,21 @@
-const Templet = require('./lib/templet')
+'use strict'
 const fs = require('fs')
+const heardHandle = require('./lib/heard')
+const bodyHandle = require('./lib/body')
 
+const path = './src/'
+const headPath = path + 'head/'
+const bodyPath = path + 'body/'
+const outPutPath = path + 'dist/'
 
 // 读取模板文件
 // 将整个文件一次性读取到内存中
-const templet = fs.readFileSync('./index.html', 'utf8');
-console.log(Templet.cutString("sdsdsddddddddd", "s", "ddddd"))
+let templet = fs.readFileSync(`${path}index.html`, 'utf8')
+
+templet = heardHandle(headPath, templet)
+
+templet = bodyHandle(bodyPath, templet)
+
+console.log(templet)
+// 输出文件
+fs.writeFileSync(`${outPutPath}index.html`, templet)
