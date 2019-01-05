@@ -6,4 +6,8 @@
   p {
     color: yellow;
   }
+
+  p {
+    font-size: 120px;
+  }
 </style>

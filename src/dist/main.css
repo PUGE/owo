@@ -1,5 +1,10 @@
 .page-class-hellow p {
     color: yellow;
-  }.page-class-name p {
+  }
+.page-class-hellow p {
+    font-size: 120px;
+  }
+.page-class-name p {
     color: red;
   }
+
