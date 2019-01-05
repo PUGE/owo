@@ -1,0 +1,9 @@
+<template>
+  <p>hellow word!</p>
+</template>
+
+<style>
+  p {
+    color: yellow;
+  }
+</style>

@@ -14,8 +14,11 @@ let templet = fs.readFileSync(`${path}index.html`, 'utf8')
 
 templet = heardHandle(headPath, templet)
 
-templet = bodyHandle(bodyPath, templet)
+const dom = bodyHandle(bodyPath, templet)
+// console.log(dom)
+templet = dom.html
 
-console.log(templet)
+// console.log(templet)
 // 输出文件
 fs.writeFileSync(`${outPutPath}index.html`, templet)
+fs.writeFileSync(`${outPutPath}main.css`, dom.style)
