@@ -2,6 +2,10 @@
   <p>hellow word!</p>
 </template>
 
+<script>
+  console.log('sdsd')
+</script>
+
 <style>
   p {
     color: yellow;
