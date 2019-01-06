@@ -1,5 +1,5 @@
 
-  window.CQO = {
+  window.PG = {
     script: {}
   };
   var globalConfig = {"entry":"hellow"};
@@ -32,12 +32,13 @@ window.onload = function(e) {
 // 运行页面所属的方法
 function runPageFunction (pageName) {
   // 判断页面是否有自己的方法
-  var newPageFunction = window.CQO.script[pageName]
+  var newPageFunction = window.PG.script[pageName]
   // 如果有方法,则运行它
   if (newPageFunction) {
-    newPageFunction()
+    newPageFunction.created()
   }
 }
+
 
 // url发生改变事件
 window.onhashchange = function(e) {
@@ -66,9 +67,35 @@ window.onhashchange = function(e) {
   }
   runPageFunction(newUrlParam)
 }
-          window.CQO.script.hellow= function () {
-            
-  console.log('hellow word!')
 
-          }
+// dom点击事件处理
+function pgClick (item) {
+  // 判断页面是否有自己的方法
+  var newPageFunction = window.PG.script[item.name]
+  // 如果有方法,则运行它
+  if (newPageFunction && newPageFunction.methods[item.methodName]) {
+    newPageFunction.methods[item.methodName](item)
+  }
+}
+          window.PG.script.hellow = 
+  {
+    created: function () {
+      console.log('hellow word!')
+    },
+    methods: {
+      showAlert: function (event) {
+        console.log(event)
+        event.dom.innerText = "Welcome"
+      }
+    }
+  }
+
+        
+          window.PG.script.name = 
+  {
+    created: function () {
+      console.log('my name is pack!')
+    }
+  }
+
         

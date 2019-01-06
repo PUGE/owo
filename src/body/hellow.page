@@ -1,17 +1,42 @@
 <template>
-  <p>hellow word!</p>
+  <p @click="showAlert">hellow word!</p>
 </template>
 
 <script>
-  console.log('hellow word!')
+  {
+    created: function () {
+      console.log('hellow word!')
+    },
+    methods: {
+      showAlert: function (event) {
+        console.log(event)
+        event.dom.innerText = "Welcome"
+      }
+    }
+  }
 </script>
+
 
 <style>
   p {
-    color: yellow;
+    color: #009fe9;
+    cursor: pointer;
   }
 
   p {
     font-size: 120px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 800px;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+  }
+  p:hover {
+    color: gold;
   }
 </style>

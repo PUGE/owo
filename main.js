@@ -22,7 +22,7 @@ const dom = bodyHandle(bodyPath, templet)
 
 // 读取出核心代码
 const configData = `
-  window.CQO = {
+  window.PG = {
     script: {}
   };
   var globalConfig = ${JSON.stringify(config)};

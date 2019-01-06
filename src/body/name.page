@@ -2,6 +2,14 @@
   <p>my name is pack!</p>
 </template>
 
+<script>
+  {
+    created: function () {
+      console.log('my name is pack!')
+    }
+  }
+</script>
+
 <style>
   p {
     color: red;
