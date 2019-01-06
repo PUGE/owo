@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  console.log('sdsd')
+  console.log('hellow word!')
 </script>
 
 <style>

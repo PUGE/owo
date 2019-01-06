@@ -21,7 +21,12 @@ templet = heardHandle(headPath, templet)
 const dom = bodyHandle(bodyPath, templet)
 
 // 读取出核心代码
-const configData = `\r\nvar globalConfig = ${JSON.stringify(config)} \r\n`
+const configData = `
+  window.CQO = {
+    script: {}
+  };
+  var globalConfig = ${JSON.stringify(config)};
+`
 const coreData = configData + fs.readFileSync(`./lib/core.js`, 'utf8')
 
 
