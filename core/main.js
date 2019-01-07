@@ -86,6 +86,7 @@ window.onhashchange = function(e) {
 
 // dom点击事件处理
 function pgClick (item) {
+  // console.log($event)
   // 判断页面是否有自己的方法
   var newPageFunction = window.PG.script[item.name]
   // 如果有方法,则运行它
