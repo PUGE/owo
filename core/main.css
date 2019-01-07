@@ -25,27 +25,3 @@ body, html {
   display: inline-block;
   user-select: none;
 }
-.page-class-hellow p {
-    color: #009fe9;
-    cursor: pointer;
-  }
-.page-class-hellow p {
-    font-size: 120px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 800px;
-    height: 200px;
-    line-height: 200px;
-    text-align: center;
-  }
-.page-class-hellow p:hover {
-    color: gold;
-  }
-.page-class-name p {
-    color: red;
-  }
-

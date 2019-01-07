@@ -7,6 +7,7 @@ const path = './src/'
 const headPath = path + 'head/'
 const bodyPath = path + 'body/'
 const outPutPath = path + 'dist/'
+const corePath = './core/'
 
 const config = {
   entry: 'hellow'
@@ -27,11 +28,15 @@ const configData = `
   };
   var globalConfig = ${JSON.stringify(config)};
 `
-const coreData = configData + fs.readFileSync(`./lib/core.js`, 'utf8')
+const coreData = configData + fs.readFileSync(`${corePath}main.js`, 'utf8')
 
 
 // console.log(templet)
 // 输出文件
 fs.writeFileSync(`${outPutPath}index.html`, dom.html)
-fs.writeFileSync(`${outPutPath}main.css`, dom.style)
+
+// 读取出全局样式
+const coreStyle = fs.readFileSync(`${corePath}main.css`, 'utf8') + '\r\n'
+
+fs.writeFileSync(`${outPutPath}main.css`, coreStyle + dom.style)
 fs.writeFileSync(`${outPutPath}main.js`, coreData + dom.script)

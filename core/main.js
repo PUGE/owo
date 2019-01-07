@@ -5,7 +5,7 @@ function getarg(url){
 }
 
 // 页面资源加载完毕事件
-window.onload = function(e) {
+window.onload = function() {
   // 取出URL地址判断当前所在页面
   var pageArg = getarg(window.location.href)
   // 从配置项中取出程序入口
@@ -15,7 +15,7 @@ window.onload = function(e) {
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
-      runPageFunction(page)
+      runPageFunction(page, entryDom)
     } else {
       console.error('入口文件设置错误!')
     }
@@ -24,13 +24,34 @@ window.onload = function(e) {
   }
 }
 
+// PG-name处理
+function pgNameHandler (dom) {
+  // 遍历每一个DOM节点
+  for (var i = 0; i < dom.children.length; i++) {
+    var tempDom = dom.children[i]
+    // 判断是否存在pg-name属性
+    const pgName = tempDom.attributes['pg-name']
+    if (pgName) {
+      window.PG.domList[pgName.textContent] = tempDom
+    }
+    // 递归处理所有子Dom结点
+    if (tempDom.children.length > 0) {
+      pgNameHandler(tempDom)
+    }
+  }
+}
+
 // 运行页面所属的方法
-function runPageFunction (pageName) {
+function runPageFunction (pageName, entryDom) {
+  // PG-name处理
+  window.PG.domList = {}
+  pgNameHandler(entryDom)
+
   // 判断页面是否有自己的方法
   var newPageFunction = window.PG.script[pageName]
   // 如果有方法,则运行它
   if (newPageFunction) {
-    newPageFunction.created()
+    newPageFunction.created.apply(window.PG)
   }
 }
 
@@ -60,7 +81,7 @@ window.onhashchange = function(e) {
   } else {
     console.error('页面不存在!')
   }
-  runPageFunction(newUrlParam)
+  runPageFunction(newUrlParam, entryDom)
 }
 
 // dom点击事件处理
@@ -69,6 +90,7 @@ function pgClick (item) {
   var newPageFunction = window.PG.script[item.name]
   // 如果有方法,则运行它
   if (newPageFunction && newPageFunction.methods[item.methodName]) {
-    newPageFunction.methods[item.methodName](item)
+    // 绑定window.PG对象
+    newPageFunction.methods[item.methodName].apply(window.PG, [item])
   }
 }
