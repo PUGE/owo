@@ -7,12 +7,12 @@ const bodyHandle = require('./lib/body')
 
 const path = './src/'
 const headPath = path + 'head/'
-const bodyPath = path + 'body/'
+const pagePath = path + 'page/'
 const outPutPath = path + 'dist/'
 const corePath = './core/'
 
 const config = {
-  entry: 'hellow'
+  entry: 'home'
 }
 
 // 读取入口模板文件(一次性读取到内存中)
@@ -20,11 +20,11 @@ let templet = fs.readFileSync(`${path}index.html`, 'utf8')
 // 使用heard处理文件
 templet = heardHandle(headPath, templet)
 
-const dom = bodyHandle(bodyPath, templet)
+const dom = bodyHandle(pagePath, templet)
 
 // 读取出核心代码
 const configData = `
-  window.PG = {
+  window.ozzx = {
     script: {}
   };
   var globalConfig = ${JSON.stringify(config)};

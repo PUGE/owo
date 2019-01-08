@@ -1,6 +1,8 @@
 body, html {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   font-family: Microsoft YaHei;
 }
 /* 清除浮动 */
@@ -8,44 +10,36 @@ body, html {
   clear: both;
 }
 
-@font-face {
-  font-family: 'iconfont';  /* project id 1002795 */
-  src: url('./font/iconfont.eot');
-  src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
-  url('./font/iconfont.woff2') format('woff2'),
-  url('./font/iconfont.woff') format('woff'),
-  url('./font/iconfont.ttf') format('truetype'),
-  url('./font/iconfont.svg#iconfont') format('svg');
+.page-class {
+  width: 100%;
+  height: 100%;
 }
 
-.icon {
-  font-family: "iconfont";
-  font-style: normal;
-  font-weight: normal;
-  display: inline-block;
-  user-select: none;
+.ox-home .sdsd p {
+  color: white;
 }
-.page-class-hellow p {
-    color: #009fe9;
-    cursor: pointer;
-  }
-.page-class-hellow p {
-    font-size: 120px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 800px;
-    height: 200px;
-    line-height: 200px;
-    text-align: center;
-  }
-.page-class-hellow p:hover {
-    color: gold;
-  }
-.page-class-name p {
-    color: red;
-  }
-
+
+.ox-home p {
+  color: #009fe9;
+  cursor: pointer;
+}
+
+.ox-home p {
+  font-size: 120px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 800px;
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+}
+
+.ox-home p:hover {
+  color: gold;
+}.ox-name p {
+  color: red;
+}

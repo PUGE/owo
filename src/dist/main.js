@@ -1,8 +1,8 @@
 
-  window.PG = {
+  window.ozzx = {
     script: {}
   };
-  var globalConfig = {"entry":"hellow"};
+  var globalConfig = {"entry":"home"};
 // 获取URL #后面内容
 function getarg(url){
   arg = url.split("#");
@@ -16,7 +16,7 @@ window.onload = function() {
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : globalConfig.entry
   if (page) {
-    var entryDom = document.getElementById('page-id-' + page)
+    var entryDom = document.getElementById('ox-' + page)
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
@@ -29,7 +29,7 @@ window.onload = function() {
   }
 }
 
-// PG-name处理
+// ozzx-name处理
 function pgNameHandler (dom) {
   // 遍历每一个DOM节点
   for (var i = 0; i < dom.children.length; i++) {
@@ -37,7 +37,7 @@ function pgNameHandler (dom) {
     // 判断是否存在pg-name属性
     const pgName = tempDom.attributes['pg-name']
     if (pgName) {
-      window.PG.domList[pgName.textContent] = tempDom
+      window.ozzx.domList[pgName.textContent] = tempDom
     }
     // 递归处理所有子Dom结点
     if (tempDom.children.length > 0) {
@@ -48,15 +48,15 @@ function pgNameHandler (dom) {
 
 // 运行页面所属的方法
 function runPageFunction (pageName, entryDom) {
-  // PG-name处理
-  window.PG.domList = {}
+  // ozzx-name处理
+  window.ozzx.domList = {}
   pgNameHandler(entryDom)
 
   // 判断页面是否有自己的方法
-  var newPageFunction = window.PG.script[pageName]
+  var newPageFunction = window.ozzx.script[pageName]
   // 如果有方法,则运行它
   if (newPageFunction) {
-    newPageFunction.created.apply(window.PG)
+    newPageFunction.created.apply(window.ozzx)
   }
 }
 
@@ -71,14 +71,14 @@ window.onhashchange = function(e) {
   if (oldUrlParam === undefined) {
     oldUrlParam = globalConfig.entry
   }
-  var oldDom = document.getElementById('page-id-' + oldUrlParam)
+  var oldDom = document.getElementById('ox-' + oldUrlParam)
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'
   }
   // 查找页面跳转后的page
   
-  var newDom = document.getElementById('page-id-' + newUrlParam)
+  var newDom = document.getElementById('ox-' + newUrlParam)
   // console.log(newDom)
   if (newDom) {
     // 隐藏掉旧的节点
@@ -93,14 +93,14 @@ window.onhashchange = function(e) {
 function pgClick (item) {
   // console.log($event)
   // 判断页面是否有自己的方法
-  var newPageFunction = window.PG.script[item.name]
+  var newPageFunction = window.ozzx.script[item.name]
   // 如果有方法,则运行它
   if (newPageFunction && newPageFunction.methods[item.methodName]) {
     // 绑定window.PG对象
-    newPageFunction.methods[item.methodName].apply(window.PG, [item])
+    newPageFunction.methods[item.methodName].apply(window.ozzx, [item])
   }
 }
-          window.PG.script.hellow = 
+          window.ozzx.script.home = 
   {
     created: function () {
       console.log('hellow word!')
@@ -114,7 +114,7 @@ function pgClick (item) {
   }
 
         
-          window.PG.script.name = 
+          window.ozzx.script.name = 
   {
     created: function () {
       console.log('my name is pack!')

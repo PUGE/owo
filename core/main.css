@@ -1,6 +1,8 @@
 body, html {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   font-family: Microsoft YaHei;
 }
 /* 清除浮动 */
@@ -8,20 +10,7 @@ body, html {
   clear: both;
 }
 
-@font-face {
-  font-family: 'iconfont';  /* project id 1002795 */
-  src: url('./font/iconfont.eot');
-  src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
-  url('./font/iconfont.woff2') format('woff2'),
-  url('./font/iconfont.woff') format('woff'),
-  url('./font/iconfont.ttf') format('truetype'),
-  url('./font/iconfont.svg#iconfont') format('svg');
-}
-
-.icon {
-  font-family: "iconfont";
-  font-style: normal;
-  font-weight: normal;
-  display: inline-block;
-  user-select: none;
+.page-class {
+  width: 100%;
+  height: 100%;
 }

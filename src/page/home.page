@@ -18,6 +18,9 @@
 
 
 <style>
+  .sdsd p {
+    color: white;
+  }
   p {
     color: #009fe9;
     cursor: pointer;

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css": "^2.2.4",
     "fs": "^0.0.1-security",
     "jsdom": "^13.1.0"
   }
