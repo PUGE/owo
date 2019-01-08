@@ -15,10 +15,9 @@ const config = {
   entry: 'hellow'
 }
 
-// 读取模板文件
-// 将整个文件一次性读取到内存中
+// 读取入口模板文件(一次性读取到内存中)
 let templet = fs.readFileSync(`${path}index.html`, 'utf8')
-
+// 使用heard处理文件
 templet = heardHandle(headPath, templet)
 
 const dom = bodyHandle(bodyPath, templet)
