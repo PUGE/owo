@@ -24,4 +24,22 @@ body, html {
   color: gold;
 }.ox-name p {
   color: red;
-}s
+}.ox-home .click {
+  color: #009fe9;
+  cursor: pointer;
+}
+
+.ox-home .click:hover {
+  color: gold;
+}.ox-name p {
+  color: red;
+}.ox-home .click {
+  color: #009fe9;
+  cursor: pointer;
+}
+
+.ox-home .click:hover {
+  color: gold;
+}.ox-name p {
+  color: red;
+}
