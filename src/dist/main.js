@@ -1,9 +1,9 @@
 
-  window.ozzx = {
-    script: {}
-  };
-  var globalConfig = {"entry":"home"};
-// 获取URL #后面内容
+    window.ozzx = {
+      script: {}
+    };
+    var globalConfig = {"entry":"home","autoPack":true};
+  // 获取URL #后面内容
 function getarg(url){
   arg = url.split("#");
   return arg[1];
@@ -121,16 +121,5 @@ window.onhashchange = function(e) {
   runPageFunction(newUrlParam, entryDom)
 }
 
-// dom点击事件处理
-function xoClick (item) {
-  // console.log($event)
-  // 判断页面是否有自己的方法
-  var newPageFunction = window.ozzx.script[window.ozzx.activePage]
-  // 如果有方法,则运行它
-  if (newPageFunction && newPageFunction.methods[item.methodName]) {
-    // 绑定window.ozzx对象
-    newPageFunction.methods[item.methodName].apply(window.ozzx, [item])
-  }
-}
-      window.ozzx.script = {home:{data:{nameList:{rank1:{name:"lis",like:"orange"},rank2:{name:"kim",like:"yellow"},rank3:{name:"tony",like:"white"}}},created:function created(){console.log('hellow word!');},methods:{showAlert:function showAlert(othersName,myName){console.log(this);alert('Hellow '+othersName+', My name is '+myName);}}},name:{created:function created(){console.log('my name is pack!');}}}
+      window.ozzx.script = {home:{data:{nameList:{rank1:{name:"lis",like:"orange"},rank2:{name:"kim",like:"yellow"},rank3:{name:"tony",like:"white"}}},created:function created(){console.log('hellow word!');},methods:{showAlert:function showAlert(othersName,myName){console.log(_this);alert('Hellow '+othersName+', My name is '+myName);}}},name:{created:function created(){console.log('my name is pack!');}}}
     

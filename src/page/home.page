@@ -16,11 +16,11 @@
         "rank3": {name: "tony", like: "white"}
       }
     },
-    created: function () {
+    created: () => {
       console.log('hellow word!')
     },
     methods: {
-      showAlert: function (othersName, myName) {
+      showAlert: (othersName, myName) => {
         console.log(this)
         alert('Hellow ' + othersName + ', My name is ' + myName)
       }
