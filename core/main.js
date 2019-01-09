@@ -15,6 +15,7 @@ window.onload = function() {
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
+      window.ozzx.activePage = page
       runPageFunction(page, entryDom)
     } else {
       console.error('入口文件设置错误!')
@@ -29,10 +30,39 @@ function pgNameHandler (dom) {
   // 遍历每一个DOM节点
   for (var i = 0; i < dom.children.length; i++) {
     var tempDom = dom.children[i]
-    // 判断是否存在pg-name属性
-    const pgName = tempDom.attributes['pg-name']
+    // 判断是否存在@name属性
+    var pgName = tempDom.attributes['@name']
     if (pgName) {
+      console.log(pgName.textContent)
       window.ozzx.domList[pgName.textContent] = tempDom
+    }
+    // 判断是否有点击事件
+    var clickFunc = tempDom.attributes['@click']
+    
+    if (clickFunc) {
+      var clickFor = clickFunc.textContent
+      tempDom.onclick = function() {
+        // 判断页面是否有自己的方法
+        var newPageFunction = window.ozzx.script[window.ozzx.activePage]
+        
+        // 取出参数
+        var parameter = clickFor.match(/[^\(\)]+(?=\))/g)[0]
+        // 参数列表
+        var parameterArr = parameter.split(',')
+        clickFor = clickFor.replace('(' + parameter + ')', '')
+        // 如果有方法,则运行它
+        if (newPageFunction.methods[clickFor]) {
+          // 绑定window.ozzx对象
+          // console.log(tempDom)
+          newPageFunction.methods[clickFor].apply({
+            $el: tempDom,
+            activePage: window.ozzx.activePage,
+            domList: window.ozzx.domList,
+            data: window.ozzx.script[window.ozzx.activePage].data,
+            methods: window.ozzx.script[window.ozzx.activePage].methods
+          }, parameterArr)
+        }
+      }
     }
     // 递归处理所有子Dom结点
     if (tempDom.children.length > 0) {
@@ -80,18 +110,8 @@ window.onhashchange = function(e) {
     newDom.style.display = 'block'
   } else {
     console.error('页面不存在!')
+    return
   }
+  window.ozzx.activePage = newUrlParam
   runPageFunction(newUrlParam, entryDom)
-}
-
-// dom点击事件处理
-function xoClick (item) {
-  // console.log($event)
-  // 判断页面是否有自己的方法
-  var newPageFunction = window.ozzx.script[item.name]
-  // 如果有方法,则运行它
-  if (newPageFunction && newPageFunction.methods[item.methodName]) {
-    // 绑定window.PG对象
-    newPageFunction.methods[item.methodName].apply(window.ozzx, [item])
-  }
 }

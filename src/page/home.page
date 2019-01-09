@@ -1,6 +1,6 @@
 <template>
-  <div class="example">
-    <p class="click" @click="showAlert">you can click me!</p>
+  <div @name="example" class="example">
+    <p class="click" @click="showAlert('Jerome', 'Jefferson')">you can click me!</p>
     <div class="for-box">
       <p v-for="(value, key, index) in nameList">{{key}}:{{index}}-{{value.name}} like {{value.like}} color!</p>
     </div>
@@ -20,9 +20,9 @@
       console.log('hellow word!')
     },
     methods: {
-      showAlert: function (event) {
-        console.log(event)
-        event.dom.innerText = "Welcome"
+      showAlert: function (othersName, myName) {
+        console.log(this)
+        alert('Hellow ' + othersName + ', My name is ' + myName)
       }
     }
   }
