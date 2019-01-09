@@ -2,7 +2,7 @@
   <div class="example">
     <p class="click" @click="showAlert">you can click me!</p>
     <div class="for-box">
-      <p v-for="value in nameList">{{value.name}} like {{value.like}} color!</p>
+      <p v-for="(value, key, index) in nameList">{{key}}:{{index}}-{{value.name}} like {{value.like}} color!</p>
     </div>
   </div>
 </template>
@@ -10,11 +10,11 @@
 <script>
   export default {
     data: {
-      nameList: [
-        {name: "lis", like: "orange"},
-        {name: "kim", like: "yellow"},
-        {name: "tony", like: "white"}
-      ]
+      nameList: {
+        "rank1": {name: "lis", like: "orange"},
+        "rank2": {name: "kim", like: "yellow"},
+        "rank3": {name: "tony", like: "white"}
+      }
     },
     created: function () {
       console.log('hellow word!')

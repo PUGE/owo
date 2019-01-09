@@ -100,5 +100,5 @@ function xoClick (item) {
     newPageFunction.methods[item.methodName].apply(window.ozzx, [item])
   }
 }
-      window.ozzx.script = {home:{data:{nameList:[{name:"lis",like:"orange"},{name:"kim",like:"yellow"},{name:"tony",like:"white"}]},created:function created(){console.log('hellow word!');},methods:{showAlert:function showAlert(event){console.log(event);event.dom.innerText="Welcome";}}},name:{created:function created(){console.log('my name is pack!');}}}
+      window.ozzx.script = {home:{data:{nameList:{rank1:{name:"lis",like:"orange"},rank2:{name:"kim",like:"yellow"},rank3:{name:"tony",like:"white"}}},created:function created(){console.log('hellow word!');},methods:{showAlert:function showAlert(event){console.log(event);event.dom.innerText="Welcome";}}},name:{created:function created(){console.log('my name is pack!');}}}
     
