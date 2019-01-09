@@ -2,7 +2,7 @@
   <div class="example">
     <p class="click" @click="showAlert">you can click me!</p>
     <div class="for-box">
-      <p v-for="nameList">{{name}} like {{like}} color!</p>
+      <p v-for="value in nameList">{{value.name}} like {{value.like}} color!</p>
     </div>
   </div>
 </template>
