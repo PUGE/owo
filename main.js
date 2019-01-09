@@ -3,7 +3,7 @@ const fs = require('fs')
 
 
 const heardHandle = require('./lib/heard')
-const bodyHandle = require('./lib/body')
+const bodyHandle = require('./lib/page')
 
 const path = './src/'
 const headPath = path + 'head/'

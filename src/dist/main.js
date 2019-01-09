@@ -90,7 +90,7 @@ window.onhashchange = function(e) {
 }
 
 // dom点击事件处理
-function pgClick (item) {
+function xoClick (item) {
   // console.log($event)
   // 判断页面是否有自己的方法
   var newPageFunction = window.ozzx.script[item.name]
