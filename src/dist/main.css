@@ -15,30 +15,12 @@ body, html {
   height: 100%;
 }
 
-.ox-home .sdsd p {
-  color: white;
-}
-
-.ox-home p {
+.ox-home .click {
   color: #009fe9;
   cursor: pointer;
 }
 
-.ox-home p {
-  font-size: 120px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  width: 800px;
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-}
-
-.ox-home p:hover {
+.ox-home .click:hover {
   color: gold;
 }.ox-name p {
   color: red;

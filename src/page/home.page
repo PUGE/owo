@@ -1,9 +1,21 @@
 <template>
-  <p @click="showAlert">hellow word!</p>
+  <div class="example">
+    <p class="click" @click="showAlert">you can click me!</p>
+    <div class="for-box">
+      <p v-for="nameList">{{name}} like {{like}} color!</p>
+    </div>
+  </div>
 </template>
 
 <script>
   export default {
+    data: {
+      nameList: [
+        {name: "lis", like: "orange"},
+        {name: "kim", like: "yellow"},
+        {name: "tony", like: "white"}
+      ]
+    },
     created: function () {
       console.log('hellow word!')
     },
@@ -18,28 +30,11 @@
 
 
 <style>
-  .sdsd p {
-    color: white;
-  }
-  p {
+  .click {
     color: #009fe9;
     cursor: pointer;
   }
-
-  p {
-    font-size: 120px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    width: 800px;
-    height: 200px;
-    line-height: 200px;
-    text-align: center;
-  }
-  p:hover {
+  .click:hover {
     color: gold;
   }
 </style>
