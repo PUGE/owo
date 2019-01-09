@@ -100,25 +100,5 @@ function pgClick (item) {
     newPageFunction.methods[item.methodName].apply(window.ozzx, [item])
   }
 }
-          window.ozzx.script.home = 
-  {
-    created: function () {
-      console.log('hellow word!')
-    },
-    methods: {
-      showAlert: function (event) {
-        console.log(event)
-        event.dom.innerText = "Welcome"
-      }
-    }
-  }
-
-        
-          window.ozzx.script.name = 
-  {
-    created: function () {
-      console.log('my name is pack!')
-    }
-  }
-
-        
+      window.ozzx.script = {home:{created:function created(){console.log('hellow word!');},methods:{showAlert:function showAlert(event){console.log(event);event.dom.innerText="Welcome";}}},name:{created:function created(){console.log('my name is pack!');}}}
+    

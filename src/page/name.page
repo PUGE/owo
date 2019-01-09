@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  {
+  export default {
     created: function () {
       console.log('my name is pack!')
     }
