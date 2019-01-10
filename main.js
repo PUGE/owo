@@ -4,6 +4,8 @@ const fs = require('fs')
 const chokidar = require('chokidar')
 // css压缩
 const minifier = require('sqwish')
+// js压缩
+const UglifyJS = require("uglify-js")
 
 const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
@@ -22,6 +24,8 @@ const packConfig = {
   autoPack: true,
   // 压缩css
   minifyCss: true,
+  // 是否压缩js
+  minifyJs: true,
   // 页面存放目录
   pagePath: path + 'page/',
 
@@ -51,13 +55,21 @@ function pack() {
 
   // 读取出全局样式
   const coreStyle = fs.readFileSync(`${corePath}main.css`, 'utf8') + '\r\n'
+
   // 判断是否需要压缩css
   let outPutCss = coreStyle + dom.style
   if (packConfig.minifyCss) {
     outPutCss = minifier.minify(outPutCss)
   }
+
+  // 判断是否需要压缩js
+  let outPutJs = coreData + dom.script
+  if (packConfig.minifyJs) {
+    outPutJs = UglifyJS.minify(outPutJs).code
+  }
   fs.writeFileSync(`${outPutPath}main.css`, outPutCss)
-  fs.writeFileSync(`${outPutPath}main.js`, coreData + dom.script)
+  fs.writeFileSync(`${outPutPath}main.js`, outPutJs)
+  console.log('Package success!')
 }
 
 // 开始打包
