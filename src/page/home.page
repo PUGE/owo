@@ -29,12 +29,14 @@
 </script>
 
 
-<style>
-  .click {
-    color: #009fe9;
-    cursor: pointer;
-  }
-  .click:hover {
-    color: gold;
+<style lang="less">
+  .example {
+    .click {
+      color: #009fe9;
+      cursor: pointer;
+    }
+    .click:hover {
+      color: gold;
+    }
   }
 </style>
