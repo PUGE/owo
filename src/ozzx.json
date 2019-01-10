@@ -1,0 +1,9 @@
+{
+  "entry": "ome",
+  "headFolder": "head",
+  "outFolder": "dist",
+  "autoPack": true,
+  "minifyCss": false,
+  "minifyJs": false,
+  "pageFolder": "page"
+}

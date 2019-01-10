@@ -1,13 +1,13 @@
 {
   "name": "ozzx",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "pack": "node./main.js"
+    "pack": "main.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "jsdom": "^13.1.0",
     "less": "^3.9.0",
     "node-sass": "^4.11.0",
+    "pkg-dir": "^3.0.0",
     "sqwish": "^0.2.2",
     "uglify-js": "^3.4.9"
   },
