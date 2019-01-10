@@ -2,19 +2,29 @@
 const fs = require('fs')
 // 文件变动检测
 const chokidar = require('chokidar')
+// css压缩
+const minifier = require('sqwish')
 
 const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
 
 const path = './src/'
 const headPath = path + 'head/'
-const pagePath = path + 'page/'
 const outPutPath = path + 'dist/'
 const corePath = './core/'
 
 const config = {
-  entry: 'home',
-  autoPack: true
+  entry: 'home'
+}
+
+const packConfig = {
+  // 文件改变自动重新打包
+  autoPack: true,
+  // 压缩css
+  minifyCss: true,
+  // 页面存放目录
+  pagePath: path + 'page/',
+
 }
 
 function pack() {
@@ -23,7 +33,7 @@ function pack() {
   // 使用heard处理文件
   templet = heardHandle(headPath, templet)
 
-  const dom = bodyHandle(pagePath, templet)
+  const dom = bodyHandle(templet, packConfig)
 
   // 读取出核心代码
   const configData = `
@@ -41,8 +51,12 @@ function pack() {
 
   // 读取出全局样式
   const coreStyle = fs.readFileSync(`${corePath}main.css`, 'utf8') + '\r\n'
-
-  fs.writeFileSync(`${outPutPath}main.css`, coreStyle + dom.style)
+  // 判断是否需要压缩css
+  let outPutCss = coreStyle + dom.style
+  if (packConfig.minifyCss) {
+    outPutCss = minifier.minify(outPutCss)
+  }
+  fs.writeFileSync(`${outPutPath}main.css`, outPutCss)
   fs.writeFileSync(`${outPutPath}main.js`, coreData + dom.script)
 }
 

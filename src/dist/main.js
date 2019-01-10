@@ -2,7 +2,7 @@
     window.ozzx = {
       script: {}
     };
-    var globalConfig = {"entry":"home","autoPack":true};
+    var globalConfig = {"entry":"home"};
   // 获取URL #后面内容
 function getarg(url){
   arg = url.split("#");
