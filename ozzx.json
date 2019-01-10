@@ -1,4 +1,5 @@
 {
+  "root": "/src",
   "entry": "ome",
   "headFolder": "head",
   "outFolder": "dist",

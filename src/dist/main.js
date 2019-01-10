@@ -2,7 +2,7 @@
     window.ozzx = {
       script: {}
     };
-    var globalConfig = {"entry":"ome","headFolder":"head","outFolder":"dist","autoPack":true,"minifyCss":false,"minifyJs":false,"pageFolder":"page"};
+    var globalConfig = {"root":"/src","entry":"ome","headFolder":"head","outFolder":"dist","autoPack":true,"minifyCss":false,"minifyJs":false,"pageFolder":"page"};
   // 获取URL #后面内容
 function getarg(url){
   arg = url.split("#");
@@ -38,7 +38,7 @@ function pgNameHandler (dom) {
     // 判断是否存在@name属性
     var pgName = tempDom.attributes['@name']
     if (pgName) {
-      console.log(pgName.textContent)
+      // console.log(pgName.textContent)
       window.ozzx.domList[pgName.textContent] = tempDom
     }
     // 判断是否有点击事件

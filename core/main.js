@@ -33,7 +33,7 @@ function pgNameHandler (dom) {
     // 判断是否存在@name属性
     var pgName = tempDom.attributes['@name']
     if (pgName) {
-      console.log(pgName.textContent)
+      // console.log(pgName.textContent)
       window.ozzx.domList[pgName.textContent] = tempDom
     }
     // 判断是否有点击事件
