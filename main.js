@@ -25,7 +25,7 @@ const outPutPath = `${path}/${config.outFolder}/`
 const corePath = `${__dirname}/core/`
 
 // 执行默认打包任务
-gulp.task('default', function() {
+function pack () {
   // 读取入口模板文件(一次性读取到内存中)
   let templet = fs.readFileSync(`${path}/index.html`, 'utf8')
   // 使用heard处理文件
@@ -64,23 +64,23 @@ gulp.task('default', function() {
   fs.writeFileSync(`${outPutPath}main.css`, outPutCss)
   fs.writeFileSync(`${outPutPath}main.js`, outPutJs)
   console.log('Package success!')
-})
+}
 
-// // 开始打包
-// pack()
+// 开始打包
+pack()
 
-// // 判断是否开启文件变动自动重新打包
-// if (config) {
-//   // 文件变动检测
-//   const watcher = chokidar.watch(path, {
-//     ignored: './' + config.outFolder + '/*',
-//     persistent: true,
-//     usePolling: true
-//   })
+// 判断是否开启文件变动自动重新打包
+if (config) {
+  // 文件变动检测
+  const watcher = chokidar.watch(path, {
+    ignored: './' + config.outFolder + '/*',
+    persistent: true,
+    usePolling: true
+  })
 
-//   watcher.on('change', path => {
-//     console.log(`file change: ${path}`)
-//     // 重新打包
-//     pack()
-//   })
-// }
+  watcher.on('change', path => {
+    console.log(`file change: ${path}`)
+    // 重新打包
+    pack()
+  })
+}
