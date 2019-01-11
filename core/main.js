@@ -40,16 +40,21 @@ function pgNameHandler (dom) {
     var clickFunc = tempDom.attributes['@click']
     
     if (clickFunc) {
-      var clickFor = clickFunc.textContent
+      
       tempDom.onclick = function() {
+        var clickFor = clickFunc.textContent
         // 判断页面是否有自己的方法
         var newPageFunction = window.ozzx.script[window.ozzx.activePage]
         
         // 取出参数
-        var parameter = clickFor.match(/[^\(\)]+(?=\))/g)[0]
-        // 参数列表
-        var parameterArr = parameter.split(',')
-        clickFor = clickFor.replace('(' + parameter + ')', '')
+        var parameterArr = []
+        var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
+        if (parameterList && parameterList.length > 0) {
+          // 参数列表
+          parameterArr = parameterList[0].split(',')
+          clickFor = clickFor.replace('(' + parameterList + ')', '')
+        }
+        
         // 如果有方法,则运行它
         if (newPageFunction.methods[clickFor]) {
           // 绑定window.ozzx对象
