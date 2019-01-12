@@ -73,7 +73,7 @@ function pack () {
     outPutJs = UglifyJS.minify(outPutJs).code
   }
   // 判断输出目录是否存在,如果不存在则创建目录
-  if (fs.existsSync(outPutPath)) {
+  if (!fs.existsSync(outPutPath)) {
     fs.mkdirSync(outPutPath)
   }
   // 写出文件
