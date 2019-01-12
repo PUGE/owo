@@ -1,6 +1,6 @@
 {
   "name": "ozzx",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "gulp": "^4.0.0",
     "jsdom": "^13.1.0",
     "less": "^3.9.0",
+    "log4js": "^3.0.6",
     "node-sass": "^4.11.0",
     "pkg-dir": "^3.0.0",
     "sqwish": "^0.2.2",

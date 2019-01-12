@@ -10,19 +10,33 @@ const chokidar = require('chokidar')
 const minifier = require('sqwish')
 // js压缩
 const UglifyJS = require("uglify-js")
+// 日志输出
+const { getLogger } = require('log4js')
+const logger = getLogger()
 
 const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
 
+// 配置日志输出等级
+logger.level = 'debug'
 
+// 命令行运行目录
+const runPath = process.cwd()
+
+// 判断运行目录下是否包含配置文件
+if (!fs.readFileSync(`${runPath}/ozzx.json`)) {
+  logger.error('ozzx.json file does not exist!')
+  close()
+}
 
 // 读取配置文件
-const config = JSON.parse(fs.readFileSync(`${process.cwd()}/ozzx.json`, 'utf8'))
-
-const path = process.cwd() + config.root
-
-const outPutPath = `${path}/${config.outFolder}/`
+const config = JSON.parse(fs.readFileSync(`${runPath}/ozzx.json`, 'utf8'))
+// 代码目录
+const path = runPath + config.root
+// 输出目录
+const outPutPath = `${runPath}/${config.outFolder}/`
 const corePath = `${__dirname}/core/`
+
 
 // 执行默认打包任务
 function pack () {
@@ -31,6 +45,7 @@ function pack () {
   // 使用heard处理文件
   templet = heardHandle(`${path}/${config.headFolder}/`, templet)
 
+  // 处理body
   const dom = bodyHandle(templet, config)
 
   // 读取出核心代码
@@ -42,10 +57,6 @@ function pack () {
   `
   const coreData = configData + fs.readFileSync(`${corePath}main.js`, 'utf8')
 
-
-  // console.log(templet)
-  // 输出文件
-  fs.writeFileSync(`${outPutPath}index.html`, dom.html)
 
   // 读取出全局样式
   const coreStyle = fs.readFileSync(`${path}/main.css`, 'utf8') + '\r\n'
@@ -61,8 +72,14 @@ function pack () {
   if (config.minifyJs) {
     outPutJs = UglifyJS.minify(outPutJs).code
   }
+  // 判断输出目录是否存在,如果不存在则创建目录
+  if (fs.existsSync(outPutPath)) {
+    fs.mkdirSync(outPutPath)
+  }
+  // 写出文件
   fs.writeFileSync(`${outPutPath}main.css`, outPutCss)
   fs.writeFileSync(`${outPutPath}main.js`, outPutJs)
+  fs.writeFileSync(`${outPutPath}index.html`, dom.html)
   console.log('Package success!')
 }
 
