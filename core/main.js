@@ -45,7 +45,12 @@ function pgNameHandler (dom) {
         var clickFor = clickFunc.textContent
         // 判断页面是否有自己的方法
         var newPageFunction = window.ozzx.script[window.ozzx.activePage]
-        
+        // 判断是否为模板
+        var templateName = tempDom.attributes['template']
+        if (templateName) {
+          newPageFunction = newPageFunction.template[templateName.textContent]
+        }
+        console.log(newPageFunction)
         // 取出参数
         var parameterArr = []
         var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
@@ -63,8 +68,8 @@ function pgNameHandler (dom) {
             $el: tempDom,
             activePage: window.ozzx.activePage,
             domList: window.ozzx.domList,
-            data: window.ozzx.script[window.ozzx.activePage].data,
-            methods: window.ozzx.script[window.ozzx.activePage].methods
+            data: newPageFunction.data,
+            methods: newPageFunction.methods
           }, parameterArr)
         }
       }
