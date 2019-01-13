@@ -87,7 +87,7 @@ function pack () {
 pack()
 
 // 判断是否开启文件变动自动重新打包
-if (config) {
+if (config.autoPack) {
   // 文件变动检测
   const watcher = chokidar.watch(path, {
     ignored: './' + config.outFolder + '/*',
