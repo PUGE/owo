@@ -30,6 +30,7 @@ function pgNameHandler (dom) {
   // 遍历每一个DOM节点
   for (var i = 0; i < dom.children.length; i++) {
     var tempDom = dom.children[i]
+    
     // 判断是否存在@name属性
     var pgName = tempDom.attributes['@name']
     if (pgName) {
@@ -40,17 +41,16 @@ function pgNameHandler (dom) {
     var clickFunc = tempDom.attributes['@click']
     
     if (clickFunc) {
-      
       tempDom.onclick = function() {
-        var clickFor = clickFunc.textContent
+        var clickFor = this.attributes['@click'].textContent
         // 判断页面是否有自己的方法
         var newPageFunction = window.ozzx.script[window.ozzx.activePage]
         // 判断是否为模板
-        var templateName = tempDom.attributes['template']
+        var templateName = this.attributes['template']
         if (templateName) {
           newPageFunction = newPageFunction.template[templateName.textContent]
         }
-        console.log(newPageFunction)
+        // console.log(newPageFunction)
         // 取出参数
         var parameterArr = []
         var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
@@ -91,7 +91,7 @@ function runPageFunction (pageName, entryDom) {
   var newPageFunction = window.ozzx.script[pageName]
   // 如果有方法,则运行它
   if (newPageFunction) {
-    newPageFunction.created.apply(window.ozzx)
+    newPageFunction.created.apply(window.ozzx.script[pageName])
   }
 }
 
