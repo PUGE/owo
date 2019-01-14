@@ -94,7 +94,14 @@ function runPageFunction (pageName, entryDom) {
   var newPageFunction = window.ozzx.script[pageName]
   // 如果有方法,则运行它
   if (newPageFunction) {
-    newPageFunction.created.apply(window.ozzx.script[pageName])
+    newPageFunction.created.apply(newPageFunction)
+  }
+  // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
+  for (var key in newPageFunction.template) {
+    var templateScript = newPageFunction.template[key]
+    if (templateScript.created) {
+      templateScript.created.apply(newPageFunction.template[key])
+    }
   }
 }
 
