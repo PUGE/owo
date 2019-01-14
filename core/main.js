@@ -45,8 +45,11 @@ function pgNameHandler (dom) {
         var clickFor = this.attributes['@click'].textContent
         // 判断页面是否有自己的方法
         var newPageFunction = window.ozzx.script[window.ozzx.activePage]
+        
+        // console.log(this.attributes)
         // 判断是否为模板
         var templateName = this.attributes['template']
+        // console.log(templateName)
         if (templateName) {
           newPageFunction = newPageFunction.template[templateName.textContent]
         }
@@ -59,7 +62,7 @@ function pgNameHandler (dom) {
           parameterArr = parameterList[0].split(',')
           clickFor = clickFor.replace('(' + parameterList + ')', '')
         }
-        
+        console.log(newPageFunction)
         // 如果有方法,则运行它
         if (newPageFunction.methods[clickFor]) {
           // 绑定window.ozzx对象
