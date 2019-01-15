@@ -84,6 +84,18 @@ function pgNameHandler (dom) {
   }
 }
 
+// 对象合并方法
+function assign(a, b) {
+  var newObj = {}
+  for (var key in a){
+    newObj[key] = a[key]
+  }
+  for (var key in b){
+    newObj[key] = b[key]
+  }
+  return newObj
+}
+
 // 运行页面所属的方法
 function runPageFunction (pageName, entryDom) {
   // ozzx-name处理
@@ -94,7 +106,7 @@ function runPageFunction (pageName, entryDom) {
   var newPageFunction = window.ozzx.script[pageName]
   if (!newPageFunction) return
   // 注入运行环境
-  newPageFunction.created.apply(Object.assign(newPageFunction, {
+  newPageFunction.created.apply(assign(newPageFunction, {
     $el: entryDom,
     activePage: window.ozzx.activePage,
     domList: window.ozzx.domList
@@ -104,7 +116,7 @@ function runPageFunction (pageName, entryDom) {
     var templateScript = newPageFunction.template[key]
     if (templateScript.created) {
       // 为模板注入运行环境
-      templateScript.created.apply(Object.assign(newPageFunction.template[key], {
+      templateScript.created.apply(assign(newPageFunction.template[key], {
         $el: entryDom,
         activePage: window.ozzx.activePage,
         domList: window.ozzx.domList
