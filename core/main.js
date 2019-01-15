@@ -94,13 +94,23 @@ function runPageFunction (pageName, entryDom) {
   var newPageFunction = window.ozzx.script[pageName]
   // 如果有方法,则运行它
   if (newPageFunction) {
-    newPageFunction.created.apply(newPageFunction)
+    // 注入运行环境
+    newPageFunction.created.apply(Object.assign(newPageFunction, {
+      $el: entryDom,
+      activePage: window.ozzx.activePage,
+      domList: window.ozzx.domList
+    }))
   }
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
     if (templateScript.created) {
-      templateScript.created.apply(newPageFunction.template[key])
+      // 为模板注入运行环境
+      templateScript.created.apply(Object.assign(newPageFunction.template[key], {
+        $el: entryDom,
+        activePage: window.ozzx.activePage,
+        domList: window.ozzx.domList
+      }))
     }
   }
 }
