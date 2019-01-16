@@ -52,5 +52,5 @@ window.onhashchange = function(e) {
     return
   }
   window.ozzx.activePage = newUrlParam
-  runPageFunction(newUrlParam, entryDom)
+  runPageFunction(newUrlParam, newDom)
 }

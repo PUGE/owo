@@ -25,7 +25,8 @@
     "node-sass": "^4.11.0",
     "pkg-dir": "^3.0.0",
     "sqwish": "^0.2.2",
-    "uglify-js": "^3.4.9"
+    "uglify-js": "^3.4.9",
+    "urllib-sync": "^1.1.4"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.11.0"
