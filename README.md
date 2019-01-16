@@ -4,6 +4,15 @@
 npm i -g ozzx
 ```
 
+下载并解压示例:
+git clone https://github.com/ozzx/example
+打开目录:
+cd example
+安装依赖
+npm i
+开始打包
+pack
+
 进度列表:
 
 * 支持打包成Html                                                √
