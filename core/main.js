@@ -74,6 +74,19 @@ function pgNameHandler (dom) {
         if (parameterList && parameterList.length > 0) {
           // 参数列表
           parameterArr = parameterList[0].split(',')
+          // 进一步处理参数
+          for (let i = 0; i < parameterArr.length; i++) {
+            var parameterValue = parameterArr[i].replace(/(^\s*)|(\s*$)/g, "")
+            // console.log(parameterValue)
+            // 判断参数是否为一个字符串
+            if (parameterValue.charAt(0) === '"' && parameterValue.charAt(parameterValue.length - 1) === '"') {
+              parameterArr[i] = parameterValue.substring(1, parameterValue.length - 2)
+            }
+            if (parameterValue.charAt(0) === "'" && parameterValue.charAt(parameterValue.length - 1) === "'") {
+              parameterArr[i] = parameterValue.substring(1, parameterValue.length - 2)
+            }
+            // console.log(parameterArr[i])
+          }
           clickFor = clickFor.replace('(' + parameterList + ')', '')
         }
         // console.log(newPageFunction)
