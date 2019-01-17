@@ -72,6 +72,8 @@ function pack () {
     // 多页面
     coreScript += fs.readFileSync(path.join(corePath, 'MultiPage.js'), 'utf8')
   }
+  // 页面切换特效
+  coreScript += fs.readFileSync(path.join(corePath, 'animation.js'), 'utf8')
   // 整合页面代码
   coreScript += dom.script
   // 判断是否需要压缩js
