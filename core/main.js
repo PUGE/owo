@@ -82,7 +82,7 @@ function pgNameHandler (dom) {
           // 绑定window.ozzx对象
           // console.log(tempDom)
           newPageFunction.methods[clickFor].apply({
-            $el: tempDom,
+            $el: this,
             activePage: window.ozzx.activePage,
             domList: window.ozzx.domList,
             data: newPageFunction.data,
