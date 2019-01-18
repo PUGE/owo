@@ -80,13 +80,17 @@ function fadeoutEffect (oldDom, newDom) {
 }
 
 function switchPage (oldUrlParam, newUrlParam) {
-  var oldPage = oldUrlParam.split('&')[0]
-  var newPage = newUrlParam.split('&')[0]
+  var oldPage = oldUrlParam
+  var newPage = newUrlParam
+  let newPagParamList = newPage.split('&')
+  if (newPage) newPage = newPagParamList[0]
   // 查找页面跳转前的page页(dom节点)
   // console.log(oldUrlParam)
   // 如果源地址获取不到 那么一般是因为源页面为首页
   if (oldPage === undefined) {
     oldPage = globalConfig.entry
+  } else {
+    oldPage = oldPage.split('&')[0]
   }
   var oldDom = document.getElementById('ox-' + oldPage)
   var newDom = document.getElementById('ox-' + newPage)
@@ -95,19 +99,50 @@ function switchPage (oldUrlParam, newUrlParam) {
     return
   }
   // 判断是否有动画效果
-  switch (getQueryString(newUrlParam, 'animation')) {
-    case null: {
+  if (newPagParamList.length > 1) {
+    var animationIn = getQueryString(newUrlParam, 'in')
+    var animationOut = getQueryString(newUrlParam, 'out')
+    // 如果没用动画参数则使用默认效果
+    if (!animationIn || !animationOut) {
       dispalyEffect(oldDom, newDom)
-      break
+      return
     }
-    case 'fadein': {
-      fadeinEffect(oldDom, newDom)
-      break
-    }
-    case 'fadeout': {
-      fadeoutEffect(oldDom, newDom)
-      break
-    }
+    console.log(animationIn, animationOut)
+    newDom.style.display = 'block'
+    newDom.style.position = 'fixed'
+    newDom.style.left = 0
+    newDom.style.top = 0
+    newDom.style.width = '100%'
+    newDom.style.height = '100%'
+    document.body.style.overflow = 'hidden'
+    animationIn.split(',').forEach(value => {
+      oldDom.classList.add('ox-page-' + value)
+    })
+    animationOut.split(',').forEach(value => {
+      newDom.classList.add('ox-page-' + value)
+    })
+    
+    setTimeout(() => {
+      // 隐藏掉旧的节点
+      oldDom.style.display = 'none'
+      // 清除临时设置的style
+      newDom.style.position = ''
+      newDom.style.left = ''
+      newDom.style.top = ''
+      newDom.style.width = ''
+      newDom.style.height = ''
+
+      // 清除临时设置的class
+      animationIn.split(',').forEach(value => {
+        oldDom.classList.remove('ox-page-' + value)
+      })
+      animationOut.split(',').forEach(value => {
+        newDom.classList.remove('ox-page-' + value)
+      })
+      document.body.style.overflow = ''
+    }, 2000)
+  } else {
+    dispalyEffect(oldDom, newDom)
   }
   
   window.ozzx.activePage = newPage

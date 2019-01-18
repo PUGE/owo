@@ -75,7 +75,7 @@ function pgNameHandler (dom) {
           // 参数列表
           parameterArr = parameterList[0].split(',')
           // 进一步处理参数
-          for (let i = 0; i < parameterArr.length; i++) {
+          for (var i = 0; i < parameterArr.length; i++) {
             var parameterValue = parameterArr[i].replace(/(^\s*)|(\s*$)/g, "")
             // console.log(parameterValue)
             // 判断参数是否为一个字符串

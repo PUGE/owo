@@ -52,6 +52,18 @@ function pack () {
 
   // 判断是否需要压缩css
   let outPutCss = coreStyle + dom.style
+
+  // --------------------------------- 动画效果 ---------------------------------------------
+  const animationFilePath = path.join(corePath, 'animation', `animations.css`)
+  // console.log(bodyFilePath)
+  if (fs.existsSync(animationFilePath)) {
+    const animationFile = fs.readFileSync(animationFilePath, 'utf8')
+    // 动画效果
+    outPutCss += animationFile
+  } else {
+    logger.error(`动画:${animationFilePath}不存在!`)
+  }
+
   if (config.minifyCss) {
     outPutCss = minifier.minify(outPutCss)
   }
@@ -80,6 +92,7 @@ function pack () {
   if (config.minifyJs) {
     coreScript = UglifyJS.minify(coreScript).code
   }
+
   // 判断输出目录是否存在,如果不存在则创建目录
   if (!fs.existsSync(outPutPath)) {
     fs.mkdirSync(outPutPath)
