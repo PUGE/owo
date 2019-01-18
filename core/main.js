@@ -19,12 +19,17 @@ function runPageFunction (pageName, entryDom) {
   // 判断页面是否有自己的方法
   var newPageFunction = window.ozzx.script[pageName]
   if (!newPageFunction) return
-  // 注入运行环境
-  newPageFunction.created.apply(assign(newPageFunction, {
-    $el: entryDom,
-    activePage: window.ozzx.activePage,
-    domList: window.ozzx.domList
-  }))
+  console.log(newPageFunction)
+  // 如果有created方法则执行
+  if (newPageFunction.created) {
+    // 注入运行环境
+    newPageFunction.created.apply(assign(newPageFunction, {
+      $el: entryDom,
+      activePage: window.ozzx.activePage,
+      domList: window.ozzx.domList
+    }))
+  }
+  
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
