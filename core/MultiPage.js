@@ -7,9 +7,9 @@ function getarg(url){
 // 页面资源加载完毕事件
 window.onload = function() {
   // 取出URL地址判断当前所在页面
-  var pageArg = getarg(window.location.href).split('&')[0]
+  var pageArg = getarg(window.location.href)
   // 从配置项中取出程序入口
-  var page = pageArg ? pageArg : globalConfig.entry
+  var page = pageArg ? pageArg.split('&')[0] : globalConfig.entry
   if (page) {
     var entryDom = document.getElementById('ox-' + page)
     if (entryDom) {
