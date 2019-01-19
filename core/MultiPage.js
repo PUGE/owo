@@ -29,6 +29,9 @@ window.onload = function() {
 window.onhashchange = function(e) {
   var oldUrlParam = getarg(e.oldURL)
   var newUrlParam = getarg(e.newURL)
-  // 切换页面特效
-  switchPage(oldUrlParam, newUrlParam)
+  // 如果没有发生页面跳转则不需要进行操作
+  if (newUrlParam) {
+    // 切换页面特效
+    switchPage(oldUrlParam, newUrlParam)
+  }
 }
