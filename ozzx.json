@@ -1,6 +1,6 @@
 {
   "root": "/src",
-  "entry": "ome",
+  "entry": "home",
   "headFolder": "head",
   "outFolder": "dist",
   "autoPack": true,
