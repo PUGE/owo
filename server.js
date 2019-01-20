@@ -32,7 +32,7 @@ http.createServer(function (req, res) {
     // 允许跨域
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.write(JSON.stringify(dom))
-    console.log(dom)
+    // console.log(dom)
     res.end()
   })
 }).listen(3000)

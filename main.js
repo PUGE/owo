@@ -69,14 +69,8 @@ function pack () {
   }
 
   // 根据不同情况使用不同的core
-  let coreScript = `
-    window.ozzx = {
-      script: {}
-    };
-    var globalConfig = ${JSON.stringify(config)};
-  `
   // 读取出核心代码
-  coreScript += fs.readFileSync(path.join(corePath, 'main.js'), 'utf8')
+  let coreScript = fs.readFileSync(path.join(corePath, 'main.js'), 'utf8')
   if (dom.isOnePage) {
     // 单页面
     coreScript += fs.readFileSync(path.join(corePath, 'SinglePage.js'), 'utf8')
