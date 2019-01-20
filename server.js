@@ -29,6 +29,8 @@ http.createServer(function (req, res) {
       "minifyJs": false,
       "pageFolder": "page"
     })
+    // 允许跨域
+    res.setHeader('Access-Control-Allow-Origin', '*')
     res.write(JSON.stringify(dom))
     console.log(dom)
     res.end()
