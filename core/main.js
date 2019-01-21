@@ -25,6 +25,8 @@ function runPageFunction (pageName, entryDom) {
     // 注入运行环境
     newPageFunction.created.apply(assign(newPageFunction, {
       $el: entryDom,
+      data: newPageFunction.data,
+      methods: newPageFunction.methods,
       activePage: window.ozzx.activePage,
       domList: window.ozzx.domList
     }))
@@ -34,9 +36,18 @@ function runPageFunction (pageName, entryDom) {
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
     if (templateScript.created) {
+      // 获取到当前配置页的DOM
+      // 待修复,临时获取方式,这种方式获取到的dom不准确
+      var domList = entryDom.getElementsByClassName('ox-' + key)
+      if (domList.length !== 1){
+        console.error('我就说会有问题吧!')
+        console.log(domList)
+      }
       // 为模板注入运行环境
       templateScript.created.apply(assign(newPageFunction.template[key], {
-        $el: entryDom,
+        $el: domList[0].children[0],
+        data: templateScript.data,
+        methods: templateScript.methods,
         activePage: window.ozzx.activePage,
         domList: window.ozzx.domList
       }))
