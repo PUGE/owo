@@ -1,0 +1,17 @@
+.ox-page-rotatePullTop {
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation: rotatePullTop .5s both ease;
+	-moz-transform-origin: 50% 0%;
+	-moz-animation: rotatePullTop .5s both ease;
+	transform-origin: 50% 0%;
+	animation: rotatePullTop .5s both ease;
+}
+@-webkit-keyframes rotatePullTop {
+	from { opacity: 0; -webkit-transform: rotateX(-90deg); }
+}
+@-moz-keyframes rotatePullTop {
+	from { opacity: 0; -moz-transform: rotateX(-90deg); }
+}
+@keyframes rotatePullTop {
+	from { opacity: 0; transform: rotateX(-90deg); }
+}

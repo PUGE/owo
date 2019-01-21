@@ -1,0 +1,17 @@
+.ox-page-rotateRoomTopOut {
+	-webkit-transform-origin: 50% 100%;
+	-webkit-animation: rotateRoomTopOut .8s both ease;
+	-moz-transform-origin: 50% 100%;
+	-moz-animation: rotateRoomTopOut .8s both ease;
+	transform-origin: 50% 100%;
+	animation: rotateRoomTopOut .8s both ease;
+}
+@-webkit-keyframes rotateRoomTopOut {
+	to { opacity: .3; -webkit-transform: translateY(-100%) rotateX(-90deg); }
+}
+@-moz-keyframes rotateRoomTopOut {
+	to { opacity: .3; -moz-transform: translateY(-100%) rotateX(-90deg); }
+}
+@keyframes rotateRoomTopOut {
+	to { opacity: .3; transform: translateY(-100%) rotateX(-90deg); }
+}

@@ -1,0 +1,15 @@
+.ox-page-moveToBottomEasing {
+	-webkit-animation: moveToBottom .7s ease-in-out both;
+	-moz-animation: moveToBottom .7s ease-in-out both;
+	animation: moveToBottom .7s ease-in-out both;
+}
+
+@-webkit-keyframes moveToBottom {
+	to { -webkit-transform: translateY(100%); }
+}
+@-moz-keyframes moveToBottom {
+	to { -moz-transform: translateY(100%); }
+}
+@keyframes moveToBottom {
+	to { transform: translateY(100%); }
+}

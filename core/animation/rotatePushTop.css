@@ -1,0 +1,17 @@
+.ox-page-rotatePushTop {
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation: rotatePushTop .8s both ease;
+	-moz-transform-origin: 50% 0%;
+	-moz-animation: rotatePushTop .8s both ease;
+	transform-origin: 50% 0%;
+	animation: rotatePushTop .8s both ease;
+}
+@-webkit-keyframes rotatePushTop {
+	to { opacity: 0; -webkit-transform: rotateX(-90deg); }
+}
+@-moz-keyframes rotatePushTop {
+	to { opacity: 0; -moz-transform: rotateX(-90deg); }
+}
+@keyframes rotatePushTop {
+	to { opacity: 0; transform: rotateX(-90deg); }
+}

@@ -1,0 +1,21 @@
+.ox-page-rotateSlideIn {
+	-webkit-animation: rotateSlideIn 1s both ease;
+	-moz-animation: rotateSlideIn 1s both ease;
+	animation: rotateSlideIn 1s both ease;
+}
+
+@-webkit-keyframes rotateSlideIn {
+	0%, 25% { opacity: .5; -webkit-transform: translateZ(-500px) translateX(200%); }
+	75% { opacity: .5; -webkit-transform: translateZ(-500px); }
+	100% { opacity: 1; -webkit-transform: translateZ(0) translateX(0); }
+}
+@-moz-keyframes rotateSlideIn {
+	0%, 25% { opacity: .5; -moz-transform: translateZ(-500px) translateX(200%); }
+	75% { opacity: .5; -moz-transform: translateZ(-500px); }
+	100% { opacity: 1; -moz-transform: translateZ(0) translateX(0); }
+}
+@keyframes rotateSlideIn {
+	0%, 25% { opacity: .5; transform: translateZ(-500px) translateX(200%); }
+	75% { opacity: .5; transform: translateZ(-500px); }
+	100% { opacity: 1; transform: translateZ(0) translateX(0); }
+}

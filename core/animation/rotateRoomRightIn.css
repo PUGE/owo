@@ -1,0 +1,17 @@
+.ox-page-rotateRoomRightIn {
+	-webkit-transform-origin: 100% 50%;
+	-webkit-animation: rotateRoomRightIn .8s both ease;
+	-moz-transform-origin: 100% 50%;
+	-moz-animation: rotateRoomRightIn .8s both ease;
+	transform-origin: 100% 50%;
+	animation: rotateRoomRightIn .8s both ease;
+}
+@-webkit-keyframes rotateRoomRightIn {
+	from { opacity: .3; -webkit-transform: translateX(-100%) rotateY(90deg); }
+}
+@-moz-keyframes rotateRoomRightIn {
+	from { opacity: .3; -moz-transform: translateX(-100%) rotateY(90deg); }
+}
+@keyframes rotateRoomRightIn {
+	from { opacity: .3; transform: translateX(-100%) rotateY(90deg); }
+}

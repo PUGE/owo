@@ -1,0 +1,15 @@
+.ox-page-moveFromTop {
+	-webkit-animation: moveFromTop .6s ease both;
+	-moz-animation: moveFromTop .6s ease both;
+	animation: moveFromTop .6s ease both;
+}
+
+@-webkit-keyframes moveFromTop {
+	from { -webkit-transform: translateY(-100%); }
+}
+@-moz-keyframes moveFromTop {
+	from { -moz-transform: translateY(-100%); }
+}
+@keyframes moveFromTop {
+	from { transform: translateY(-100%); }
+}

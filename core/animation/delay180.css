@@ -1,0 +1,5 @@
+.ox-page-delay180 {
+	-webkit-animation-delay: .180s;
+	-moz-animation-delay: .180s;
+	animation-delay: .180s;
+}

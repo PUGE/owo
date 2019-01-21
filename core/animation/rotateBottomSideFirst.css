@@ -1,0 +1,21 @@
+.ox-page-rotateBottomSideFirst {
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation: rotateBottomSideFirst .8s both ease-in;
+	-moz-transform-origin: 50% 0%;
+	-moz-animation: rotateBottomSideFirst .8s both ease-in;
+	transform-origin: 50% 0%;
+	animation: rotateBottomSideFirst .8s both ease-in;
+}
+
+@-webkit-keyframes rotateBottomSideFirst {
+	40% { -webkit-transform: rotateX(-15deg); opacity: .8; -webkit-animation-timing-function: ease-out; }
+	100% { -webkit-transform: scale(0.8) translateZ(-200px); opacity:0; }
+}
+@-moz-keyframes rotateBottomSideFirst {
+	40% { -moz-transform: rotateX(-15deg); opacity: .8; -moz-animation-timing-function: ease-out; }
+	100% { -moz-transform: scale(0.8) translateZ(-200px); opacity:0; }
+}
+@keyframes rotateBottomSideFirst {
+	40% { transform: rotateX(-15deg); opacity: .8; animation-timing-function: ease-out; }
+	100% { transform: scale(0.8) translateZ(-200px); opacity:0; }
+}

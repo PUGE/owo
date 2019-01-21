@@ -1,0 +1,22 @@
+.ox-page-rotateCubeRightIn {
+	-webkit-transform-origin: 100% 50%;
+	-webkit-animation: rotateCubeRightIn .6s both ease-in;
+	-moz-transform-origin: 100% 50%;
+	-moz-animation: rotateCubeRightIn .6s both ease-in;
+	transform-origin: 100% 50%;
+	animation: rotateCubeRightIn .6s both ease-in;
+}
+
+
+@-webkit-keyframes rotateCubeRightIn {
+	0% { opacity: .3; -webkit-transform: translateX(-100%) rotateY(-90deg); }
+	50% { -webkit-animation-timing-function: ease-out; -webkit-transform: translateX(-50%) translateZ(-200px) rotateY(-45deg); }
+}
+@-moz-keyframes rotateCubeRightIn {
+	0% { opacity: .3; -moz-transform: translateX(-100%) rotateY(-90deg); }
+	50% { -moz-animation-timing-function: ease-out; -moz-transform: translateX(-50%) translateZ(-200px) rotateY(-45deg); }
+}
+@keyframes rotateCubeRightIn {
+	0% { opacity: .3; transform: translateX(-100%) rotateY(-90deg); }
+	50% { animation-timing-function: ease-out; transform: translateX(-50%) translateZ(-200px) rotateY(-45deg); }
+}

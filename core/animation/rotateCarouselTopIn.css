@@ -1,0 +1,17 @@
+.ox-page-rotateCarouselTopIn {
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation: rotateCarouselTopIn .8s both ease;
+	-moz-transform-origin: 50% 0%;
+	-moz-animation: rotateCarouselTopIn .8s both ease;
+	transform-origin: 50% 0%;
+	animation: rotateCarouselTopIn .8s both ease;
+}
+@-webkit-keyframes rotateCarouselTopIn {
+	from { opacity: .3; -webkit-transform: translateY(200%) scale(.4) rotateX(-65deg); }
+}
+@-moz-keyframes rotateCarouselTopIn {
+	from { opacity: .3; -moz-transform: translateY(200%) scale(.4) rotateX(-65deg); }
+}
+@keyframes rotateCarouselTopIn {
+	from { opacity: .3; transform: translateY(200%) scale(.4) rotateX(-65deg); }
+}

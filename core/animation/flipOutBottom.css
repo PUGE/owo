@@ -1,0 +1,18 @@
+.ox-page-flipOutBottom {
+	-webkit-transform-origin: 50% 50%;
+	-webkit-animation: flipOutBottom .5s both ease-in;
+	-moz-transform-origin: 50% 50%;
+	-moz-animation: flipOutBottom .5s both ease-in;
+	transform-origin: 50% 50%;
+	animation: flipOutBottom .5s both ease-in;
+}
+
+@-webkit-keyframes flipOutBottom {
+	to { -webkit-transform: translateZ(-1000px) rotateX(-90deg); opacity: 0.2; }
+}
+@-moz-keyframes flipOutBottom {
+	to { -moz-transform: translateZ(-1000px) rotateX(-90deg); opacity: 0.2; }
+}
+@keyframes flipOutBottom {
+	to { transform: translateZ(-1000px) rotateX(-90deg); opacity: 0.2; }
+}

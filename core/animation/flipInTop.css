@@ -1,0 +1,17 @@
+.ox-page-flipInTop {
+	-webkit-transform-origin: 50% 50%;
+	-webkit-animation: flipInTop .5s both ease-out;
+	-moz-transform-origin: 50% 50%;
+	-moz-animation: flipInTop .5s both ease-out;
+	transform-origin: 50% 50%;
+	animation: flipInTop .5s both ease-out;
+}
+@-webkit-keyframes flipInTop {
+	from { -webkit-transform: translateZ(-1000px) rotateX(90deg); opacity: 0.2; }
+}
+@-moz-keyframes flipInTop {
+	from { -moz-transform: translateZ(-1000px) rotateX(90deg); opacity: 0.2; }
+}
+@keyframes flipInTop {
+	from { transform: translateZ(-1000px) rotateX(90deg); opacity: 0.2; }
+}

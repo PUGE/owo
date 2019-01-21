@@ -1,0 +1,5 @@
+.ox-page-delay300 {
+	-webkit-animation-delay: .3s;
+	-moz-animation-delay: .3s;
+	animation-delay: .3s;
+}

@@ -1,0 +1,18 @@
+.ox-page-rotatePullBottom {
+	-webkit-transform-origin: 50% 100%;
+	-webkit-animation: rotatePullBottom .5s both ease;
+	-moz-transform-origin: 50% 100%;
+	-moz-animation: rotatePullBottom .5s both ease;
+	transform-origin: 50% 100%;
+	animation: rotatePullBottom .5s both ease;
+}
+
+@-webkit-keyframes rotatePullBottom {
+	from { opacity: 0; -webkit-transform: rotateX(90deg); }
+}
+@-moz-keyframes rotatePullBottom {
+	from { opacity: 0; -moz-transform: rotateX(90deg); }
+}
+@keyframes rotatePullBottom {
+	from { opacity: 0; transform: rotateX(90deg); }
+}

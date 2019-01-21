@@ -1,0 +1,15 @@
+.ox-page-moveFromRightFade {
+	-webkit-animation: moveFromRightFade .7s ease both;
+	-moz-animation: moveFromRightFade .7s ease both;
+	animation: moveFromRightFade .7s ease both;
+}
+
+@-webkit-keyframes moveFromRightFade {
+	from { opacity: 0.3; -webkit-transform: translateX(100%); }
+}
+@-moz-keyframes moveFromRightFade {
+	from { opacity: 0.3; -moz-transform: translateX(100%); }
+}
+@keyframes moveFromRightFade {
+	from { opacity: 0.3; transform: translateX(100%); }
+}

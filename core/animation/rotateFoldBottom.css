@@ -1,0 +1,18 @@
+.ox-page-rotateFoldBottom {
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation: rotateFoldBottom .7s both ease;
+	-moz-transform-origin: 50% 0%;
+	-moz-animation: rotateFoldBottom .7s both ease;
+	transform-origin: 50% 0%;
+	animation: rotateFoldBottom .7s both ease;
+}
+
+@-webkit-keyframes rotateFoldBottom {
+	to { opacity: 0; -webkit-transform: translateY(100%) rotateX(-90deg); }
+}
+@-moz-keyframes rotateFoldBottom {
+	to { opacity: 0; -moz-transform: translateY(100%) rotateX(-90deg); }
+}
+@keyframes rotateFoldBottom {
+	to { opacity: 0; transform: translateY(100%) rotateX(-90deg); }
+}

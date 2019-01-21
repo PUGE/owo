@@ -1,0 +1,20 @@
+.ox-page-rotateCubeBottomIn {
+	-webkit-transform-origin: 50% 100%;
+	-webkit-animation: rotateCubeBottomIn .6s both ease-in;
+	-moz-transform-origin: 50% 100%;
+	-moz-animation: rotateCubeBottomIn .6s both ease-in;
+	transform-origin: 50% 100%;
+	animation: rotateCubeBottomIn .6s both ease-in;
+}
+@-webkit-keyframes rotateCubeBottomIn {
+	0% { opacity: .3; -webkit-transform: translateY(-100%) rotateX(90deg); }
+	50% { -webkit-animation-timing-function: ease-out; -webkit-transform: translateY(-50%) translateZ(-200px) rotateX(45deg); }
+}
+@-moz-keyframes rotateCubeBottomIn {
+	0% { opacity: .3; -moz-transform: translateY(-100%) rotateX(90deg); }
+	50% { -moz-animation-timing-function: ease-out; -moz-transform: translateY(-50%) translateZ(-200px) rotateX(45deg); }
+}
+@keyframes rotateCubeBottomIn {
+	0% { opacity: .3; transform: translateY(-100%) rotateX(90deg); }
+	50% { animation-timing-function: ease-out; transform: translateY(-50%) translateZ(-200px) rotateX(45deg); }
+}

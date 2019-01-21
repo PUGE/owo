@@ -1,0 +1,18 @@
+.ox-page-rotateSidesOut {
+	-webkit-transform-origin: -50% 50%;
+	-webkit-animation: rotateSidesOut .5s both ease-in;
+	-moz-transform-origin: -50% 50%;
+	-moz-animation: rotateSidesOut .5s both ease-in;
+	transform-origin: -50% 50%;
+	animation: rotateSidesOut .5s both ease-in;
+}
+
+@-webkit-keyframes rotateSidesOut {
+	to { opacity: 0; -webkit-transform: translateZ(-500px) rotateY(90deg); }
+}
+@-moz-keyframes rotateSidesOut {
+	to { opacity: 0; -moz-transform: translateZ(-500px) rotateY(90deg); }
+}
+@keyframes rotateSidesOut {
+	to { opacity: 0; transform: translateZ(-500px) rotateY(90deg); }
+}

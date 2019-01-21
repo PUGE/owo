@@ -1,0 +1,18 @@
+.ox-page-rotateCarouselLeftOut {
+	-webkit-transform-origin: 100% 50%;
+	-webkit-animation: rotateCarouselLeftOut .8s both ease;
+	-moz-transform-origin: 100% 50%;
+	-moz-animation: rotateCarouselLeftOut .8s both ease;
+	transform-origin: 100% 50%;
+	animation: rotateCarouselLeftOut .8s both ease;
+}
+
+@-webkit-keyframes rotateCarouselLeftOut {
+	to { opacity: .3; -webkit-transform: translateX(-150%) scale(.4) rotateY(-65deg); }
+}
+@-moz-keyframes rotateCarouselLeftOut {
+	to { opacity: .3; -moz-transform: translateX(-150%) scale(.4) rotateY(-65deg); }
+}
+@keyframes rotateCarouselLeftOut {
+	to { opacity: .3; transform: translateX(-150%) scale(.4) rotateY(-65deg); }
+}

@@ -1,0 +1,21 @@
+.ox-page-rotateSlideOut {
+	-webkit-animation: rotateSlideOut 1s both ease;
+	-moz-animation: rotateSlideOut 1s both ease;
+	animation: rotateSlideOut 1s both ease;
+}
+
+@-webkit-keyframes rotateSlideOut {
+	25% { opacity: .5; -webkit-transform: translateZ(-500px); }
+	75% { opacity: .5; -webkit-transform: translateZ(-500px) translateX(-200%); }
+	100% { opacity: .5; -webkit-transform: translateZ(-500px) translateX(-200%); }
+}
+@-moz-keyframes rotateSlideOut {
+	25% { opacity: .5; -moz-transform: translateZ(-500px); }
+	75% { opacity: .5; -moz-transform: translateZ(-500px) translateX(-200%); }
+	100% { opacity: .5; -moz-transform: translateZ(-500px) translateX(-200%); }
+}
+@keyframes rotateSlideOut {
+	25% { opacity: .5; transform: translateZ(-500px); }
+	75% { opacity: .5; transform: translateZ(-500px) translateX(-200%); }
+	100% { opacity: .5; transform: translateZ(-500px) translateX(-200%); }
+}

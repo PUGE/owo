@@ -1,0 +1,15 @@
+.ox-page-fade {
+	-webkit-animation: fade .7s ease both;
+	-moz-animation: fade .7s ease both;
+	animation: fade .7s ease both;
+}
+
+@-webkit-keyframes fade {
+	to { opacity: 0.3; }
+}
+@-moz-keyframes fade {
+	to { opacity: 0.3; }
+}
+@keyframes fade {
+	to { opacity: 0.3; }
+}

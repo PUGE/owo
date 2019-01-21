@@ -1,0 +1,15 @@
+.ox-page-moveToTopFade {
+	-webkit-animation: moveToTopFade .7s ease both;
+	-moz-animation: moveToTopFade .7s ease both;
+	animation: moveToTopFade .7s ease both;
+}
+
+@-webkit-keyframes moveToTopFade {
+	to { opacity: 0.3; -webkit-transform: translateY(-100%); }
+}
+@-moz-keyframes moveToTopFade {
+	to { opacity: 0.3; -moz-transform: translateY(-100%); }
+}
+@keyframes moveToTopFade {
+	to { opacity: 0.3; transform: translateY(-100%); }
+}

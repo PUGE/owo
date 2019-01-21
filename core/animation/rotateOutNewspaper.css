@@ -1,0 +1,17 @@
+.ox-page-rotateOutNewspaper {
+	-webkit-transform-origin: 50% 50%;
+	-webkit-animation: rotateOutNewspaper .5s both ease-in;
+	-moz-transform-origin: 50% 50%;
+	-moz-animation: rotateOutNewspaper .5s both ease-in;
+	transform-origin: 50% 50%;
+	animation: rotateOutNewspaper .5s both ease-in;
+}
+@-webkit-keyframes rotateOutNewspaper {
+	to { -webkit-transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}
+@-moz-keyframes rotateOutNewspaper {
+	to { -moz-transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}
+@keyframes rotateOutNewspaper {
+	to { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}

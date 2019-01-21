@@ -1,0 +1,19 @@
+.ox-page-rotateUnfoldBottom {
+	-webkit-transform-origin: 50% 0%;
+	-webkit-animation: rotateUnfoldBottom .7s both ease;
+	-moz-transform-origin: 50% 0%;
+	-moz-animation: rotateUnfoldBottom .7s both ease;
+	transform-origin: 50% 0%;
+	animation: rotateUnfoldBottom .7s both ease;
+}
+
+
+@-webkit-keyframes rotateUnfoldBottom {
+	from { opacity: 0; -webkit-transform: translateY(100%) rotateX(-90deg); }
+}
+@-moz-keyframes rotateUnfoldBottom {
+	from { opacity: 0; -moz-transform: translateY(100%) rotateX(-90deg); }
+}
+@keyframes rotateUnfoldBottom {
+	from { opacity: 0; transform: translateY(100%) rotateX(-90deg); }
+}

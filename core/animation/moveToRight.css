@@ -1,0 +1,15 @@
+.ox-page-moveToRight {
+	-webkit-animation: moveToRight .6s ease both;
+	-moz-animation: moveToRight .6s ease both;
+	animation: moveToRight .6s ease both;
+}
+
+@-webkit-keyframes moveToRight { 
+	to { -webkit-transform: translateX(100%); }
+}
+@-moz-keyframes moveToRight { 
+	to { -moz-transform: translateX(100%); }
+}
+@keyframes moveToRight { 
+	to { transform: translateX(100%); }
+}
