@@ -60,7 +60,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     oldDom.addEventListener("animationend", function() {
       // 隐藏掉旧的节点
       oldDom.style.display = 'none'
-      // oldDom.style.position = ''
+      oldDom.style.position = ''
       // 清除临时设置的class
       animationIn.split(',').forEach(value => {
         oldDom.classList.remove('ox-page-' + value)
@@ -68,7 +68,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     })
     newDom.addEventListener("animationend", function() {
       // 清除临时设置的style
-      // newDom.style.position = ''
+      newDom.style.position = ''
       animationOut.split(',').forEach(value => {
         newDom.classList.remove('ox-page-' + value)
       })

@@ -19,7 +19,7 @@ function runPageFunction (pageName, entryDom) {
   // 判断页面是否有自己的方法
   var newPageFunction = window.ozzx.script[pageName]
   if (!newPageFunction) return
-  console.log(newPageFunction)
+  // console.log(newPageFunction)
   // 如果有created方法则执行
   if (newPageFunction.created) {
     // 注入运行环境
