@@ -23,6 +23,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   var newPage = newUrlParam
   let newPagParamList = newPage.split('&')
   if (newPage) newPage = newPagParamList[0]
+  
   // 查找页面跳转前的page页(dom节点)
   // console.log(oldUrlParam)
   // 如果源地址获取不到 那么一般是因为源页面为首页
@@ -33,6 +34,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   var oldDom = document.getElementById('ox-' + oldPage)
   var newDom = document.getElementById('ox-' + newPage)
+  
   if (!newDom) {
     console.error('页面不存在!')
     return
@@ -57,22 +59,33 @@ function switchPage (oldUrlParam, newUrlParam) {
     animationOut.split(',').forEach(value => {
       newDom.classList.add('ox-page-' + value)
     })
-    oldDom.addEventListener("animationend", function() {
+    // 旧DOM执行函数
+    function oldDomFun () {
       // 隐藏掉旧的节点
       oldDom.style.display = 'none'
+      // console.log(oldDom)
       oldDom.style.position = ''
       // 清除临时设置的class
       animationIn.split(',').forEach(value => {
         oldDom.classList.remove('ox-page-' + value)
       })
-    })
-    newDom.addEventListener("animationend", function() {
+      // 移除监听
+      oldDom.removeEventListener('animationend', oldDomFun, false)
+    }
+
+    // 新DOM执行函数
+    function newDomFun () {
       // 清除临时设置的style
       newDom.style.position = ''
       animationOut.split(',').forEach(value => {
         newDom.classList.remove('ox-page-' + value)
       })
-    })
+      // 移除监听
+      newDom.removeEventListener('animationend', newDomFun, false)
+    }
+    oldDom.addEventListener("animationend", oldDomFun, false)
+    newDom.addEventListener("animationend", newDomFun, false)
+    
   } else {
     dispalyEffect(oldDom, newDom)
   }
