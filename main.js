@@ -17,7 +17,7 @@ const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
 
 // 配置日志输出等级
-logger.level = 'debug'
+logger.level = 'info'
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -52,17 +52,19 @@ function pack () {
 
   // 判断是否需要压缩css
   let outPutCss = coreStyle + dom.style
-
+  logger.debug(dom.useAnimationList)
   // --------------------------------- 动画效果 ---------------------------------------------
-  const animationFilePath = path.join(corePath, 'animation', `animations.css`)
-  // console.log(bodyFilePath)
-  if (fs.existsSync(animationFilePath)) {
-    const animationFile = fs.readFileSync(animationFilePath, 'utf8')
-    // 动画效果
-    outPutCss += animationFile
-  } else {
-    logger.error(`动画:${animationFilePath}不存在!`)
-  }
+  dom.useAnimationList.forEach(animationName => {
+    const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
+    // console.log(bodyFilePath)
+    if (fs.existsSync(animationFilePath)) {
+      const animationFile = fs.readFileSync(animationFilePath, 'utf8')
+      // 动画效果
+      outPutCss += animationFile
+    } else {
+      logger.error(`动画:${animationFilePath}不存在!`)
+    }
+  })
 
   if (config.minifyCss) {
     outPutCss = minifier.minify(outPutCss)
