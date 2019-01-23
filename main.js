@@ -37,6 +37,15 @@ const demoPath = runPath + config.root
 const outPutPath = path.join(runPath, config.outFolder)
 const corePath = path.join(__dirname, 'core')
 
+// 读取指定目录文件
+function loadFile(path) {
+  if (fs.existsSync(path)) {
+    return fs.readFileSync(path, 'utf8')
+  } else {
+    logger.error(`file does not exist: ${path}`)
+    return ''
+  }
+}
 
 // 执行默认打包任务
 function pack () {
@@ -49,38 +58,24 @@ function pack () {
   const dom = bodyHandle(templet, config)
 
   // 读取出全局样式
-  const coreStyle = fs.readFileSync(`${demoPath}/main.css`, 'utf8') + '\r\n'
+  const mainStyle = fs.readFileSync(`${demoPath}/main.css`, 'utf8') + '\r\n'
 
   // 判断是否需要压缩css
-  let outPutCss = coreStyle + dom.style
+  let outPutCss = mainStyle + dom.style
   logger.debug(dom.useAnimationList)
   
   // --------------------------------- 动画效果 ---------------------------------------------
   // 判断是自动判断使用的动画效果还是用户指定
   if (config.choiceAnimation) {
-    const animationFilePath = path.join(corePath, 'animation', `animations.css`)
     // 加载全部特效
-    if (fs.existsSync(animationFilePath)) {
-      const animationFile = fs.readFileSync(animationFilePath, 'utf8')
-      // 动画效果
-      outPutCss += animationFile
-    } else {
-      logger.error(`动画:${animationFilePath}不存在!`)
-    }
+    const animationFilePath = path.join(corePath, 'animation', `animations.css`)
+    outPutCss += loadFile(animationFilePath)
   } else {
     dom.useAnimationList.forEach(animationName => {
       const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
-      // console.log(bodyFilePath)
-      if (fs.existsSync(animationFilePath)) {
-        const animationFile = fs.readFileSync(animationFilePath, 'utf8')
-        // 动画效果
-        outPutCss += animationFile
-      } else {
-        logger.error(`动画:${animationFilePath}不存在!`)
-      }
+      outPutCss += loadFile(animationFilePath)
     })
   }
-
 
   if (config.minifyCss) {
     outPutCss = minifier.minify(outPutCss)
@@ -88,16 +83,16 @@ function pack () {
 
   // 根据不同情况使用不同的core
   // 读取出核心代码
-  let coreScript = fs.readFileSync(path.join(corePath, 'main.js'), 'utf8')
+  let coreScript = loadFile(path.join(corePath, 'main.js'))
   if (dom.isOnePage) {
     // 单页面
-    coreScript += fs.readFileSync(path.join(corePath, 'SinglePage.js'), 'utf8')
+    coreScript += loadFile(path.join(corePath, 'SinglePage.js'))
   } else {
     // 多页面
-    coreScript += fs.readFileSync(path.join(corePath, 'MultiPage.js'), 'utf8')
+    coreScript += loadFile(path.join(corePath, 'MultiPage.js'))
   }
   // 页面切换特效
-  coreScript += fs.readFileSync(path.join(corePath, 'animation.js'), 'utf8')
+  coreScript += loadFile(path.join(corePath, 'animation.js'))
   // 整合页面代码
   coreScript += dom.script
   // 判断是否需要压缩js
