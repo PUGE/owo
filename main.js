@@ -17,7 +17,8 @@ const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
 
 // 配置日志输出等级
-logger.level = 'info'
+logger.level = 'debug'
+// logger.level = 'info'
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -53,10 +54,12 @@ function pack () {
   // 判断是否需要压缩css
   let outPutCss = coreStyle + dom.style
   logger.debug(dom.useAnimationList)
+  
   // --------------------------------- 动画效果 ---------------------------------------------
-  dom.useAnimationList.forEach(animationName => {
-    const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
-    // console.log(bodyFilePath)
+  // 判断是自动判断使用的动画效果还是用户指定
+  if (config.choiceAnimation) {
+    const animationFilePath = path.join(corePath, 'animation', `animations.css`)
+    // 加载全部特效
     if (fs.existsSync(animationFilePath)) {
       const animationFile = fs.readFileSync(animationFilePath, 'utf8')
       // 动画效果
@@ -64,7 +67,20 @@ function pack () {
     } else {
       logger.error(`动画:${animationFilePath}不存在!`)
     }
-  })
+  } else {
+    dom.useAnimationList.forEach(animationName => {
+      const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
+      // console.log(bodyFilePath)
+      if (fs.existsSync(animationFilePath)) {
+        const animationFile = fs.readFileSync(animationFilePath, 'utf8')
+        // 动画效果
+        outPutCss += animationFile
+      } else {
+        logger.error(`动画:${animationFilePath}不存在!`)
+      }
+    })
+  }
+
 
   if (config.minifyCss) {
     outPutCss = minifier.minify(outPutCss)

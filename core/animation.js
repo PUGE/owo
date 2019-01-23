@@ -43,11 +43,15 @@ function switchPage (oldUrlParam, newUrlParam) {
   if (newPagParamList.length > 1) {
     var animationIn = getQueryString(newUrlParam, 'in')
     var animationOut = getQueryString(newUrlParam, 'out')
+
     // 如果没用动画参数则使用默认效果
     if (!animationIn || !animationOut) {
       dispalyEffect(oldDom, newDom)
       return
     }
+    oldDom.addEventListener("animationend", oldDomFun)
+    newDom.addEventListener("animationend", newDomFun)
+    
     oldDom.style.position = 'absolute'
 
     newDom.style.display = 'block'
@@ -83,8 +87,7 @@ function switchPage (oldUrlParam, newUrlParam) {
       // 移除监听
       newDom.removeEventListener('animationend', newDomFun, false)
     }
-    oldDom.addEventListener("animationend", oldDomFun, false)
-    newDom.addEventListener("animationend", newDomFun, false)
+    
     
   } else {
     dispalyEffect(oldDom, newDom)
