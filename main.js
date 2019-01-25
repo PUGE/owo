@@ -67,6 +67,7 @@ function pack () {
   // --------------------------------- 动画效果 ---------------------------------------------
   // 判断是自动判断使用的动画效果还是用户指定
   if (config.choiceAnimation) {
+    logger.debug('用户设置加载全部动画效果!')
     // 加载全部特效
     const animationFilePath = path.join(corePath, 'animation', `animations.css`)
     outPutCss += loadFile(animationFilePath)
@@ -92,7 +93,10 @@ function pack () {
     coreScript += loadFile(path.join(corePath, 'MultiPage.js'))
   }
   // 页面切换特效
-  coreScript += loadFile(path.join(corePath, 'animation.js'))
+  // 判断是否存在页面切换特效
+  if (dom.useAnimationList.length > 0) {
+    coreScript += loadFile(path.join(corePath, 'animation.js'))
+  }
   // 整合页面代码
   coreScript += dom.script
   // 判断是否需要压缩js
