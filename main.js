@@ -94,7 +94,7 @@ function pack () {
   }
   // 页面切换特效
   // 判断是否存在页面切换特效
-  if (dom.useAnimationList.length > 0) {
+  if (dom.useAnimationList.length > 0 || config.choiceAnimation) {
     coreScript += loadFile(path.join(corePath, 'animation.js'))
   }
   // 整合页面代码
