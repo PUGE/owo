@@ -9,6 +9,8 @@ const chokidar = require('chokidar')
 const minifier = require('sqwish')
 // js压缩
 const UglifyJS = require("uglify-js")
+// 美化js
+const beautify = require('js-beautify').js
 // 日志输出
 const { getLogger } = require('log4js')
 const logger = getLogger()
@@ -102,6 +104,9 @@ function pack () {
   // 判断是否需要压缩js
   if (config.minifyJs) {
     coreScript = UglifyJS.minify(coreScript).code
+  } else {
+    // 美化js
+    coreScript = beautify(coreScript, { indent_size: 2, space_in_empty_paren: true })
   }
 
   // 判断输出目录是否存在,如果不存在则创建目录
