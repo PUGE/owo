@@ -51,6 +51,8 @@ function loadFile(path) {
 
 // 执行默认打包任务
 function pack () {
+  // 开始打包时间
+  const startTime = new Date().getTime()
   // 读取入口模板文件(一次性读取到内存中)
   let templet = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf8')
   // 使用heard处理文件
@@ -80,12 +82,18 @@ function pack () {
     })
   }
   // 判断是否需要压缩css
-  if (config.minifyCss) {
-    outPutCss = new CleanCSS().minify(outPutCss).styles
-  } else {
-    // 如果不压缩则美化css
-    outPutCss = new CleanCSS({format: 'beautify'}).minify(outPutCss).styles
+  {
+    let clear = null
+    if (config.minifyCss) {
+      clear =  new CleanCSS().minify(outPutCss)
+    } else {
+      // 如果不压缩则美化css
+      clear =  new CleanCSS({format: 'beautify'}).minify(outPutCss)
+    }
+    logger.info(`css-size: ${clear.stats.minifiedSize}`)
+    outPutCss = clear.styles
   }
+
 
   // 根据不同情况使用不同的core
   // 读取出核心代码
@@ -120,7 +128,7 @@ function pack () {
   fs.writeFileSync(path.join(outPutPath, 'main.css'), outPutCss)
   fs.writeFileSync(path.join(outPutPath, 'main.js'), coreScript)
   fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
-  logger.info('Package success!')
+  logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
 }
 
 // 开始打包
