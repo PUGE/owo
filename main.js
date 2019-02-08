@@ -6,7 +6,7 @@ const path = require('path')
 // 文件变动检测
 const chokidar = require('chokidar')
 // css压缩
-const minifier = require('sqwish')
+const CleanCSS = require('clean-css')
 // js压缩
 const UglifyJS = require("uglify-js")
 // 美化js
@@ -19,8 +19,8 @@ const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
 
 // 配置日志输出等级
-logger.level = 'debug'
-// logger.level = 'info'
+// logger.level = 'debug'
+logger.level = 'info'
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -79,9 +79,12 @@ function pack () {
       outPutCss += loadFile(animationFilePath)
     })
   }
-
+  // 判断是否需要压缩css
   if (config.minifyCss) {
-    outPutCss = minifier.minify(outPutCss)
+    outPutCss = new CleanCSS().minify(outPutCss).styles
+  } else {
+    // 如果不压缩则美化css
+    outPutCss = new CleanCSS({format: 'beautify'}).minify(outPutCss).styles
   }
 
   // 根据不同情况使用不同的core
