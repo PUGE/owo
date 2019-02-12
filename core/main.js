@@ -65,6 +65,11 @@ function pgNameHandler (dom) {
     var pgName = tempDom.attributes['@name']
     if (pgName) {
       // console.log(pgName.textContent)
+      // 隐藏元素
+      tempDom.hide = function () {
+        this.style.display = 'none'
+        console.log(this.style)
+      }
       window.ozzx.domList[pgName.textContent] = tempDom
     }
     // 判断是否有点击事件
