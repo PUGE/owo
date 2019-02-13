@@ -5,13 +5,18 @@ const fs = require('fs')
 const path = require('path')
 // 文件变动检测
 const chokidar = require('chokidar')
-// css压缩
-const CleanCSS = require('clean-css')
 
 const Script = require('./lib/script')
 // 日志输出
 const { getLogger } = require('log4js')
 const logger = getLogger()
+
+// js预处理
+const postcss      = require('postcss')
+const precss = require('precss')
+// css压缩
+const cssnano = require('cssnano')
+const autoprefixer = require('autoprefixer')
 
 const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
@@ -79,19 +84,6 @@ function pack () {
       outPutCss += loadFile(animationFilePath)
     })
   }
-  // 判断是否需要压缩css
-  {
-    let clear = null
-    if (config.minifyCss) {
-      clear =  new CleanCSS().minify(outPutCss)
-    } else {
-      // 如果不压缩则美化css
-      clear =  new CleanCSS({format: 'beautify'}).minify(outPutCss)
-    }
-    logger.info(`css-size: ${clear.stats.minifiedSize}`)
-    outPutCss = clear.styles
-  }
-
 
   // 根据不同情况使用不同的core
   // 读取出核心代码
@@ -118,11 +110,24 @@ function pack () {
   if (!fs.existsSync(outPutPath)) {
     fs.mkdirSync(outPutPath)
   }
-  // 写出文件
-  fs.writeFileSync(path.join(outPutPath, 'main.css'), outPutCss)
-  fs.writeFileSync(path.join(outPutPath, 'main.js'), coreScript)
-  fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
-  logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+
+  // 自动加浏览器前缀
+  // console.log(autoprefixer.process)
+  let plugList = [precss, autoprefixer]
+  // 判断是否压缩优化css
+  if (config.minifyCss) {
+    plugList.push(cssnano)
+  }
+  postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
+    result.warnings().forEach((warn) => {
+      console.warn(warn.toString());
+    })
+    // 写出文件
+    fs.writeFileSync(path.join(outPutPath, 'main.css'), result.css)
+    fs.writeFileSync(path.join(outPutPath, 'main.js'), coreScript)
+    fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
+    logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+  })
 }
 
 // 开始打包

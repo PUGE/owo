@@ -15,11 +15,12 @@
   "dependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "autoprefixer": "^9.4.7",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.7.0",
     "chokidar": "^2.0.4",
-    "clean-css": "^4.2.1",
     "css": "^2.2.4",
+    "cssnano": "^4.1.9",
     "fs": "^0.0.1-security",
     "gulp": "^4.0.0",
     "jsdom": "^13.1.0",
@@ -27,6 +28,8 @@
     "log4js": "^3.0.6",
     "node-sass": "^4.11.0",
     "pkg-dir": "^3.0.0",
+    "postcss": "^7.0.14",
+    "precss": "^4.0.0",
     "sqwish": "^0.2.2",
     "urllib-sync": "^1.1.4"
   },
