@@ -7,10 +7,8 @@ const path = require('path')
 const chokidar = require('chokidar')
 // css压缩
 const CleanCSS = require('clean-css')
-// js压缩
-const UglifyJS = require("uglify-js")
-// 美化js
-const beautify = require('js-beautify').js
+
+const Script = require('./lib/script')
 // 日志输出
 const { getLogger } = require('log4js')
 const logger = getLogger()
@@ -112,14 +110,10 @@ function pack () {
   }
   // 整合页面代码
   coreScript += dom.script
-  // 判断是否需要压缩js
-  if (config.minifyJs) {
-    coreScript = UglifyJS.minify(coreScript).code
-  } else {
-    // 美化js
-    coreScript = beautify(coreScript, { indent_size: 2, space_in_empty_paren: true })
-  }
+  // 使用bable处理代码
+  coreScript = Script(coreScript, config.minifyJs).code
 
+  // 使用
   // 判断输出目录是否存在,如果不存在则创建目录
   if (!fs.existsSync(outPutPath)) {
     fs.mkdirSync(outPutPath)
