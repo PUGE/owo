@@ -126,6 +126,20 @@ function pack () {
     fs.writeFileSync(path.join(outPutPath, 'main.css'), result.css)
     fs.writeFileSync(path.join(outPutPath, 'main.js'), coreScript)
     fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
+    // 处理引用的script
+    if (config.scriptList) {
+      config.scriptList.forEach(element => {
+        if (element.src) {
+          const scriptPath = path.join(runPath, element.src)
+          if (!fs.readFileSync(scriptPath)) {
+            logger.error('ozzx.json file does not exist!')
+            close()
+          }
+        } else {
+          console.error('script path unset!', element)
+        }
+      })
+    }
     logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
   })
 }
