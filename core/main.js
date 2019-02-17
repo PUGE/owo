@@ -68,7 +68,6 @@ function pgNameHandler (dom) {
       // 隐藏元素
       tempDom.hide = function () {
         this.style.display = 'none'
-        console.log(this.style)
       }
       window.ozzx.domList[pgName.textContent] = tempDom
     }

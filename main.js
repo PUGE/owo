@@ -20,6 +20,7 @@ const autoprefixer = require('autoprefixer')
 
 const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
+const Cut = require('./lib/cut')
 
 // 配置日志输出等级
 // logger.level = 'debug'
@@ -102,6 +103,15 @@ function pack () {
   }
   // 整合页面代码
   coreScript += dom.script
+  // 处理使用到的方法
+  let toolList = Cut.stringArray(coreScript, 'ozzx.tool.', '(')
+  // 数组去重
+  toolList = new Set(toolList)
+  toolList.forEach(element => {
+    // console.log(element)
+    coreScript += loadFile(path.join(corePath, 'tool', `${element}.js`))
+  })
+  
   // 使用bable处理代码
   coreScript = Script(coreScript, config.minifyJs).code
 
@@ -129,11 +139,12 @@ function pack () {
     // 处理引用的script
     if (config.scriptList) {
       config.scriptList.forEach(element => {
-        if (element.src) {
-          const scriptPath = path.join(runPath, element.src)
-          if (!fs.readFileSync(scriptPath)) {
-            logger.error('ozzx.json file does not exist!')
-            close()
+        if (element.src && element.babel) {
+          const fileData = fs.readFileSync(path.join(runPath, element.src))
+          if (fileData) {
+            const outPutFile = path.join(outPutPath, `${element.name}.js`)
+            fs.writeFileSync(outPutFile, Script(fileData, config.minifyJs).code)
+            logger.info(`bable and out put file: ${outPutFile}`)
           }
         } else {
           console.error('script path unset!', element)
