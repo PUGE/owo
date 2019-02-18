@@ -28,6 +28,7 @@ logger.level = 'info'
 
 // 命令行运行目录
 const runPath = process.cwd()
+let startTime = null
 
 // 判断运行目录下是否包含配置文件
 if (!fs.readFileSync(path.join(runPath, 'ozzx.json'))) {
@@ -53,22 +54,12 @@ function loadFile(path) {
   }
 }
 
-// 执行默认打包任务
-function pack () {
-  // 开始打包时间
-  const startTime = new Date().getTime()
-  // 读取入口模板文件(一次性读取到内存中)
-  let templet = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf8')
-  // 使用heard处理文件
-  templet = heardHandle(path.join(demoPath, config.headFolder), templet)
-
-  // 处理body
-  const dom = bodyHandle(templet, config)
-
+// 处理style
+function handleStyle(dom) {
   // 读取出全局样式
   const mainStyle = fs.readFileSync(`${demoPath}/main.css`, 'utf8') + '\r\n'
-
-  // 判断是否需要压缩css
+  // console.log(mainStyle)
+  // 混合css
   let outPutCss = mainStyle + dom.style
   logger.debug(dom.useAnimationList)
   
@@ -86,6 +77,69 @@ function pack () {
     })
   }
 
+  // --------------------------------- 使用postcss处理 ---------------------------------
+  // 自动加浏览器前缀
+  // console.log(autoprefixer.process)
+  let plugList = [precss, autoprefixer]
+  // 判断是否压缩优化css
+  if (config.minifyCss) {
+    plugList.push(cssnano)
+  }
+  postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
+    result.warnings().forEach((warn) => {
+      console.warn(warn.toString());
+    })
+    // console.log('css处理完毕!')
+    dom.style = result.css
+    taskSign(dom)
+  })
+}
+
+let sign = 0
+function taskSign (dom) {
+  ++sign
+  if (++sign >= 3) {
+    // 判断输出目录是否存在,如果不存在则创建目录
+    if (!fs.existsSync(outPutPath)) {
+      fs.mkdirSync(outPutPath)
+    }
+
+    
+    // 写出文件
+    fs.writeFileSync(path.join(outPutPath, 'main.css'), dom.style)
+    fs.writeFileSync(path.join(outPutPath, 'main.js'), dom.script)
+    fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
+    // 处理引用的script
+    if (config.scriptList) {
+      config.scriptList.forEach(element => {
+        if (element.src && element.babel) {
+          const fileData = fs.readFileSync(path.join(runPath, element.src))
+          if (fileData) {
+            const outPutFile = path.join(outPutPath, `${element.name}.js`)
+            fs.writeFileSync(outPutFile, Script(fileData, config.minifyJs).code)
+            logger.info(`bable and out put file: ${outPutFile}`)
+          }
+        } else {
+          console.error('script path unset!', element)
+        }
+      })
+    }
+    logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+  }
+}
+
+// 执行默认打包任务
+function pack () {
+  // 开始打包时间
+  startTime = new Date().getTime()
+  // 读取入口模板文件(一次性读取到内存中)
+  let templet = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf8')
+  // 使用heard处理文件
+  templet = heardHandle(path.join(demoPath, config.headFolder), templet)
+
+  // 处理body
+  const dom = bodyHandle(templet, config)
+  handleStyle(dom)
   // 根据不同情况使用不同的core
   // 读取出核心代码
   let coreScript = loadFile(path.join(corePath, 'main.js'))
@@ -113,46 +167,12 @@ function pack () {
   })
   
   // 使用bable处理代码
-  coreScript = Script(coreScript, config.minifyJs).code
+  dom.script = Script(coreScript, config.minifyJs).code
+  taskSign(dom)
+  taskSign(dom)
 
   // 使用
-  // 判断输出目录是否存在,如果不存在则创建目录
-  if (!fs.existsSync(outPutPath)) {
-    fs.mkdirSync(outPutPath)
-  }
 
-  // 自动加浏览器前缀
-  // console.log(autoprefixer.process)
-  let plugList = [precss, autoprefixer]
-  // 判断是否压缩优化css
-  if (config.minifyCss) {
-    plugList.push(cssnano)
-  }
-  postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
-    result.warnings().forEach((warn) => {
-      console.warn(warn.toString());
-    })
-    // 写出文件
-    fs.writeFileSync(path.join(outPutPath, 'main.css'), result.css)
-    fs.writeFileSync(path.join(outPutPath, 'main.js'), coreScript)
-    fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
-    // 处理引用的script
-    if (config.scriptList) {
-      config.scriptList.forEach(element => {
-        if (element.src && element.babel) {
-          const fileData = fs.readFileSync(path.join(runPath, element.src))
-          if (fileData) {
-            const outPutFile = path.join(outPutPath, `${element.name}.js`)
-            fs.writeFileSync(outPutFile, Script(fileData, config.minifyJs).code)
-            logger.info(`bable and out put file: ${outPutFile}`)
-          }
-        } else {
-          console.error('script path unset!', element)
-        }
-      })
-    }
-    logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
-  })
 }
 
 // 开始打包
