@@ -31,13 +31,13 @@ const runPath = process.cwd()
 let startTime = null
 
 // 判断运行目录下是否包含配置文件
-if (!fs.readFileSync(path.join(runPath, 'ozzx.json'))) {
-  logger.error('ozzx.json file does not exist!')
+if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
+  logger.error('ozzx.js file does not exist!')
   close()
 }
 
 // 读取配置文件
-const config = JSON.parse(fs.readFileSync(path.join(runPath, 'ozzx.json'), 'utf8'))
+const config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
 // 代码目录
 const demoPath = runPath + config.root
 // 输出目录
@@ -51,6 +51,13 @@ function loadFile(path) {
   } else {
     logger.error(`file does not exist: ${path}`)
     return ''
+  }
+}
+
+// 判断目录是否存在，如果不存在则创建
+function creatIfNotExist(pathStr) {
+  if (!fs.existsSync(pathStr)) {
+    fs.mkdirSync(pathStr)
   }
 }
 
@@ -77,7 +84,7 @@ function handleStyle(dom) {
     })
   }
 
-  // --------------------------------- 使用postcss处理 ---------------------------------
+  // ----------------------------------------------- 使用postcss处理 -----------------------------------------------
   // 自动加浏览器前缀
   // console.log(autoprefixer.process)
   let plugList = [precss, autoprefixer]
@@ -91,51 +98,25 @@ function handleStyle(dom) {
     })
     // console.log('css处理完毕!')
     dom.style = result.css
-    taskSign(dom)
-  })
-}
-
-let sign = 0
-function taskSign (dom) {
-  ++sign
-  if (++sign >= 3) {
+    // ----------------------------------------------- 输出css -----------------------------------------------
     // 判断输出目录是否存在,如果不存在则创建目录
-    if (!fs.existsSync(outPutPath)) {
-      fs.mkdirSync(outPutPath)
-    }
-
-    
-    // 写出文件
-    fs.writeFileSync(path.join(outPutPath, 'main.css'), dom.style)
-    fs.writeFileSync(path.join(outPutPath, 'main.js'), dom.script)
-    fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
-    // 处理引用的script
-    if (config.scriptList) {
-      config.scriptList.forEach(element => {
-        if (element.src && element.babel) {
-          const fileData = fs.readFileSync(path.join(runPath, element.src))
-          if (fileData) {
-            const outPutFile = path.join(outPutPath, `${element.name}.js`)
-            fs.writeFileSync(outPutFile, Script(fileData, config.minifyJs).code)
-            logger.info(`bable and out put file: ${outPutFile}`)
-          }
-        } else {
-          console.error('script path unset!', element)
-        }
-      })
-    }
-    logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
-  }
+    creatIfNotExist(path.join(outPutPath, 'css'))
+    fs.writeFileSync(path.join(outPutPath, 'css', 'main.css'), dom.style)
+  })
 }
 
 // 执行默认打包任务
 function pack () {
+  // 判断输出目录是否存在,如果不存在则创建目录
+  if (!fs.existsSync(outPutPath)) {
+    fs.mkdirSync(outPutPath)
+  }
   // 开始打包时间
   startTime = new Date().getTime()
   // 读取入口模板文件(一次性读取到内存中)
   let templet = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf8')
   // 使用heard处理文件
-  templet = heardHandle(path.join(demoPath, config.headFolder), templet)
+  templet = heardHandle(config.headList, templet)
 
   // 处理body
   const dom = bodyHandle(templet, config)
@@ -168,11 +149,51 @@ function pack () {
   
   // 使用bable处理代码
   dom.script = Script(coreScript, config.minifyJs).code
-  taskSign(dom)
-  taskSign(dom)
 
   // 使用
 
+
+  
+  
+  fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
+  // ----------------------------------------------- 输出js -----------------------------------------------
+  // 判断并创建目录
+  creatIfNotExist(path.join(outPutPath, 'js'))
+  fs.writeFileSync(path.join(outPutPath, 'js' , 'main.js'), dom.script)
+  // 处理引用的script
+  if (config.scriptList) {
+    // 遍历引用列表
+    config.scriptList.forEach(element => {
+      // 输出路径
+      const outPutFile = path.join(outPutPath, 'js', `${element.name}.js`)
+      // 判断是设置了路径
+      if (element.src) {
+        // 判断是否用babel处理
+        if (element.babel) {
+          fs.readFile(path.join(runPath, element.src), (err, fileData) => {
+            if (err) throw err
+            fs.writeFile(outPutFile, Script(fileData, config.minifyJs).code, () => {
+              logger.info(`bable and out put file: ${outPutFile}`)
+            })
+            
+          })
+          
+        } else {
+          // 如果不使用babel处理则进行复制文件
+          fs.readFile(path.join(runPath, element.src), (err, fileData) => {
+            if (err) throw err
+            fs.writeFile(outPutFile, fileData, () => {
+              logger.info(`copy file: ${outPutFile}`)
+            })
+          })
+        }
+        
+      } else {
+        console.error('script path unset!', element)
+      }
+    })
+  }
+  logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
 }
 
 // 开始打包
