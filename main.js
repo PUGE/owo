@@ -25,8 +25,11 @@ const Cut = require('./lib/cut')
 const express = require('express')
 const app = express()
 // 使express处理ws请求
-require('express-ws')(app)
+const wsServe = require('express-ws')(app)
 
+
+// 打包的版本号
+let version = ''
 
 // 配置日志输出等级
 // logger.level = 'debug'
@@ -127,10 +130,20 @@ function handleHrard(templet, headList) {
   return templet
 }
 
-
+// 复制文件到指定路径
+function moveFile (fromPath, toPath) {
+  fs.readFile(fromPath, (err, fileData) => {
+    if (err) throw err
+    fs.writeFile(toPath, fileData, () => {
+      logger.info(`copy file: ${toPath}`)
+    })
+  })
+}
 
 // 处理script
 function handleScript (dom) {
+  // 版本号后缀
+  const versionString = config.outFileAddVersion ? `-${version}` : ''
   // 根据不同情况使用不同的core
   // 读取出核心代码
   let coreScript = loadFile(path.join(corePath, 'main.js'))
@@ -164,8 +177,14 @@ function handleScript (dom) {
   let scriptData = '<!-- 页面脚本 -->'
   // 判断并创建目录
   creatIfNotExist(path.join(outPutPath, 'js'))
-  fs.writeFileSync(path.join(outPutPath, 'js' , 'main.js'), dom.script)
-  scriptData += '\r\n    <script src="./js/main.js" type="text/javascript"></script>'
+  fs.writeFileSync(path.join(outPutPath, 'js' , `main${versionString}.js`), dom.script)
+  
+  scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
+  // 判断是否需要加入自动刷新代码
+  if (config.autoReload) {
+    moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(outPutPath, 'js', `autoReload.js`))
+    scriptData += '\r\n    <script src="./js/autoReload.js" type="text/javascript"></script>'
+  }
 
   // 处理引用的script
   if (config.scriptList) {
@@ -173,7 +192,7 @@ function handleScript (dom) {
     let completeNum = 0
     config.scriptList.forEach(element => {
       // 输出路径
-      const outPutFile = path.join(outPutPath, 'js', `${element.name}.js`)
+      const outPutFile = path.join(outPutPath, 'js', `${element.name}${versionString}.js`)
       // 判断是设置了路径
       if (element.src) {
         // 判断是否用babel处理
@@ -183,28 +202,21 @@ function handleScript (dom) {
             fs.writeFile(outPutFile, Script(fileData, config.minifyJs).code, () => {
               logger.info(`bable and out put file: ${outPutFile}`)
               
-              scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+              scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum === config.scriptList.length) {
                 outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
                 logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+                if (config.autoReload) {
+                  // 广播发送重新打包消息
+                  wsServe.getWss().clients.forEach(client => client.send('reload'))
+                }
               }
             })
           })
         } else {
           // 如果不使用babel处理则进行复制文件
-          fs.readFile(path.join(runPath, element.src), (err, fileData) => {
-            if (err) throw err
-            fs.writeFile(outPutFile, fileData, () => {
-              logger.info(`copy file: ${outPutFile}`)
-              // 判断是否为最后项,如果为最后一项则输出script
-              scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
-              if (++completeNum === config.scriptList.length) {
-                outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
-                logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
-              }
-            })
-          })
+          moveFile(path.join(runPath, element.src), outPutFile)
         }
         
       } else {
@@ -220,6 +232,8 @@ function outPutHtml (htmlData) {
 }
 // 执行默认打包任务
 function pack () {
+  // 生成版本号
+  version = Math.random().toString(36).substr(2)
   // 判断输出目录是否存在,如果不存在则创建目录
   if (!fs.existsSync(outPutPath)) {
     fs.mkdirSync(outPutPath)
@@ -262,22 +276,12 @@ if (config.server) {
   app.use(express.static(path.join(runPath, config.outFolder)))
 }
 
-app.use(function (req, res, next) {
-  console.log('middleware');
-  req.testing = 'testing';
-  return next();
-});
 
-app.get('/', function(req, res, next){
-  console.log('get route', req.testing);
-  res.end();
-})
 // 处理websocket消息
 app.ws('/', function(ws, req) {
   ws.on('message', function(msg) {
-    console.log(msg);
-  });
-  console.log('socket', req.testing);
-});
+    console.log(ws);
+  })
+})
 
-app.listen(3000)
+app.listen(8000)
