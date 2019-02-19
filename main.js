@@ -18,9 +18,15 @@ const precss = require('precss')
 const cssnano = require('cssnano')
 const autoprefixer = require('autoprefixer')
 
-const heardHandle = require('./lib/heard')
 const bodyHandle = require('./lib/page')
 const Cut = require('./lib/cut')
+
+// Web 框架
+const express = require('express')
+const app = express()
+// 使express处理ws请求
+require('express-ws')(app)
+
 
 // 配置日志输出等级
 // logger.level = 'debug'
@@ -38,8 +44,7 @@ if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
 
 // 读取配置文件
 const config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
-// 代码目录
-const demoPath = runPath + config.root
+
 // 输出目录
 const outPutPath = path.join(runPath, config.outFolder)
 const corePath = path.join(__dirname, 'core')
@@ -64,7 +69,7 @@ function creatIfNotExist(pathStr) {
 // 处理style
 function handleStyle(dom) {
   // 读取出全局样式
-  const mainStyle = fs.readFileSync(`${demoPath}/main.css`, 'utf8') + '\r\n'
+  const mainStyle = fs.readFileSync(path.join(runPath, config.globalStyle), 'utf8') + '\r\n'
   // console.log(mainStyle)
   // 混合css
   let outPutCss = mainStyle + dom.style
@@ -105,37 +110,27 @@ function handleStyle(dom) {
   })
 }
 
-// 处理html
-function handHtml() {
-  // 读取入口模板文件(一次性读取到内存中)
-  let templet = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
-  // 使用heard处理文件
-  templet = heardHandle(config.headList, templet)
-  let templeData = `<!-- 页面区域 -->`
-  config.pageList.forEach(element => {
-    templeData += `\r\n    <temple name="${element.name}" src="${element.src}" isPage="true"></temple>`
+// 处理heard
+function handleHrard(templet, headList) {
+  // 取出所有Heard标识
+  let heardData = '<!-- 页面的元信息 -->'
+  headList.forEach(element => {
+    let heard = `\r\n    <meta`
+    for (const key in element) {
+      const value = element[key]
+      heard += ` ${key}="${value}"`
+    }
+    heard += `/>`
+    heardData += `${heard}`
   })
-  templet = templet.replace('<!-- page-output -->', templeData)
-  return bodyHandle(templet, config)
+  templet = templet.replace(`<!-- *head* -->`, heardData)
+  return templet
 }
 
 
-function outPutHtml (htmlData) {
-  fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlData)
-}
-// 执行默认打包任务
-function pack () {
-  // 判断输出目录是否存在,如果不存在则创建目录
-  if (!fs.existsSync(outPutPath)) {
-    fs.mkdirSync(outPutPath)
-  }
-  // 开始打包时间
-  startTime = new Date().getTime()
-  
-  // 处理html
-  const dom = handHtml()
-  // 处理style
-  handleStyle(dom)
+
+// 处理script
+function handleScript (dom) {
   // 根据不同情况使用不同的core
   // 读取出核心代码
   let coreScript = loadFile(path.join(corePath, 'main.js'))
@@ -165,7 +160,6 @@ function pack () {
   // 使用bable处理代码
   dom.script = Script(coreScript, config.minifyJs).code
 
-
   // ----------------------------------------------- 输出js -----------------------------------------------
   let scriptData = '<!-- 页面脚本 -->'
   // 判断并创建目录
@@ -193,6 +187,7 @@ function pack () {
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum === config.scriptList.length) {
                 outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
+                logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
               }
             })
           })
@@ -206,6 +201,7 @@ function pack () {
               scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
               if (++completeNum === config.scriptList.length) {
                 outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
+                logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
               }
             })
           })
@@ -216,7 +212,30 @@ function pack () {
       }
     })
   }
-  logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+}
+
+
+function outPutHtml (htmlData) {
+  fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlData)
+}
+// 执行默认打包任务
+function pack () {
+  // 判断输出目录是否存在,如果不存在则创建目录
+  if (!fs.existsSync(outPutPath)) {
+    fs.mkdirSync(outPutPath)
+  }
+  // 记录开始打包时间
+  startTime = new Date().getTime()
+  
+  // 读取入口模板文件(一次性读取到内存中)
+  let templetData = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+  templetData = handleHrard(templetData, config.headList)
+  const dom = bodyHandle(templetData, config)
+  // 处理style
+  handleStyle(dom)
+  // 处理script
+  handleScript(dom)
+  
 }
 
 // 开始打包
@@ -225,8 +244,8 @@ pack()
 // 判断是否开启文件变动自动重新打包
 if (config.autoPack) {
   // 文件变动检测
-  const watcher = chokidar.watch(demoPath, {
-    ignored: './' + config.outFolder + '/*',
+  const watcher = chokidar.watch(path.join(runPath, config.watcherFolder), {
+    ignored: config.outFolder + '/*',
     persistent: true,
     usePolling: true
   })
@@ -237,3 +256,28 @@ if (config.autoPack) {
     pack()
   })
 }
+
+// 判断是否启用静态文件服务
+if (config.server) {
+  app.use(express.static(path.join(runPath, config.outFolder)))
+}
+
+app.use(function (req, res, next) {
+  console.log('middleware');
+  req.testing = 'testing';
+  return next();
+});
+
+app.get('/', function(req, res, next){
+  console.log('get route', req.testing);
+  res.end();
+})
+// 处理websocket消息
+app.ws('/', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log(msg);
+  });
+  console.log('socket', req.testing);
+});
+
+app.listen(3000)
