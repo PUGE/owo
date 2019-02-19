@@ -105,6 +105,24 @@ function handleStyle(dom) {
   })
 }
 
+// 处理html
+function handHtml() {
+  // 读取入口模板文件(一次性读取到内存中)
+  let templet = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+  // 使用heard处理文件
+  templet = heardHandle(config.headList, templet)
+  let templeData = `<!-- 页面区域 -->`
+  config.pageList.forEach(element => {
+    templeData += `\r\n    <temple name="${element.name}" src="${element.src}" isPage="true"></temple>`
+  })
+  templet = templet.replace('<!-- page-output -->', templeData)
+  return bodyHandle(templet, config)
+}
+
+
+function outPutHtml (htmlData) {
+  fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlData)
+}
 // 执行默认打包任务
 function pack () {
   // 判断输出目录是否存在,如果不存在则创建目录
@@ -113,13 +131,10 @@ function pack () {
   }
   // 开始打包时间
   startTime = new Date().getTime()
-  // 读取入口模板文件(一次性读取到内存中)
-  let templet = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf8')
-  // 使用heard处理文件
-  templet = heardHandle(config.headList, templet)
-
-  // 处理body
-  const dom = bodyHandle(templet, config)
+  
+  // 处理html
+  const dom = handHtml()
+  // 处理style
   handleStyle(dom)
   // 根据不同情况使用不同的core
   // 读取出核心代码
@@ -150,19 +165,18 @@ function pack () {
   // 使用bable处理代码
   dom.script = Script(coreScript, config.minifyJs).code
 
-  // 使用
 
-
-  
-  
-  fs.writeFileSync(path.join(outPutPath, 'index.html'), dom.html)
   // ----------------------------------------------- 输出js -----------------------------------------------
+  let scriptData = '<!-- 页面脚本 -->'
   // 判断并创建目录
   creatIfNotExist(path.join(outPutPath, 'js'))
   fs.writeFileSync(path.join(outPutPath, 'js' , 'main.js'), dom.script)
+  scriptData += '\r\n    <script src="./js/main.js" type="text/javascript"></script>'
+
   // 处理引用的script
   if (config.scriptList) {
     // 遍历引用列表
+    let completeNum = 0
     config.scriptList.forEach(element => {
       // 输出路径
       const outPutFile = path.join(outPutPath, 'js', `${element.name}.js`)
@@ -174,16 +188,25 @@ function pack () {
             if (err) throw err
             fs.writeFile(outPutFile, Script(fileData, config.minifyJs).code, () => {
               logger.info(`bable and out put file: ${outPutFile}`)
+              
+              scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+              // 判断是否为最后项,如果为最后一项则输出script
+              if (++completeNum === config.scriptList.length) {
+                outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
+              }
             })
-            
           })
-          
         } else {
           // 如果不使用babel处理则进行复制文件
           fs.readFile(path.join(runPath, element.src), (err, fileData) => {
             if (err) throw err
             fs.writeFile(outPutFile, fileData, () => {
               logger.info(`copy file: ${outPutFile}`)
+              // 判断是否为最后项,如果为最后一项则输出script
+              scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+              if (++completeNum === config.scriptList.length) {
+                outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
+              }
             })
           })
         }

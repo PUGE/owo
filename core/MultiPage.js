@@ -1,6 +1,6 @@
 // 获取URL #后面内容
 function getarg(url){
-  arg = url.split("#");
+  const arg = url.split("#");
   return arg[1];
 }
 
