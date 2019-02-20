@@ -76,9 +76,15 @@ function handleStyle(dom) {
   let outPutCss = dom.style
   // 读取出全局样式
   if (config.outPut.globalStyle) {
-    const mainStyle = fs.readFileSync(path.join(runPath, config.outPut.globalStyle), 'utf8') + '\r\n'
-    // 混合css
-    outPutCss = mainStyle + outPutCss
+    const mainStylePath = path.join(runPath, config.outPut.globalStyle)
+    if (fs.existsSync(mainStylePath)) {
+      const mainStyle = fs.readFileSync(path.join(runPath, config.outPut.globalStyle), 'utf8') + '\r\n'
+      console.log(mainStyle)
+      // 混合css
+      outPutCss = mainStyle + outPutCss
+    } else {
+      logger.error(`globalStyle file not find!`)
+    }
   }
   
   // --------------------------------- 动画效果 ---------------------------------------------
@@ -112,6 +118,7 @@ function handleStyle(dom) {
     // ----------------------------------------------- 输出css -----------------------------------------------
     // 判断输出目录是否存在,如果不存在则创建目录
     creatIfNotExist(path.join(outPutPath, 'css'))
+    dom.html.replace(`<!-- css-output -->`, `<link rel="stylesheet" href="${config.outFolder}/css/main.css">`)
     fs.writeFileSync(path.join(outPutPath, 'css', 'main.css'), dom.style)
   })
 }
@@ -194,7 +201,7 @@ function handleScript (dom, changePath) {
   }
 
   // 处理引用的script
-  if (config.scriptList) {
+  if (config.scriptList && config.scriptList.length > 0) {
     // 遍历引用列表
     let completeNum = 0
     for (let ind = 0; ind < config.scriptList.length; ind++) {
@@ -242,6 +249,9 @@ function handleScript (dom, changePath) {
         }
       }
     }
+  } else {
+    // 如果没有引用script，则直接输出html
+    outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
   }
 }
 
