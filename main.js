@@ -132,6 +132,7 @@ function handleStyle(dom, changePath) {
 
 
     let completeNum = 0
+    
     for (let ind = 0; ind < config.styleList.length; ind++) {
       const element = config.styleList[ind]
       // 判断是设置了路径
@@ -147,9 +148,10 @@ function handleStyle(dom, changePath) {
       // 如果是网络地址那么不需要进行处理
       if (element.src.startsWith('http')) {
         styleData += `\r\n    <link rel="stylesheet" href="${element.src}">`
+        htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
+        outPutHtml()
         continue
       } else {
-        console.log(element.name)
         styleData += `\r\n    <link rel="stylesheet" href="./css/${element.name}${versionString}.css">`
       }
       // 输出路径
@@ -260,6 +262,8 @@ function handleScript (dom, changePath) {
       // 如果是网络地址那么不需要进行处理
       if (element.src.startsWith('http')) {
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+        htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+        outPutHtml()
         continue
       } else {
         scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
@@ -297,7 +301,7 @@ function handleScript (dom, changePath) {
 
 
 function outPutHtml () {
-  logger.info(htmlTemple)
+  // logger.info(htmlTemple)
   if (!htmlTemple.includes('output')) {
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
     logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
