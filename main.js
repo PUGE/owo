@@ -75,7 +75,8 @@ function creatIfNotExist(pathStr) {
 }
 
 // 处理style
-function handleStyle(dom) {
+function handleStyle(dom, changePath) {
+  let styleData = ''
   // 版本号后缀
   const versionString = config.outPut.outFileAddVersion ? `-${version}` : ''
   let outPutCss = dom.style
@@ -125,10 +126,40 @@ function handleStyle(dom) {
     DELDIR(styleDir)
     // 重新创建目录
     fs.mkdirSync(styleDir)
-    htmlTemple = htmlTemple.replace(`<!-- css-output -->`, `<link rel="stylesheet" href="${config.outFolder}/css/main${versionString}.css">`)
+    styleData += `<link rel="stylesheet" href="${config.outFolder}/css/main${versionString}.css">`
+    
     fs.writeFileSync(path.join(outPutPath, 'css', `main${versionString}.css`), dom.style)
-    // 写出html
-    outPutHtml()
+
+
+    let completeNum = 0
+    for (let ind = 0; ind < config.styleList.length; ind++) {
+      const element = config.styleList[ind]
+      // 判断是设置了路径
+      if (!element.src) {
+        console.error('style path unset!', element)
+        continue
+      }
+      // -------------sdsd---------------------------------------------------------
+      // 如果发现不是被改变的文件则跳出循环
+      if (changePath !== undefined && changePath !== path.join(runPath, element.src)) {
+        continue
+      }
+      // 如果是网络地址那么不需要进行处理
+      if (element.src.startsWith('http')) {
+        styleData += `\r\n    <link rel="stylesheet" href="${element.src}">`
+        continue
+      } else {
+        console.log(element.name)
+        styleData += `\r\n    <link rel="stylesheet" href="./css/${element.name}${versionString}.css">`
+      }
+      // 输出路径
+      const outPutFile = path.join(outPutPath, 'css', `${element.name}${versionString}.css`)
+      moveFile(path.join(runPath, element.src), outPutFile)
+      if (++completeNum >= config.styleList.length) {
+        htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
+        outPutHtml()
+      }
+    }
   })
 }
 
@@ -215,8 +246,7 @@ function handleScript (dom, changePath) {
     let completeNum = 0
     for (let ind = 0; ind < config.scriptList.length; ind++) {
       const element = config.scriptList[ind]
-      // 输出路径
-      const outPutFile = path.join(outPutPath, 'js', `${element.name}${versionString}.js`)
+      
       
       // 判断是设置了路径
       if (!element.src) {
@@ -227,43 +257,55 @@ function handleScript (dom, changePath) {
       if (changePath !== undefined && changePath !== path.join(runPath, element.src)) {
         continue
       }
+      // 如果是网络地址那么不需要进行处理
+      if (element.src.startsWith('http')) {
+        scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+        continue
+      } else {
+        scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+      }
+      // 输出路径
+      const outPutFile = path.join(outPutPath, 'js', `${element.name}${versionString}.js`)
       // 判断是否用babel处理
       if (element.babel) {
         fs.readFile(path.join(runPath, element.src), (err, fileData) => {
           if (err) throw err
           fs.writeFile(outPutFile, Script(fileData, config.outPut.minifyJs).code, () => {
             logger.info(`bable and out put file: ${outPutFile}`)
-            
-            scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
             // 判断是否为最后项,如果为最后一项则输出script
-            if (++completeNum === config.scriptList.length) {
+            if (++completeNum >= config.scriptList.length) {
               htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-              outPutHtml(htmlTemple)
-
-              if (config.autoReload) {
-                // 广播发送重新打包消息
-                wsServe.getWss().clients.forEach(client => client.send('reload'))
-              }
+              outPutHtml()
             }
           })
         })
       } else {
         // 如果不使用babel处理则进行复制文件
         moveFile(path.join(runPath, element.src), outPutFile)
+        if (++completeNum >= config.scriptList.length) {
+          htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+          outPutHtml()
+        }
       }
     }
   } else {
     // 如果没有引用script，则直接输出html
     htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-    outPutHtml(htmlTemple)
+    outPutHtml()
   }
 }
 
 
 function outPutHtml () {
+  logger.info(htmlTemple)
   if (!htmlTemple.includes('output')) {
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
     logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+
+    if (config.autoReload) {
+      // 广播发送重新打包消息
+      wsServe.getWss().clients.forEach(client => client.send('reload'))
+    }
   }
 }
 // 执行默认打包任务
@@ -283,7 +325,7 @@ function pack (changePath) {
   const dom = bodyHandle(htmlTemple, config)
   htmlTemple = dom.html
   // 处理style
-  handleStyle(dom)
+  handleStyle(dom, changePath)
   // 处理script
   handleScript(dom, changePath)
 }
