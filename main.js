@@ -78,14 +78,13 @@ function creatIfNotExist(pathStr) {
 function handleStyle(dom, changePath) {
   let styleData = ''
   // 版本号后缀
-  const versionString = config.outPut.outFileAddVersion ? `-${version}` : ''
+  const versionString = config.outPut.outFileAddVersion ? `.${version}` : ''
   let outPutCss = dom.style
   // 读取出全局样式
   if (config.outPut.globalStyle) {
     const mainStylePath = path.join(runPath, config.outPut.globalStyle)
     if (fs.existsSync(mainStylePath)) {
       const mainStyle = fs.readFileSync(path.join(runPath, config.outPut.globalStyle), 'utf8') + '\r\n'
-      console.log(mainStyle)
       // 混合css
       outPutCss = mainStyle + outPutCss
     } else {
@@ -123,10 +122,14 @@ function handleStyle(dom, changePath) {
     // console.log('css处理完毕!')
     dom.style = result.css
     // ----------------------------------------------- 输出css -----------------------------------------------
-    DELDIR(styleDir)
-    // 重新创建目录
-    fs.mkdirSync(styleDir)
-    styleData += `<link rel="stylesheet" href="${config.outFolder}/css/main${versionString}.css">`
+    if (!changePath) {
+      DELDIR(styleDir)
+      logger.debug(`delete css dir success!`)
+      // 重新创建目录
+      fs.mkdirSync(styleDir)
+    }
+    
+    styleData += `<link rel="stylesheet" href="./css/main${versionString}.css">`
     
     fs.writeFileSync(path.join(outPutPath, 'css', `main${versionString}.css`), dom.style)
 
@@ -141,22 +144,23 @@ function handleStyle(dom, changePath) {
         continue
       }
       // -------------sdsd---------------------------------------------------------
-      // 如果发现不是被改变的文件则跳出循环
-      if (changePath !== undefined && changePath !== path.join(runPath, element.src)) {
-        continue
-      }
       // 如果是网络地址那么不需要进行处理
       if (element.src.startsWith('http')) {
         styleData += `\r\n    <link rel="stylesheet" href="${element.src}">`
-        htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
-        outPutHtml()
+        if (++completeNum >= config.styleList.length) {
+          htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
+          outPutHtml()
+        }
+        
         continue
       } else {
         styleData += `\r\n    <link rel="stylesheet" href="./css/${element.name}${versionString}.css">`
       }
       // 输出路径
       const outPutFile = path.join(outPutPath, 'css', `${element.name}${versionString}.css`)
-      moveFile(path.join(runPath, element.src), outPutFile)
+      if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
+        moveFile(path.join(runPath, element.src), outPutFile)
+      }
       if (++completeNum >= config.styleList.length) {
         htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
         outPutHtml()
@@ -195,7 +199,7 @@ function moveFile (fromPath, toPath) {
 // 处理script
 function handleScript (dom, changePath) {
   // 版本号后缀
-  const versionString = config.outPut.outFileAddVersion ? `-${version}` : ''
+  const versionString = config.outPut.outFileAddVersion ? `.${version}` : ''
   // 根据不同情况使用不同的core
   // 读取出核心代码
   let coreScript = loadFile(path.join(corePath, 'main.js'))
@@ -228,17 +232,22 @@ function handleScript (dom, changePath) {
   // ----------------------------------------------- 输出js -----------------------------------------------
   const scriptDir = path.join(outPutPath, 'js')
   let scriptData = '<!-- 页面脚本 -->'
-  // 删除目录
-  DELDIR(scriptDir)
-  // 重新创建目录
-  fs.mkdirSync(scriptDir)
+  if (!changePath) {
+    // 删除目录
+    DELDIR(scriptDir)
+    logger.debug(`delete script dir success!`)
+    // 重新创建目录
+    fs.mkdirSync(scriptDir)
+  }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(outPutPath, 'js' , `main${versionString}.js`), dom.script)
   
   scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
   // 判断是否需要加入自动刷新代码
-  if (!changePath && config.autoReload) {
-    moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(outPutPath, 'js', `autoReload.js`))
+  if (config.autoReload) {
+    if (!changePath) {
+      moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(outPutPath, 'js', `autoReload.js`))
+    }
     scriptData += '\r\n    <script src="./js/autoReload.js" type="text/javascript"></script>'
   }
 
@@ -248,22 +257,21 @@ function handleScript (dom, changePath) {
     let completeNum = 0
     for (let ind = 0; ind < config.scriptList.length; ind++) {
       const element = config.scriptList[ind]
-      
+      // console.log(element)
       
       // 判断是设置了路径
       if (!element.src) {
         console.error('script path unset!', element)
         continue
       }
-      // 如果发现不是被改变的文件则跳出循环
-      if (changePath !== undefined && changePath !== path.join(runPath, element.src)) {
-        continue
-      }
       // 如果是网络地址那么不需要进行处理
       if (element.src.startsWith('http')) {
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
-        htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-        outPutHtml()
+        // 判断是否为最后项,如果为最后一项则输出script
+        if (++completeNum >= config.scriptList.length) {
+          htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+          outPutHtml()
+        }
         continue
       } else {
         scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
@@ -272,20 +280,29 @@ function handleScript (dom, changePath) {
       const outPutFile = path.join(outPutPath, 'js', `${element.name}${versionString}.js`)
       // 判断是否用babel处理
       if (element.babel) {
-        fs.readFile(path.join(runPath, element.src), (err, fileData) => {
-          if (err) throw err
-          fs.writeFile(outPutFile, Script(fileData, config.outPut.minifyJs).code, () => {
-            logger.info(`bable and out put file: ${outPutFile}`)
-            // 判断是否为最后项,如果为最后一项则输出script
-            if (++completeNum >= config.scriptList.length) {
-              htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-              outPutHtml()
-            }
+        if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
+          fs.readFile(path.join(runPath, element.src), (err, fileData) => {
+            if (err) throw err
+            fs.writeFile(outPutFile, Script(fileData, config.outPut.minifyJs).code, () => {
+              logger.info(`bable and out put file: ${outPutFile}`)
+              // 判断是否为最后项,如果为最后一项则输出script
+              if (++completeNum >= config.scriptList.length) {
+                htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+                outPutHtml()
+              }
+            })
           })
-        })
+        } else {
+          if (++completeNum >= config.scriptList.length) {
+            htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+            outPutHtml()
+          }
+        }
       } else {
         // 如果不使用babel处理则进行复制文件
-        moveFile(path.join(runPath, element.src), outPutFile)
+        if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
+          moveFile(path.join(runPath, element.src), outPutFile)
+        }
         if (++completeNum >= config.scriptList.length) {
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
@@ -315,7 +332,8 @@ function outPutHtml () {
 // 执行默认打包任务
 function pack (changePath) {
   // 生成版本号
-  version = Math.random().toString(36).substr(2)
+  if (!changePath) version = Math.random().toString(36).substr(2)
+
   // 判断输出目录是否存在,如果不存在则创建目录
   if (!fs.existsSync(outPutPath)) {
     fs.mkdirSync(outPutPath)
