@@ -41,6 +41,9 @@ logger.level = 'info'
 const runPath = process.cwd()
 let startTime = null
 
+// 当前打包的模板
+let htmlTemple = ''
+
 // 判断运行目录下是否包含配置文件
 if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
   logger.error('ozzx.js file does not exist!')
@@ -73,6 +76,8 @@ function creatIfNotExist(pathStr) {
 
 // 处理style
 function handleStyle(dom) {
+  // 版本号后缀
+  const versionString = config.outPut.outFileAddVersion ? `-${version}` : ''
   let outPutCss = dom.style
   // 读取出全局样式
   if (config.outPut.globalStyle) {
@@ -110,21 +115,25 @@ function handleStyle(dom) {
     plugList.push(cssnano)
   }
   postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
+    const styleDir = path.join(outPutPath, 'css')
     result.warnings().forEach((warn) => {
       console.warn(warn.toString());
     })
     // console.log('css处理完毕!')
     dom.style = result.css
     // ----------------------------------------------- 输出css -----------------------------------------------
-    // 判断输出目录是否存在,如果不存在则创建目录
-    creatIfNotExist(path.join(outPutPath, 'css'))
-    dom.html.replace(`<!-- css-output -->`, `<link rel="stylesheet" href="${config.outFolder}/css/main.css">`)
-    fs.writeFileSync(path.join(outPutPath, 'css', 'main.css'), dom.style)
+    DELDIR(styleDir)
+    // 重新创建目录
+    fs.mkdirSync(styleDir)
+    htmlTemple = htmlTemple.replace(`<!-- css-output -->`, `<link rel="stylesheet" href="${config.outFolder}/css/main${versionString}.css">`)
+    fs.writeFileSync(path.join(outPutPath, 'css', `main${versionString}.css`), dom.style)
+    // 写出html
+    outPutHtml()
   })
 }
 
 // 处理heard
-function handleHrard(templet, headList) {
+function handleHrard(headList) {
   // 取出所有Heard标识
   let heardData = '<!-- 页面的元信息 -->'
   headList.forEach(element => {
@@ -136,8 +145,8 @@ function handleHrard(templet, headList) {
     heard += `/>`
     heardData += `${heard}`
   })
-  templet = templet.replace(`<!-- *head* -->`, heardData)
-  return templet
+  htmlTemple = htmlTemple.replace(`<!-- *head* -->`, heardData)
+  outPutHtml()
 }
 
 // 复制文件到指定路径
@@ -216,9 +225,6 @@ function handleScript (dom, changePath) {
       }
       // 如果发现不是被改变的文件则跳出循环
       if (changePath !== undefined && changePath !== path.join(runPath, element.src)) {
-        if (++completeNum === config.scriptList.length) {
-          logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
-        }
         continue
       }
       // 判断是否用babel处理
@@ -231,8 +237,8 @@ function handleScript (dom, changePath) {
             scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
             // 判断是否为最后项,如果为最后一项则输出script
             if (++completeNum === config.scriptList.length) {
-              outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
-              logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+              htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+              outPutHtml(htmlTemple)
 
               if (config.autoReload) {
                 // 广播发送重新打包消息
@@ -244,20 +250,21 @@ function handleScript (dom, changePath) {
       } else {
         // 如果不使用babel处理则进行复制文件
         moveFile(path.join(runPath, element.src), outPutFile)
-        if (++completeNum === config.scriptList.length) {
-          logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
-        }
       }
     }
   } else {
     // 如果没有引用script，则直接输出html
-    outPutHtml(dom.html.replace(`<!-- script-output -->`, scriptData))
+    htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+    outPutHtml(htmlTemple)
   }
 }
 
 
-function outPutHtml (htmlData) {
-  fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlData)
+function outPutHtml () {
+  if (!htmlTemple.includes('output')) {
+    fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
+    logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+  }
 }
 // 执行默认打包任务
 function pack (changePath) {
@@ -271,9 +278,10 @@ function pack (changePath) {
   startTime = new Date().getTime()
   
   // 读取入口模板文件(一次性读取到内存中)
-  let templetData = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
-  templetData = handleHrard(templetData, config.headList)
-  const dom = bodyHandle(templetData, config)
+  htmlTemple = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+  handleHrard(config.headList)
+  const dom = bodyHandle(htmlTemple, config)
+  htmlTemple = dom.html
   // 处理style
   handleStyle(dom)
   // 处理script
