@@ -136,6 +136,11 @@ function handleStyle(dom, changePath) {
 
     let completeNum = 0
     
+    // 如果没有额外的css直接输出
+    if (config.styleList.length === 0) {
+      htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
+      outPutHtml()
+    }
     for (let ind = 0; ind < config.styleList.length; ind++) {
       const element = config.styleList[ind]
       // 判断是设置了路径
@@ -154,10 +159,10 @@ function handleStyle(dom, changePath) {
         
         continue
       } else {
-        styleData += `\r\n    <link rel="stylesheet" href="./css/${element.name}${versionString}.css">`
+        styleData += `\r\n    <link rel="stylesheet" href="./css/${element.name}.css">`
       }
       // 输出路径
-      const outPutFile = path.join(outPutPath, 'css', `${element.name}${versionString}.css`)
+      const outPutFile = path.join(outPutPath, 'css', `${element.name}.css`)
       if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
         moveFile(path.join(runPath, element.src), outPutFile)
       }
@@ -242,7 +247,6 @@ function handleScript (dom, changePath) {
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(outPutPath, 'js' , `main${versionString}.js`), dom.script)
   
-  scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
   // 判断是否需要加入自动刷新代码
   if (config.autoReload) {
     if (!changePath) {
@@ -269,15 +273,16 @@ function handleScript (dom, changePath) {
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script
         if (++completeNum >= config.scriptList.length) {
+          scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
         }
         continue
       } else {
-        scriptData += `\r\n    <script src="./js/${element.name}${versionString}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+        scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
       }
       // 输出路径
-      const outPutFile = path.join(outPutPath, 'js', `${element.name}${versionString}.js`)
+      const outPutFile = path.join(outPutPath, 'js', `${element.name}.js`)
       // 判断是否用babel处理
       if (element.babel) {
         if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
@@ -287,6 +292,7 @@ function handleScript (dom, changePath) {
               logger.info(`bable and out put file: ${outPutFile}`)
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum >= config.scriptList.length) {
+                scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
                 htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
                 outPutHtml()
               }
@@ -294,6 +300,7 @@ function handleScript (dom, changePath) {
           })
         } else {
           if (++completeNum >= config.scriptList.length) {
+            scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
             htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
             outPutHtml()
           }
@@ -304,6 +311,7 @@ function handleScript (dom, changePath) {
           moveFile(path.join(runPath, element.src), outPutFile)
         }
         if (++completeNum >= config.scriptList.length) {
+          scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
         }
@@ -343,6 +351,8 @@ function pack (changePath) {
   
   // 读取入口模板文件(一次性读取到内存中)
   htmlTemple = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+  // 处理title
+  htmlTemple = htmlTemple.replace('{{title}}', config.title || 'ozzx')
   handleHrard(config.headList)
   const dom = bodyHandle(htmlTemple, config)
   htmlTemple = dom.html
