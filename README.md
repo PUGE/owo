@@ -43,7 +43,7 @@ pack
 * 支持页面切换效果(几十种切换效果)                                 √
 * 支持对js进行美化                                                √
 * 支持对css进行美化                                               √
-* 内置扩展方法(getPopPosition)                                    √
+* 内置扩展方法(getPopPosition, smoothChange)                                    √
 * 支持异步打包                                                    √
 * 支持自动刷新                                                    √
 * 输出文件支持自动加版本号                                         √
