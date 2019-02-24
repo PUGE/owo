@@ -137,9 +137,10 @@ function handleStyle(dom, changePath) {
     let completeNum = 0
     
     // 如果没有额外的css直接输出
-    if (config.styleList.length === 0) {
+    if (!config.styleList || config.styleList.length === 0) {
       htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
       outPutHtml()
+      return
     }
     for (let ind = 0; ind < config.styleList.length; ind++) {
       const element = config.styleList[ind]
@@ -163,7 +164,7 @@ function handleStyle(dom, changePath) {
       }
       // 输出路径
       const outPutFile = path.join(outPutPath, 'css', `${element.name}.css`)
-      if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
+      if (changePath === undefined || changePath === path.join(runPath, element.src)) {
         moveFile(path.join(runPath, element.src), outPutFile)
       }
       if (++completeNum >= config.styleList.length) {
@@ -273,6 +274,16 @@ function handleScript (dom, changePath) {
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script
         if (++completeNum >= config.scriptList.length) {
+          // 如果有全局js则加入全局js
+          if (config.outPut.globalScript) {
+            const globalScriptData = fs.readFileSync(config.outPut.globalScript)
+            if (globalScriptData) {
+              logger.info(`add global script: ${config.outPut.globalScript}`)
+              scriptData += '\r\n<script>' + globalScriptData + '\r\n</script>'
+            } else {
+              logger.error('global script is set but file not found!')
+            }
+          }
           scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
@@ -285,13 +296,24 @@ function handleScript (dom, changePath) {
       const outPutFile = path.join(outPutPath, 'js', `${element.name}.js`)
       // 判断是否用babel处理
       if (element.babel) {
-        if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
+        if (changePath === undefined || changePath === path.join(runPath, element.src)) {
           fs.readFile(path.join(runPath, element.src), (err, fileData) => {
             if (err) throw err
             fs.writeFile(outPutFile, Script(fileData, config.outPut.minifyJs).code, () => {
               logger.info(`bable and out put file: ${outPutFile}`)
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum >= config.scriptList.length) {
+                // 如果有全局js则加入全局js
+                if (config.outPut.globalScript) {
+                  
+                  const globalScriptData = fs.readFileSync(config.outPut.globalScript)
+                  if (globalScriptData) {
+                    logger.info(`add global script: ${config.outPut.globalScript}`)
+                    scriptData += '\r\n    <script>\r\n' + globalScriptData + '\r\n    </script>'
+                  } else {
+                    logger.error('global script is set but file not found!')
+                  }
+                }
                 scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
                 htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
                 outPutHtml()
@@ -307,7 +329,7 @@ function handleScript (dom, changePath) {
         }
       } else {
         // 如果不使用babel处理则进行复制文件
-        if (changePath === undefined || changePath !== path.join(runPath, element.src)) {
+        if (changePath === undefined || changePath === path.join(runPath, element.src)) {
           moveFile(path.join(runPath, element.src), outPutFile)
         }
         if (++completeNum >= config.scriptList.length) {
