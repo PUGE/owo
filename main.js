@@ -67,13 +67,6 @@ function loadFile(path) {
   }
 }
 
-// 判断目录是否存在，如果不存在则创建
-function creatIfNotExist(pathStr) {
-  if (!fs.existsSync(pathStr)) {
-    fs.mkdirSync(pathStr)
-  }
-}
-
 // 处理style
 function handleStyle(dom, changePath) {
   let styleData = ''
@@ -322,6 +315,17 @@ function handleScript (dom, changePath) {
           })
         } else {
           if (++completeNum >= config.scriptList.length) {
+            // 如果有全局js则加入全局js
+            if (config.outPut.globalScript) {
+                  
+              const globalScriptData = fs.readFileSync(config.outPut.globalScript)
+              if (globalScriptData) {
+                logger.info(`add global script: ${config.outPut.globalScript}`)
+                scriptData += '\r\n    <script>\r\n' + globalScriptData + '\r\n    </script>'
+              } else {
+                logger.error('global script is set but file not found!')
+              }
+            }
             scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
             htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
             outPutHtml()
@@ -333,6 +337,17 @@ function handleScript (dom, changePath) {
           moveFile(path.join(runPath, element.src), outPutFile)
         }
         if (++completeNum >= config.scriptList.length) {
+          // 如果有全局js则加入全局js
+          if (config.outPut.globalScript) {
+                  
+            const globalScriptData = fs.readFileSync(config.outPut.globalScript)
+            if (globalScriptData) {
+              logger.info(`add global script: ${config.outPut.globalScript}`)
+              scriptData += '\r\n    <script>\r\n' + globalScriptData + '\r\n    </script>'
+            } else {
+              logger.error('global script is set but file not found!')
+            }
+          }
           scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
