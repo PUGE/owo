@@ -19,7 +19,7 @@ function runPageFunction (pageName, entryDom) {
   // 判断页面是否有自己的方法
   var newPageFunction = window.ozzx.script[pageName]
   if (!newPageFunction) return
-  console.log(newPageFunction)
+  // console.log(newPageFunction)
   // 如果有created方法则执行
   if (newPageFunction.created) {
     // 注入运行环境
@@ -106,7 +106,6 @@ function pgNameHandler (dom) {
             if (parameterValue.charAt(0) === "'" && parameterValue.charAt(parameterValue.length - 1) === "'") {
               parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
             }
-            console.log(parameterArr[i])
             // console.log(parameterArr[i])
           }
           clickFor = clickFor.replace('(' + parameterList + ')', '')
@@ -116,7 +115,7 @@ function pgNameHandler (dom) {
         if (newPageFunction[clickFor]) {
           // 绑定window.ozzx对象
           // console.log(tempDom)
-          newPageFunction[clickFor].apply(newPageFunction, parameterArr)
+          newPageFunction[clickFor].apply(Object.assign(newPageFunction, {$el: this}), parameterArr)
         }
       }
     }

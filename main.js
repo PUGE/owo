@@ -215,6 +215,7 @@ function handleScript (dom, changePath) {
   // 判断是否存在页面切换特效
   const useAnimationList = config.outPut.useAnimationList || dom.useAnimationList
   if (useAnimationList.length > 0 || config.outPut.choiceAnimation) {
+    logger.info('animation!')
     coreScript += loadFile(path.join(corePath, 'animation.js'))
   }
   // 整合页面代码
