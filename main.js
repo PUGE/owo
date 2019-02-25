@@ -93,7 +93,8 @@ function handleStyle(dom, changePath) {
     const animationFilePath = path.join(corePath, 'animation', `animations.css`)
     outPutCss += loadFile(animationFilePath)
   } else {
-    dom.useAnimationList.forEach(animationName => {
+    const useAnimationList = config.outPut.useAnimationList || dom.useAnimationList
+    useAnimationList.forEach(animationName => {
       const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
       outPutCss += loadFile(animationFilePath)
     })
@@ -202,16 +203,18 @@ function handleScript (dom, changePath) {
   // 根据不同情况使用不同的core
   // 读取出核心代码
   let coreScript = loadFile(path.join(corePath, 'main.js'))
-  if (dom.isOnePage) {
+  if (config.pageList.length === 1) {
     // 单页面
     coreScript += loadFile(path.join(corePath, 'SinglePage.js'))
   } else {
     // 多页面
+    logger.info('multi page!')
     coreScript += loadFile(path.join(corePath, 'MultiPage.js'))
   }
   // 页面切换特效
   // 判断是否存在页面切换特效
-  if (dom.useAnimationList.length > 0 || config.outPut.choiceAnimation) {
+  const useAnimationList = config.outPut.useAnimationList || dom.useAnimationList
+  if (useAnimationList.length > 0 || config.outPut.choiceAnimation) {
     coreScript += loadFile(path.join(corePath, 'animation.js'))
   }
   // 整合页面代码
