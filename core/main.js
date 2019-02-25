@@ -26,7 +26,6 @@ function runPageFunction (pageName, entryDom) {
     newPageFunction.created.apply(assign(newPageFunction, {
       $el: entryDom,
       data: newPageFunction.data,
-      methods: newPageFunction.methods,
       activePage: window.ozzx.activePage,
       domList: window.ozzx.domList
     }))
@@ -47,7 +46,6 @@ function runPageFunction (pageName, entryDom) {
       templateScript.created.apply(assign(newPageFunction.template[key], {
         $el: domList[0].children[0],
         data: templateScript.data,
-        methods: templateScript.methods,
         activePage: window.ozzx.activePage,
         domList: window.ozzx.domList
       }))
@@ -75,11 +73,11 @@ function pgNameHandler (dom) {
     var clickFunc = tempDom.attributes['@click']
     
     if (clickFunc) {
+      
       tempDom.onclick = function() {
         var clickFor = this.attributes['@click'].textContent
         // 判断页面是否有自己的方法
         var newPageFunction = window.ozzx.script[window.ozzx.activePage]
-        
         // console.log(this.attributes)
         // 判断是否为模板
         var templateName = this.attributes['template']
@@ -91,36 +89,34 @@ function pgNameHandler (dom) {
         // 取出参数
         var parameterArr = []
         var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
+        
         if (parameterList && parameterList.length > 0) {
           // 参数列表
           parameterArr = parameterList[0].split(',')
           // 进一步处理参数
+          
           for (var i = 0; i < parameterArr.length; i++) {
             var parameterValue = parameterArr[i].replace(/(^\s*)|(\s*$)/g, "")
             // console.log(parameterValue)
             // 判断参数是否为一个字符串
+            
             if (parameterValue.charAt(0) === '"' && parameterValue.charAt(parameterValue.length - 1) === '"') {
-              parameterArr[i] = parameterValue.substring(1, parameterValue.length - 2)
+              parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
             }
             if (parameterValue.charAt(0) === "'" && parameterValue.charAt(parameterValue.length - 1) === "'") {
-              parameterArr[i] = parameterValue.substring(1, parameterValue.length - 2)
+              parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
             }
+            console.log(parameterArr[i])
             // console.log(parameterArr[i])
           }
           clickFor = clickFor.replace('(' + parameterList + ')', '')
         }
         // console.log(newPageFunction)
         // 如果有方法,则运行它
-        if (newPageFunction.methods[clickFor]) {
+        if (newPageFunction[clickFor]) {
           // 绑定window.ozzx对象
           // console.log(tempDom)
-          newPageFunction.methods[clickFor].apply({
-            $el: this,
-            activePage: window.ozzx.activePage,
-            domList: window.ozzx.domList,
-            data: newPageFunction.data,
-            methods: newPageFunction.methods
-          }, parameterArr)
+          newPageFunction[clickFor].apply(newPageFunction, parameterArr)
         }
       }
     }
