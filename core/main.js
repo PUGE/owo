@@ -115,7 +115,10 @@ function pgNameHandler (dom) {
         if (newPageFunction[clickFor]) {
           // 绑定window.ozzx对象
           // console.log(tempDom)
-          newPageFunction[clickFor].apply(Object.assign(newPageFunction, {$el: this}), parameterArr)
+          // 待测试不知道这样合并会不会对其它地方造成影响
+          newPageFunction.$el = this
+          newPageFunction.domList = window.ozzx.domList
+          newPageFunction[clickFor].apply(newPageFunction, parameterArr)
         }
       }
     }

@@ -2,7 +2,7 @@
 (function () {
   if ("WebSocket" in window) {
     // 打开一个 web socket
-    var ws = new WebSocket("ws://localhost:8000")
+    var ws = new WebSocket("ws://127.0.0.1:8000")
     ws.onmessage = function (evt) { 
       if (evt.data == 'reload') {
         location.reload()
