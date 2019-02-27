@@ -74,7 +74,7 @@ function pgNameHandler (dom) {
     
     if (clickFunc) {
       
-      tempDom.onclick = function() {
+      tempDom.onclick = function(event) {
         var clickFor = this.attributes['@click'].textContent
         // 判断页面是否有自己的方法
         var newPageFunction = window.ozzx.script[window.ozzx.activePage]
@@ -117,6 +117,7 @@ function pgNameHandler (dom) {
           // console.log(tempDom)
           // 待测试不知道这样合并会不会对其它地方造成影响
           newPageFunction.$el = this
+          newPageFunction.$event = event
           newPageFunction.domList = window.ozzx.domList
           newPageFunction[clickFor].apply(newPageFunction, parameterArr)
         }
