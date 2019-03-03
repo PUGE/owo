@@ -1,7 +1,6 @@
 let http = require('http')
 const fs = require('fs')
 const path = require('path')
-let querystring = require('querystring')
 const bodyHandle = require('./lib/page')
 
 const corePath = path.join(__dirname, 'core')

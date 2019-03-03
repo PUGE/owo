@@ -57,6 +57,9 @@ const config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
 const outPutPath = path.join(runPath, config.outFolder)
 const corePath = path.join(__dirname, 'core')
 
+// 静态资源目录
+const staticPath = path.join(outPutPath, 'static')
+
 // 读取指定目录文件
 function loadFile(path) {
   if (fs.existsSync(path)) {
@@ -109,7 +112,7 @@ function handleStyle(dom, changePath) {
     plugList.push(cssnano)
   }
   postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
-    const styleDir = path.join(outPutPath, 'css')
+    const styleDir = path.join(staticPath, 'css')
     result.warnings().forEach((warn) => {
       console.warn(warn.toString());
     })
@@ -123,9 +126,9 @@ function handleStyle(dom, changePath) {
       fs.mkdirSync(styleDir)
     }
     
-    styleData += `<link rel="stylesheet" href="./css/main${versionString}.css">`
+    styleData += `<link rel="stylesheet" href="./static/css/main${versionString}.css">`
     
-    fs.writeFileSync(path.join(outPutPath, 'css', `main${versionString}.css`), dom.style)
+    fs.writeFileSync(path.join(staticPath, 'css', `main${versionString}.css`), dom.style)
 
 
     let completeNum = 0
@@ -154,10 +157,10 @@ function handleStyle(dom, changePath) {
         
         continue
       } else {
-        styleData += `\r\n    <link rel="stylesheet" href="./css/${element.name}.css">`
+        styleData += `\r\n    <link rel="stylesheet" href="./static/css/${element.name}.css">`
       }
       // 输出路径
-      const outPutFile = path.join(outPutPath, 'css', `${element.name}.css`)
+      const outPutFile = path.join(staticPath, 'css', `${element.name}.css`)
       if (changePath === undefined || changePath === path.join(runPath, element.src)) {
         moveFile(path.join(runPath, element.src), outPutFile)
       }
@@ -233,7 +236,7 @@ function handleScript (dom, changePath) {
   dom.script = Script(coreScript, config.outPut.minifyJs).code
 
   // ----------------------------------------------- 输出js -----------------------------------------------
-  const scriptDir = path.join(outPutPath, 'js')
+  const scriptDir = path.join(staticPath, 'js')
   let scriptData = '<!-- 页面脚本 -->'
   if (!changePath) {
     // 删除目录
@@ -243,14 +246,14 @@ function handleScript (dom, changePath) {
     fs.mkdirSync(scriptDir)
   }
   // 写出主要硬盘文件
-  fs.writeFileSync(path.join(outPutPath, 'js' , `main${versionString}.js`), dom.script)
+  fs.writeFileSync(path.join(staticPath, 'js' , `main${versionString}.js`), dom.script)
   
   // 判断是否需要加入自动刷新代码
   if (config.autoReload) {
     if (!changePath) {
-      moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(outPutPath, 'js', `autoReload.js`))
+      moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(staticPath, 'js', `autoReload.js`))
     }
-    scriptData += '\r\n    <script src="./js/autoReload.js" type="text/javascript"></script>'
+    scriptData += '\r\n    <script src="./static/js/autoReload.js" type="text/javascript"></script>'
   }
 
   // 处理引用的script
@@ -281,16 +284,16 @@ function handleScript (dom, changePath) {
               logger.error('global script is set but file not found!')
             }
           }
-          scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
+          scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
         }
         continue
       } else {
-        scriptData += `\r\n    <script src="./js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+        scriptData += `\r\n    <script src="./static/js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
       }
       // 输出路径
-      const outPutFile = path.join(outPutPath, 'js', `${element.name}.js`)
+      const outPutFile = path.join(staticPath, 'js', `${element.name}.js`)
       // 判断是否用babel处理
       if (element.babel) {
         if (changePath === undefined || changePath === path.join(runPath, element.src)) {
@@ -311,7 +314,7 @@ function handleScript (dom, changePath) {
                     logger.error('global script is set but file not found!')
                   }
                 }
-                scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
+                scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
                 htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
                 outPutHtml()
               }
@@ -330,7 +333,7 @@ function handleScript (dom, changePath) {
                 logger.error('global script is set but file not found!')
               }
             }
-            scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
+            scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
             htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
             outPutHtml()
           }
@@ -352,7 +355,7 @@ function handleScript (dom, changePath) {
               logger.error('global script is set but file not found!')
             }
           }
-          scriptData += `\r\n    <script src="./js/main${versionString}.js" type="text/javascript"></script>`
+          scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
         }
@@ -380,15 +383,24 @@ function outPutHtml () {
 }
 // 执行默认打包任务
 function pack (changePath) {
-  // 生成版本号
-  if (!changePath) version = Math.random().toString(36).substr(2)
-
-  // 判断输出目录是否存在,如果不存在则创建目录
-  if (!fs.existsSync(outPutPath)) {
-    fs.mkdirSync(outPutPath)
-  }
   // 记录开始打包时间
   startTime = new Date().getTime()
+
+  // 判断输出目录是否存在,如果不存在则创建目录
+  if (!fs.existsSync(staticPath)) {
+    fs.mkdirSync(staticPath)
+  }
+  // 判断是否为更新
+  if (!changePath) {
+    // 生成版本号
+    version = Math.random().toString(36).substr(2)
+    // 清空静态文件目录
+    if (!fs.existsSync(staticPath)) {
+      DELDIR(staticPath)
+    }
+  }
+
+  
   
   // 读取入口模板文件(一次性读取到内存中)
   htmlTemple = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
