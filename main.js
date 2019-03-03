@@ -74,7 +74,7 @@ function loadFile(path) {
 function handleStyle(dom, changePath) {
   let styleData = ''
   // 版本号后缀
-  const versionString = config.outPut.outFileAddVersion ? `.${version}` : ''
+  const versionString = config.outPut.addVersion ? `.${version}` : ''
   let outPutCss = dom.style
   // 读取出全局样式
   if (config.outPut.globalStyle) {
@@ -126,8 +126,12 @@ function handleStyle(dom, changePath) {
       fs.mkdirSync(styleDir)
     }
     
-    styleData += `<link rel="stylesheet" href="./static/css/main${versionString}.css">`
+    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="./static/css/main${versionString}.css">`
     
+    // 判断是否输出时间
+    if (config.outPut.addTime) {
+      dom.style = `/* ${new Date().toString()} */\r\n` + dom.style
+    }
     fs.writeFileSync(path.join(staticPath, 'css', `main${versionString}.css`), dom.style)
 
 
@@ -138,6 +142,8 @@ function handleStyle(dom, changePath) {
       htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
       outPutHtml()
       return
+    } else {
+      styleData += `\r\n    <!-- 附属css文件 -->`
     }
     for (let ind = 0; ind < config.styleList.length; ind++) {
       const element = config.styleList[ind]
@@ -202,7 +208,7 @@ function moveFile (fromPath, toPath) {
 // 处理script
 function handleScript (dom, changePath) {
   // 版本号后缀
-  const versionString = config.outPut.outFileAddVersion ? `.${version}` : ''
+  const versionString = config.outPut.addVersion ? `.${version}` : ''
   // 根据不同情况使用不同的core
   // 读取出核心代码
   let coreScript = loadFile(path.join(corePath, 'main.js'))
@@ -245,6 +251,11 @@ function handleScript (dom, changePath) {
     // 重新创建目录
     fs.mkdirSync(scriptDir)
   }
+  
+  // 判断是否输出时间
+  if (config.outPut.addTime) {
+    dom.script = `// ${new Date().toString()}\r\n` + dom.script
+  }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `main${versionString}.js`), dom.script)
   
@@ -284,7 +295,7 @@ function handleScript (dom, changePath) {
               logger.error('global script is set but file not found!')
             }
           }
-          scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
+          scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
         }
@@ -314,7 +325,7 @@ function handleScript (dom, changePath) {
                     logger.error('global script is set but file not found!')
                   }
                 }
-                scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
+                scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
                 htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
                 outPutHtml()
               }
@@ -333,7 +344,7 @@ function handleScript (dom, changePath) {
                 logger.error('global script is set but file not found!')
               }
             }
-            scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
+            scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
             htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
             outPutHtml()
           }
@@ -355,7 +366,7 @@ function handleScript (dom, changePath) {
               logger.error('global script is set but file not found!')
             }
           }
-          scriptData += `\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
+          scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
           htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
           outPutHtml()
         }
@@ -372,6 +383,10 @@ function handleScript (dom, changePath) {
 function outPutHtml () {
   // logger.info(htmlTemple)
   if (!htmlTemple.includes('output')) {
+    // 判断是否输出时间
+    if (config.outPut.addTime) {
+      htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
+    }
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
     logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
 
