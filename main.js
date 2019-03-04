@@ -51,7 +51,20 @@ if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
 }
 
 // 读取配置文件
-const config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
+let config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
+
+// 判断使用哪套配置文件
+const processArgv = process.argv[2]
+if (processArgv) {
+  if (config[processArgv]) {
+    // 深拷贝
+    const processConfig = JSON.parse(JSON.stringify(config[processArgv]))
+    config = Object.assign(processConfig, config)
+  } else {
+    logger.error(`config name ${processArgv} not found in ozzx.js!`)
+    return
+  }
+}
 
 // 输出目录
 const outPutPath = path.join(runPath, config.outFolder)
@@ -59,6 +72,11 @@ const corePath = path.join(__dirname, 'core')
 
 // 静态资源目录
 const staticPath = path.join(outPutPath, 'static')
+
+// 获取配置项
+function getConfig (configName) {
+
+}
 
 // 读取指定目录文件
 function loadFile(path) {
@@ -434,7 +452,7 @@ function pack (changePath) {
 pack()
 
 // 判断是否开启文件变动自动重新打包
-if (config.watcher.enable) {
+if (config.watcher && config.watcher.enable) {
   let watcherFolder = config.watcher.folder
   if (!watcherFolder) {
     watcherFolder = './src'
@@ -481,4 +499,3 @@ if (config.server || config.autoReload) {
   app.listen(port)
   logger.info(`server is running at 127.0.0.1:${port}`)
 }
-
