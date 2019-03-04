@@ -52,3 +52,54 @@ pack
 * 支持自定义指定样式的useAnimationList属性
 * 支持循环嵌套
 * 网络模板名问题
+
+
+## tool
+
+### 1.getPopPosition
+
+```
+/**
+ * 智能计算弹窗合适出现的位置
+ * @param  {number} areaW 区域的宽度
+ * @param  {number} areaH 区域的高度
+ * @param  {number} boxW  弹窗的高度
+ * @param  {number} boxH  弹窗的高度
+ * @param  {number} x     出现点的X轴坐标
+ * @param  {number} y     出现点的Y轴坐标
+ * @return {object} 返回合适的位置信息
+ */
+```
+
+### 2.getScreenInfo
+
+```
+/**
+ * 获取屏幕信息
+ * @return {object} 屏幕信息
+ */
+```
+
+### 3.smoothChange
+
+```
+/**
+ * 平滑的改变值
+ * @param  {number} startValue 初始数值
+ * @param  {number} endValue   结束数值
+ * @param  {number} time       持续次数
+ * @param  {number} step       步长
+ * @param  {function} callBack 回调函数
+ * @return {object}            控制信息
+ */
+```
+
+### 4.toast
+
+```
+/**
+ * 显示toast提示
+ * @param  {number} text       显示的文字
+ * @param  {number} time       显示时长
+ */
+```

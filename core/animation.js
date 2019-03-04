@@ -76,7 +76,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   // console.log(oldUrlParam)
   // 如果源地址获取不到 那么一般是因为源页面为首页
   if (oldPage === undefined) {
-    oldPage = globalConfig.entry
+    oldPage = ozzx.entry
   } else {
     oldPage = oldPage.split('&')[0]
   }
@@ -105,5 +105,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   
   window.ozzx.activePage = newPage
+  // 更改$data链接
+  $data = ozzx.script[page].data
   runPageFunction(newPage, newDom)
 }

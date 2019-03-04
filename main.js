@@ -73,11 +73,6 @@ const corePath = path.join(__dirname, 'core')
 // 静态资源目录
 const staticPath = path.join(outPutPath, 'static')
 
-// 获取配置项
-function getConfig (configName) {
-
-}
-
 // 读取指定目录文件
 function loadFile(path) {
   if (fs.existsSync(path)) {
@@ -223,6 +218,26 @@ function moveFile (fromPath, toPath) {
   })
 }
 
+// 输出script
+function outPutScript (scriptData) {
+  // 版本号后缀
+  const versionString = config.outPut.addVersion ? `.${version}` : ''
+  // 如果有全局js则加入全局js
+  if (config.outPut.globalScript) {
+    const globalScriptData = fs.readFileSync(config.outPut.globalScript)
+    if (globalScriptData) {
+      logger.info(`add global script: ${config.outPut.globalScript}`)
+      scriptData += '\r\n<script>' + globalScriptData + '\r\n</script>'
+    } else {
+      logger.error('global script is set but file not found!')
+    }
+  }
+  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
+  htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
+  outPutHtml()
+}
+
+
 // 处理script
 function handleScript (dom, changePath) {
   // 版本号后缀
@@ -249,13 +264,13 @@ function handleScript (dom, changePath) {
   coreScript += dom.script
   // 处理使用到的方法
   let toolList = Cut.stringArray(coreScript, 'ozzx.tool.', '(')
+  let toolList2 = Cut.stringArray(coreScript, '$tool.', '(')
   // 数组去重
-  toolList = new Set(toolList)
+  toolList = new Set(toolList.concat(toolList2))
   toolList.forEach(element => {
     // console.log(element)
     coreScript += loadFile(path.join(corePath, 'tool', `${element}.js`))
   })
-  
   // 使用bable处理代码
   dom.script = Script(coreScript, config.outPut.minifyJs).code
 
@@ -303,19 +318,7 @@ function handleScript (dom, changePath) {
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script
         if (++completeNum >= config.scriptList.length) {
-          // 如果有全局js则加入全局js
-          if (config.outPut.globalScript) {
-            const globalScriptData = fs.readFileSync(config.outPut.globalScript)
-            if (globalScriptData) {
-              logger.info(`add global script: ${config.outPut.globalScript}`)
-              scriptData += '\r\n<script>' + globalScriptData + '\r\n</script>'
-            } else {
-              logger.error('global script is set but file not found!')
-            }
-          }
-          scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
-          htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-          outPutHtml()
+          outPutScript(scriptData)
         }
         continue
       } else {
@@ -351,20 +354,7 @@ function handleScript (dom, changePath) {
           })
         } else {
           if (++completeNum >= config.scriptList.length) {
-            // 如果有全局js则加入全局js
-            if (config.outPut.globalScript) {
-                  
-              const globalScriptData = fs.readFileSync(config.outPut.globalScript)
-              if (globalScriptData) {
-                logger.info(`add global script: ${config.outPut.globalScript}`)
-                scriptData += '\r\n    <script>\r\n' + globalScriptData + '\r\n    </script>'
-              } else {
-                logger.error('global script is set but file not found!')
-              }
-            }
-            scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
-            htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-            outPutHtml()
+            outPutScript(scriptData)
           }
         }
       } else {
@@ -373,20 +363,7 @@ function handleScript (dom, changePath) {
           moveFile(path.join(runPath, element.src), outPutFile)
         }
         if (++completeNum >= config.scriptList.length) {
-          // 如果有全局js则加入全局js
-          if (config.outPut.globalScript) {
-                  
-            const globalScriptData = fs.readFileSync(config.outPut.globalScript)
-            if (globalScriptData) {
-              logger.info(`add global script: ${config.outPut.globalScript}`)
-              scriptData += '\r\n    <script>\r\n' + globalScriptData + '\r\n    </script>'
-            } else {
-              logger.error('global script is set but file not found!')
-            }
-          }
-          scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
-          htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-          outPutHtml()
+          outPutScript(scriptData)
         }
       }
     }
