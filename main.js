@@ -391,15 +391,21 @@ function outPutHtml () {
     }
   }
 }
+
+// 判断输出目录是否存在,如果不存在则创建目录
+function creatDirIfNotExist (path) {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path)
+  }
+}
 // 执行默认打包任务
 function pack (changePath) {
   // 记录开始打包时间
   startTime = new Date().getTime()
 
-  // 判断输出目录是否存在,如果不存在则创建目录
-  if (!fs.existsSync(staticPath)) {
-    fs.mkdirSync(staticPath)
-  }
+  creatDirIfNotExist(outPutPath)
+  creatDirIfNotExist(staticPath)
+  
   // 判断是否为更新
   if (!changePath) {
     // 生成版本号
