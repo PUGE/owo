@@ -25,6 +25,6 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   window.ozzx.activePage = newPage
   // 更改$data链接
-  $data = ozzx.script[page].data
+  $data = ozzx.script[newPage].data
   runPageFunction(newPage, newDom)
 }

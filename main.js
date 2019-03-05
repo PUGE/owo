@@ -124,7 +124,9 @@ function handleStyle(dom, changePath) {
     })
   }
   // 处理css中的资源文件
-  outPutCss = resourceHandle(outPutCss, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), '../resource/')
+  if (config.resourceFolder) {
+    outPutCss = resourceHandle(outPutCss, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), '../resource/')
+  }
   // ----------------------------------------------- 使用postcss处理 -----------------------------------------------
   // 自动加浏览器前缀
   // console.log(autoprefixer.process)
@@ -302,7 +304,9 @@ function handleScript (dom, changePath) {
     dom.script = `// ${new Date().toString()}\r\n` + dom.script
   }
   // 处理js中的资源
-  dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+  if (config.resourceFolder) {
+    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+  }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `main${versionString}.js`), dom.script)
   
@@ -397,7 +401,10 @@ function outPutHtml () {
       htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
     }
     // 对html所引用的资源进行处理
-    htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+    if (config.resourceFolder) {
+      htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+    }
+    
     // 写出文件
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
     logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
