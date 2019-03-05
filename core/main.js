@@ -130,3 +130,7 @@ function pgNameHandler (dom) {
   }
 }
 
+// 便捷获取被命名的dom元素
+function $dom (domName) {
+  return ozzx.domList[domName]
+}

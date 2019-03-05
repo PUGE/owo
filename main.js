@@ -19,6 +19,10 @@ const cssnano = require('cssnano')
 const autoprefixer = require('autoprefixer')
 
 const bodyHandle = require('./lib/page')
+// 资源文件处理
+const resourceHandle = require('./lib/resource')
+// 配置文件检测
+const checkConfig = require('./lib/checkConfig')
 const Cut = require('./lib/cut')
 // 删除目录所有内容
 const DELDIR = require('./lib/delDir')
@@ -66,11 +70,15 @@ if (processArgv) {
   }
 }
 
+if (!checkConfig(config)) {
+  return
+}
+
 // 输出目录
 const outPutPath = path.join(runPath, config.outFolder)
 const corePath = path.join(__dirname, 'core')
 
-// 静态资源目录
+// 静态资源输出目录
 const staticPath = path.join(outPutPath, 'static')
 
 // 读取指定目录文件
@@ -115,7 +123,8 @@ function handleStyle(dom, changePath) {
       outPutCss += loadFile(animationFilePath)
     })
   }
-
+  // 处理css中的资源文件
+  outPutCss = resourceHandle(outPutCss, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), '../resource/')
   // ----------------------------------------------- 使用postcss处理 -----------------------------------------------
   // 自动加浏览器前缀
   // console.log(autoprefixer.process)
@@ -124,7 +133,9 @@ function handleStyle(dom, changePath) {
   if (config.minifyCss) {
     plugList.push(cssnano)
   }
+
   postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
+    // console.log(result)
     const styleDir = path.join(staticPath, 'css')
     result.warnings().forEach((warn) => {
       console.warn(warn.toString());
@@ -232,6 +243,7 @@ function outPutScript (scriptData) {
       logger.error('global script is set but file not found!')
     }
   }
+  
   scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
@@ -289,6 +301,8 @@ function handleScript (dom, changePath) {
   if (config.outPut.addTime) {
     dom.script = `// ${new Date().toString()}\r\n` + dom.script
   }
+  // 处理js中的资源
+  dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `main${versionString}.js`), dom.script)
   
@@ -310,7 +324,7 @@ function handleScript (dom, changePath) {
       
       // 判断是设置了路径
       if (!element.src) {
-        console.error('script path unset!', element)
+        logger.error('script path unset!', element)
         continue
       }
       // 如果是网络地址那么不需要进行处理
@@ -382,6 +396,9 @@ function outPutHtml () {
     if (config.outPut.addTime) {
       htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
     }
+    // 对html所引用的资源进行处理
+    htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+    // 写出文件
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
     logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
 
@@ -405,7 +422,7 @@ function pack (changePath) {
 
   creatDirIfNotExist(outPutPath)
   creatDirIfNotExist(staticPath)
-  
+
   // 判断是否为更新
   if (!changePath) {
     // 生成版本号
