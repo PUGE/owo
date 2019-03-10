@@ -18,9 +18,9 @@ npm i
 或
 yarn
 
-开始打包
+运行
 
-pack
+pack dev
 
 进度列表:
 

@@ -1,6 +1,6 @@
 {
   "name": "ozzx",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -29,9 +29,7 @@
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "^7.0.0",
     "jsdom": "^13.1.0",
-    "less": "^3.9.0",
     "log4js": "^3.0.6",
-    "node-sass": "^4.11.0",
     "pkg-dir": "^3.0.0",
     "postcss": "^7.0.14",
     "precss": "^4.0.0",

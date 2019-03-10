@@ -45,6 +45,8 @@ logger.level = 'info'
 const runPath = process.cwd()
 let startTime = null
 
+// 输出运行目录
+logger.info(runPath)
 // 当前打包的模板
 let htmlTemple = ''
 
