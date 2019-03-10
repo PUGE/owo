@@ -53,7 +53,6 @@ pack dev
 * 支持压缩图片(png.jpg)                             √
 * 支持自定义指定样式的useAnimationList属性
 * 支持循环嵌套
-* 网络模板名问题
 
 
 ## tool
