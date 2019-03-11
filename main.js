@@ -50,6 +50,10 @@ let startTime = null
 logger.info(runPath)
 // 当前打包的模板
 let htmlTemple = ''
+// 当前打包的动画样式
+let animationList = new Set()
+
+let animationData = ''
 
 // 判断运行目录下是否包含配置文件
 if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
@@ -104,19 +108,9 @@ function handleStyle(dom, changePath) {
   let outPutCss = loadFile(mainStyle) + `\r\n` + dom.style
   
   // --------------------------------- 动画效果 ---------------------------------------------
-  // 判断是自动判断使用的动画效果还是用户指定
-  if (config.outPut.choiceAnimation) {
-    logger.debug('用户设置加载全部动画效果!')
-    // 加载全部特效
-    const animationFilePath = path.join(corePath, 'animation', `animations.css`)
-    outPutCss += loadFile(animationFilePath)
-  } else {
-    const useAnimationList = config.outPut.useAnimationList || dom.useAnimationList
-    useAnimationList.forEach(animationName => {
-      const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
-      outPutCss += loadFile(animationFilePath)
-    })
-  }
+  dom.useAnimationList.forEach(element => {
+    animationList.add(element)
+  })
   // 处理css中的资源文件
   if (config.resourceFolder) {
     const resourceFolder = path.join(runPath, config.resourceFolder)
@@ -140,20 +134,14 @@ function handleStyle(dom, changePath) {
     // console.log('css处理完毕!')
     dom.style = result.css
     // ----------------------------------------------- 输出css -----------------------------------------------
-    if (!changePath) {
-      DELDIR(styleDir)
-      logger.debug(`delete css dir success!`)
-      // 重新创建目录
-      fs.mkdirSync(styleDir)
-    }
     
-    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="./static/css/ozzx-main${versionString}.css">`
+    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="./static/css/ozzx.main${versionString}.css">`
     
     // 判断是否输出时间
     if (config.outPut.addTime) {
       dom.style = `/* ${new Date().toString()} */\r\n` + dom.style
     }
-    fs.writeFileSync(path.join(staticPath, 'css', `ozzx-main${versionString}.css`), dom.style)
+    fs.writeFileSync(path.join(staticPath, 'css', `ozzx.main${versionString}.css`), dom.style)
 
 
     let completeNum = 0
@@ -189,7 +177,7 @@ function handleStyle(dom, changePath) {
       // 输出路径
       const outPutFile = path.join(staticPath, 'css', `${element.name}.css`)
       if (changePath === undefined || changePath === path.join(runPath, element.src)) {
-        moveFile(path.join(runPath, element.src), outPutFile)
+        Tool.moveFile(path.join(runPath, element.src), outPutFile)
       }
       if (++completeNum >= config.styleList.length) {
         htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
@@ -216,28 +204,36 @@ function handleHrard(headList) {
   outPutHtml()
 }
 
-// 复制文件到指定路径
-function moveFile (fromPath, toPath) {
-  fs.readFile(fromPath, (err, fileData) => {
-    if (err) throw err
-    fs.writeFile(toPath, fileData, () => {
-      logger.info(`copy file: ${toPath}`)
-    })
-  })
-}
-
 // 输出script
 function outPutScript (scriptData) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
 
   
-  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/ozzx-main${versionString}.js" type="text/javascript"></script>`
+  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/ozzx.main${versionString}.js" type="text/javascript"></script>`
   // console.log(scriptData)
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
 }
 
+// 输出页面切换动画
+function outPutAnimation () {
+  if (animationList.length === 0) {
+    htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, '')
+  } else {
+    const versionString = config.outPut.addVersion ? `.${version}` : ''
+    animationList.forEach(animationName => {
+      const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
+      animationData += loadFile(animationFilePath)
+    })
+    // 输出动画样式文件
+    const animationPath = path.join(staticPath, 'css', `ozzx.animation${versionString}.css`)
+    Tool.creatDirIfNotExist(path.join(staticPath, 'css'))
+    logger.info(`write file: ${animationPath}`)
+    fs.writeFileSync(animationPath, animationData)
+    htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="./static/css/ozzx.animation${versionString}.css">`)
+  }
+}
 
 // 处理script
 function handleScript (dom, changePath) {
@@ -254,15 +250,35 @@ function handleScript (dom, changePath) {
     logger.info('multi page!')
     coreScript += loadFile(path.join(corePath, 'MultiPage.js'))
   }
+  // 整合页面代码
+  coreScript += dom.script
   // 页面切换特效
-  // 判断是否存在页面切换特效
-  const useAnimationList = config.outPut.useAnimationList || dom.useAnimationList
-  if (useAnimationList.length > 0 || config.outPut.choiceAnimation) {
+  // 处理使用到的特效
+  let useAnimationList = Cut.stringArray(coreScript, '$go(', ')')
+  // 遍历特效函数
+  useAnimationList.forEach(element => {
+    element = element.replace(/"/g, '')
+    element = element.replace(/'/g, '')
+    element = element.replace(/ /g, '')
+    // 取出每一个参数
+    const parameterList = element.split(',')
+    if (parameterList[1]) {
+      animationList.add(parameterList[1])
+    }
+    if (parameterList[2]) {
+      animationList.add(parameterList[2])
+    }
+    
+  })
+  
+  outPutAnimation()
+  // console.log(animationList.size)
+  // 取出js中的页面切换特效
+  if (animationList.size > 0) {
     logger.info('animation!')
     coreScript += loadFile(path.join(corePath, 'animation.js'))
   }
-  // 整合页面代码
-  coreScript += dom.script
+  
   // 处理使用到的方法
   let toolList = Cut.stringArray(coreScript, 'ozzx.tool.', '(')
   let toolList2 = Cut.stringArray(coreScript, '$tool.', '(')
@@ -278,13 +294,6 @@ function handleScript (dom, changePath) {
   // ----------------------------------------------- 输出js -----------------------------------------------
   const scriptDir = path.join(staticPath, 'js')
   let scriptData = '<!-- 页面脚本 -->'
-  if (!changePath) {
-    // 删除目录
-    DELDIR(scriptDir)
-    logger.debug(`delete script dir success!`)
-    // 重新创建目录
-    fs.mkdirSync(scriptDir)
-  }
   
   // 判断是否输出时间
   if (config.outPut.addTime) {
@@ -295,12 +304,12 @@ function handleScript (dom, changePath) {
     dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
   }
   // 写出主要硬盘文件
-  fs.writeFileSync(path.join(staticPath, 'js' , `ozzx-main${versionString}.js`), dom.script)
+  fs.writeFileSync(path.join(staticPath, 'js' , `ozzx.main${versionString}.js`), dom.script)
   
   // 判断是否需要加入自动刷新代码
   if (config.autoReload) {
     if (!changePath) {
-      moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(staticPath, 'js', `autoReload.js`))
+      Tool.moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(staticPath, 'js', `autoReload.js`))
     }
     scriptData += '\r\n    <script src="./static/js/autoReload.js" type="text/javascript"></script>'
   }
@@ -352,7 +361,7 @@ function handleScript (dom, changePath) {
       } else {
         // 如果不使用babel处理则进行复制文件
         if (changePath === undefined || changePath === path.join(runPath, element.src)) {
-          moveFile(path.join(runPath, element.src), outPutFile)
+          Tool.moveFile(path.join(runPath, element.src), outPutFile)
         }
         if (++completeNum >= config.scriptList.length) {
           outPutScript(scriptData)
@@ -367,7 +376,7 @@ function handleScript (dom, changePath) {
 
 
 function outPutHtml () {
-  // logger.info(htmlTemple)
+  // 如果文档中已经不存在output那么证明已经可以进行输出了
   if (!htmlTemple.includes('output')) {
     // 判断是否输出时间
     if (config.outPut.addTime) {

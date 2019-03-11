@@ -52,7 +52,6 @@ pack dev
 * 支持通过一个配置文件自定义多个打包配置                             √
 * 支持资源统一管理(在项目中引用外部图片,音频等文件时不需要考虑文件实际存放位置)                                                 √
 * 支持压缩图片(png.jpg)                             √
-* 支持自定义指定样式的useAnimationList属性
 * 支持循环嵌套
 
 
@@ -104,4 +103,13 @@ pack dev
  * @param  {number} text       显示的文字
  * @param  {number} time       显示时长
  */
+```
+
+
+内置函数
+
+1. $go - 跳转到其他页面
+使用方法
+```
+$go('auth', 'moveToLeft', 'moveFromRight')
 ```

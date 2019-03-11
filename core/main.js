@@ -134,3 +134,8 @@ function pgNameHandler (dom) {
 function $dom (domName) {
   return ozzx.domList[domName]
 }
+
+// 跳转到指定页面
+function $go (pageName, inAnimation, outAnimation) {
+  window.location.href = "#"+ pageName + "&in=" + inAnimation +"&out=" + outAnimation
+}

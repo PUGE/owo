@@ -20,6 +20,9 @@ function dispalyEffect (oldDom, newDom) {
 
 // 切换页面动画
 function animation (oldDom, newDom, animationIn, animationOut) {
+  if (!oldDom) {
+    console.error('旧页面不存在!')
+  }
   oldDom.addEventListener("animationend", oldDomFun)
   newDom.addEventListener("animationend", newDomFun)
   
