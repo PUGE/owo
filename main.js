@@ -6,11 +6,28 @@ const path = require('path')
 // 文件变动检测
 const chokidar = require('chokidar')
 const Tool = require('./lib/tool')
-
-const Script = require('./lib/script')
+const Hrard = require('./lib/handle/hrard')
+const Script = require('./lib/handle/script')
+const Body = require('./lib/handle/body')
 // 日志输出
-const { getLogger } = require('log4js')
-const logger = getLogger()
+const log4js = require('log4js')
+
+// 输出到文件
+log4js.configure({
+  appenders: {
+    cheese: {
+      type: 'file',
+      filename: 'ozzx.log'
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['cheese'],
+      level: 'all'
+    }
+  }
+})
+const logger = log4js.getLogger('main.js')
 
 // js预处理
 const postcss      = require('postcss')
@@ -19,14 +36,12 @@ const precss = require('precss')
 const cssnano = require('cssnano')
 const autoprefixer = require('autoprefixer')
 
-const bodyHandle = require('./lib/page')
+
 // 资源文件处理
 const resourceHandle = require('./lib/resource')
 // 配置文件检测
 const checkConfig = require('./lib/checkConfig')
 const Cut = require('./lib/cut')
-// 删除目录所有内容
-const DELDIR = require('./lib/delDir')
 
 // Web 框架
 const express = require('express')
@@ -40,14 +55,12 @@ let version = ''
 
 // 配置日志输出等级
 // logger.level = 'debug'
-logger.level = 'info'
+logger.level = 'all'
 
 // 命令行运行目录
 const runPath = process.cwd()
 let startTime = null
 
-// 输出运行目录
-logger.info(runPath)
 // 当前打包的模板
 let htmlTemple = ''
 // 当前打包的动画样式
@@ -187,23 +200,6 @@ function handleStyle(dom, changePath) {
   })
 }
 
-// 处理heard
-function handleHrard(headList) {
-  // 取出所有Heard标识
-  let heardData = '<!-- 页面的元信息 -->'
-  headList.forEach(element => {
-    let heard = `\r\n    <meta`
-    for (const key in element) {
-      const value = element[key]
-      heard += ` ${key}="${value}"`
-    }
-    heard += `/>`
-    heardData += `${heard}`
-  })
-  htmlTemple = htmlTemple.replace(`<!-- *head* -->`, heardData)
-  outPutHtml()
-}
-
 // 输出script
 function outPutScript (scriptData) {
   // 版本号后缀
@@ -229,7 +225,7 @@ function outPutAnimation () {
     // 输出动画样式文件
     const animationPath = path.join(staticPath, 'css', `ozzx.animation${versionString}.css`)
     Tool.creatDirIfNotExist(path.join(staticPath, 'css'))
-    logger.info(`write file: ${animationPath}`)
+    logger.info(`写文件: ${animationPath}`)
     fs.writeFileSync(animationPath, animationData)
     htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="./static/css/ozzx.animation${versionString}.css">`)
   }
@@ -247,7 +243,7 @@ function handleScript (dom, changePath) {
     coreScript += loadFile(path.join(corePath, 'SinglePage.js'))
   } else {
     // 多页面
-    logger.info('multi page!')
+    logger.info('工程中包含多个页面!')
     coreScript += loadFile(path.join(corePath, 'MultiPage.js'))
   }
   // 整合页面代码
@@ -275,7 +271,7 @@ function handleScript (dom, changePath) {
   // console.log(animationList.size)
   // 取出js中的页面切换特效
   if (animationList.size > 0) {
-    logger.info('animation!')
+    logger.info('项目中包含有页面切换动画!')
     coreScript += loadFile(path.join(corePath, 'animation.js'))
   }
   
@@ -293,6 +289,8 @@ function handleScript (dom, changePath) {
 
   // ----------------------------------------------- 输出js -----------------------------------------------
   const scriptDir = path.join(staticPath, 'js')
+  // 判断并创建js目录
+  Tool.creatDirIfNotExist(scriptDir)
   let scriptData = '<!-- 页面脚本 -->'
   
   // 判断是否输出时间
@@ -346,7 +344,7 @@ function handleScript (dom, changePath) {
           fs.readFile(path.join(runPath, element.src), (err, fileData) => {
             if (err) throw err
             fs.writeFile(outPutFile, Script(fileData, config.outPut.minifyJs).code, () => {
-              logger.info(`bable and out put file: ${outPutFile}`)
+              logger.info(`使用babel处理并生成文件: ${outPutFile}`)
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum >= config.scriptList.length) {
                 outPutScript(scriptData)
@@ -389,7 +387,7 @@ function outPutHtml () {
     
     // 写出文件
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
-    logger.info(`Package success! use time ${new Date().getTime() - startTime}`)
+    logger.info(`编译成功! 用时: ${new Date().getTime() - startTime}`)
 
     if (config.autoReload) {
       // 广播发送重新打包消息
@@ -400,30 +398,49 @@ function outPutHtml () {
 
 // 执行默认打包任务
 function pack (changePath) {
+  
   // 记录开始打包时间
   startTime = new Date().getTime()
-
-  Tool.creatDirIfNotExist(outPutPath)
-  Tool.creatDirIfNotExist(staticPath)
-
+  logger.info(`--------------------------- 开始编译 ---------------------------`)
+  // 输出运行目录
+  logger.info(`程序运行目录: ${runPath}`)
+  
+  
+  
   // 判断是否为更新
   if (!changePath) {
+    logger.info(`首次启动!`)
     // 生成版本号
     version = Math.random().toString(36).substr(2)
+    logger.info(`生成版本号: ${version}`)
     // 清空静态文件目录
-    if (!fs.existsSync(staticPath)) {
-      DELDIR(staticPath)
+    if (fs.existsSync(staticPath)) {
+      Tool.delDir(staticPath)
+      logger.info(`清理资源文件夹: ${staticPath}`)
     }
+    // 创建目录
+    Tool.creatDirIfNotExist(outPutPath)
+    Tool.creatDirIfNotExist(staticPath)
+  } else {
+    logger.info(`刷新模式,变化目录: ${changePath}`)
   }
 
   
   
   // 读取入口模板文件(一次性读取到内存中)
-  htmlTemple = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+  const templeFile = path.join(__dirname, 'index.html')
+  logger.info(`读取模板文件: ${templeFile}`)
+  htmlTemple = fs.readFileSync(templeFile, 'utf8')
+
   // 处理title
+  logger.debug(`读取网页标题: ${config.title}`)
   htmlTemple = htmlTemple.replace('{{title}}', config.title || 'ozzx')
-  handleHrard(config.headList)
-  const dom = bodyHandle(htmlTemple, config)
+
+  logger.debug(`处理页面源信息: ${JSON.stringify(config.headList)}`)
+
+  htmlTemple = Hrard(config.headList, htmlTemple)
+
+  const dom = Body(htmlTemple, config)
   htmlTemple = dom.html
   // 处理style
   handleStyle(dom, changePath)
@@ -480,5 +497,5 @@ if (config.autoReload) {
 if (config.server || config.autoReload) {
   const port = config.serverPort || 8000
   app.listen(port)
-  logger.info(`server is running at 127.0.0.1:${port}`)
+  logger.info(`服务器运行在: 127.0.0.1:${port}`)
 }
