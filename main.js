@@ -98,7 +98,9 @@ function handleStyle(dom, changePath) {
   let styleData = ''
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
-  let outPutCss = dom.style
+  // 添加入框架内置样式
+  const mainStyle = path.join(corePath, `main.css`)
+  let outPutCss = loadFile(mainStyle) + `\r\n` + dom.style
   
   // --------------------------------- 动画效果 ---------------------------------------------
   // 判断是自动判断使用的动画效果还是用户指定
