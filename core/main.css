@@ -9,3 +9,7 @@ body, html, .ox {
 .clear {
   clear: both;
 }
+
+.ozzx-animation {
+  overflow: hidden;
+}

@@ -27,6 +27,7 @@ function animation (oldDom, newDom, animationIn, animationOut) {
   newDom.addEventListener("animationend", newDomFun)
   
   oldDom.style.position = 'absolute'
+  oldDom.style.overflow = 'hidden'
 
   newDom.style.display = 'block'
   newDom.style.position = 'absolute'
@@ -34,10 +35,12 @@ function animation (oldDom, newDom, animationIn, animationOut) {
   animationIn.split(',').forEach(value => {
     console.log('add:' +  value)
     oldDom.classList.add('ox-page-' + value)
+    oldDom.classList.add('ozzx-animation')
   })
   animationOut.split(',').forEach(value => {
     console.log('add:' +  value)
     newDom.classList.add('ox-page-' + value)
+    oldDom.classList.add('ozzx-animation')
   })
   // 旧DOM执行函数
   function oldDomFun () {
@@ -49,6 +52,7 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     animationIn.split(',').forEach(value => {
       console.log('del:' +  value)
       oldDom.classList.remove('ox-page-' + value)
+      oldDom.classList.remove('ozzx-animation')
     })
     // 移除监听
     oldDom.removeEventListener('animationend', oldDomFun, false)
@@ -61,6 +65,7 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     animationOut.split(',').forEach(value => {
       console.log('del:' +  value)
       newDom.classList.remove('ox-page-' + value)
+      newDom.classList.remove('ozzx-animation')
     })
     // 移除监听
     newDom.removeEventListener('animationend', newDomFun, false)
