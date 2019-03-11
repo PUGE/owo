@@ -120,6 +120,9 @@ function pgNameHandler (dom) {
           newPageFunction.$event = event
           newPageFunction.domList = window.ozzx.domList
           newPageFunction[clickFor].apply(newPageFunction, parameterArr)
+        } else {
+          // 如果没有此方法则弹出警告
+          console.error("Can't find function: " + clickFor)
         }
       }
     }
