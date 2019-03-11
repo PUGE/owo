@@ -220,7 +220,7 @@ function outPutAnimation () {
     const versionString = config.outPut.addVersion ? `.${version}` : ''
     animationList.forEach(animationName => {
       const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
-      animationData += loadFile(animationFilePath)
+      animationData += loadFile(animationFilePath) + '\r\n'
     })
     // 输出动画样式文件
     const animationPath = path.join(staticPath, 'css', `ozzx.animation${versionString}.css`)
