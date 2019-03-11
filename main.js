@@ -99,17 +99,6 @@ function handleStyle(dom, changePath) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
   let outPutCss = dom.style
-  // 读取出全局样式
-  if (config.outPut.globalStyle) {
-    const mainStylePath = path.join(runPath, config.outPut.globalStyle)
-    if (fs.existsSync(mainStylePath)) {
-      const mainStyle = fs.readFileSync(path.join(runPath, config.outPut.globalStyle), 'utf8') + '\r\n'
-      // 混合css
-      outPutCss = mainStyle + outPutCss
-    } else {
-      logger.error(`globalStyle file not find!`)
-    }
-  }
   
   // --------------------------------- 动画效果 ---------------------------------------------
   // 判断是自动判断使用的动画效果还是用户指定
@@ -237,16 +226,7 @@ function moveFile (fromPath, toPath) {
 function outPutScript (scriptData) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
-  // 如果有全局js则加入全局js
-  if (config.outPut.globalScript) {
-    const globalScriptData = fs.readFileSync(config.outPut.globalScript)
-    if (globalScriptData) {
-      logger.info(`add global script: ${config.outPut.globalScript}`)
-      scriptData += '\r\n<script>' + globalScriptData + '\r\n</script>'
-    } else {
-      logger.error('global script is set but file not found!')
-    }
-  }
+
   
   scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
@@ -355,17 +335,6 @@ function handleScript (dom, changePath) {
               logger.info(`bable and out put file: ${outPutFile}`)
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum >= config.scriptList.length) {
-                // 如果有全局js则加入全局js
-                if (config.outPut.globalScript) {
-                  
-                  const globalScriptData = fs.readFileSync(config.outPut.globalScript)
-                  if (globalScriptData) {
-                    logger.info(`add global script: ${config.outPut.globalScript}`)
-                    scriptData += '\r\n    <script>\r\n' + globalScriptData + '\r\n    </script>'
-                  } else {
-                    logger.error('global script is set but file not found!')
-                  }
-                }
                 scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
                 htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
                 outPutHtml()
