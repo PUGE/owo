@@ -4,3 +4,8 @@ body, html, .ox {
   width: 100%;
   height: 100%;
 }
+
+/* 清除浮动 */
+.clear {
+  clear: both;
+}

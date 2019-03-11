@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 // 文件变动检测
 const chokidar = require('chokidar')
+const Tool = require('./lib/tool')
 
 const Script = require('./lib/script')
 // 日志输出
@@ -118,7 +119,8 @@ function handleStyle(dom, changePath) {
   }
   // 处理css中的资源文件
   if (config.resourceFolder) {
-    outPutCss = resourceHandle(outPutCss, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), '../resource/')
+    const resourceFolder = path.join(runPath, config.resourceFolder)
+    outPutCss = resourceHandle(outPutCss, resourceFolder, path.join(staticPath, 'resource'), '../resource/')
   }
   // ----------------------------------------------- 使用postcss处理 -----------------------------------------------
   // 自动加浏览器前缀
@@ -145,13 +147,13 @@ function handleStyle(dom, changePath) {
       fs.mkdirSync(styleDir)
     }
     
-    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="./static/css/main${versionString}.css">`
+    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="./static/css/ozzx-main${versionString}.css">`
     
     // 判断是否输出时间
     if (config.outPut.addTime) {
       dom.style = `/* ${new Date().toString()} */\r\n` + dom.style
     }
-    fs.writeFileSync(path.join(staticPath, 'css', `main${versionString}.css`), dom.style)
+    fs.writeFileSync(path.join(staticPath, 'css', `ozzx-main${versionString}.css`), dom.style)
 
 
     let completeNum = 0
@@ -230,7 +232,8 @@ function outPutScript (scriptData) {
   const versionString = config.outPut.addVersion ? `.${version}` : ''
 
   
-  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
+  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/ozzx-main${versionString}.js" type="text/javascript"></script>`
+  // console.log(scriptData)
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
 }
@@ -292,7 +295,7 @@ function handleScript (dom, changePath) {
     dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
   }
   // 写出主要硬盘文件
-  fs.writeFileSync(path.join(staticPath, 'js' , `main${versionString}.js`), dom.script)
+  fs.writeFileSync(path.join(staticPath, 'js' , `ozzx-main${versionString}.js`), dom.script)
   
   // 判断是否需要加入自动刷新代码
   if (config.autoReload) {
@@ -337,9 +340,7 @@ function handleScript (dom, changePath) {
               logger.info(`bable and out put file: ${outPutFile}`)
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum >= config.scriptList.length) {
-                scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/main${versionString}.js" type="text/javascript"></script>`
-                htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-                outPutHtml()
+                outPutScript(scriptData)
               }
             })
           })
@@ -360,8 +361,7 @@ function handleScript (dom, changePath) {
     }
   } else {
     // 如果没有引用script，则直接输出html
-    htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
-    outPutHtml()
+    outPutScript(scriptData)
   }
 }
 
@@ -389,19 +389,13 @@ function outPutHtml () {
   }
 }
 
-// 判断输出目录是否存在,如果不存在则创建目录
-function creatDirIfNotExist (path) {
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path)
-  }
-}
 // 执行默认打包任务
 function pack (changePath) {
   // 记录开始打包时间
   startTime = new Date().getTime()
 
-  creatDirIfNotExist(outPutPath)
-  creatDirIfNotExist(staticPath)
+  Tool.creatDirIfNotExist(outPutPath)
+  Tool.creatDirIfNotExist(staticPath)
 
   // 判断是否为更新
   if (!changePath) {
