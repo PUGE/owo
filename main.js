@@ -211,9 +211,8 @@ function outPutScript (scriptData) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
 
-  
   scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/ozzx.main${versionString}.js" type="text/javascript"></script>`
-  // console.log(scriptData)
+
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
 }
@@ -270,7 +269,6 @@ function handleScript (dom, changePath) {
     if (parameterList[2]) {
       animationList.add(parameterList[2])
     }
-    
   })
   
   outPutAnimation()
@@ -462,14 +460,9 @@ pack()
 
 // 判断是否开启文件变动自动重新打包
 if (config.watcher && config.watcher.enable) {
-  let watcherFolder = config.watcher.folder
-  if (!watcherFolder) {
-    watcherFolder = './src'
-    logger.error('watcher is enable, but watcher.folder not set! use default value: "./src"')
-  } else {
-    watcherFolder = path.join(runPath, watcherFolder)
-    logger.info(`watcher folder: ${watcherFolder}`)
-  }
+  let watcherFolder = config.root
+  watcherFolder = path.join(runPath, watcherFolder)
+  logger.info(`监控文件夹变化: ${watcherFolder}`)
   // 文件变动检测
   const watcher = chokidar.watch(watcherFolder, {
     // 忽略目录
