@@ -101,16 +101,6 @@ const corePath = path.join(__dirname, 'core')
 // 静态资源输出目录
 const staticPath = path.join(outPutPath, 'static')
 
-// 读取指定目录文件
-function loadFile(path) {
-  if (fs.existsSync(path)) {
-    return fs.readFileSync(path, 'utf8')
-  } else {
-    logger.error(`file does not exist: ${path}`)
-    return ''
-  }
-}
-
 // 处理style
 function handleStyle(dom, changePath) {
   let styleData = ''
@@ -118,7 +108,7 @@ function handleStyle(dom, changePath) {
   const versionString = config.outPut.addVersion ? `.${version}` : ''
   // 添加入框架内置样式
   const mainStyle = path.join(corePath, `main.css`)
-  let outPutCss = loadFile(mainStyle) + `\r\n` + dom.style
+  let outPutCss = Tool.loadFile(mainStyle) + `\r\n` + dom.style
   
   // --------------------------------- 动画效果 ---------------------------------------------
   dom.useAnimationList.forEach(element => {
@@ -189,8 +179,24 @@ function handleStyle(dom, changePath) {
       }
       // 输出路径
       const outPutFile = path.join(staticPath, 'css', `${element.name}.css`)
-      if (changePath === undefined || changePath === path.join(runPath, element.src)) {
-        Tool.moveFile(path.join(runPath, element.src), outPutFile)
+      const fromPath = path.join(runPath, element.src)
+      if (changePath === undefined || changePath === fromPath) {
+        // 判断是否需要处理资源
+        if (element.resource) {
+          // 处理资源并移动
+          const resourceFolder = path.join(runPath, config.resourceFolder)
+          fs.readFile(fromPath, (err, fileData) => {
+            logger.info(`读取成功: ${fromPath}`)
+            if (err) throw err
+            fileData = resourceHandle(fileData.toString(), resourceFolder, path.join(staticPath, 'resource'), '../resource/')
+            fs.writeFile(outPutFile, fileData, () => {
+              logger.info(`写入文件: ${outPutFile}`)
+            })
+          })
+        } else {
+          // 不需要处理则直接移动就可以了
+          Tool.moveFile(fromPath, outPutFile)
+        }
       }
       if (++completeNum >= config.styleList.length) {
         htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
@@ -220,7 +226,7 @@ function outPutAnimation () {
     const versionString = config.outPut.addVersion ? `.${version}` : ''
     animationList.forEach(animationName => {
       const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
-      animationData += loadFile(animationFilePath) + '\r\n'
+      animationData += Tool.loadFile(animationFilePath) + '\r\n'
     })
     // 输出动画样式文件
     const animationPath = path.join(staticPath, 'css', `ozzx.animation${versionString}.css`)
@@ -237,14 +243,14 @@ function handleScript (dom, changePath) {
   const versionString = config.outPut.addVersion ? `.${version}` : ''
   // 根据不同情况使用不同的core
   // 读取出核心代码
-  let coreScript = loadFile(path.join(corePath, 'main.js'))
+  let coreScript = Tool.loadFile(path.join(corePath, 'main.js'))
   if (config.pageList.length === 1) {
     // 单页面
-    coreScript += loadFile(path.join(corePath, 'SinglePage.js'))
+    coreScript += Tool.loadFile(path.join(corePath, 'SinglePage.js'))
   } else {
     // 多页面
     logger.info('工程中包含多个页面!')
-    coreScript += loadFile(path.join(corePath, 'MultiPage.js'))
+    coreScript += Tool.loadFile(path.join(corePath, 'MultiPage.js'))
   }
   // 整合页面代码
   coreScript += dom.script
@@ -272,7 +278,10 @@ function handleScript (dom, changePath) {
   // 取出js中的页面切换特效
   if (animationList.size > 0) {
     logger.info('项目中包含有页面切换动画!')
-    coreScript += loadFile(path.join(corePath, 'animation.js'))
+    coreScript += Tool.loadFile(path.join(corePath, 'animation.js'))
+  } else {
+    logger.debug('页面中不包含切换动画!')
+    coreScript += Tool.loadFile(path.join(corePath, 'noAnimation.js'))
   }
   
   // 处理使用到的方法
@@ -282,7 +291,7 @@ function handleScript (dom, changePath) {
   toolList = new Set(toolList.concat(toolList2))
   toolList.forEach(element => {
     // console.log(element)
-    coreScript += loadFile(path.join(corePath, 'tool', `${element}.js`))
+    coreScript += Tool.loadFile(path.join(corePath, 'tool', `${element}.js`))
   })
   // 使用bable处理代码
   dom.script = Script(coreScript, config.outPut.minifyJs).code
@@ -387,8 +396,8 @@ function outPutHtml () {
     
     // 写出文件
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
-    logger.info(`编译成功! 用时: ${new Date().getTime() - startTime}`)
-
+    console.log(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
+    logger.info(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
     if (config.autoReload) {
       // 广播发送重新打包消息
       wsServe.getWss().clients.forEach(client => client.send('reload'))

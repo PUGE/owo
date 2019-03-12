@@ -27,18 +27,15 @@ function animation (oldDom, newDom, animationIn, animationOut) {
   newDom.addEventListener("animationend", newDomFun)
   
   oldDom.style.position = 'absolute'
-  oldDom.style.overflow = 'hidden'
 
   newDom.style.display = 'block'
   newDom.style.position = 'absolute'
   // document.body.style.overflow = 'hidden'
   animationIn.split(',').forEach(value => {
-    console.log('add:' +  value)
     oldDom.classList.add('ox-page-' + value)
     oldDom.classList.add('ozzx-animation')
   })
   animationOut.split(',').forEach(value => {
-    console.log('add:' +  value)
     newDom.classList.add('ox-page-' + value)
     oldDom.classList.add('ozzx-animation')
   })
@@ -50,7 +47,6 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     oldDom.style.position = ''
     // 清除临时设置的class
     animationIn.split(',').forEach(value => {
-      console.log('del:' +  value)
       oldDom.classList.remove('ox-page-' + value)
       oldDom.classList.remove('ozzx-animation')
     })
@@ -63,7 +59,6 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     // 清除临时设置的style
     newDom.style.position = ''
     animationOut.split(',').forEach(value => {
-      console.log('del:' +  value)
       newDom.classList.remove('ox-page-' + value)
       newDom.classList.remove('ozzx-animation')
     })
@@ -96,18 +91,17 @@ function switchPage (oldUrlParam, newUrlParam) {
     return
   }
   // 判断是否有动画效果
-  if (newPagParamList.length > 1) {
-    var animationIn = getQueryString(newUrlParam, 'in')
-    var animationOut = getQueryString(newUrlParam, 'out')
-
+  if (!ozzx.state.animation) ozzx.state.animation = {}
+  var animationIn = ozzx.state.animation.in
+  var animationOut = ozzx.state.animation.out
+  if (animationIn || animationOut) {
     // 如果没用动画参数则使用默认效果
     if (!animationIn || !animationOut) {
       dispalyEffect(oldDom, newDom)
       return
     }
+    ozzx.state.animation = {}
     animation(oldDom, newDom, animationIn, animationOut)
-    
-    
   } else {
     dispalyEffect(oldDom, newDom)
   }

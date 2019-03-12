@@ -121,8 +121,8 @@ function pgNameHandler (dom) {
           newPageFunction.domList = window.ozzx.domList
           newPageFunction[clickFor].apply(newPageFunction, parameterArr)
         } else {
-          // 如果没有此方法则弹出警告
-          console.error("Can't find function: " + clickFor)
+          // 如果没有此方法则交给浏览器引擎尝试运行
+          eval(this.attributes['@click'].textContent)
         }
       }
     }
@@ -140,5 +140,9 @@ function $dom (domName) {
 
 // 跳转到指定页面
 function $go (pageName, inAnimation, outAnimation) {
-  window.location.href = "#"+ pageName + "&in=" + inAnimation +"&out=" + outAnimation
+  ozzx.state.animation = {
+    in: inAnimation,
+    out: outAnimation
+  }
+  window.location.href = "#"+ pageName
 }

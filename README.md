@@ -54,6 +54,9 @@ pack dev
 * 支持压缩图片(png.jpg)                             √
 * 支持循环嵌套
 
+resourceHandle待优化
+样式似乎会重复打包
+
 
 ## tool
 

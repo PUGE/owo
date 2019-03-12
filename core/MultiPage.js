@@ -20,7 +20,7 @@ window.onload = function() {
       $data = ozzx.script[page].data
       runPageFunction(page, entryDom)
     } else {
-      console.error('入口文件设置错误!')
+      console.error('入口文件设置错误,错误值为: ', entryDom)
     }
   } else {
     console.error('未设置程序入口!')
@@ -31,6 +31,7 @@ window.onload = function() {
 window.onhashchange = function(e) {
   var oldUrlParam = getarg(e.oldURL)
   var newUrlParam = getarg(e.newURL)
+  
   // 如果没有跳转到任何页面则跳转到主页
   if (newUrlParam === undefined) {
     newUrlParam = ozzx.entry
