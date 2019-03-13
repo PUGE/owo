@@ -8,7 +8,7 @@ const chokidar = require('chokidar')
 const Tool = require('./lib/tool')
 const Hrard = require('./lib/handle/hrard')
 const Script = require('./lib/handle/script')
-const Body = require('./lib/handle/body')
+const Body = require('./lib/page/body')
 // 日志输出
 const log4js = require('log4js')
 
