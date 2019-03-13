@@ -263,10 +263,18 @@ function handleScript (dom, changePath) {
     // 取出每一个参数
     const parameterList = element.split(',')
     if (parameterList[1]) {
-      animationList.add(parameterList[1])
+      // 一个动画里面可能有多个动画
+      const temp = parameterList[1].split('&')
+      temp.forEach(animation => {
+        animationList.add(animation)
+      })
     }
     if (parameterList[2]) {
-      animationList.add(parameterList[2])
+      // 一个动画里面可能有多个动画
+      const temp = parameterList[2].split('&')
+      temp.forEach(animation => {
+        animationList.add(animation)
+      })
     }
   })
   
@@ -274,7 +282,8 @@ function handleScript (dom, changePath) {
   // console.log(animationList.size)
   // 取出js中的页面切换特效
   if (animationList.size > 0) {
-    logger.info('项目中包含有页面切换动画!')
+    logger.info('包含有页面切换动画!')
+    logger.info(`动画列表: ${Array.from(animationList)}`)
     coreScript += Tool.loadFile(path.join(corePath, 'animation.js'))
   } else {
     logger.debug('页面中不包含切换动画!')

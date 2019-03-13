@@ -20,6 +20,8 @@ function dispalyEffect (oldDom, newDom) {
 
 // 切换页面动画
 function animation (oldDom, newDom, animationIn, animationOut) {
+  // 获取父元素
+  var parentDom = newDom.parentElement
   if (!oldDom) {
     console.error('旧页面不存在!')
   }
@@ -31,39 +33,45 @@ function animation (oldDom, newDom, animationIn, animationOut) {
   newDom.style.display = 'block'
   newDom.style.position = 'absolute'
   // document.body.style.overflow = 'hidden'
+
+  parentDom.style.perspective = '1200px'
+  oldDom.classList.add('ozzx-animation')
   animationIn.split(',').forEach(value => {
     oldDom.classList.add('ox-page-' + value)
-    oldDom.classList.add('ozzx-animation')
+    
   })
+
+  newDom.classList.add('ozzx-animation')
   animationOut.split(',').forEach(value => {
     newDom.classList.add('ox-page-' + value)
-    oldDom.classList.add('ozzx-animation')
+    
   })
   // 旧DOM执行函数
   function oldDomFun () {
+    // 移除监听
+    oldDom.removeEventListener('animationend', oldDomFun, false)
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'
     // console.log(oldDom)
     oldDom.style.position = ''
+    oldDom.classList.remove('ozzx-animation')
+    parentDom.style.perspective = ''
     // 清除临时设置的class
     animationIn.split(',').forEach(value => {
       oldDom.classList.remove('ox-page-' + value)
-      oldDom.classList.remove('ozzx-animation')
     })
-    // 移除监听
-    oldDom.removeEventListener('animationend', oldDomFun, false)
   }
 
   // 新DOM执行函数
   function newDomFun () {
-    // 清除临时设置的style
-    newDom.style.position = ''
-    animationOut.split(',').forEach(value => {
-      newDom.classList.remove('ox-page-' + value)
-      newDom.classList.remove('ozzx-animation')
-    })
     // 移除监听
     newDom.removeEventListener('animationend', newDomFun, false)
+    // 清除临时设置的style
+    newDom.style.position = ''
+    newDom.classList.remove('ozzx-animation')
+    animationOut.split(',').forEach(value => {
+      newDom.classList.remove('ox-page-' + value)
+    })
   }
 }
 
