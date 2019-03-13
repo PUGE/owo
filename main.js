@@ -66,8 +66,6 @@ let htmlTemple = ''
 // 当前打包的动画样式
 let animationList = new Set()
 
-let animationData = ''
-
 // 判断运行目录下是否包含配置文件
 if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
   logger.error('ozzx.js file does not exist!')
@@ -222,6 +220,7 @@ function outPutAnimation () {
   if (animationList.length === 0) {
     htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, '')
   } else {
+    let animationData = ''
     const versionString = config.outPut.addVersion ? `.${version}` : ''
     animationList.forEach(animationName => {
       const animationFilePath = path.join(corePath, 'animation', `${animationName}.css`)
