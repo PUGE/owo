@@ -326,15 +326,16 @@ function handleScript (dom, changePath) {
     }
     scriptData += '\r\n    <script src="./static/js/autoReload.js" type="text/javascript"></script>'
   }
-
+  logger.debug(`处理引用脚本: ${JSON.stringify(config.scriptList)}`)
   // 处理引用的script
   if (config.scriptList && config.scriptList.length > 0) {
+    logger.debug(`外部脚本数量: ${config.scriptList.length}`)
     // 遍历引用列表
     let completeNum = 0
     for (let ind = 0; ind < config.scriptList.length; ind++) {
       const element = config.scriptList[ind]
       // console.log(element)
-      
+      logger.debug(`处理脚本: ${element.name}`)
       // 判断是设置了路径
       if (!element.src) {
         logger.error('script path unset!', element)
@@ -342,9 +343,11 @@ function handleScript (dom, changePath) {
       }
       // 如果是网络地址那么不需要进行处理
       if (element.src.startsWith('http')) {
+        logger.debug(`网络脚本: ${element.name}`)
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script
         if (++completeNum >= config.scriptList.length) {
+          logger.debug(`完成外部脚本引用处理!`)
           outPutScript(scriptData)
         }
         continue
@@ -353,8 +356,10 @@ function handleScript (dom, changePath) {
       }
       // 输出路径
       const outPutFile = path.join(staticPath, 'js', `${element.name}.js`)
+      
       // 判断是否用babel处理
       if (element.babel) {
+        logger.debug('使用bable处理脚本!')
         if (changePath === undefined || changePath === path.join(runPath, element.src)) {
           fs.readFile(path.join(runPath, element.src), (err, fileData) => {
             if (err) throw err
@@ -372,6 +377,7 @@ function handleScript (dom, changePath) {
           }
         }
       } else {
+        logger.debug('不使用bable处理脚本!')
         // 如果不使用babel处理则进行复制文件
         if (changePath === undefined || changePath === path.join(runPath, element.src)) {
           Tool.moveFile(path.join(runPath, element.src), outPutFile)
@@ -382,6 +388,7 @@ function handleScript (dom, changePath) {
       }
     }
   } else {
+    logger.debug('没有使用到外部脚本!')
     // 如果没有引用script，则直接输出html
     outPutScript(scriptData)
   }
@@ -389,8 +396,9 @@ function handleScript (dom, changePath) {
 
 
 function outPutHtml () {
+  logger.debug('判断是否可以输出Html!')
   // 如果文档中已经不存在output那么证明已经可以进行输出了
-  if (!htmlTemple.includes('output')) {
+  if (!htmlTemple.includes('-output -->')) {
     // 判断是否输出时间
     if (config.outPut.addTime) {
       htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
