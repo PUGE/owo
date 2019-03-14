@@ -30,6 +30,8 @@ window.onload = function() {
 // url发生改变事件
 window.onhashchange = function(e) {
   var oldUrlParam = getarg(e.oldURL)
+  // 如果旧页面不存在则为默认页面
+  if (!oldUrlParam) oldUrlParam = ozzx.entry
   var newUrlParam = getarg(e.newURL)
   
   // 如果没有跳转到任何页面则跳转到主页
