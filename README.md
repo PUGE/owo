@@ -109,6 +109,14 @@ resourceHandle待优化
  */
 ```
 
+### 5.getQueryString
+
+/**
+ * 获取URL参数中字段的值
+ * @param  {string} name 参数名称
+ * @return {string} 返回参数值
+ */
+
 
 内置函数
 

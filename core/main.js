@@ -139,10 +139,20 @@ function $dom (domName) {
 }
 
 // 跳转到指定页面
-function $go (pageName, inAnimation, outAnimation) {
+function $go (pageName, inAnimation, outAnimation, param) {
   ozzx.state.animation = {
     in: inAnimation,
     out: outAnimation
   }
-  window.location.href = "#"+ pageName
+  var paramString = ''
+  if (param && typeof param == 'object') {
+    paramString += '?'
+    // 生成URL参数
+    for (let paramKey in param) {
+      paramString += paramKey + '=' + param[paramKey] + '&'
+    }
+    // 去掉尾端的&
+    paramString = paramString.slice(0, -1)
+  }
+  window.location.href = paramString + "#" + pageName
 }
