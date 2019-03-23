@@ -89,7 +89,8 @@ function pgNameHandler (dom) {
         // 取出参数
         var parameterArr = []
         var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
-        
+        // 解决 @click="xxx()"会造成的问题
+        if (!parameterList) parameterList = ''
         if (parameterList && parameterList.length > 0) {
           // 参数列表
           parameterArr = parameterList[0].split(',')
