@@ -1,8 +1,9 @@
 
 (function () {
+  // 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
   if ("WebSocket" in window) {
     // 打开一个 web socket
-    var ws = new WebSocket("ws://127.0.0.1:8000")
+    var ws = new WebSocket("ws://" + window.location.host)
     ws.onmessage = function (evt) { 
       if (evt.data == 'reload') {
         location.reload()
