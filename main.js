@@ -399,6 +399,7 @@ function outPutHtml () {
   logger.debug('判断是否可以输出Html!')
   // 如果文档中已经不存在output那么证明已经可以进行输出了
   if (!htmlTemple.includes('-output -->')) {
+    logger.debug('准备输出html!')
     // 判断是否输出时间
     if (config.outPut.addTime) {
       htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
@@ -416,6 +417,9 @@ function outPutHtml () {
       // 广播发送重新打包消息
       wsServe.getWss().clients.forEach(client => client.send('reload'))
     }
+  } else {
+    logger.debug('还有没有经过处理的资源!')
+    logger.debug(htmlTemple)
   }
 }
 
