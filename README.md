@@ -4,13 +4,13 @@
 npm i -g ozzx
 ```
 
-下载并解压示例:
+生成项目:
 
-git clone https://github.com/ozzx/example
+pack init test
 
 打开目录:
 
-cd example
+cd test
 
 安装依赖
 
@@ -51,6 +51,7 @@ pack dev
 * 输出文件支持自动加版本号                                         √
 * 输出文件支持自动加更新时间                                       √
 * 支持通过一个配置文件自定义多个打包配置                             √
+* 支持使用pack init生成项目
 * 支持资源统一管理(在项目中引用外部图片,音频等文件时不需要考虑文件实际存放位置)                                                 √
 * 支持压缩图片(png.jpg)                             √
 * 支持循环嵌套

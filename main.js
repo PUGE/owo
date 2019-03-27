@@ -9,6 +9,7 @@ const Tool = require('./lib/tool')
 const Hrard = require('./lib/handle/hrard')
 const Script = require('./lib/handle/script')
 const Body = require('./lib/page/body')
+const runProcess = require('child_process')
 // 日志输出
 const log4js = require('log4js')
 
@@ -57,6 +58,26 @@ let version = ''
 // logger.level = 'debug'
 logger.level = 'all'
 
+// 判断使用哪套配置文件
+const processArgv = process.argv[2]
+// 判断是否为生成脚手架
+if (processArgv === 'init') {
+  console.log('正在生成实例!')
+  runProcess.exec(`git clone https://github.com/ozzx/example ${process.argv[3] ? process.argv[3] : example}`,function (error, stdout, stderr) {
+    if (error !== null) {
+      console.log('exec error: ' + error)
+      return
+    }
+    console.log('示例生成成功!')
+    console.log(`请运行 cd ./${process.argv[3] ? process.argv[3] : example}`)
+    console.log('并运行npm i 或 yarn 安装依赖包')
+    console.log('使用pack dev测试运行')
+    console.log('使用pack build打包页面')
+    console.log('配置信息储存在目录下ozzx.js中!')
+  })
+  return
+}
+
 // 命令行运行目录
 const runPath = process.cwd()
 let startTime = null
@@ -75,9 +96,10 @@ if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
 // 读取配置文件
 let config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
 
-// 判断使用哪套配置文件
-const processArgv = process.argv[2]
+
+// 判断是否处于生成模式
 if (processArgv) {
+  
   if (config[processArgv]) {
     // 深拷贝
     const processConfig = JSON.parse(JSON.stringify(config[processArgv]))
@@ -88,6 +110,8 @@ if (processArgv) {
   }
 }
 
+logger.debug('获取到配置信息:')
+logger.debug(config)
 if (!checkConfig(config)) {
   return
 }
