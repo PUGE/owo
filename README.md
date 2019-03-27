@@ -58,6 +58,7 @@ pack dev
 
 resourceHandle待优化
 样式似乎会重复打包
+pgNameHandler并不是一个好的方法
 
 
 ## tool
