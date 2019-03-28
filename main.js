@@ -120,6 +120,8 @@ if (!checkConfig(config)) {
 const outPutPath = path.join(runPath, config.outFolder)
 const corePath = path.join(__dirname, 'core')
 
+// 静态资源前缀
+const basePath = config.basePath || './'
 // 静态资源输出目录
 const staticPath = path.join(outPutPath, 'static')
 
@@ -160,7 +162,7 @@ function handleStyle(dom, changePath) {
     dom.style = result.css
     // ----------------------------------------------- 输出css -----------------------------------------------
     
-    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="./static/css/ozzx.main${versionString}.css">`
+    styleData += `<!-- 页面主样式文件 -->\r\n    <link rel="stylesheet" href="${basePath}/static/css/ozzx.main${versionString}.css">`
     
     // 判断是否输出时间
     if (config.outPut.addTime) {
@@ -197,7 +199,7 @@ function handleStyle(dom, changePath) {
         
         continue
       } else {
-        styleData += `\r\n    <link rel="stylesheet" href="./static/css/${element.name}.css">`
+        styleData += `\r\n    <link rel="stylesheet" href="${basePath}/static/css/${element.name}.css">`
       }
       // 输出路径
       const outPutFile = path.join(staticPath, 'css', `${element.name}.css`)
@@ -233,7 +235,7 @@ function outPutScript (scriptData) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
 
-  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="./static/js/ozzx.main${versionString}.js" type="text/javascript"></script>`
+  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="${basePath}/static/js/ozzx.main${versionString}.js" type="text/javascript"></script>`
 
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
@@ -255,7 +257,7 @@ function outPutAnimation () {
     Tool.creatDirIfNotExist(path.join(staticPath, 'css'))
     logger.info(`写文件: ${animationPath}`)
     fs.writeFileSync(animationPath, animationData)
-    htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="./static/css/ozzx.animation${versionString}.css">`)
+    htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="${basePath}/static/css/ozzx.animation${versionString}.css">`)
   }
 }
 
@@ -338,7 +340,7 @@ function handleScript (dom, changePath) {
   }
   // 处理js中的资源
   if (config.resourceFolder) {
-    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}/static/resource/`)
   }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `ozzx.main${versionString}.js`), dom.script)
@@ -348,7 +350,7 @@ function handleScript (dom, changePath) {
     if (!changePath) {
       Tool.moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(staticPath, 'js', `autoReload.js`))
     }
-    scriptData += '\r\n    <script src="./static/js/autoReload.js" type="text/javascript"></script>'
+    scriptData += `\r\n    <script src="${basePath}/static/js/autoReload.js" type="text/javascript"></script>`
   }
   logger.debug(`处理引用脚本: ${JSON.stringify(config.scriptList)}`)
   // 处理引用的script
@@ -376,7 +378,7 @@ function handleScript (dom, changePath) {
         }
         continue
       } else {
-        scriptData += `\r\n    <script src="./static/js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
+        scriptData += `\r\n    <script src="${basePath}/static/js/${element.name}.js" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
       }
       // 输出路径
       const outPutFile = path.join(staticPath, 'js', `${element.name}.js`)
@@ -430,7 +432,7 @@ function outPutHtml () {
     }
     // 对html所引用的资源进行处理
     if (config.resourceFolder) {
-      htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), './static/resource/')
+      htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}/static/resource/`)
     }
     
     // 写出文件
