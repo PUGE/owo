@@ -30,11 +30,11 @@
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "^7.0.0",
     "jsdom": "^13.1.0",
-    "log4js": "^3.0.6",
     "pkg-dir": "^3.0.0",
     "postcss": "^7.0.14",
     "precss": "^4.0.0",
     "pug": "^2.0.3",
+    "simple-node-logger": "^18.12.22",
     "sqwish": "^0.2.2",
     "urllib-sync": "^1.1.4"
   },

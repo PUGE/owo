@@ -3,6 +3,7 @@
 'use strict'
 const fs = require('fs')
 const path = require('path')
+
 // 文件变动检测
 const chokidar = require('chokidar')
 const Tool = require('./lib/tool')
@@ -10,25 +11,12 @@ const Hrard = require('./lib/handle/hrard')
 const Script = require('./lib/handle/script')
 const Body = require('./lib/page/body')
 const runProcess = require('child_process')
-// 日志输出
-const log4js = require('log4js')
 
-// 输出到文件
-log4js.configure({
-  appenders: {
-    cheese: {
-      type: 'file',
-      filename: 'ozzx.log'
-    }
-  },
-  categories: {
-    default: {
-      appenders: ['cheese'],
-      level: 'all'
-    }
-  }
-})
-const logger = log4js.getLogger('main.js')
+// 命令行运行目录
+const runPath = process.cwd()
+
+// 配置输出插件
+const log = require('./lib/log')()
 
 // js预处理
 const postcss      = require('postcss')
@@ -54,10 +42,6 @@ const wsServe = require('express-ws')(app)
 // 打包的版本号
 let version = ''
 
-// 配置日志输出等级
-// logger.level = 'debug'
-logger.level = 'all'
-
 // 判断使用哪套配置文件
 const processArgv = process.argv[2]
 // 判断是否为生成脚手架
@@ -78,8 +62,7 @@ if (processArgv === 'init') {
   return
 }
 
-// 命令行运行目录
-const runPath = process.cwd()
+
 let startTime = null
 
 // 当前打包的模板
@@ -89,7 +72,7 @@ let animationList = new Set()
 
 // 判断运行目录下是否包含配置文件
 if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
-  logger.error('ozzx.js file does not exist!')
+  log.error('ozzx.js file does not exist!')
   close()
 }
 
@@ -99,19 +82,18 @@ let config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
 
 // 判断是否处于生成模式
 if (processArgv) {
-  
   if (config[processArgv]) {
     // 深拷贝
     const processConfig = JSON.parse(JSON.stringify(config[processArgv]))
     config = Object.assign(processConfig, config)
   } else {
-    logger.error(`config name ${processArgv} not found in ozzx.js!`)
+    log.error(`config name ${processArgv} not found in ozzx.js!`)
     return
   }
 }
 
-logger.debug('获取到配置信息:')
-logger.debug(config)
+log.debug('获取到配置信息:')
+log.debug(config)
 if (!checkConfig(config)) {
   return
 }
@@ -210,11 +192,11 @@ function handleStyle(dom, changePath) {
           // 处理资源并移动
           const resourceFolder = path.join(runPath, config.resourceFolder)
           fs.readFile(fromPath, (err, fileData) => {
-            logger.info(`读取成功: ${fromPath}`)
+            log.info(`读取成功: ${fromPath}`)
             if (err) throw err
             fileData = resourceHandle(fileData.toString(), resourceFolder, path.join(staticPath, 'resource'), '../resource/')
             fs.writeFile(outPutFile, fileData, () => {
-              logger.info(`写入文件: ${outPutFile}`)
+              log.info(`写入文件: ${outPutFile}`)
             })
           })
         } else {
@@ -255,7 +237,7 @@ function outPutAnimation () {
     // 输出动画样式文件
     const animationPath = path.join(staticPath, 'css', `ozzx.animation${versionString}.css`)
     Tool.creatDirIfNotExist(path.join(staticPath, 'css'))
-    logger.info(`写文件: ${animationPath}`)
+    log.info(`写文件: ${animationPath}`)
     fs.writeFileSync(animationPath, animationData)
     htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="${basePath}/static/css/ozzx.animation${versionString}.css">`)
   }
@@ -273,7 +255,7 @@ function handleScript (dom, changePath) {
     coreScript += Tool.loadFile(path.join(corePath, 'SinglePage.js'))
   } else {
     // 多页面
-    logger.info('工程中包含多个页面!')
+    log.info('工程中包含多个页面!')
     coreScript += Tool.loadFile(path.join(corePath, 'MultiPage.js'))
   }
   // 整合页面代码
@@ -308,11 +290,11 @@ function handleScript (dom, changePath) {
   // console.log(animationList.size)
   // 取出js中的页面切换特效
   if (animationList.size > 0) {
-    logger.info('包含有页面切换动画!')
-    logger.info(`动画列表: ${Array.from(animationList)}`)
+    log.info('包含有页面切换动画!')
+    log.info(`动画列表: ${Array.from(animationList)}`)
     coreScript += Tool.loadFile(path.join(corePath, 'animation.js'))
   } else {
-    logger.debug('页面中不包含切换动画!')
+    log.debug('页面中不包含切换动画!')
     coreScript += Tool.loadFile(path.join(corePath, 'noAnimation.js'))
   }
   
@@ -352,28 +334,28 @@ function handleScript (dom, changePath) {
     }
     scriptData += `\r\n    <script src="${basePath}/static/js/autoReload.js" type="text/javascript"></script>`
   }
-  logger.debug(`处理引用脚本: ${JSON.stringify(config.scriptList)}`)
+  log.debug(`处理引用脚本: ${JSON.stringify(config.scriptList)}`)
   // 处理引用的script
   if (config.scriptList && config.scriptList.length > 0) {
-    logger.debug(`外部脚本数量: ${config.scriptList.length}`)
+    log.debug(`外部脚本数量: ${config.scriptList.length}`)
     // 遍历引用列表
     let completeNum = 0
     for (let ind = 0; ind < config.scriptList.length; ind++) {
       const element = config.scriptList[ind]
       // console.log(element)
-      logger.debug(`处理脚本: ${element.name}`)
+      log.debug(`处理脚本: ${element.name}`)
       // 判断是设置了路径
       if (!element.src) {
-        logger.error('script path unset!', element)
+        log.error('script path unset!', element)
         continue
       }
       // 如果是网络地址那么不需要进行处理
       if (element.src.startsWith('http')) {
-        logger.debug(`网络脚本: ${element.name}`)
+        log.debug(`网络脚本: ${element.name}`)
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script
         if (++completeNum >= config.scriptList.length) {
-          logger.debug(`完成外部脚本引用处理!`)
+          log.debug(`完成外部脚本引用处理!`)
           outPutScript(scriptData)
         }
         continue
@@ -385,12 +367,12 @@ function handleScript (dom, changePath) {
       
       // 判断是否用babel处理
       if (element.babel) {
-        logger.debug('使用bable处理脚本!')
+        log.debug('使用bable处理脚本!')
         if (changePath === undefined || changePath === path.join(runPath, element.src)) {
           fs.readFile(path.join(runPath, element.src), (err, fileData) => {
             if (err) throw err
             fs.writeFile(outPutFile, Script(fileData, config.outPut.minifyJs).code, () => {
-              logger.info(`使用babel处理并生成文件: ${outPutFile}`)
+              log.info(`使用babel处理并生成文件: ${outPutFile}`)
               // 判断是否为最后项,如果为最后一项则输出script
               if (++completeNum >= config.scriptList.length) {
                 outPutScript(scriptData)
@@ -403,7 +385,7 @@ function handleScript (dom, changePath) {
           }
         }
       } else {
-        logger.debug('不使用bable处理脚本!')
+        log.debug('不使用bable处理脚本!')
         // 如果不使用babel处理则进行复制文件
         if (changePath === undefined || changePath === path.join(runPath, element.src)) {
           Tool.moveFile(path.join(runPath, element.src), outPutFile)
@@ -414,7 +396,7 @@ function handleScript (dom, changePath) {
       }
     }
   } else {
-    logger.debug('没有使用到外部脚本!')
+    log.debug('没有使用到外部脚本!')
     // 如果没有引用script，则直接输出html
     outPutScript(scriptData)
   }
@@ -422,10 +404,10 @@ function handleScript (dom, changePath) {
 
 
 function outPutHtml () {
-  logger.debug('判断是否可以输出Html!')
+  log.debug('判断是否可以输出Html!')
   // 如果文档中已经不存在output那么证明已经可以进行输出了
   if (!htmlTemple.includes('-output -->')) {
-    logger.debug('准备输出html!')
+    log.debug('准备输出html!')
     // 判断是否输出时间
     if (config.outPut.addTime) {
       htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
@@ -438,14 +420,14 @@ function outPutHtml () {
     // 写出文件
     fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
     console.log(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
-    logger.info(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
+    log.info(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
     if (config.autoReload) {
       // 广播发送重新打包消息
       wsServe.getWss().clients.forEach(client => client.send('reload'))
     }
   } else {
-    logger.debug('还有没有经过处理的资源!')
-    logger.debug(htmlTemple)
+    log.debug('还有没有经过处理的资源!')
+    log.debug(htmlTemple)
   }
 }
 
@@ -454,42 +436,42 @@ function pack (changePath) {
   
   // 记录开始打包时间
   startTime = new Date().getTime()
-  logger.info(`--------------------------- 开始编译 ---------------------------`)
+  log.info(`--------------------------- 开始编译 ---------------------------`)
   // 输出运行目录
-  logger.info(`程序运行目录: ${runPath}`)
+  log.info(`程序运行目录: ${runPath}`)
   
   
   
   // 判断是否为更新
   if (!changePath) {
-    logger.info(`首次启动!`)
+    log.info(`首次启动!`)
     // 生成版本号
     version = Math.random().toString(36).substr(2)
-    logger.info(`生成版本号: ${version}`)
+    log.info(`生成版本号: ${version}`)
     // 清空静态文件目录
     if (fs.existsSync(staticPath)) {
       Tool.delDir(staticPath)
-      logger.info(`清理资源文件夹: ${staticPath}`)
+      log.info(`清理资源文件夹: ${staticPath}`)
     }
     // 创建目录
     Tool.creatDirIfNotExist(outPutPath)
     Tool.creatDirIfNotExist(staticPath)
   } else {
-    logger.info(`刷新模式,变化目录: ${changePath}`)
+    log.info(`刷新模式,变化目录: ${changePath}`)
   }
 
   
   
   // 读取入口模板文件(一次性读取到内存中)
   const templeFile = path.join(__dirname, 'index.html')
-  logger.info(`读取模板文件: ${templeFile}`)
+  log.info(`读取模板文件: ${templeFile}`)
   htmlTemple = fs.readFileSync(templeFile, 'utf8')
 
   // 处理title
-  logger.debug(`读取网页标题: ${config.title}`)
+  log.debug(`读取网页标题: ${config.title}`)
   htmlTemple = htmlTemple.replace('{{title}}', config.title || 'ozzx')
 
-  logger.debug(`处理页面源信息: ${JSON.stringify(config.headList)}`)
+  log.debug(`处理页面源信息: ${JSON.stringify(config.headList)}`)
 
   htmlTemple = Hrard(config.headList, htmlTemple)
 
@@ -508,7 +490,7 @@ pack()
 if (config.watcher && config.watcher.enable) {
   let watcherFolder = config.root
   watcherFolder = path.join(runPath, watcherFolder)
-  logger.info(`监控文件夹变化: ${watcherFolder}`)
+  log.info(`监控文件夹变化: ${watcherFolder}`)
   // 文件变动检测
   const watcher = chokidar.watch(watcherFolder, {
     // 忽略目录
@@ -520,7 +502,7 @@ if (config.watcher && config.watcher.enable) {
   })
 
   watcher.on('change', changePath => {
-    logger.info(`file change: ${changePath}`)
+    log.info(`file change: ${changePath}`)
     // 重新打包
     pack(changePath)
   })
@@ -545,5 +527,5 @@ if (config.autoReload) {
 if (config.server || config.autoReload) {
   const port = config.serverPort || 8000
   app.listen(port)
-  logger.info(`服务器运行在: 127.0.0.1:${port}`)
+  log.info(`服务器运行在: 127.0.0.1:${port}`)
 }
