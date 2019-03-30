@@ -123,7 +123,7 @@ function handleStyle(dom, changePath) {
   // 处理css中的资源文件
   if (config.resourceFolder) {
     const resourceFolder = path.join(runPath, config.resourceFolder)
-    outPutCss = resourceHandle(outPutCss, resourceFolder, path.join(staticPath, 'resource'), '../resource/')
+    outPutCss = resourceHandle(outPutCss, resourceFolder, path.join(staticPath, 'resource'), `${basePath}static/resource/`)
   }
   // ----------------------------------------------- 使用postcss处理 -----------------------------------------------
   // 自动加浏览器前缀
@@ -136,7 +136,6 @@ function handleStyle(dom, changePath) {
 
   postcss(plugList).process(outPutCss, { from: undefined, cascade: true }).then( (result) => {
     // console.log(result)
-    const styleDir = path.join(staticPath, 'css')
     result.warnings().forEach((warn) => {
       console.warn(warn.toString());
     })
@@ -187,7 +186,7 @@ function handleStyle(dom, changePath) {
           fs.readFile(fromPath, (err, fileData) => {
             log.info(`读取成功: ${fromPath}`)
             if (err) throw err
-            fileData = resourceHandle(fileData.toString(), resourceFolder, path.join(staticPath, 'resource'), '../resource/')
+            fileData = resourceHandle(fileData.toString(), resourceFolder, path.join(staticPath, 'resource'), `.${basePath}resource/`)
             fs.writeFile(outPutFile, fileData, () => {
               log.info(`写入文件: ${outPutFile}`)
             })
@@ -315,7 +314,7 @@ function handleScript (dom, changePath) {
   }
   // 处理js中的资源
   if (config.resourceFolder) {
-    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
+    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `.${basePath}static/resource/`)
   }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `ozzx.main${versionString}.js`), dom.script)

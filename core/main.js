@@ -85,7 +85,7 @@ function pgNameHandler (dom) {
         if (templateName) {
           newPageFunction = newPageFunction.template[templateName.textContent]
         }
-        // console.log(newPageFunction)
+        
         // 取出参数
         var parameterArr = []
         var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
