@@ -110,12 +110,9 @@ const staticPath = path.join(outPutPath, 'static')
 // 处理style
 function handleStyle(dom, changePath) {
   let styleData = ''
-  // 版本号后缀
-  const versionString = config.outPut.addVersion ? `.${version}` : ''
   // 添加入框架内置样式
   const mainStyle = path.join(corePath, `main.css`)
   let outPutCss = Tool.loadFile(mainStyle) + `\r\n` + dom.style
-  
   // --------------------------------- 动画效果 ---------------------------------------------
   dom.useAnimationList.forEach(element => {
     animationList.add(element)
@@ -142,8 +139,13 @@ function handleStyle(dom, changePath) {
     // console.log('css处理完毕!')
     dom.style = result.css
     // ----------------------------------------------- 输出css -----------------------------------------------
-    
     styleData += `<!-- 页面主样式文件 -->\r\n    <style>\r\n${dom.style}\r\n</style>`
+
+    // 处理需要经过特殊处理的css文件
+    log.debug('需要经过特殊处理的css: ', dom.needReplaceCssList)
+    dom.needReplaceCssList.forEach(element => {
+      styleData = Tool.replaceAll(styleData, element[0], element[1])
+    })
 
     let completeNum = 0
     
@@ -314,7 +316,7 @@ function handleScript (dom, changePath) {
   }
   // 处理js中的资源
   if (config.resourceFolder) {
-    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `.${basePath}static/resource/`)
+    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
   }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `ozzx.main${versionString}.js`), dom.script)
@@ -420,7 +422,7 @@ function outPutHtml () {
     }
   } else {
     log.debug('还有没有经过处理的资源!')
-    log.debug(htmlTemple)
+    // log.debug(htmlTemple)
   }
 }
 
