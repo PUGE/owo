@@ -139,13 +139,17 @@ function handleStyle(dom, changePath) {
     // console.log('css处理完毕!')
     dom.style = result.css
     // ----------------------------------------------- 输出css -----------------------------------------------
-    styleData += `<!-- 页面主样式文件 -->\r\n    <style>\r\n${dom.style}\r\n</style>`
+    styleData += `<!-- 页面主样式文件 -->\r\n<style>\r\n${dom.style}\r\n</style>`
 
     // 处理需要经过特殊处理的css文件
     log.debug('需要经过特殊处理的css: ', dom.needReplaceCssList)
     dom.needReplaceCssList.forEach(element => {
       styleData = Tool.replaceAll(styleData, element[0], element[1])
     })
+    // 美化css样式
+    styleData = Tool.replaceAll(styleData, `\n`, `\n      `)
+    styleData = Tool.replaceAll(styleData, `  <style>`, `<style>`)
+    styleData = Tool.replaceAll(styleData, `  </style>`, `</style>`)
 
     let completeNum = 0
     
