@@ -250,6 +250,7 @@ function handleScript (dom, changePath) {
   let coreScript = Tool.loadFile(path.join(corePath, 'main.js'))
   if (config.pageList.length === 1) {
     // 单页面
+    log.info('工程中只有一个页面!')
     coreScript += Tool.loadFile(path.join(corePath, 'SinglePage.js'))
   } else {
     // 多页面
