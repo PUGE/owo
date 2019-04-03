@@ -8,7 +8,7 @@ function ready() {
   if (entryDom) {
     runPageFunction(page, entryDom)
   } else {
-    console.error('找不到页面入口!')
+    console.error('找不到页面入口! 设置的入口为: ' + page)
   }
 }
 
