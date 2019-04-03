@@ -77,9 +77,15 @@ function pgNameHandler (tempDom) {
       // console.log(this.attributes)
       // 判断是否为模板
       var templateName = this.attributes['template']
-      // console.log(templateName)
+      
       if (templateName) {
-        newPageFunction = newPageFunction.template[templateName.textContent]
+        // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
+        if (newPageFunction.template) {
+          newPageFunction = newPageFunction.template[templateName.textContent]
+        } else {
+          eval(this.attributes['@click'].textContent)
+          return
+        }
       }
       
       // 取出参数
