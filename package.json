@@ -1,8 +1,8 @@
 {
   "name": "ozzx",
-  "version": "1.2.5",
+  "version": "1.2.7",
   "description": "",
-  "main": "main.js",
+  "main": "./lib/page/body",
   "scripts": {
     "dev": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
