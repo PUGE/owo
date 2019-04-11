@@ -10,7 +10,6 @@ const Tool = require('./lib/tool')
 const Hrard = require('./lib/handle/hrard')
 const Script = require('./lib/handle/script')
 const Body = require('./lib/page/body')
-const htmlFormat = require('./lib/htmlformat')
 const runProcess = require('child_process')
 
 // html美化
