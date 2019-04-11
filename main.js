@@ -223,7 +223,8 @@ function outPutScript (scriptData) {
 
 // 输出页面切换动画
 function outPutAnimation () {
-  if (animationList.length === 0) {
+  // 判断“动画”集合是否为空
+  if (animationList.size === 0) {
     htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, '')
   } else {
     let animationData = ''
