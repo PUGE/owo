@@ -24,6 +24,7 @@
     "imagemin": "^6.1.0",
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "^7.0.0",
+    "js-beautify": "^1.9.1",
     "jsdom": "^13.1.0",
     "pkg-dir": "^3.0.0",
     "postcss": "^7.0.14",

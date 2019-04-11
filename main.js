@@ -10,7 +10,11 @@ const Tool = require('./lib/tool')
 const Hrard = require('./lib/handle/hrard')
 const Script = require('./lib/handle/script')
 const Body = require('./lib/page/body')
+const htmlFormat = require('./lib/htmlformat')
 const runProcess = require('child_process')
+
+// html美化
+const beautify_html = require('js-beautify').html;
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -416,9 +420,17 @@ function outPutHtml () {
     if (config.resourceFolder) {
       htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
     }
-    
+    // 美化html
+    log.debug('开始美化html')
+    const beautifyHtml = beautify_html(htmlTemple, {
+      indent_size: 2,
+      inline: [
+        "abbr", "area", "audio", "b", "bdi", "bdo", "br", "button", "canvas", "cite", "code", "data", "datalist", "del", "dfn", "em", "i", "iframe", "input", "ins", "kbd", "keygen", "label", "map", "mark", "math", "meter", "noscript", "object", "output", "progress", "q", "ruby", "s", "samp", "select", "small", "span", "strong", "sub", "sup", "svg", "template", "textarea", "time", "u", "var", "video", "wbr", "text", "acronym", "address", "big", "dt", "ins", "strike", "tt"
+      ],
+      space_in_empty_paren: false
+    })
     // 写出文件
-    fs.writeFileSync(path.join(outPutPath, 'index.html'), htmlTemple)
+    fs.writeFileSync(path.join(outPutPath, 'index.html'), beautifyHtml)
     console.log(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
     
     if (config.autoReload) {
