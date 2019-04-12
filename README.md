@@ -1,4 +1,4 @@
-ozzx:  一个高效、易用、干净的html框架
+owo:  一个高效、易用、干净的html框架
 
 ### 1. 项目特点
 
@@ -16,11 +16,11 @@ ozzx:  一个高效、易用、干净的html框架
 
 安装
 ```
-npm i -g ozzx
+npm i -g @owo/owo
 ```
 创建示例项目
 ```
-pack init test
+owo init test
 ```
 打开示例文件夹
 ```
@@ -32,7 +32,7 @@ npm i 或 yarn
 ```
 运行或者编译
 ```
-pack dev 或者 pack build
+owo dev 或者 owo build
 ```
 
 ### 3. 内置方法
