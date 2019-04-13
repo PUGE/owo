@@ -1,4 +1,4 @@
-.ox-page-moveFromBottomFade {
+.o-page-moveFromBottomFade {
 	-webkit-animation: moveFromBottomFade .7s ease both;
 	-moz-animation: moveFromBottomFade .7s ease both;
 	animation: moveFromBottomFade .7s ease both;

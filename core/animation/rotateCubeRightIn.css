@@ -1,4 +1,4 @@
-.ox-page-rotateCubeRightIn {
+.o-page-rotateCubeRightIn {
 	-webkit-transform-origin: 100% 50%;
 	-webkit-animation: rotateCubeRightIn .6s both ease-in;
 	-moz-transform-origin: 100% 50%;

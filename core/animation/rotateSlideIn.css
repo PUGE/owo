@@ -1,4 +1,4 @@
-.ox-page-rotateSlideIn {
+.o-page-rotateSlideIn {
 	-webkit-animation: rotateSlideIn 1s both ease;
 	-moz-animation: rotateSlideIn 1s both ease;
 	animation: rotateSlideIn 1s both ease;

@@ -1,4 +1,4 @@
-.ox-page-rotateBottomSideFirst {
+.o-page-rotateBottomSideFirst {
 	-webkit-transform-origin: 50% 0%;
 	-webkit-animation: rotateBottomSideFirst .8s both ease-in;
 	-moz-transform-origin: 50% 0%;

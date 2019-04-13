@@ -1,4 +1,4 @@
-.ox-page-rotateFoldRight {
+.o-page-rotateFoldRight {
 	-webkit-transform-origin: 0% 50%;
 	-webkit-animation: rotateFoldRight .7s both ease;
 	-moz-transform-origin: 0% 50%;

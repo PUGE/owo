@@ -3,7 +3,7 @@
  * @return {object} 屏幕信息
  */
 
-ozzx.tool.getScreenInfo = () => {
+owo.tool.getScreenInfo = () => {
   return {
     clientWidth: document.body.clientWidth,
     clientHeight: document.body.clientHeight,

@@ -1,4 +1,4 @@
-.ox-page-rotateRoomTopOut {
+.o-page-rotateRoomTopOut {
 	-webkit-transform-origin: 50% 100%;
 	-webkit-animation: rotateRoomTopOut .8s both ease;
 	-moz-transform-origin: 50% 100%;

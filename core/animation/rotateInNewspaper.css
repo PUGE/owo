@@ -1,4 +1,4 @@
-.ox-page-rotateInNewspaper {
+.o-page-rotateInNewspaper {
 	-webkit-transform-origin: 50% 50%;
 	-webkit-animation: rotateInNewspaper .5s both ease-out;
 	-moz-transform-origin: 50% 50%;

@@ -1,4 +1,4 @@
-.ox-page-rotateSidesIn {
+.o-page-rotateSidesIn {
 	-webkit-transform-origin: 150% 50%;
 	-webkit-animation: rotateSidesIn .5s both ease-out;
 	-moz-transform-origin: 150% 50%;

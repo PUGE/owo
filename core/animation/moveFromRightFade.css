@@ -1,4 +1,4 @@
-.ox-page-moveFromRightFade {
+.o-page-moveFromRightFade {
 	-webkit-animation: moveFromRightFade .7s ease both;
 	-moz-animation: moveFromRightFade .7s ease both;
 	animation: moveFromRightFade .7s ease both;

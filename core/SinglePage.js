@@ -1,12 +1,12 @@
 // 页面资源加载完毕事件
 function ready() {
-  var page = ozzx.entry
-  window.ozzx.activePage = page
+  var page = owo.entry
+  window.owo.activePage = page
   // 更改$data链接
-  $data = ozzx.script[page].data
-  var entryDom = document.getElementById('ox-' + page)
+  $data = owo.script[page].data
+  var entryDom = document.getElementById('o-' + page)
   if (entryDom) {
-    runPageFunction(page, entryDom)
+    _owo.runPageFunction(page, entryDom)
   } else {
     console.error('找不到页面入口! 设置的入口为: ' + page)
   }

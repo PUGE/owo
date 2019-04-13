@@ -1,4 +1,4 @@
-.ox-page-rotateLeftSideFirst {
+.o-page-rotateLeftSideFirst {
 	-webkit-transform-origin: 100% 50%;
 	-webkit-animation: rotateLeftSideFirst .8s both ease-in;
 	-moz-transform-origin: 100% 50%;

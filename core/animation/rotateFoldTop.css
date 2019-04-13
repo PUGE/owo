@@ -1,4 +1,4 @@
-.ox-page-rotateFoldTop {
+.o-page-rotateFoldTop {
 	-webkit-transform-origin: 50% 100%;
 	-webkit-animation: rotateFoldTop .7s both ease;
 	-moz-transform-origin: 50% 100%;

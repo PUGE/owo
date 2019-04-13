@@ -1,4 +1,4 @@
-.ox-page-rotateCubeTopOut {
+.o-page-rotateCubeTopOut {
 	-webkit-transform-origin: 50% 100%;
 	-webkit-animation: rotateCubeTopOut .6s both ease-in;
 	-moz-transform-origin: 50% 100%;

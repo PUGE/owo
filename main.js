@@ -50,7 +50,7 @@ const processArgv = process.argv[2]
 // 判断是否为生成脚手架
 if (processArgv === 'init') {
   console.log('正在生成实例!')
-  runProcess.exec(`git clone https://github.com/ozzx/example ${process.argv[3] ? process.argv[3] : example}`,function (error, stdout, stderr) {
+  runProcess.exec(`git clone https://github.com/owo/example ${process.argv[3] ? process.argv[3] : example}`,function (error, stdout, stderr) {
     if (error !== null) {
       console.log('exec error: ' + error)
       return
@@ -60,7 +60,7 @@ if (processArgv === 'init') {
     console.log('并运行npm i 或 yarn 安装依赖包')
     console.log('使用pack dev测试运行')
     console.log('使用pack build打包页面')
-    console.log('配置信息储存在目录下ozzx.js中!')
+    console.log('配置信息储存在目录下owo.js中!')
   })
   return
 }
@@ -74,13 +74,13 @@ let htmlTemple = ''
 let animationList = new Set()
 
 // 判断运行目录下是否包含配置文件
-if (!fs.readFileSync(path.join(runPath, 'ozzx.js'))) {
-  log.error('ozzx.js file does not exist!')
+if (!fs.readFileSync(path.join(runPath, 'owo.js'))) {
+  log.error('owo.js file does not exist!')
   close()
 }
 
 // 读取配置文件
-let config = eval(fs.readFileSync(path.join(runPath, 'ozzx.js'), 'utf8'))
+let config = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
 
 
 // 判断是否处于生成模式
@@ -90,7 +90,7 @@ if (processArgv) {
     const processConfig = JSON.parse(JSON.stringify(config[processArgv]))
     config = Object.assign(processConfig, config)
   } else {
-    log.error(`config name ${processArgv} not found in ozzx.js!`)
+    log.error(`config name ${processArgv} not found in owo.js!`)
     return
   }
 }
@@ -218,7 +218,7 @@ function outPutScript (scriptData) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
 
-  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="${basePath}static/js/ozzx.main${versionString}.js" type="text/javascript"></script>`
+  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="${basePath}static/js/owo.main${versionString}.js" type="text/javascript"></script>`
 
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
@@ -237,11 +237,11 @@ function outPutAnimation () {
       animationData += Tool.loadFile(animationFilePath) + '\r\n'
     })
     // 输出动画样式文件
-    const animationPath = path.join(staticPath, 'css', `ozzx.animation${versionString}.css`)
+    const animationPath = path.join(staticPath, 'css', `owo.animation${versionString}.css`)
     Tool.creatDirIfNotExist(path.join(staticPath, 'css'))
     log.info(`写文件: ${animationPath}`)
     fs.writeFileSync(animationPath, animationData)
-    htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="${basePath}static/css/ozzx.animation${versionString}.css">`)
+    htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, `<link rel="stylesheet" href="${basePath}static/css/owo.animation${versionString}.css">`)
   }
 }
 
@@ -261,8 +261,6 @@ function handleScript (dom, changePath) {
     log.info('工程中包含多个页面!')
     coreScript += Tool.loadFile(path.join(corePath, 'MultiPage.js'))
   }
-  // 整合页面代码
-  coreScript += dom.script
   // 页面切换特效
   // 处理使用到的特效
   let useAnimationList = Cut.stringArray(coreScript, '$go(', ')')
@@ -302,8 +300,8 @@ function handleScript (dom, changePath) {
   }
   
   // 处理使用到的方法
-  let toolList = Cut.stringArray(coreScript, 'ozzx.tool.', '(')
-  let toolList2 = Cut.stringArray(coreScript, '$tool.', '(')
+  let toolList = Cut.stringArray(dom.script, 'owo.tool.', '(')
+  let toolList2 = Cut.stringArray(dom.script, '$tool.', '(')
   // 数组去重
   toolList = new Set(toolList.concat(toolList2))
   toolList.forEach(element => {
@@ -311,24 +309,24 @@ function handleScript (dom, changePath) {
     coreScript += Tool.loadFile(path.join(corePath, 'tool', `${element}.js`))
   })
   // 使用bable处理代码
-  dom.script = Script(coreScript, config.outPut.minifyJs).code
+  let mainScript = Script(coreScript, config.outPut.minifyJs).code
 
   // ----------------------------------------------- 输出js -----------------------------------------------
   const scriptDir = path.join(staticPath, 'js')
   // 判断并创建js目录
   Tool.creatDirIfNotExist(scriptDir)
-  let scriptData = '<!-- 页面脚本 -->'
+  let scriptData = `<!-- owo框架代码 --><script>${Script(dom.script).code}</script>`
   
   // 判断是否输出时间
   if (config.outPut.addTime) {
-    dom.script = `// ${new Date().toString()}\r\n` + dom.script
+    mainScript = `// ${new Date().toString()}\r\n` + mainScript
   }
   // 处理js中的资源
   if (config.resourceFolder) {
-    dom.script = resourceHandle(dom.script, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
+    mainScript = resourceHandle(mainScript, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
   }
   // 写出主要硬盘文件
-  fs.writeFileSync(path.join(staticPath, 'js' , `ozzx.main${versionString}.js`), dom.script)
+  fs.writeFileSync(path.join(staticPath, 'js' , `owo.main${versionString}.js`), mainScript)
   
   // 判断是否需要加入自动刷新代码
   if (config.autoReload) {
@@ -481,7 +479,7 @@ function pack(changePath) {
 
   // 处理title
   log.debug(`读取网页标题: ${config.title}`)
-  htmlTemple = htmlTemple.replace('{{title}}', config.title || 'ozzx')
+  htmlTemple = htmlTemple.replace('{{title}}', config.title || 'owo')
 
   log.debug(`处理页面源信息: ${JSON.stringify(config.headList)}`)
 

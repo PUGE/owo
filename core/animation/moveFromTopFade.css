@@ -1,4 +1,4 @@
-.ox-page-moveFromTopFade {
+.o-page-moveFromTopFade {
 	-webkit-animation: moveFromTopFade .7s ease both;
 	-moz-animation: moveFromTopFade .7s ease both;
 	animation: moveFromTopFade .7s ease both;

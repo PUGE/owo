@@ -1,4 +1,4 @@
-.ox-page-rotateRoomLeftOut {
+.o-page-rotateRoomLeftOut {
 	-webkit-transform-origin: 100% 50%;
 	-webkit-animation: rotateRoomLeftOut .8s both ease;
 	-moz-transform-origin: 100% 50%;

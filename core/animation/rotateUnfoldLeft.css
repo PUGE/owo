@@ -1,4 +1,4 @@
-.ox-page-rotateUnfoldLeft {
+.o-page-rotateUnfoldLeft {
 	-webkit-transform-origin: 100% 50%;
 	-webkit-animation: rotateUnfoldLeft .7s both ease;
 	-moz-transform-origin: 100% 50%;

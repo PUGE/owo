@@ -1,4 +1,4 @@
-.ox-page-moveToLeftFade {
+.o-page-moveToLeftFade {
 	-webkit-animation: moveToLeftFade .7s ease both;
 	-moz-animation: moveToLeftFade .7s ease both;
 	animation: moveToLeftFade .7s ease both;

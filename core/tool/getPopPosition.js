@@ -9,7 +9,7 @@
  * @return {object} 返回合适的位置信息
  */
 
-ozzx.tool.getPopPosition = (areaW, areaH, boxW, boxH, x, y) => {
+owo.tool.getPopPosition = (areaW, areaH, boxW, boxH, x, y) => {
   let left, top
   // 先判断横坐标
   // 距离右侧区域

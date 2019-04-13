@@ -1,5 +1,24 @@
+if (!owo) {
+  console.error('没有找到owo核心!')
+}
+
+// 注册owo默认变量
+// 框架状态变量
+owo.state = {}
+// 框架全局变量
+owo.global = {}
+// 全局方法变量
+owo.tool = {}
+
+// 便捷的获取工具方法
+var $tool = owo.tool
+var $data = {}
+
+// 框架核心函数
+var _owo = {}
+
 // 对象合并方法
-function assign(a, b) {
+_owo.assign = function(a, b) {
   var newObj = {}
   for (var key in a){
     newObj[key] = a[key]
@@ -11,23 +30,23 @@ function assign(a, b) {
 }
 
 // 运行页面所属的方法
-function runPageFunction (pageName, entryDom) {
-  // ozzx-name处理
-  window.ozzx.domList = {}
-  pgNameHandler(entryDom)
+_owo.runPageFunction = function (pageName, entryDom) {
+  // owo-name处理
+  window.owo.domList = {}
+  _owo.pgNameHandler(entryDom)
 
   // 判断页面是否有自己的方法
-  var newPageFunction = window.ozzx.script[pageName]
+  var newPageFunction = window.owo.script[pageName]
   if (!newPageFunction) return
   // console.log(newPageFunction)
   // 如果有created方法则执行
   if (newPageFunction.created) {
     // 注入运行环境
-    newPageFunction.created.apply(assign(newPageFunction, {
+    newPageFunction.created.apply(_owo.assign(newPageFunction, {
       $el: entryDom,
       data: newPageFunction.data,
-      activePage: window.ozzx.activePage,
-      domList: window.ozzx.domList
+      activePage: window.owo.activePage,
+      domList: window.owo.domList
     }))
   }
   
@@ -37,24 +56,24 @@ function runPageFunction (pageName, entryDom) {
     if (templateScript.created) {
       // 获取到当前配置页的DOM
       // 待修复,临时获取方式,这种方式获取到的dom不准确
-      var domList = entryDom.getElementsByClassName('ox-' + key)
+      var domList = entryDom.getElementsByClassName('o-' + key)
       if (domList.length !== 1){
         console.error('我就说会有问题吧!')
         console.log(domList)
       }
       // 为模板注入运行环境
-      templateScript.created.apply(assign(newPageFunction.template[key], {
+      templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
         $el: domList[0].children[0],
         data: templateScript.data,
-        activePage: window.ozzx.activePage,
-        domList: window.ozzx.domList
+        activePage: window.owo.activePage,
+        domList: window.owo.domList
       }))
     }
   }
 }
 
-// ozzx-name处理
-function pgNameHandler (tempDom) {
+// owo-name处理
+_owo.pgNameHandler = function (tempDom) {
   // 判断是否存在@name属性
   var pgName = tempDom.attributes['@name']
   if (pgName) {
@@ -63,7 +82,7 @@ function pgNameHandler (tempDom) {
     tempDom.hide = function () {
       this.style.display = 'none'
     }
-    window.ozzx.domList[pgName.textContent] = tempDom
+    window.owo.domList[pgName.textContent] = tempDom
   }
   // 判断是否有点击事件
   var clickFunc = tempDom.attributes['@click']
@@ -73,7 +92,7 @@ function pgNameHandler (tempDom) {
     tempDom.onclick = function(event) {
       var clickFor = this.attributes['@click'].textContent
       // 判断页面是否有自己的方法
-      var newPageFunction = window.ozzx.script[window.ozzx.activePage]
+      var newPageFunction = window.owo.script[window.owo.activePage]
       // console.log(this.attributes)
       // 判断是否为模板
       var templateName = this.attributes['template']
@@ -118,12 +137,12 @@ function pgNameHandler (tempDom) {
       // console.log(newPageFunction)
       // 如果有方法,则运行它
       if (newPageFunction[clickFor]) {
-        // 绑定window.ozzx对象
+        // 绑定window.owo对象
         // console.log(tempDom)
         // 待测试不知道这样合并会不会对其它地方造成影响
         newPageFunction.$el = this
         newPageFunction.$event = event
-        newPageFunction.domList = window.ozzx.domList
+        newPageFunction.domList = window.owo.domList
         newPageFunction[clickFor].apply(newPageFunction, parameterArr)
       } else {
         // 如果没有此方法则交给浏览器引擎尝试运行
@@ -135,18 +154,18 @@ function pgNameHandler (tempDom) {
   for (var i = 0; i < tempDom.children.length; i++) {
     var childrenDom = tempDom.children[i]
     // console.log(childrenDom)
-    pgNameHandler(childrenDom)
+    _owo.pgNameHandler(childrenDom)
   }
 }
 
 // 便捷获取被命名的dom元素
 function $dom (domName) {
-  return ozzx.domList[domName]
+  return owo.domList[domName]
 }
 
 // 跳转到指定页面
 function $go (pageName, inAnimation, outAnimation, param) {
-  ozzx.state.animation = {
+  owo.state.animation = {
     in: inAnimation,
     out: outAnimation
   }

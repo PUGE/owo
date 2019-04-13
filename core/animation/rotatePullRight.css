@@ -1,4 +1,4 @@
-.ox-page-rotatePullRight {
+.o-page-rotatePullRight {
 	-webkit-transform-origin: 100% 50%;
 	-webkit-animation: rotatePullRight .5s both ease;
 	-moz-transform-origin: 100% 50%;

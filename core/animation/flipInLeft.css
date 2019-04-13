@@ -1,4 +1,4 @@
-.ox-page-flipInLeft {
+.o-page-flipInLeft {
 	-webkit-transform-origin: 50% 50%;
 	-webkit-animation: flipInLeft .5s both ease-out;
 	-moz-transform-origin: 50% 50%;

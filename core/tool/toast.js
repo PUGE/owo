@@ -4,9 +4,9 @@
  * @param  {number} time       显示时长
  */
 
-ozzx.tool.toast = (text, time) => {
-  if (window.ozzx.state.toastClock) {
-    clearTimeout(window.ozzx.state.toastClock)
+owo.tool.toast = (text, time) => {
+  if (window.owo.state.toastClock) {
+    clearTimeout(window.owo.state.toastClock)
     hideToast()
   }
   if (time === undefined || time === null) {
@@ -40,7 +40,7 @@ ozzx.tool.toast = (text, time) => {
   document.body.append(toast)
   function hideToast() {
     document.getElementById('toast').remove()
-    window.ozzx.state.toastClock = null
+    window.owo.state.toastClock = null
   }
-  window.ozzx.state.toastClock = setTimeout(hideToast, time)
+  window.owo.state.toastClock = setTimeout(hideToast, time)
 }

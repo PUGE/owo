@@ -9,16 +9,16 @@ window.onload = function() {
   // 取出URL地址判断当前所在页面
   var pageArg = getarg(window.location.hash)
   // 从配置项中取出程序入口
-  var page = pageArg ? pageArg.split('?')[0] : ozzx.entry
+  var page = pageArg ? pageArg.split('?')[0] : owo.entry
   if (page) {
-    var entryDom = document.getElementById('ox-' + page)
+    var entryDom = document.getElementById('o-' + page)
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
-      window.ozzx.activePage = page
+      window.owo.activePage = page
       // 更改$data链接
-      $data = ozzx.script[page].data
-      runPageFunction(page, entryDom)
+      $data = owo.script[page].data
+      _owo.runPageFunction(page, entryDom)
     } else {
       console.error('入口文件设置错误,错误值为: ', entryDom)
     }
@@ -31,12 +31,12 @@ window.onload = function() {
 window.onhashchange = function(e) {
   var oldUrlParam = getarg(e.oldURL)
   // 如果旧页面不存在则为默认页面
-  if (!oldUrlParam) oldUrlParam = ozzx.entry
+  if (!oldUrlParam) oldUrlParam = owo.entry
   var newUrlParam = getarg(e.newURL)
   
   // 如果没有跳转到任何页面则跳转到主页
   if (newUrlParam === undefined) {
-    newUrlParam = ozzx.entry
+    newUrlParam = owo.entry
   }
   // 如果没有发生页面跳转则不需要进行操作
   // 切换页面特效

@@ -8,7 +8,7 @@
  * @return {object}            控制信息
  */
 
-ozzx.tool.smoothChange = (startValue, endValue, time, step, callBack) => {
+owo.tool.smoothChange = (startValue, endValue, time, step, callBack) => {
   if (isNaN(startValue)) {
     console.error(`startValue的值不能为NaN`)
     return

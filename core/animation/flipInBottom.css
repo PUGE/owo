@@ -1,4 +1,4 @@
-.ox-page-flipInBottom {
+.o-page-flipInBottom {
 	-webkit-transform-origin: 50% 50%;
 	-webkit-animation: flipInBottom .5s both ease-out;
 	-moz-transform-origin: 50% 50%;

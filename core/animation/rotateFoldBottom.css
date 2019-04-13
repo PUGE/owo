@@ -1,4 +1,4 @@
-.ox-page-rotateFoldBottom {
+.o-page-rotateFoldBottom {
 	-webkit-transform-origin: 50% 0%;
 	-webkit-animation: rotateFoldBottom .7s both ease;
 	-moz-transform-origin: 50% 0%;

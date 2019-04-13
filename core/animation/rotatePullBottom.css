@@ -1,4 +1,4 @@
-.ox-page-rotatePullBottom {
+.o-page-rotatePullBottom {
 	-webkit-transform-origin: 50% 100%;
 	-webkit-animation: rotatePullBottom .5s both ease;
 	-moz-transform-origin: 50% 100%;

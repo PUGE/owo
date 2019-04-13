@@ -1,4 +1,4 @@
-.ox-page-rotatePullTop {
+.o-page-rotatePullTop {
 	-webkit-transform-origin: 50% 0%;
 	-webkit-animation: rotatePullTop .5s both ease;
 	-moz-transform-origin: 50% 0%;

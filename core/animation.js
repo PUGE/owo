@@ -35,15 +35,15 @@ function animation (oldDom, newDom, animationIn, animationOut) {
   // document.body.style.overflow = 'hidden'
 
   parentDom.style.perspective = '1200px'
-  oldDom.classList.add('ozzx-animation')
+  oldDom.classList.add('owo-animation')
   animationIn.split(',').forEach(value => {
-    oldDom.classList.add('ox-page-' + value)
+    oldDom.classList.add('o-page-' + value)
     
   })
 
-  newDom.classList.add('ozzx-animation')
+  newDom.classList.add('owo-animation')
   animationOut.split(',').forEach(value => {
-    newDom.classList.add('ox-page-' + value)
+    newDom.classList.add('o-page-' + value)
     
   })
   // 旧DOM执行函数
@@ -54,11 +54,11 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     oldDom.style.display = 'none'
     // console.log(oldDom)
     oldDom.style.position = ''
-    oldDom.classList.remove('ozzx-animation')
+    oldDom.classList.remove('owo-animation')
     parentDom.style.perspective = ''
     // 清除临时设置的class
     animationIn.split(',').forEach(value => {
-      oldDom.classList.remove('ox-page-' + value)
+      oldDom.classList.remove('o-page-' + value)
     })
   }
 
@@ -68,9 +68,9 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     newDom.removeEventListener('animationend', newDomFun, false)
     // 清除临时设置的style
     newDom.style.position = ''
-    newDom.classList.remove('ozzx-animation')
+    newDom.classList.remove('owo-animation')
     animationOut.split(',').forEach(value => {
-      newDom.classList.remove('ox-page-' + value)
+      newDom.classList.remove('o-page-' + value)
     })
   }
 }
@@ -87,35 +87,35 @@ function switchPage (oldUrlParam, newUrlParam) {
   // console.log(oldUrlParam)
   // 如果源地址获取不到 那么一般是因为源页面为首页
   if (oldPage === undefined) {
-    oldPage = ozzx.entry
+    oldPage = owo.entry
   } else {
     oldPage = oldPage.split('&')[0]
   }
-  var oldDom = document.getElementById('ox-' + oldPage)
-  var newDom = document.getElementById('ox-' + newPage)
+  var oldDom = document.getElementById('o-' + oldPage)
+  var newDom = document.getElementById('o-' + newPage)
   
   if (!newDom) {
     console.error('页面不存在!')
     return
   }
   // 判断是否有动画效果
-  if (!ozzx.state.animation) ozzx.state.animation = {}
-  var animationIn = ozzx.state.animation.in
-  var animationOut = ozzx.state.animation.out
+  if (!owo.state.animation) owo.state.animation = {}
+  var animationIn = owo.state.animation.in
+  var animationOut = owo.state.animation.out
   if (animationIn || animationOut) {
     // 如果没用动画参数则使用默认效果
     if (!animationIn || !animationOut) {
       dispalyEffect(oldDom, newDom)
       return
     }
-    ozzx.state.animation = {}
+    owo.state.animation = {}
     animation(oldDom, newDom, animationIn, animationOut)
   } else {
     dispalyEffect(oldDom, newDom)
   }
   
-  window.ozzx.activePage = newPage
+  window.owo.activePage = newPage
   // 更改$data链接
-  $data = ozzx.script[newPage].data
-  runPageFunction(newPage, newDom)
+  $data = owo.script[newPage].data
+  _owo.runPageFunction(newPage, newDom)
 }

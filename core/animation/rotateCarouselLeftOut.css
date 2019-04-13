@@ -1,4 +1,4 @@
-.ox-page-rotateCarouselLeftOut {
+.o-page-rotateCarouselLeftOut {
 	-webkit-transform-origin: 100% 50%;
 	-webkit-animation: rotateCarouselLeftOut .8s both ease;
 	-moz-transform-origin: 100% 50%;
