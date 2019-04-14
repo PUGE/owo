@@ -163,6 +163,20 @@ function $dom (domName) {
   return owo.domList[domName]
 }
 
+// 便捷选择器
+if (!window.$) {
+  window.$ = function (query) {
+    // 判断是否选择id
+    if (query[0] == '#') {
+      var dom = document.querySelector(query)
+      return dom ? dom : []
+    } else {
+      var domList = document.querySelectorAll(query)
+      return domList ? domList : []
+    }
+  }
+}
+
 // 跳转到指定页面
 function $go (pageName, inAnimation, outAnimation, param) {
   owo.state.animation = {
