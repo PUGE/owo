@@ -31,8 +31,6 @@ _owo.assign = function(a, b) {
 
 // 运行页面所属的方法
 _owo.runPageFunction = function (pageName, entryDom) {
-  // owo-name处理
-  window.owo.domList = {}
   _owo.pgNameHandler(entryDom)
 
   // 判断页面是否有自己的方法
@@ -45,8 +43,7 @@ _owo.runPageFunction = function (pageName, entryDom) {
     newPageFunction.created.apply(_owo.assign(newPageFunction, {
       $el: entryDom,
       data: newPageFunction.data,
-      activePage: window.owo.activePage,
-      domList: window.owo.domList
+      activePage: window.owo.activePage
     }))
   }
   
@@ -65,8 +62,7 @@ _owo.runPageFunction = function (pageName, entryDom) {
       templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
         $el: domList[0].children[0],
         data: templateScript.data,
-        activePage: window.owo.activePage,
-        domList: window.owo.domList
+        activePage: window.owo.activePage
       }))
     }
   }
@@ -74,16 +70,6 @@ _owo.runPageFunction = function (pageName, entryDom) {
 
 // owo-name处理
 _owo.pgNameHandler = function (tempDom) {
-  // 判断是否存在@name属性
-  var pgName = tempDom.attributes['@name']
-  if (pgName) {
-    // console.log(pgName.textContent)
-    // 隐藏元素
-    tempDom.hide = function () {
-      this.style.display = 'none'
-    }
-    window.owo.domList[pgName.textContent] = tempDom
-  }
   // 判断是否有点击事件
   var clickFunc = tempDom.attributes['@click']
   
@@ -142,7 +128,6 @@ _owo.pgNameHandler = function (tempDom) {
         // 待测试不知道这样合并会不会对其它地方造成影响
         newPageFunction.$el = this
         newPageFunction.$event = event
-        newPageFunction.domList = window.owo.domList
         newPageFunction[clickFor].apply(newPageFunction, parameterArr)
       } else {
         // 如果没有此方法则交给浏览器引擎尝试运行
@@ -156,11 +141,6 @@ _owo.pgNameHandler = function (tempDom) {
     // console.log(childrenDom)
     _owo.pgNameHandler(childrenDom)
   }
-}
-
-// 便捷获取被命名的dom元素
-function $dom (domName) {
-  return owo.domList[domName]
 }
 
 // 便捷选择器
