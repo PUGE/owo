@@ -162,6 +162,7 @@ function handleStyle(dom, changePath) {
       outPutHtml()
       return
     } else {
+      Tool.creatDirIfNotExist(path.join(staticPath, 'css'))
       styleData += `\r\n    <!-- 附属css文件 -->`
     }
     for (let ind = 0; ind < config.styleList.length; ind++) {
