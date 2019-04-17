@@ -134,6 +134,18 @@ _owo.pgNameHandler = function (tempDom) {
       }
     }
   }
+
+  // 判断是否有@show
+  var showEvent = tempDom.attributes['@show']
+  if (showEvent) {
+    // 初步先简单处理吧
+    var temp = showEvent.textContent.replace(/ /g, '')
+    // 取出条件
+    const condition = temp.split("==")
+    if (window.owo.script[owo.activePage].data[condition[0]] != condition[1]) {
+      tempDom.style.display = 'none'
+    }
+  }
   // 递归处理所有子Dom结点
   for (var i = 0; i < tempDom.children.length; i++) {
     var childrenDom = tempDom.children[i]
@@ -179,9 +191,9 @@ function $change (key, value) {
   // 当前页面下@show元素列表
   var showList = document.getElementById('o-' + owo.activePage).querySelectorAll('[\\@show]')
   showList.forEach(element => {
-    console.log(element)
+    // console.log(element)
     var order = element.attributes['@show'].textContent
-    console.log(order)
+    // console.log(order)
     // 去掉空格
     order = order.replace(/ /g, '')
     if (order == key + '==' + value) {
