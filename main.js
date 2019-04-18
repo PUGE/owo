@@ -219,7 +219,7 @@ function outPutScript (scriptData) {
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
 
-  scriptData += `\r\n    <!-- 主要script文件 -->\r\n    <script src="${basePath}static/js/owo.main${versionString}.js" type="text/javascript"></script>`
+  scriptData += `\r\n    <!-- 框架script文件 -->\r\n    <script src="${basePath}static/js/owo.main${versionString}.js" type="text/javascript"></script>`
 
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
@@ -318,10 +318,8 @@ function handleScript (dom, changePath) {
   Tool.creatDirIfNotExist(scriptDir)
   let scriptData = `<!-- owo框架代码 --><script>${Script(dom.script).code}</script>`
   
-  // 判断是否输出时间
-  if (config.outPut.addTime) {
-    mainScript = `// ${new Date().toString()}\r\n` + mainScript
-  }
+  // 输出时间和框架信息
+  mainScript = `// build by owo frame!\r\n// ${new Date().toString()}\r\n\r\n` + mainScript
   // 处理js中的资源
   if (config.resourceFolder) {
     mainScript = resourceHandle(mainScript, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
@@ -410,10 +408,6 @@ function outPutHtml () {
   // 如果文档中已经不存在output那么证明已经可以进行输出了
   if (!htmlTemple.includes('-output -->')) {
     log.debug('准备输出html!')
-    // 判断是否输出时间
-    if (config.outPut.addTime) {
-      htmlTemple = htmlTemple + `\r\n<!-- ${new Date().toString()} -->`
-    }
     // 对html所引用的资源进行处理
     if (config.resourceFolder) {
       htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
