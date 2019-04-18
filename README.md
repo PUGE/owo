@@ -114,6 +114,7 @@ owo dev 或者 owo build
 
 #### 2019年4月18日
 1. 增加框架信息输出
+2. 增加对各种原生事件例如(click, touch)等事件的支持, 使用方法@click, @touch ...
 
 #### 2019年4月17日
 1. 增加$change 初步实现@show

@@ -70,82 +70,91 @@ _owo.runPageFunction = function (pageName, entryDom) {
 
 // owo-name处理
 _owo.pgNameHandler = function (tempDom) {
-  // 判断是否有点击事件
-  var clickFunc = tempDom.attributes['@click']
-  
-  if (clickFunc) {
-    tempDom.onclick = function(event) {
-      var clickFor = clickFunc.textContent
-      // 判断页面是否有自己的方法
-      var newPageFunction = window.owo.script[window.owo.activePage]
-      // console.log(this.attributes)
-      // 判断是否为模板
-      var templateName = this.attributes['template']
-      
-      if (templateName) {
-        // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
-        if (newPageFunction.template) {
-          newPageFunction = newPageFunction.template[templateName.textContent]
-        } else {
-          eval(clickFunc.textContent)
-          return
-        }
-      }
-      
-      // 取出参数
-      var parameterArr = []
-      var parameterList = clickFor.match(/[^\(\)]+(?=\))/g)
-      
-      if (parameterList && parameterList.length > 0) {
-        // 参数列表
-        parameterArr = parameterList[0].split(',')
-        // 进一步处理参数
-        
-        for (var i = 0; i < parameterArr.length; i++) {
-          var parameterValue = parameterArr[i].replace(/(^\s*)|(\s*$)/g, "")
-          // console.log(parameterValue)
-          // 判断参数是否为一个字符串
-          
-          if (parameterValue.charAt(0) === '"' && parameterValue.charAt(parameterValue.length - 1) === '"') {
-            parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
+  var activePage = window.owo.script[owo.activePage]
+  for (let ind = 0; ind < tempDom.attributes.length; ind++) {
+    var attribute = tempDom.attributes[ind]
+    // 判断是否为owo的事件
+    
+    if (attribute.name.startsWith('@')) {
+      var eventName = attribute.name.slice(1)
+      var eventFor = attribute.textContent
+      switch (eventName) {
+        case 'show' : {
+          // 初步先简单处理吧
+          var temp = eventFor.replace(/ /g, '')
+          // 取出条件
+          const condition = temp.split("==")
+          if (activePage.data[condition[0]] != condition[1]) {
+            tempDom.style.display = 'none'
           }
-          if (parameterValue.charAt(0) === "'" && parameterValue.charAt(parameterValue.length - 1) === "'") {
-            parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
-          }
-          // console.log(parameterArr[i])
+          break
         }
-        clickFor = clickFor.replace('(' + parameterList + ')', '')
-      } else {
-        // 解决 @click="xxx()"会造成的问题
-        clickFor = clickFor.replace('()', '')
-      }
-      // console.log(newPageFunction)
-      // 如果有方法,则运行它
-      if (newPageFunction[clickFor]) {
-        // 绑定window.owo对象
-        // console.log(tempDom)
-        // 待测试不知道这样合并会不会对其它地方造成影响
-        newPageFunction.$el = this
-        newPageFunction.$event = event
-        newPageFunction[clickFor].apply(newPageFunction, parameterArr)
-      } else {
-        // 如果没有此方法则交给浏览器引擎尝试运行
-        eval(clickFunc.textContent)
+        default: {
+          tempDom["on" + eventName] = function(event) {
+            // 因为后面会对eventFor进行修改所以使用拷贝的
+            var eventForCopy = eventFor
+            // 判断页面是否有自己的方法
+            var newPageFunction = window.owo.script[window.owo.activePage]
+            // console.log(this.attributes)
+            // 判断是否为模板
+            var templateName = this.attributes['template']
+            
+            if (templateName) {
+              // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
+              if (newPageFunction.template) {
+                newPageFunction = newPageFunction.template[templateName.textContent]
+              } else {
+                eval(eventForCopy)
+                return
+              }
+            }
+            // 待优化可以单独提出来
+            // 取出参数
+            var parameterArr = []
+            var parameterList = eventForCopy.match(/[^\(\)]+(?=\))/g)
+            
+            if (parameterList && parameterList.length > 0) {
+              // 参数列表
+              parameterArr = parameterList[0].split(',')
+              // 进一步处理参数
+              
+              for (var i = 0; i < parameterArr.length; i++) {
+                var parameterValue = parameterArr[i].replace(/(^\s*)|(\s*$)/g, "")
+                // console.log(parameterValue)
+                // 判断参数是否为一个字符串
+                
+                if (parameterValue.charAt(0) === '"' && parameterValue.charAt(parameterValue.length - 1) === '"') {
+                  parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
+                }
+                if (parameterValue.charAt(0) === "'" && parameterValue.charAt(parameterValue.length - 1) === "'") {
+                  parameterArr[i] = parameterValue.substring(1, parameterValue.length - 1)
+                }
+                // console.log(parameterArr[i])
+              }
+              eventForCopy = eventForCopy.replace('(' + parameterList + ')', '')
+            } else {
+              // 解决 @click="xxx()"会造成的问题
+              eventForCopy = eventForCopy.replace('()', '')
+            }
+            // console.log(newPageFunction)
+            // 如果有方法,则运行它
+            if (newPageFunction[eventForCopy]) {
+              // 绑定window.owo对象
+              // console.log(tempDom)
+              // 待测试不知道这样合并会不会对其它地方造成影响
+              newPageFunction.$el = this
+              newPageFunction.$event = event
+              newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
+            } else {
+              // 如果没有此方法则交给浏览器引擎尝试运行
+              eval(eventForCopy)
+            }
+          }
+        }
       }
     }
   }
 
-  // 判断是否有@show
-  var showEvent = tempDom.attributes['@show']
-  if (showEvent) {
-    // 初步先简单处理吧
-    var temp = showEvent.textContent.replace(/ /g, '')
-    // 取出条件
-    const condition = temp.split("==")
-    if (window.owo.script[owo.activePage].data[condition[0]] != condition[1]) {
-      tempDom.style.display = 'none'
-    }
-  }
   // 递归处理所有子Dom结点
   for (var i = 0; i < tempDom.children.length; i++) {
     var childrenDom = tempDom.children[i]
