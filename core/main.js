@@ -74,9 +74,8 @@ _owo.pgNameHandler = function (tempDom) {
   var clickFunc = tempDom.attributes['@click']
   
   if (clickFunc) {
-    
     tempDom.onclick = function(event) {
-      var clickFor = this.attributes['@click'].textContent
+      var clickFor = clickFunc.textContent
       // 判断页面是否有自己的方法
       var newPageFunction = window.owo.script[window.owo.activePage]
       // console.log(this.attributes)
@@ -88,7 +87,7 @@ _owo.pgNameHandler = function (tempDom) {
         if (newPageFunction.template) {
           newPageFunction = newPageFunction.template[templateName.textContent]
         } else {
-          eval(this.attributes['@click'].textContent)
+          eval(clickFunc.textContent)
           return
         }
       }
@@ -131,8 +130,20 @@ _owo.pgNameHandler = function (tempDom) {
         newPageFunction[clickFor].apply(newPageFunction, parameterArr)
       } else {
         // 如果没有此方法则交给浏览器引擎尝试运行
-        eval(this.attributes['@click'].textContent)
+        eval(clickFunc.textContent)
       }
+    }
+  }
+
+  // 判断是否有@show
+  var showEvent = tempDom.attributes['@show']
+  if (showEvent) {
+    // 初步先简单处理吧
+    var temp = showEvent.textContent.replace(/ /g, '')
+    // 取出条件
+    const condition = temp.split("==")
+    if (window.owo.script[owo.activePage].data[condition[0]] != condition[1]) {
+      tempDom.style.display = 'none'
     }
   }
   // 递归处理所有子Dom结点
@@ -174,4 +185,21 @@ function $go (pageName, inAnimation, outAnimation, param) {
     paramString = paramString.slice(0, -1)
   }
   window.location.href = paramString + "#" + pageName
+}
+
+function $change (key, value) {
+  // 当前页面下@show元素列表
+  var showList = document.getElementById('o-' + owo.activePage).querySelectorAll('[\\@show]')
+  showList.forEach(element => {
+    // console.log(element)
+    var order = element.attributes['@show'].textContent
+    // console.log(order)
+    // 去掉空格
+    order = order.replace(/ /g, '')
+    if (order == key + '==' + value) {
+      element.style.display = ''
+    } else {
+      element.style.display = 'none'
+    }
+  })
 }
