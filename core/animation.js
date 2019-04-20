@@ -117,5 +117,5 @@ function switchPage (oldUrlParam, newUrlParam) {
   window.owo.activePage = newPage
   // 更改$data链接
   $data = owo.script[newPage].data
-  _owo.runPageFunction(newPage, newDom)
+  _owo.handlePage(newPage, newDom)
 }

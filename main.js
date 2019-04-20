@@ -3,7 +3,7 @@
 'use strict'
 const fs = require('fs')
 const path = require('path')
-
+const ora = require('ora')
 // 文件变动检测
 const chokidar = require('chokidar')
 const Tool = require('./lib/tool')
@@ -73,8 +73,12 @@ let htmlTemple = ''
 // 当前打包的动画样式
 let animationList = new Set()
 
+// 进度显示
+const spinner = ora('正在读取配置文件').start()
+
 // 判断运行目录下是否包含配置文件
 if (!fs.readFileSync(path.join(runPath, 'owo.js'))) {
+  spinner.stop()
   log.error('owo.js file does not exist!')
   close()
 }
@@ -112,6 +116,7 @@ const staticPath = path.join(outPutPath, 'static')
 
 // 处理style
 function handleStyle(dom, changePath) {
+  spinner.text = '正在处理style'
   let styleData = ''
   // 添加入框架内置样式
   const mainStyle = path.join(corePath, `main.css`)
@@ -227,6 +232,7 @@ function outPutScript (scriptData) {
 
 // 输出页面切换动画
 function outPutAnimation () {
+  spinner.text = '正在处理动画'
   // 判断“动画”集合是否为空
   if (animationList.size === 0) {
     htmlTemple = htmlTemple.replace(`<!-- animation-output -->`, '')
@@ -248,6 +254,7 @@ function outPutAnimation () {
 
 // 处理script
 function handleScript (dom, changePath) {
+  spinner.text = '正在处理script'
   // 版本号后缀
   const versionString = config.outPut.addVersion ? `.${version}` : ''
   // 根据不同情况使用不同的core
@@ -262,6 +269,8 @@ function handleScript (dom, changePath) {
     log.info('工程中包含多个页面!')
     coreScript += Tool.loadFile(path.join(corePath, 'MultiPage.js'))
   }
+  // 加载页面就绪事件插件
+  coreScript += Tool.loadFile(path.join(corePath, 'whenReady.js'))
   // 页面切换特效
   // 处理使用到的特效
   let useAnimationList = Cut.stringArray(coreScript, '$go(', ')')
@@ -407,6 +416,7 @@ function outPutHtml () {
   log.debug('判断是否可以输出Html!')
   // 如果文档中已经不存在output那么证明已经可以进行输出了
   if (!htmlTemple.includes('-output -->')) {
+    spinner.text = '正在输出html'
     log.debug('准备输出html!')
     // 对html所引用的资源进行处理
     if (config.resourceFolder) {
@@ -423,8 +433,9 @@ function outPutHtml () {
     })
     // 写出文件
     fs.writeFileSync(path.join(outPutPath, 'index.html'), beautifyHtml)
-    console.log(`Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`)
     
+    spinner.text = `Compile successfully, Use time: ${new Date().getTime() - startTime} msec!`
+    spinner.succeed()
     if (config.autoReload) {
       log.info(`发送重新页面需要刷新命令!`)
       // 广播发送重新打包消息
@@ -438,7 +449,7 @@ function outPutHtml () {
 
 // 执行默认打包任务
 function pack(changePath) {
-  
+  spinner.start('开始打包')
   // 记录开始打包时间
   startTime = new Date().getTime()
   log.info(`--------------------------- 开始编译 ---------------------------`)
@@ -466,7 +477,7 @@ function pack(changePath) {
   }
 
   
-  
+  spinner.text = '正在处理模板文件'
   // 读取入口模板文件(一次性读取到内存中)
   const templeFile = path.join(__dirname, 'index.html')
   log.info(`读取模板文件: ${templeFile}`)

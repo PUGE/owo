@@ -30,8 +30,8 @@ _owo.assign = function(a, b) {
 }
 
 // 运行页面所属的方法
-_owo.runPageFunction = function (pageName, entryDom) {
-  _owo.pgNameHandler(entryDom)
+_owo.handlePage = function (pageName, entryDom) {
+  _owo.handleEvent(entryDom)
 
   // 判断页面是否有自己的方法
   var newPageFunction = window.owo.script[pageName]
@@ -69,7 +69,7 @@ _owo.runPageFunction = function (pageName, entryDom) {
 }
 
 // owo-name处理
-_owo.pgNameHandler = function (tempDom) {
+_owo.handleEvent = function (tempDom) {
   var activePage = window.owo.script[owo.activePage]
   for (let ind = 0; ind < tempDom.attributes.length; ind++) {
     var attribute = tempDom.attributes[ind]
@@ -159,7 +159,7 @@ _owo.pgNameHandler = function (tempDom) {
   for (var i = 0; i < tempDom.children.length; i++) {
     var childrenDom = tempDom.children[i]
     // console.log(childrenDom)
-    _owo.pgNameHandler(childrenDom)
+    _owo.handleEvent(childrenDom)
   }
 }
 
