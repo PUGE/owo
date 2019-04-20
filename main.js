@@ -179,7 +179,7 @@ function handleStyle(dom, changePath) {
       }
       // -------------sdsd---------------------------------------------------------
       // 如果是网络地址那么不需要进行处理
-      if (element.src.startsWith('http')) {
+      if (element.src[0] == 'http') {
         styleData += `\r\n    <link rel="stylesheet" href="${element.src}">`
         if (++completeNum >= config.styleList.length) {
           htmlTemple = htmlTemple.replace(`<!-- css-output -->`, styleData)
@@ -359,7 +359,7 @@ function handleScript (dom, changePath) {
         continue
       }
       // 如果是网络地址那么不需要进行处理
-      if (element.src.startsWith('http')) {
+      if (element.src[0] == 'http') {
         log.debug(`网络脚本: ${element.name}`)
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script

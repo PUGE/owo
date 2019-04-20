@@ -74,8 +74,8 @@ _owo.handleEvent = function (tempDom) {
   for (let ind = 0; ind < tempDom.attributes.length; ind++) {
     var attribute = tempDom.attributes[ind]
     // 判断是否为owo的事件
-    
-    if (attribute.name.startsWith('@')) {
+    // ie不支持startsWith
+    if (attribute.name[0] == '@') {
       var eventName = attribute.name.slice(1)
       var eventFor = attribute.textContent
       switch (eventName) {
@@ -180,8 +180,8 @@ if (!window.$) {
 // 跳转到指定页面
 function $go (pageName, inAnimation, outAnimation, param) {
   owo.state.animation = {
-    in: inAnimation,
-    out: outAnimation
+    "in": inAnimation,
+    "out": outAnimation
   }
   var paramString = ''
   if (param && typeof param == 'object') {
