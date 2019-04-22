@@ -128,7 +128,7 @@ function handleStyle(dom, changePath) {
   // 处理css中的资源文件
   if (config.resourceFolder) {
     const resourceFolder = path.join(runPath, config.resourceFolder)
-    outPutCss = resourceHandle(outPutCss, resourceFolder, path.join(staticPath, 'resource'), `${basePath}static/resource/`)
+    outPutCss = resourceHandle(outPutCss, resourceFolder, path.join(staticPath, 'resource'), `${basePath}static/resource/`, config.outPut.embedSize)
   }
   // ----------------------------------------------- 使用postcss处理 -----------------------------------------------
   // 自动加浏览器前缀
@@ -201,7 +201,7 @@ function handleStyle(dom, changePath) {
           fs.readFile(fromPath, (err, fileData) => {
             log.info(`读取成功: ${fromPath}`)
             if (err) throw err
-            fileData = resourceHandle(fileData.toString(), resourceFolder, path.join(staticPath, 'resource'), `.${basePath}resource/`)
+            fileData = resourceHandle(fileData.toString(), resourceFolder, path.join(staticPath, 'resource'), `.${basePath}resource/`, config.outPut.embedSize)
             fs.writeFile(outPutFile, fileData, () => {
               log.info(`写入文件: ${outPutFile}`)
             })
@@ -331,7 +331,7 @@ function handleScript (dom, changePath) {
   mainScript = `// build by owo frame!\r\n// ${new Date().toString()}\r\n\r\n` + mainScript
   // 处理js中的资源
   if (config.resourceFolder) {
-    mainScript = resourceHandle(mainScript, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
+    mainScript = resourceHandle(mainScript, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`, config.outPut.embedSize)
   }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `owo.main${versionString}.js`), mainScript)
@@ -420,7 +420,7 @@ function outPutHtml () {
     log.debug('准备输出html!')
     // 对html所引用的资源进行处理
     if (config.resourceFolder) {
-      htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`)
+      htmlTemple = resourceHandle(htmlTemple, path.join(runPath, config.resourceFolder), path.join(staticPath, 'resource'), `${basePath}static/resource/`, config.outPut.embedSize)
     }
     // 美化html
     log.debug('开始美化html')
