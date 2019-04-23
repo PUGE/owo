@@ -339,6 +339,13 @@ function handleScript (dom, changePath) {
     }
     scriptData += `\r\n<!-- 调试-热刷新代码 -->\r\n<script src="${basePath}static/js/autoReload.js" type="text/javascript"></script>`
   }
+  // 判断是否启用远程调试
+  if (config.remoteDebug) {
+    if (!changePath) {
+      Tool.moveFile(path.join(corePath, 'debug', 'log.js'), path.join(staticPath, 'js', `log.js`))
+    }
+    scriptData += `\r\n<!-- 调试-远程调试 -->\r\n<script src="${basePath}static/js/log.js" type="text/javascript"></script>`
+  }
   log.debug(`处理引用脚本: ${JSON.stringify(config.scriptList)}`)
   // 处理引用的script
   if (config.scriptList && config.scriptList.length > 0) {
@@ -530,7 +537,11 @@ if (config.server) {
 if (config.autoReload) {
   app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
-      console.log(ws);
+      const data = JSON.parse(msg)
+      // 判断是否为输出日志
+      if (data.type === 'log') {
+        console.log(data.message)
+      }
     })
   })
 }
