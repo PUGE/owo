@@ -100,8 +100,9 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   // 判断是否有动画效果
   if (!owo.state.animation) owo.state.animation = {}
-  var animationIn = owo.state.animation.in
-  var animationOut = owo.state.animation.out
+  // 直接.in会在ie下报错
+  var animationIn = owo.state.animation['in']
+  var animationOut = owo.state.animation['out']
   if (animationIn || animationOut) {
     // 如果没用动画参数则使用默认效果
     if (!animationIn || !animationOut) {
@@ -117,5 +118,5 @@ function switchPage (oldUrlParam, newUrlParam) {
   window.owo.activePage = newPage
   // 更改$data链接
   $data = owo.script[newPage].data
-  _owo.runPageFunction(newPage, newDom)
+  _owo.handlePage(newPage, newDom)
 }

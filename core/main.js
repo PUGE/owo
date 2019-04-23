@@ -30,9 +30,8 @@ _owo.assign = function(a, b) {
 }
 
 // 运行页面所属的方法
-_owo.runPageFunction = function (pageName, entryDom) {
-  _owo.pgNameHandler(entryDom, null)
-
+_owo.handlePage = function (pageName, entryDom) {
+  _owo.handleEvent(entryDom)
   // 判断页面是否有自己的方法
   var newPageFunction = window.owo.script[pageName]
   if (!newPageFunction) return
@@ -69,14 +68,14 @@ _owo.runPageFunction = function (pageName, entryDom) {
 }
 
 // owo-name处理
-_owo.pgNameHandler = function (tempDom, templateName) {
+_owo.handleEvent = function (tempDom, templateName) {
   // console.log(templateName)
   var activePage = window.owo.script[owo.activePage]
   for (let ind = 0; ind < tempDom.attributes.length; ind++) {
     var attribute = tempDom.attributes[ind]
     // 判断是否为owo的事件
-    
-    if (attribute.name.startsWith('@')) {
+    // ie不支持startsWith
+    if (attribute.name[0] == '@') {
       var eventName = attribute.name.slice(1)
       var eventFor = attribute.textContent
       switch (eventName) {
@@ -162,7 +161,7 @@ _owo.pgNameHandler = function (tempDom, templateName) {
       newTemplateName = tempDom.attributes['template'].textContent
     }
     // console.log(newTemplateName)
-    _owo.pgNameHandler(childrenDom, newTemplateName)
+    _owo.handleEvent(childrenDom, newTemplateName)
   }
 }
 
@@ -183,8 +182,8 @@ if (!window.$) {
 // 跳转到指定页面
 function $go (pageName, inAnimation, outAnimation, param) {
   owo.state.animation = {
-    in: inAnimation,
-    out: outAnimation
+    "in": inAnimation,
+    "out": outAnimation
   }
   var paramString = ''
   if (param && typeof param == 'object') {

@@ -5,7 +5,7 @@ function getarg(url){
 }
 
 // 页面资源加载完毕事件
-window.onload = function() {
+_owo.ready = function() {
   // 取出URL地址判断当前所在页面
   var pageArg = getarg(window.location.hash)
   // 从配置项中取出程序入口
@@ -18,7 +18,7 @@ window.onload = function() {
       window.owo.activePage = page
       // 更改$data链接
       $data = owo.script[page].data
-      _owo.runPageFunction(page, entryDom)
+      _owo.handlePage(page, entryDom)
     } else {
       console.error('入口文件设置错误,错误值为: ', entryDom)
     }

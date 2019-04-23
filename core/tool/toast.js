@@ -1,5 +1,5 @@
 /**
- * 显示toast提示
+ * 显示toast提示 不支持ie8
  * @param  {number} text       显示的文字
  * @param  {number} time       显示时长
  */
@@ -19,7 +19,7 @@ owo.tool.toast = (text, time) => {
   // 设置样式
   toast.style.position = 'fixed'
   toast.style.zIndex = 999
-  toast.style.background = 'rgba(0, 0, 0, 0.5)'
+  toast.style['background-color'] = 'rgba(0, 0, 0, 0.5)'
   toast.style.bottom = '10%'
   toast.style.height = '40px'
   toast.style.borderRadius = '10px'
@@ -37,7 +37,7 @@ owo.tool.toast = (text, time) => {
   toast.style.whiteSpace = 'nowrap'
 
   toast.innerHTML = text
-  document.body.append(toast)
+  document.body.appendChild(toast)
   function hideToast() {
     document.getElementById('toast').remove()
     window.owo.state.toastClock = null
