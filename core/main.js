@@ -31,7 +31,7 @@ _owo.assign = function(a, b) {
 
 // 运行页面所属的方法
 _owo.runPageFunction = function (pageName, entryDom) {
-  _owo.pgNameHandler(entryDom)
+  _owo.pgNameHandler(entryDom, null)
 
   // 判断页面是否有自己的方法
   var newPageFunction = window.owo.script[pageName]
@@ -69,7 +69,8 @@ _owo.runPageFunction = function (pageName, entryDom) {
 }
 
 // owo-name处理
-_owo.pgNameHandler = function (tempDom) {
+_owo.pgNameHandler = function (tempDom, templateName) {
+  // console.log(templateName)
   var activePage = window.owo.script[owo.activePage]
   for (let ind = 0; ind < tempDom.attributes.length; ind++) {
     var attribute = tempDom.attributes[ind]
@@ -96,13 +97,10 @@ _owo.pgNameHandler = function (tempDom) {
             // 判断页面是否有自己的方法
             var newPageFunction = window.owo.script[window.owo.activePage]
             // console.log(this.attributes)
-            // 判断是否为模板
-            var templateName = this.attributes['template']
-            
             if (templateName) {
               // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
               if (newPageFunction.template) {
-                newPageFunction = newPageFunction.template[templateName.textContent]
+                newPageFunction = newPageFunction.template[templateName]
               } else {
                 eval(eventForCopy)
                 return
@@ -159,7 +157,12 @@ _owo.pgNameHandler = function (tempDom) {
   for (var i = 0; i < tempDom.children.length; i++) {
     var childrenDom = tempDom.children[i]
     // console.log(childrenDom)
-    _owo.pgNameHandler(childrenDom)
+    let newTemplateName = templateName
+    if (tempDom.attributes['template'] && tempDom.attributes['template'].textContent) {
+      newTemplateName = tempDom.attributes['template'].textContent
+    }
+    // console.log(newTemplateName)
+    _owo.pgNameHandler(childrenDom, newTemplateName)
   }
 }
 
