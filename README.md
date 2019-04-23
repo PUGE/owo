@@ -110,6 +110,10 @@ owo dev 或者 owo build
 
 ### 更新日志
 
+#### 2019年4月23日
+1. 修复与jquery的兼容性问题
+2. $()支持function
+
 #### 2019年4月22日
 1. 增加output.embedSize设置(支持小图片以base64方式打包到代码中)
 

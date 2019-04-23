@@ -166,15 +166,35 @@ _owo.handleEvent = function (tempDom, templateName) {
 }
 
 // 便捷选择器
-if (!window.$) {
+if (window.jQuery == undefined) {
   window.$ = function (query) {
-    // 判断是否选择id
-    if (query[0] == '#') {
-      var dom = document.querySelector(query)
-      return dom ? dom : []
-    } else {
-      var domList = document.querySelectorAll(query)
-      return domList ? domList : []
+    const type = typeof query
+    switch (type) {
+      // 如果是一个函数,那么代表这个函数需要在页面加载完毕后运行
+      case 'function': {
+        setTimeout(() => {
+          // 将需要运行的函数添加到待运行队列中
+          if (window.owo.state.created == undefined) window.owo.state.created = []
+          window.owo.state.created.push(query)
+          // 如果页面已经处于准备就绪状态,那么直接运行代码
+          if (window.owo.state.isRrady) {
+            query()
+          }
+        }, 1000)
+        break
+      }
+      case 'string': {
+        var domList = document.querySelectorAll(query)
+        return domList ? domList : []
+      }
+    }
+  }
+} else {
+  // 因为jquery没有foreach方法 所以需要给他加上
+  jQuery.fn.forEach = function (objec) {
+    for (let index = 0; index < this.length; index++) {
+      const element = this[index]
+      objec(element)
     }
   }
 }
