@@ -32,7 +32,6 @@ _owo.assign = function(a, b) {
 // 运行页面所属的方法
 _owo.handlePage = function (pageName, entryDom) {
   _owo.handleEvent(entryDom)
-
   // 判断页面是否有自己的方法
   var newPageFunction = window.owo.script[pageName]
   if (!newPageFunction) return
@@ -69,7 +68,8 @@ _owo.handlePage = function (pageName, entryDom) {
 }
 
 // owo-name处理
-_owo.handleEvent = function (tempDom) {
+_owo.handleEvent = function (tempDom, templateName) {
+  // console.log(templateName)
   var activePage = window.owo.script[owo.activePage]
   for (let ind = 0; ind < tempDom.attributes.length; ind++) {
     var attribute = tempDom.attributes[ind]
@@ -96,13 +96,10 @@ _owo.handleEvent = function (tempDom) {
             // 判断页面是否有自己的方法
             var newPageFunction = window.owo.script[window.owo.activePage]
             // console.log(this.attributes)
-            // 判断是否为模板
-            var templateName = this.attributes['template']
-            
             if (templateName) {
               // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
               if (newPageFunction.template) {
-                newPageFunction = newPageFunction.template[templateName.textContent]
+                newPageFunction = newPageFunction.template[templateName]
               } else {
                 eval(eventForCopy)
                 return
@@ -159,20 +156,45 @@ _owo.handleEvent = function (tempDom) {
   for (var i = 0; i < tempDom.children.length; i++) {
     var childrenDom = tempDom.children[i]
     // console.log(childrenDom)
-    _owo.handleEvent(childrenDom)
+    let newTemplateName = templateName
+    if (tempDom.attributes['template'] && tempDom.attributes['template'].textContent) {
+      newTemplateName = tempDom.attributes['template'].textContent
+    }
+    // console.log(newTemplateName)
+    _owo.handleEvent(childrenDom, newTemplateName)
   }
 }
 
 // 便捷选择器
-if (!window.$) {
+if (window.jQuery == undefined) {
   window.$ = function (query) {
-    // 判断是否选择id
-    if (query[0] == '#') {
-      var dom = document.querySelector(query)
-      return dom ? dom : []
-    } else {
-      var domList = document.querySelectorAll(query)
-      return domList ? domList : []
+    const type = typeof query
+    switch (type) {
+      // 如果是一个函数,那么代表这个函数需要在页面加载完毕后运行
+      case 'function': {
+        setTimeout(() => {
+          // 将需要运行的函数添加到待运行队列中
+          if (window.owo.state.created == undefined) window.owo.state.created = []
+          window.owo.state.created.push(query)
+          // 如果页面已经处于准备就绪状态,那么直接运行代码
+          if (window.owo.state.isRrady) {
+            query()
+          }
+        }, 1000)
+        break
+      }
+      case 'string': {
+        var domList = document.querySelectorAll(query)
+        return domList ? domList : []
+      }
+    }
+  }
+} else {
+  // 因为jquery没有foreach方法 所以需要给他加上
+  jQuery.fn.forEach = function (objec) {
+    for (let index = 0; index < this.length; index++) {
+      const element = this[index]
+      objec(element)
     }
   }
 }

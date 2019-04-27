@@ -221,11 +221,6 @@ function handleStyle(dom, changePath) {
 
 // 输出script
 function outPutScript (scriptData) {
-  // 版本号后缀
-  const versionString = config.outPut.addVersion ? `.${version}` : ''
-
-  scriptData += `\r\n    <!-- 框架script文件 -->\r\n    <script src="${basePath}static/js/owo.main${versionString}.js" type="text/javascript"></script>`
-
   htmlTemple = htmlTemple.replace(`<!-- script-output -->`, scriptData)
   outPutHtml()
 }
@@ -325,7 +320,7 @@ function handleScript (dom, changePath) {
   const scriptDir = path.join(staticPath, 'js')
   // 判断并创建js目录
   Tool.creatDirIfNotExist(scriptDir)
-  let scriptData = `<!-- owo框架代码 --><script>${Script(dom.script).code}</script>`
+  let scriptData = `<!-- owo框架代码 --><script>${Script(dom.script).code}</script>\r\n<!-- 框架script文件 -->\r\n<script src="${basePath}static/js/owo.main${versionString}.js" type="text/javascript"></script>`
   
   // 输出时间和框架信息
   mainScript = `// build by owo frame!\r\n// ${new Date().toString()}\r\n\r\n` + mainScript
@@ -335,13 +330,21 @@ function handleScript (dom, changePath) {
   }
   // 写出主要硬盘文件
   fs.writeFileSync(path.join(staticPath, 'js' , `owo.main${versionString}.js`), mainScript)
+  // 加入框架代码
   
   // 判断是否需要加入自动刷新代码
   if (config.autoReload) {
     if (!changePath) {
       Tool.moveFile(path.join(corePath, 'debug', 'autoReload.js'), path.join(staticPath, 'js', `autoReload.js`))
     }
-    scriptData += `\r\n    <script src="${basePath}static/js/autoReload.js" type="text/javascript"></script>`
+    scriptData += `\r\n<!-- 调试-热刷新代码 -->\r\n<script src="${basePath}static/js/autoReload.js" type="text/javascript"></script>`
+  }
+  // 判断是否启用远程调试
+  if (config.remoteDebug) {
+    if (!changePath) {
+      Tool.moveFile(path.join(corePath, 'debug', 'log.js'), path.join(staticPath, 'js', `log.js`))
+    }
+    scriptData += `\r\n<!-- 调试-远程调试 -->\r\n<script src="${basePath}static/js/log.js" type="text/javascript"></script>`
   }
   log.debug(`处理引用脚本: ${JSON.stringify(config.scriptList)}`)
   // 处理引用的script
@@ -359,7 +362,7 @@ function handleScript (dom, changePath) {
         continue
       }
       // 如果是网络地址那么不需要进行处理
-      if (element.src[0] == 'http') {
+      if (element.src.startsWith('http')) {
         log.debug(`网络脚本: ${element.name}`)
         scriptData += `\r\n    <script src="${element.src}" type="text/javascript" ${element.defer ? 'defer="defer"' : ''}></script>`
         // 判断是否为最后项,如果为最后一项则输出script
@@ -534,7 +537,11 @@ if (config.server) {
 if (config.autoReload) {
   app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
-      console.log(ws);
+      const data = JSON.parse(msg)
+      // 判断是否为输出日志
+      if (data.type === 'log') {
+        console.log(data.message)
+      }
     })
   })
 }
