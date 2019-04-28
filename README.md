@@ -111,6 +111,7 @@ owo dev 或者 owo build
 
 #### 2019年4月28日
 1. 修复linux系统下 换行符\n报错的bug
+2. 修复getScreenInfo检测不到正确窗口大小的bug
 
 #### 2019年4月27日
 1. 完善SDK功能

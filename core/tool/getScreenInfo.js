@@ -4,10 +4,11 @@
  */
 
 owo.tool.getScreenInfo = () => {
+  // 有可能不兼容ie
   return {
-    clientWidth: document.body.clientWidth,
-    clientHeight: document.body.clientHeight,
-    ratio: document.body.clientWidth / document.body.clientHeight,
+    clientWidth: window.innerWidth,
+    clientHeight: window.innerHeight,
+    ratio: window.innerWidth / window.innerHeight,
     // 缩放比例
     devicePixelRatio: window.devicePixelRatio || 1
   }
