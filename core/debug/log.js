@@ -6,12 +6,15 @@
     if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
     window.log = function (message) {
       console.info(message)
-      window._owo.ws.send(JSON.stringify({
-        type: "log",
-        message
-      }))
+      // 判断ws连接成功后，才会发送消息
+      if (window._owo.ws.readyState == 1) {
+        window._owo.ws.send(JSON.stringify({
+          type: "log",
+          message
+        }))
+      }
     }
-    window.onerror = function(message, source, lineno, colno, error) {
+    window.onerror = function() {
       window._owo.ws.send(JSON.stringify({
         type: "log",
         message: arguments[1] + ' 第 ' + arguments[2] + ' 行 ' + arguments[3] + ' 列 发生错误: ' + arguments[0] + ' 调用堆栈: ' + arguments[4]
