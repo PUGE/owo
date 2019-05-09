@@ -53,7 +53,7 @@ _owo.handlePage = function (pageName, entryDom) {
       // 获取到当前配置页的DOM
       // 待修复,临时获取方式,这种方式获取到的dom不准确
       var domList = entryDom.getElementsByClassName('o-' + key)
-      if (domList.length !== 1){
+      if (domList.length !== 1) {
         console.error('我就说会有问题吧!')
         console.log(domList)
       }
