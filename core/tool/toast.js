@@ -39,7 +39,7 @@ owo.tool.toast = (text, time) => {
   toast.innerHTML = text
   document.body.appendChild(toast)
   function hideToast() {
-    document.getElementById('toast').remove()
+    document.getElementById('toast').outerHTML = ''
     window.owo.state.toastClock = null
   }
   window.owo.state.toastClock = setTimeout(hideToast, time)

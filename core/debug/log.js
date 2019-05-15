@@ -10,7 +10,7 @@
       if (window._owo.ws.readyState == 1) {
         window._owo.ws.send(JSON.stringify({
           type: "log",
-          message
+          message: message
         }))
       }
     }
@@ -21,6 +21,9 @@
       }))
     }
   } else {
+    window.log = function (message) {
+      console.info(message)
+    }
     console.error('浏览器不支持WebSocket')
   }
 })()
