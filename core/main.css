@@ -20,3 +20,8 @@ body, html, .ox {
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
+
+a:link, a:visited {
+  color: #333;
+  text-decoration: none;
+}
