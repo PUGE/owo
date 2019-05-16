@@ -3,7 +3,6 @@
 'use strict'
 const fs = require('fs')
 const path = require('path')
-const ora = require('ora')
 // 文件变动检测
 const chokidar = require('chokidar')
 
