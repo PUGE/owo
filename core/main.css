@@ -25,3 +25,13 @@ a:link, a:visited {
   color: #333;
   text-decoration: none;
 }
+
+/* 清除浮动 */
+.clear:after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
