@@ -71,12 +71,12 @@ _owo.handlePage = function (pageName, entryDom) {
     if (templateScript.created) {
       // 获取到当前配置页的DOM
       // 待修复,临时获取方式,这种方式获取到的dom不准确
-      var domList = document.getElementsByClassName('o-' + key)
+      var domList = document.querySelectorAll('[template="' + key +'"]')
       // 有时候在更改html时会将某些块进行删除
       if (domList.length == 0) {
         console.info('无法找到页面组件:' + key)
       }
-      console.log(domList)
+      // console.log(domList.length)
       for (var ind = 0; ind < domList.length; ind++) {
         // 为模板注入运行环境
         templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
