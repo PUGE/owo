@@ -72,16 +72,19 @@ _owo.handlePage = function (pageName, entryDom) {
       // 获取到当前配置页的DOM
       // 待修复,临时获取方式,这种方式获取到的dom不准确
       var domList = document.getElementsByClassName('o-' + key)
-      if (domList.length !== 1) {
-        console.error('我就说会有问题吧!')
-        console.log(domList)
+      // 有时候在更改html时会将某些块进行删除
+      if (domList.length == 0) {
+        console.info('无法找到页面组件:' + key)
       }
-      // 为模板注入运行环境
-      templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
-        $el: domList[0],
-        data: templateScript.data,
-        activePage: window.owo.activePage
-      }))
+      console.log(domList)
+      for (var ind = 0; ind < domList.length; ind++) {
+        // 为模板注入运行环境
+        templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
+          $el: domList[ind],
+          data: templateScript.data,
+          activePage: window.owo.activePage
+        }))
+      }
     }
   }
 }
