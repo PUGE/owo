@@ -8,10 +8,19 @@ const chokidar = require('chokidar')
 
 const runProcess = require('child_process')
 
-const owo = require('./lib')
-
 // 命令行运行目录
 const runPath = process.cwd()
+
+// 判断运行目录下是否包含配置文件
+if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
+  console.error('当前目录下找不到owo配置文件哦!')
+  return
+}
+// 读取配置文件
+let config = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
+
+// 加载框架SDK
+const owo = require('./lib')
 
 // 配置输出插件
 const log = require('./lib/log')()
@@ -46,14 +55,7 @@ if (processArgv === 'init') {
 }
 
 
-// 判断运行目录下是否包含配置文件
-if (!fs.readFileSync(path.join(runPath, 'owo.js'))) {
-  log.error('owo.js file does not exist!')
-  close()
-}
 
-// 读取配置文件
-let config = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
 
 
 // 判断是否处于生成模式
