@@ -177,18 +177,27 @@ _owo.handleEvent = function (tempDom, templateName) {
     }
   }
   
-
-  // 递归处理所有子Dom结点
-  for (var i = 0; i < tempDom.children.length; i++) {
-    var childrenDom = tempDom.children[i]
-    // console.log(childrenDom)
-    let newTemplateName = templateName
-    if (tempDom.attributes['template'] && tempDom.attributes['template'].textContent) {
-      newTemplateName = tempDom.attributes['template'].textContent
+  if (tempDom.children) {
+    // 递归处理所有子Dom结点
+    for (var i = 0; i < tempDom.children.length; i++) {
+      var childrenDom = tempDom.children[i]
+      // console.log(childrenDom)
+      let newTemplateName = templateName
+      if (tempDom.attributes['template'] && tempDom.attributes['template'].textContent) {
+        newTemplateName = tempDom.attributes['template'].textContent
+      }
+      // 待修复，多页面情况下可能判断不了是否是页面
+      if (newTemplateName === owo.entry) {
+        _owo.handleEvent(childrenDom)
+      } else {
+        _owo.handleEvent(childrenDom, newTemplateName)
+      }
     }
-    // console.log(newTemplateName)
-    _owo.handleEvent(childrenDom, newTemplateName)
+  } else {
+    console.info('元素不存在子节点!')
+    console.info(tempDom)
   }
+  
 }
 
 // 便捷选择器
