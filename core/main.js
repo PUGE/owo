@@ -80,7 +80,8 @@ _owo.handlePage = function (pageName, entryDom) {
       for (var ind = 0; ind < domList.length; ind++) {
         // 为模板注入运行环境
         templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
-          $el: domList[ind],
+          $el: entryDom,
+          $target: domList[ind],
           data: templateScript.data,
           activePage: window.owo.activePage
         }))
