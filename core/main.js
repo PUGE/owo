@@ -10,6 +10,18 @@ owo.global = {}
 // 全局方法变量
 owo.tool = {}
 
+// 事件推送方法
+var $emit = function (eventName) {
+  var event = owo.state.event[eventName]
+  event.forEach(element => {
+    // 注入运行环境运行
+    element.fun.apply(_owo.assign(element.script, {
+      $el: element.dom,
+      activePage: window.owo.activePage
+    }), arguments)
+  })
+}
+
 // 便捷的获取工具方法
 var $tool = owo.tool
 var $data = {}
@@ -48,6 +60,32 @@ if (!document.getElementsByClassName) {
   };
 }
 
+
+_owo.runCreated = function (pageFunction, entryDom) {
+  // 注入运行环境运行
+  pageFunction.created.apply(_owo.assign(pageFunction, {
+    $el: entryDom,
+    data: pageFunction.data,
+    activePage: window.owo.activePage
+  }))
+}
+
+_owo.registerEvent = function (pageFunction, entryDom) {
+  // 判断是否包含事件监听
+  if (pageFunction.event) {
+    if (!window.owo.state.event) window.owo.state.event = {}
+    for (const iterator in pageFunction.event) {
+      if (!window.owo.state.event[iterator]) window.owo.state.event[iterator] = []
+      window.owo.state.event[iterator].push({
+        dom: entryDom,
+        pageName: window.owo.activePage,
+        fun: pageFunction.event[iterator],
+        script: pageFunction
+      })
+    }
+  }
+}
+
 // 运行页面所属的方法
 _owo.handlePage = function (pageName, entryDom) {
   _owo.handleEvent(entryDom, null , entryDom)
@@ -57,14 +95,11 @@ _owo.handlePage = function (pageName, entryDom) {
   // console.log(newPageFunction)
   // 如果有created方法则执行
   if (newPageFunction.created) {
-    // 注入运行环境
-    newPageFunction.created.apply(_owo.assign(newPageFunction, {
-      $el: entryDom,
-      data: newPageFunction.data,
-      activePage: window.owo.activePage
-    }))
+    _owo.runCreated(newPageFunction, entryDom)
   }
-  
+
+  // 注册事件监听
+  _owo.registerEvent(newPageFunction, entryDom)
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
@@ -78,14 +113,13 @@ _owo.handlePage = function (pageName, entryDom) {
       }
       // console.log(domList.length)
       for (var ind = 0; ind < domList.length; ind++) {
-        // 为模板注入运行环境
-        templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
-          $el: domList[ind],
-          data: templateScript.data,
-          activePage: window.owo.activePage
-        }))
+        _owo.runCreated(templateScript, domList[ind])
+        
+        // 注册事件监听
+        _owo.registerEvent(templateScript, domList[ind])
       }
     }
+    
   }
 }
 
