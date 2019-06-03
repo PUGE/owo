@@ -50,7 +50,7 @@ if (!document.getElementsByClassName) {
 
 // 运行页面所属的方法
 _owo.handlePage = function (pageName, entryDom) {
-  _owo.handleEvent(entryDom)
+  _owo.handleEvent(entryDom, null , entryDom)
   // 判断页面是否有自己的方法
   var newPageFunction = window.owo.script[pageName]
   if (!newPageFunction) return
@@ -80,8 +80,7 @@ _owo.handlePage = function (pageName, entryDom) {
       for (var ind = 0; ind < domList.length; ind++) {
         // 为模板注入运行环境
         templateScript.created.apply(_owo.assign(newPageFunction.template[key], {
-          $el: entryDom,
-          $target: domList[ind],
+          $el: domList[ind],
           data: templateScript.data,
           activePage: window.owo.activePage
         }))
@@ -91,7 +90,7 @@ _owo.handlePage = function (pageName, entryDom) {
 }
 
 // owo-name处理
-_owo.handleEvent = function (tempDom, templateName) {
+_owo.handleEvent = function (tempDom, templateName, entryDom) {
   // console.log(templateName)
   var activePage = window.owo.script[owo.activePage]
   
@@ -164,7 +163,7 @@ _owo.handleEvent = function (tempDom, templateName) {
                 // 绑定window.owo对象
                 // console.log(tempDom)
                 // 待测试不知道这样合并会不会对其它地方造成影响
-                newPageFunction.$el = this
+                newPageFunction.$el = entryDom
                 newPageFunction.$event = event
                 newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
               } else {
@@ -189,9 +188,9 @@ _owo.handleEvent = function (tempDom, templateName) {
       }
       // 待修复，多页面情况下可能判断不了是否是页面
       if (newTemplateName === owo.entry) {
-        _owo.handleEvent(childrenDom)
+        _owo.handleEvent(childrenDom, null, tempDom)
       } else {
-        _owo.handleEvent(childrenDom, newTemplateName)
+        _owo.handleEvent(childrenDom, newTemplateName, tempDom)
       }
     }
   } else {

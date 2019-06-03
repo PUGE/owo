@@ -35,3 +35,12 @@ a:link, a:visited {
   visibility: hidden;
   clear: both;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
