@@ -148,6 +148,7 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
             break
           }
           default: {
+            // 处理事件
             tempDom["on" + eventName] = function(event) {
               // 因为后面会对eventFor进行修改所以使用拷贝的
               var eventForCopy = eventFor
@@ -220,11 +221,12 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
       if (tempDom.attributes['template'] && tempDom.attributes['template'].textContent) {
         newTemplateName = tempDom.attributes['template'].textContent
       }
-      // 待修复，多页面情况下可能判断不了是否是页面
+      // 待修复，逻辑太混乱了
+      const temp = tempDom.attributes['template'] ? tempDom : entryDom
       if (newTemplateName === owo.entry) {
-        _owo.handleEvent(childrenDom, null, tempDom)
+        _owo.handleEvent(childrenDom, null, temp)
       } else {
-        _owo.handleEvent(childrenDom, newTemplateName, tempDom)
+        _owo.handleEvent(childrenDom, newTemplateName, temp)
       }
     }
   } else {
