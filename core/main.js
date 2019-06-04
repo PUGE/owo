@@ -148,10 +148,10 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
             break
           }
           default: {
-            // 处理事件
+            // 处理事件 使用bind防止闭包
             tempDom["on" + eventName] = function(event) {
               // 因为后面会对eventFor进行修改所以使用拷贝的
-              var eventForCopy = eventFor
+              var eventForCopy = this
               // 判断页面是否有自己的方法
               var newPageFunction = window.owo.script[window.owo.activePage]
               // console.log(this.attributes)
@@ -205,7 +205,7 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
                 // 如果没有此方法则交给浏览器引擎尝试运行
                 eval(eventForCopy)
               }
-            }
+            }.bind(eventFor)
           }
         }
       }
