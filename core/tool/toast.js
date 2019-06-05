@@ -23,7 +23,6 @@ owo.tool.toast = (text, time) => {
   toast.style.bottom = '10%'
   toast.style.height = '40px'
   toast.style.borderRadius = '10px'
-  toast.style.width = '30%'
   toast.style.left = 0
   toast.style.right = 0
   toast.style.margin = 'auto'

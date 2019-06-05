@@ -163,9 +163,6 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
                 // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
                 if (newPageFunction.template) {
                   newPageFunction = newPageFunction.template[templateName]
-                } else {
-                  eval(eventForCopy)
-                  return
                 }
               }
               // 待优化可以单独提出来
