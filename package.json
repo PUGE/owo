@@ -12,27 +12,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "7.4.4",
-    "autoprefixer": "9.5.1",
-    "chokidar": "3.0.0",
+    "@babel/core": "7.4.5",
+    "autoprefixer": "9.6.0",
+    "chokidar": "3.0.1",
     "crypto-js": "^3.1.9-1",
     "css": "^2.2.4",
     "cssnano": "4.1.10",
-    "express": "4.17.0",
+    "express": "4.17.1",
     "express-ws": "^4.0.0",
     "imagemin": "^6.1.0",
     "imagemin-jpegtran": "^6.0.0",
-    "imagemin-pngquant": "^7.0.0",
+    "imagemin-pngquant": "8.0.0",
     "js-beautify": "1.10.0",
-    "jsdom": "15.1.0",
+    "jsdom": "15.1.1",
     "ora": "^3.4.0",
-    "pkg-dir": "4.1.0",
-    "postcss": "7.0.16",
+    "pkg-dir": "4.2.0",
+    "postcss": "7.0.17",
     "precss": "^4.0.0",
     "simple-node-logger": "^18.12.22",
     "urllib-sync": "^1.1.4"
   },
   "devDependencies": {
-    "babel-plugin-import": "1.11.2"
+    "babel-plugin-import": "1.12.0"
   }
 }
