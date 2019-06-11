@@ -37,20 +37,26 @@ _owo.ready = function() {
 }
 
 // url发生改变事件
-window.onhashchange = function(e) {
+function hashchange (e) {
   // 这样处理而不是直接用event中的URL，是因为需要兼容IE
-  owo.global.oldUrlParam = owo.global.newUrlParam
-  owo.global.newUrlParam = getarg(document.URL)
-  // 如果旧页面不存在则为默认页面
-  if (!owo.global.oldUrlParam) owo.global.oldUrlParam = owo.entry
-  var newUrlParam = owo.global.newUrlParam
-  
-  
-  // 如果没有跳转到任何页面则跳转到主页
+  owo.global.oldUrlParam = owo.global.newUrlParam;
+  owo.global.newUrlParam = getarg(document.URL); // 如果旧页面不存在则为默认页面
+
+  if (!owo.global.oldUrlParam) owo.global.oldUrlParam = owo.entry;
+  var newUrlParam = owo.global.newUrlParam; // 如果没有跳转到任何页面则跳转到主页
+
   if (newUrlParam === undefined) {
-    newUrlParam = owo.entry
-  }
-  // 如果没有发生页面跳转则不需要进行操作
+    newUrlParam = owo.entry;
+  } // 如果没有发生页面跳转则不需要进行操作
   // 切换页面特效
-  switchPage(owo.global.oldUrlParam, newUrlParam)
+
+
+  switchPage(owo.global.oldUrlParam, newUrlParam);
+}
+
+// ios的QQ有BUG 无法触发onhashchange事件
+if(/iPhone\sOS.*QQ[^B]/.test(navigator.userAgent)) {
+  window.onpopstate = hashchange;
+} else {
+  window.onhashchange = hashchange;
 }
