@@ -28,7 +28,6 @@ var $emit = function (eventName) {
 
 // 便捷的获取工具方法
 var $tool = owo.tool
-var $data = {}
 
 // 框架核心函数
 var _owo = {}

@@ -16,8 +16,6 @@ _owo.ready = function() {
       // 显示主页面
       entryDom.style.display = 'block'
       window.owo.activePage = page
-      // 更改$data链接
-      $data = owo.script[page].data
       _owo.handlePage(page, entryDom)
     } else {
       console.error('入口文件设置错误,错误值为: ', entryDom)

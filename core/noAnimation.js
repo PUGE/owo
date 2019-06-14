@@ -24,7 +24,5 @@ function switchPage (oldUrlParam, newUrlParam) {
     return
   }
   window.owo.activePage = newPage
-  // 更改$data链接
-  $data = owo.script[newPage].data
   _owo.handlePage(newPage, newDom)
 }
