@@ -20,6 +20,7 @@
     "cssnano": "4.1.10",
     "express": "4.17.1",
     "express-ws": "^4.0.0",
+    "fontmin": "^0.9.7-beta",
     "imagemin": "^6.1.0",
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "8.0.0",
@@ -28,10 +29,14 @@
     "ora": "^3.4.0",
     "pkg-dir": "4.2.0",
     "postcss": "7.0.17",
-    "precss": "^4.0.0",
     "simple-node-logger": "^18.12.22",
     "urllib-sync": "^1.1.4"
   },
+  "browserslist": [
+    "last 2 versions",
+    "android 4",
+    "opera 12"
+  ],
   "devDependencies": {
     "babel-plugin-import": "1.12.0"
   }
