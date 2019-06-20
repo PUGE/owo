@@ -3,11 +3,6 @@ body, html, .ox {
   margin: 0;
 }
 
-/* 清除浮动 */
-.clear {
-  clear: both;
-}
-
 .owo-animation {
   overflow: hidden;
   -webkit-backface-visibility: hidden;
@@ -22,7 +17,6 @@ body, html, .ox {
 }
 
 a:link, a:visited {
-  color: #333;
   text-decoration: none;
 }
 
@@ -34,6 +28,7 @@ a:link, a:visited {
   display: block;
   visibility: hidden;
   clear: both;
+  zoom: 1;
 }
 
 ul {
