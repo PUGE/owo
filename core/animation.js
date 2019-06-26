@@ -47,19 +47,22 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     
   })
   // 旧DOM执行函数
-  function oldDomFun () {
-    // 移除监听
-    oldDom.removeEventListener('animationend', oldDomFun, false)
-    // 隐藏掉旧的节点
-    oldDom.style.display = 'none'
-    // console.log(oldDom)
-    oldDom.style.position = ''
-    oldDom.classList.remove('owo-animation')
-    parentDom.style.perspective = ''
-    // 清除临时设置的class
-    animationIn.split(',').forEach(value => {
-      oldDom.classList.remove('o-page-' + value)
-    })
+  function oldDomFun (e) {
+    // 排除非框架引起的结束事件
+    if (e.target.getAttribute('template')) {
+      // 移除监听
+      oldDom.removeEventListener('animationend', oldDomFun, false)
+      // 隐藏掉旧的节点
+      oldDom.style.display = 'none'
+      // console.log(oldDom)
+      oldDom.style.position = ''
+      oldDom.classList.remove('owo-animation')
+      parentDom.style.perspective = ''
+      // 清除临时设置的class
+      animationIn.split(',').forEach(value => {
+        oldDom.classList.remove('o-page-' + value)
+      })
+    }
   }
 
   // 新DOM执行函数
