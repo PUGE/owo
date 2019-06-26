@@ -1,14 +1,4 @@
-// 页面切换效果
-
-// 获取URL参数
-function getQueryString(newUrlParam, name) { 
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i")
-  var r = newUrlParam.match(reg)
-  if (r != null) return unescape(r[2])
-  return null; 
-}
-
-// 无特效翻页
+// 隐藏旧页面，显示新页面
 function dispalyEffect (oldDom, newDom) {
   if (oldDom) {
     // 隐藏掉旧的节点

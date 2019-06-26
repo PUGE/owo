@@ -1,14 +1,3 @@
-if (!owo) {
-  console.error('没有找到owo核心!')
-}
-
-// 注册owo默认变量
-// 框架状态变量
-owo.state = {}
-// 框架全局变量
-owo.global = {}
-// 全局方法变量
-owo.tool = {}
 
 // 事件推送方法
 var $emit = function (eventName) {
@@ -26,26 +15,48 @@ var $emit = function (eventName) {
   })
 }
 
-// 便捷的获取工具方法
-var $tool = owo.tool
-
-// 框架核心函数
-var _owo = {}
-
-// 对象合并方法
-_owo.assign = function(a, b) {
-  var newObj = {}
-  for (var key in a){
-    newObj[key] = a[key]
+/* 方法合集 */
+var _owo = {
+  /* 对象合并方法 */
+  assign: function(a, b) {
+    var newObj = {}
+    for (var key in a){
+      newObj[key] = a[key]
+    }
+    for (var key in b){
+      newObj[key] = b[key]
+    }
+    return newObj
+  },
+  /* 运行页面初始化方法 */
+  runCreated: function (pageFunction, entryDom) {
+    pageFunction.created.apply(_owo.assign(pageFunction, {
+      $el: entryDom,
+      data: pageFunction.data,
+      activePage: window.owo.activePage
+    }))
+  },
+  /* 注册事件监听 */
+  registerEvent: function (pageFunction, entryDom) {
+    // 判断是否包含事件监听
+    if (pageFunction.event) {
+      if (!window.owo.state.event) window.owo.state.event = {}
+      for (const iterator in pageFunction.event) {
+        if (!window.owo.state.event[iterator]) window.owo.state.event[iterator] = []
+        window.owo.state.event[iterator].push({
+          dom: entryDom,
+          pageName: window.owo.activePage,
+          fun: pageFunction.event[iterator],
+          script: pageFunction
+        })
+      }
+    }
   }
-  for (var key in b){
-    newObj[key] = b[key]
-  }
-  return newObj
 }
 
-// 针对低版本IE浏览器做兼容处理
+
 if (!document.getElementsByClassName) {
+  /* 解决低版本浏览器没有getElementsByClassName的问题 */
   document.getElementsByClassName = function (className, element) {
     var children = (element || document).getElementsByTagName('*');
     var elements = new Array();
@@ -63,36 +74,10 @@ if (!document.getElementsByClassName) {
   };
 }
 
-
-_owo.runCreated = function (pageFunction, entryDom) {
-  // 注入运行环境运行
-  pageFunction.created.apply(_owo.assign(pageFunction, {
-    $el: entryDom,
-    data: pageFunction.data,
-    activePage: window.owo.activePage
-  }))
-}
-
-_owo.registerEvent = function (pageFunction, entryDom) {
-  // 判断是否包含事件监听
-  if (pageFunction.event) {
-    if (!window.owo.state.event) window.owo.state.event = {}
-    for (const iterator in pageFunction.event) {
-      if (!window.owo.state.event[iterator]) window.owo.state.event[iterator] = []
-      window.owo.state.event[iterator].push({
-        dom: entryDom,
-        pageName: window.owo.activePage,
-        fun: pageFunction.event[iterator],
-        script: pageFunction
-      })
-    }
-  }
-}
-
-// 运行页面所属的方法
+/* 运行页面所属的方法 */
 _owo.handlePage = function (pageName, entryDom) {
   _owo.handleEvent(entryDom, null , entryDom)
-  // 判断页面是否有自己的方法
+  /* 判断页面是否有自己的方法 */
   var newPageFunction = window.owo.script[pageName]
   if (!newPageFunction) return
   // console.log(newPageFunction)
@@ -126,7 +111,7 @@ _owo.handlePage = function (pageName, entryDom) {
   }
 }
 
-// owo-name处理
+/* owo事件处理 */
 _owo.handleEvent = function (tempDom, templateName, entryDom) {
   // console.log(templateName)
   var activePage = window.owo.script[owo.activePage]
@@ -234,26 +219,6 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
     console.info(tempDom)
   }
   
-}
-
-
-// 跳转到指定页面
-function $go (pageName, inAnimation, outAnimation, param) {
-  owo.state.animation = {
-    "in": inAnimation,
-    "out": outAnimation
-  }
-  var paramString = ''
-  if (param && typeof param == 'object') {
-    paramString += '?'
-    // 生成URL参数
-    for (let paramKey in param) {
-      paramString += paramKey + '=' + param[paramKey] + '&'
-    }
-    // 去掉尾端的&
-    paramString = paramString.slice(0, -1)
-  }
-  window.location.href = paramString + "#" + pageName
 }
 
 function $change (key, value) {

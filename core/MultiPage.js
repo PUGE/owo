@@ -1,5 +1,5 @@
-// 获取URL #后面内容
-function getarg(url){
+
+_owo.getarg = function (url) { // 获取URL #后面内容
   const arg = url.split("#");
   return arg[1];
 }
@@ -7,7 +7,7 @@ function getarg(url){
 // 页面资源加载完毕事件
 _owo.ready = function() {
   // 取出URL地址判断当前所在页面
-  var pageArg = getarg(window.location.hash)
+  var pageArg = _owo.getarg(window.location.hash)
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg.split('?')[0] : owo.entry
   if (page) {
@@ -34,14 +34,38 @@ _owo.ready = function() {
   }
 }
 
-// url发生改变事件
-function hashchange (e) {
-  // 这样处理而不是直接用event中的URL，是因为需要兼容IE
-  owo.global.oldUrlParam = owo.global.newUrlParam;
-  owo.global.newUrlParam = getarg(document.URL); // 如果旧页面不存在则为默认页面
+/*
+  页面跳转方法
+  参数1: 需要跳转到页面名字
+  参数2: 离开页面动画
+  参数3: 进入页面动画
+*/
+function $go (pageName, inAnimation, outAnimation, param) {
+  owo.state.animation = {
+    "in": inAnimation,
+    "out": outAnimation
+  }
+  var paramString = ''
+  if (param && typeof param == 'object') {
+    paramString += '?'
+    // 生成URL参数
+    for (let paramKey in param) {
+      paramString += paramKey + '=' + param[paramKey] + '&'
+    }
+    // 去掉尾端的&
+    paramString = paramString.slice(0, -1)
+  }
+  window.location.href = paramString + "#" + pageName
+}
 
-  if (!owo.global.oldUrlParam) owo.global.oldUrlParam = owo.entry;
-  var newUrlParam = owo.global.newUrlParam; // 如果没有跳转到任何页面则跳转到主页
+// url发生改变事件
+_owo.hashchange = function (e) {
+  // 这样处理而不是直接用event中的URL，是因为需要兼容IE
+  owo.state.oldUrlParam = owo.state.newUrlParam;
+  owo.state.newUrlParam = _owo.getarg(document.URL); // 如果旧页面不存在则为默认页面
+
+  if (!owo.state.oldUrlParam) owo.state.oldUrlParam = owo.entry;
+  var newUrlParam = owo.state.newUrlParam; // 如果没有跳转到任何页面则跳转到主页
 
   if (newUrlParam === undefined) {
     newUrlParam = owo.entry;
@@ -49,12 +73,12 @@ function hashchange (e) {
   // 切换页面特效
 
 
-  switchPage(owo.global.oldUrlParam, newUrlParam);
+  switchPage(owo.state.oldUrlParam, newUrlParam);
 }
 
 // ios的QQ有BUG 无法触发onhashchange事件
 if(/iPhone\sOS.*QQ[^B]/.test(navigator.userAgent)) {
-  window.onpopstate = hashchange;
+  window.onpopstate = _owo.hashchange;
 } else {
-  window.onhashchange = hashchange;
+  window.onhashchange = _owo.hashchange;
 }

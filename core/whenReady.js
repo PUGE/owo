@@ -42,4 +42,5 @@ _owo.whenReady = (function() {               //这个函数返回whenReady()函�
   }
 })();
 
+// 执行页面加载完毕方法
 _owo.whenReady(_owo.ready)
