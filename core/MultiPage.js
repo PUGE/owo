@@ -32,6 +32,8 @@ _owo.ready = function() {
       element()
     })
   }
+  // 设置当前页面为活跃页面
+  owo.state.newUrlParam = _owo.getarg(document.URL)
 }
 
 /*
@@ -60,10 +62,11 @@ function $go (pageName, inAnimation, outAnimation, param) {
 
 // url发生改变事件
 _owo.hashchange = function (e) {
+  // console.log('页面切换:', e)
   // 这样处理而不是直接用event中的URL，是因为需要兼容IE
   owo.state.oldUrlParam = owo.state.newUrlParam;
   owo.state.newUrlParam = _owo.getarg(document.URL); // 如果旧页面不存在则为默认页面
-
+  // console.log(owo.state.oldUrlParam, owo.state.newUrlParam)
   if (!owo.state.oldUrlParam) owo.state.oldUrlParam = owo.entry;
   var newUrlParam = owo.state.newUrlParam; // 如果没有跳转到任何页面则跳转到主页
 

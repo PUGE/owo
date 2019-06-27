@@ -84,6 +84,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   } else {
     oldPage = oldPage.split('&')[0]
   }
+  // console.log(oldPage, newPage)
   var oldDom = document.getElementById('o-' + oldPage)
   var newDom = document.getElementById('o-' + newPage)
   
@@ -91,6 +92,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     console.error('页面不存在!')
     return
   }
+  // console.log(owo.state.animation)
   // 判断是否有动画效果
   if (!owo.state.animation) owo.state.animation = {}
   // 直接.in会在ie下报错
