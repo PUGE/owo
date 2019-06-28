@@ -1,7 +1,7 @@
 
 _owo.getarg = function (url) { // 获取URL #后面内容
   const arg = url.split("#");
-  return arg[1];
+  return arg[1].split('?')[0];
 }
 
 // 页面资源加载完毕事件
@@ -9,7 +9,7 @@ _owo.ready = function() {
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
   // 从配置项中取出程序入口
-  var page = pageArg ? pageArg.split('?')[0] : owo.entry
+  var page = pageArg ? pageArg : owo.entry
   if (page) {
     var entryDom = document.getElementById('o-' + page)
     if (entryDom) {
@@ -62,20 +62,21 @@ function $go (pageName, inAnimation, outAnimation, param) {
 
 // url发生改变事件
 _owo.hashchange = function (e) {
-  // console.log('页面切换:', e)
   // 这样处理而不是直接用event中的URL，是因为需要兼容IE
   owo.state.oldUrlParam = owo.state.newUrlParam;
-  owo.state.newUrlParam = _owo.getarg(document.URL); // 如果旧页面不存在则为默认页面
+  owo.state.newUrlParam = _owo.getarg(document.URL); 
   // console.log(owo.state.oldUrlParam, owo.state.newUrlParam)
+  // 如果旧页面不存在则为默认页面
   if (!owo.state.oldUrlParam) owo.state.oldUrlParam = owo.entry;
-  var newUrlParam = owo.state.newUrlParam; // 如果没有跳转到任何页面则跳转到主页
+  var newUrlParam = owo.state.newUrlParam;
 
+  // 如果没有跳转到任何页面则跳转到主页
   if (newUrlParam === undefined) {
     newUrlParam = owo.entry;
-  } // 如果没有发生页面跳转则不需要进行操作
-  // 切换页面特效
+  }
 
-
+  // 如果没有发生页面跳转则不需要进行操作
+  // 进行页面切换
   switchPage(owo.state.oldUrlParam, newUrlParam);
 }
 
