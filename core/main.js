@@ -1,20 +1,3 @@
-
-// 事件推送方法
-var $emit = function (eventName) {
-  var event = owo.state.event[eventName]
-  let argumentsList = []
-  for (let ind = 1; ind < arguments.length; ind++) {
-    argumentsList.push(arguments[ind])
-  }
-  event.forEach(element => {
-    // 注入运行环境运行
-    element.fun.apply(_owo.assign(element.script, {
-      $el: element.dom,
-      activePage: window.owo.activePage
-    }), argumentsList)
-  })
-}
-
 /* 方法合集 */
 var _owo = {
   /* 对象合并方法 */
@@ -219,23 +202,4 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
     console.info(tempDom)
   }
   
-}
-
-function $change (key, value) {
-  // 更改对应的data
-  owo.script[owo.activePage].data[key] = value
-  // 当前页面下@show元素列表
-  var showList = document.getElementById('o-' + owo.activePage).querySelectorAll('[\\@show]')
-  showList.forEach(element => {
-    // console.log(element)
-    var order = element.attributes['@show'].textContent
-    // console.log(order)
-    // 去掉空格
-    order = order.replace(/ /g, '')
-    if (order == key + '==' + value) {
-      element.style.display = ''
-    } else {
-      element.style.display = 'none'
-    }
-  })
 }
