@@ -95,6 +95,9 @@ _owo.handlePage = function (pageName, entryDom) {
 }
 
 /* owo事件处理 */
+// 参数1: 当前正在处理的dom节点
+// 参数2: 当前正在处理的模块名称
+// 参数3: 当前正在处理的模块根dom
 _owo.handleEvent = function (tempDom, templateName, entryDom) {
   var activePage = window.owo.script[owo.activePage]
   
@@ -111,7 +114,7 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
             // 初步先简单处理吧
             var temp = eventFor.replace(/ /g, '')
             // 取出条件
-            const condition = temp.split("==")
+            var condition = temp.split("==")
             if (activePage.data[condition[0]] != condition[1]) {
               tempDom.style.display = 'none'
             }
@@ -173,7 +176,8 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
             }.bind({
               eventFor,
               templateName,
-              entryDom
+              entryDom,
+              tempDom
             })
           }
         }
@@ -181,19 +185,22 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
     }
   }
   
+  // 判断是否有子节点需要处理
   if (tempDom.children) {
-    // console.log(childrenDom)
-    
     // 递归处理所有子Dom结点
     for (var i = 0; i < tempDom.children.length; i++) {
+      // 获取子节点实例
       var childrenDom = tempDom.children[i]
+
       // 每个子节点均要判断是否为模块
-      let newTemplateName = templateName
       if (childrenDom.attributes['template'] && childrenDom.attributes['template'].textContent) {
-        newTemplateName = childrenDom.attributes['template'].textContent
+        // 如果即将遍历进入模块 设置即将进入的模块为当前模块
+        // 获取模块的模块名
+        templateName = childrenDom.attributes['template'].textContent
+        _owo.handleEvent(childrenDom, templateName, childrenDom)
+      } else {
+        _owo.handleEvent(childrenDom, templateName, entryDom)
       }
-      const temp = childrenDom.attributes['template'] ? tempDom : entryDom
-      _owo.handleEvent(childrenDom, newTemplateName, temp)
     }
   } else {
     console.info('元素不存在子节点!')

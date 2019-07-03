@@ -55,9 +55,6 @@ if (processArgv === 'init') {
 }
 
 
-
-
-
 // 判断是否处于生成模式
 if (processArgv) {
   if (config[processArgv]) {
