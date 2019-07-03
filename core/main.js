@@ -163,7 +163,7 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
                 // 绑定window.owo对象
                 // console.log(tempDom)
                 // 待测试不知道这样合并会不会对其它地方造成影响
-                newPageFunction.$el = entryDom
+                newPageFunction.$el = this.entryDom
                 newPageFunction.$event = event
                 newPageFunction[this.eventFor].apply(newPageFunction, parameterArr)
               } else {
@@ -173,6 +173,7 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
             }.bind({
               eventFor,
               templateName,
+              entryDom
             })
           }
         }
