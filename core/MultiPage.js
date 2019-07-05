@@ -25,13 +25,6 @@ _owo.ready = function() {
   }
   // 设置状态为dom准备完毕
   window.owo.state.isRrady = true
-  // 判断是否有需要运行的其他方法
-  if (window.owo.state.created != undefined) {
-    window.owo.state.created.forEach(element => {
-      // 运行对应的方法
-      element()
-    })
-  }
   // 设置当前页面为活跃页面
   owo.state.newUrlParam = _owo.getarg(document.URL)
 }
