@@ -18,7 +18,7 @@ _owo.ready = function() {
       entryDom.style.display = 'block'
       window.owo.activePage = page
       _owo.handlePage(window.owo.script[page], entryDom)
-      _owo.handleEvent(entryDom, null , entryDom)
+      _owo.handleEvent(entryDom, null)
     } else {
       console.error('入口文件设置错误,错误值为: ', entryDom)
     }

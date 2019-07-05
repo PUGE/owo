@@ -9,7 +9,6 @@ owo.emit = function (eventName) {
   event.forEach(element => {
     // 注入运行环境运行
     element.fun.apply(_owo.assign(element.script, {
-      $el: element.dom,
       activePage: window.owo.activePage
     }), argumentsList)
   })

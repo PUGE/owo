@@ -5,7 +5,7 @@ _owo.ready = function() {
   var entryDom = document.getElementById('o-' + page)
   if (entryDom) {
     _owo.handlePage(window.owo.script[page], entryDom)
-    _owo.handleEvent(entryDom, null , entryDom)
+    _owo.handleEvent(entryDom, null)
   } else {
     console.error('找不到页面入口! 设置的入口为: ' + page)
   }

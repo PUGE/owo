@@ -12,9 +12,8 @@ var _owo = {
     return newObj
   },
   /* 运行页面初始化方法 */
-  runCreated: function (pageFunction, entryDom) {
+  runCreated: function (pageFunction) {
     pageFunction.created.apply(_owo.assign(pageFunction, {
-      $el: entryDom,
       data: pageFunction.data,
       activePage: window.owo.activePage
     }))
@@ -59,12 +58,13 @@ if (!document.getElementsByClassName) {
 
 /* 运行页面所属的方法 */
 _owo.handlePage = function (newPageFunction, entryDom) {
+  newPageFunction['$el'] = entryDom
   /* 判断页面是否有自己的方法 */
   if (!newPageFunction) return
   // console.log(newPageFunction)
   // 如果有created方法则执行
   if (newPageFunction.created) {
-    _owo.runCreated(newPageFunction, entryDom)
+    _owo.runCreated(newPageFunction)
   }
 
   // 注册事件监听
@@ -73,8 +73,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
     // 待修复,临时获取方式,这种方式获取到的dom不准确
-    var childDom = document.querySelectorAll('[template="' + key +'"]')
-    templateScript.lala = childDom
+    var childDom = document.querySelectorAll('[template="' + key +'"]')[0]
     // 递归处理
     _owo.handlePage(templateScript, childDom)
   }
@@ -84,7 +83,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
 // 参数3: 当前正在处理的模块根dom
-_owo.handleEvent = function (tempDom, templateName, entryDom) {
+_owo.handleEvent = function (tempDom, templateName) {
   var activePage = window.owo.script[owo.activePage]
   
   if (tempDom.attributes) {
@@ -150,9 +149,6 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
               // 如果有方法,则运行它
               if (newPageFunction[this.eventFor]) {
                 // 绑定window.owo对象
-                // console.log(tempDom)
-                // 待测试不知道这样合并会不会对其它地方造成影响
-                newPageFunction.$el = this.entryDom
                 newPageFunction.$event = event
                 newPageFunction[this.eventFor].apply(newPageFunction, parameterArr)
               } else {
@@ -162,7 +158,6 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
             }.bind({
               eventFor,
               templateName,
-              entryDom,
               tempDom
             })
           }
@@ -183,9 +178,9 @@ _owo.handleEvent = function (tempDom, templateName, entryDom) {
         // 如果即将遍历进入模块 设置即将进入的模块为当前模块
         // 获取模块的模块名
         templateName = childrenDom.attributes['template'].textContent
-        _owo.handleEvent(childrenDom, templateName, childrenDom)
+        _owo.handleEvent(childrenDom, templateName)
       } else {
-        _owo.handleEvent(childrenDom, templateName, entryDom)
+        _owo.handleEvent(childrenDom, templateName)
       }
     }
   } else {

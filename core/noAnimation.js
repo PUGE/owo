@@ -25,5 +25,5 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   window.owo.activePage = newPage
   _owo.handlePage(window.owo.script[newPage], newDom)
-  _owo.handleEvent(newDom, null , newDom)
+  _owo.handleEvent(newDom, null)
 }
