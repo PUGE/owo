@@ -53,16 +53,16 @@ _owo.handleEvent = function (tempDom, templateName) {
               // 判断页面是否有自己的方法
               var newPageFunction = window.owo.script[window.owo.activePage]
               // console.log(this.attributes)
-              if (this.templateName && this.templateName !== owo.activePage) {
+              if (templateName && templateName !== owo.activePage) {
                 // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
                 if (newPageFunction.template) {
-                  newPageFunction = newPageFunction.template[this.templateName]
+                  newPageFunction = newPageFunction.template[templateName]
                 }
               }
               // 待优化可以单独提出来
               // 取出参数
               var parameterArr = []
-              var parameterList = this.eventFor.match(/[^\(\)]+(?=\))/g)
+              var parameterList = eventFor.match(/[^\(\)]+(?=\))/g)
               
               if (parameterList && parameterList.length > 0) {
                 // 参数列表
@@ -82,26 +82,22 @@ _owo.handleEvent = function (tempDom, templateName) {
                   }
                   // console.log(parameterArr[i])
                 }
-                this.eventFor = this.eventFor.replace('(' + parameterList + ')', '')
+                eventFor = eventFor.replace('(' + parameterList + ')', '')
               } else {
                 // 解决 @click="xxx()"会造成的问题
-                this.eventFor = this.eventFor.replace('()', '')
+                eventFor = eventFor.replace('()', '')
               }
               // console.log(newPageFunction)
               // 如果有方法,则运行它
-              if (newPageFunction[this.eventFor]) {
+              if (newPageFunction[eventFor]) {
                 // 绑定window.owo对象
                 newPageFunction.$event = event
-                newPageFunction[this.eventFor].apply(newPageFunction, parameterArr)
+                newPageFunction[eventFor].apply(newPageFunction, parameterArr)
               } else {
                 // 如果没有此方法则交给浏览器引擎尝试运行
-                eval(this.eventFor)
+                eval(eventFor)
               }
-            }.bind({
-              eventFor,
-              templateName,
-              tempDom
-            })
+            }
           }
         }
       }

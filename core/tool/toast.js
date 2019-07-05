@@ -17,23 +17,7 @@ owo.tool.toast = (text, time) => {
   toast.setAttribute("id", "toast")
   toast.setAttribute("class", "toast")
   // 设置样式
-  toast.style.position = 'fixed'
-  toast.style.zIndex = 999
-  toast.style['background-color'] = 'rgba(0, 0, 0, 0.5)'
-  toast.style.bottom = '10%'
-  toast.style.height = '40px'
-  toast.style.borderRadius = '10px'
-  toast.style.left = 0
-  toast.style.right = 0
-  toast.style.margin = 'auto'
-  toast.style.lineHeight = '40px'
-  toast.style.textAlign = 'center'
-  toast.style.color = 'white'
-  toast.style.maxWidth = '200px'
-  toast.style.padding = '0 10px'
-  toast.style.overflow = 'hidden'
-  toast.style.textOverflow = 'ellipsis'
-  toast.style.whiteSpace = 'nowrap'
+  toast.style.cssText = "position:fixed;z-index:999;background-color:rgba(0, 0, 0, 0.5);bottom:10%;line-height:40px;border-radius:10px;left:0;right:0;margin:0 auto;text-align:center;color:white;max-width:200px;padding:0 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
 
   toast.innerHTML = text
   document.body.appendChild(toast)
