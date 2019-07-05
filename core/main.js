@@ -21,26 +21,6 @@ var _owo = {
 }
 
 
-if (!document.getElementsByClassName) {
-  /* 解决低版本浏览器没有getElementsByClassName的问题 */
-  document.getElementsByClassName = function (className, element) {
-    var children = (element || document).getElementsByTagName('*');
-    var elements = new Array();
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i];
-      var classNames = child.className.split(' ');
-      for (var j = 0; j < classNames.length; j++) {
-        if (classNames[j] == className) {
-          elements.push(child);
-          break;
-        }
-      }
-    }
-    return elements;
-  };
-}
-
-
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称

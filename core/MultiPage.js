@@ -6,7 +6,7 @@ _owo.getarg = function (url) { // 获取URL #后面内容
 }
 
 // 页面资源加载完毕事件
-_owo.ready = function() {
+_owo.showPage = function() {
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
   // 从配置项中取出程序入口
@@ -25,8 +25,6 @@ _owo.ready = function() {
   } else {
     console.error('未设置程序入口!')
   }
-  // 设置状态为dom准备完毕
-  window.owo.state.isRrady = true
   // 设置当前页面为活跃页面
   owo.state.newUrlParam = _owo.getarg(document.URL)
 }

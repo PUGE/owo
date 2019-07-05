@@ -1,5 +1,5 @@
 // 页面资源加载完毕事件
-_owo.ready = function() {
+_owo.showPage = function() {
   var page = owo.entry
   window.owo.activePage = page
   var entryDom = document.getElementById('o-' + page)
@@ -9,6 +9,4 @@ _owo.ready = function() {
   } else {
     console.error('找不到页面入口! 设置的入口为: ' + page)
   }
-  // 设置状态为dom准备完毕
-  window.owo.state.isRrady = true
 }
