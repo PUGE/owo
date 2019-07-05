@@ -1,7 +1,8 @@
 
 _owo.getarg = function (url) { // 获取URL #后面内容
+  if (!url) return null
   const arg = url.split("#");
-  return arg[1].split('?')[0];
+  return arg[1] ? arg[1].split('?')[0] : null
 }
 
 // 页面资源加载完毕事件
@@ -16,7 +17,8 @@ _owo.ready = function() {
       // 显示主页面
       entryDom.style.display = 'block'
       window.owo.activePage = page
-      _owo.handlePage(page, entryDom)
+      _owo.handlePage(window.owo.script[page], entryDom)
+      _owo.handleEvent(entryDom, null , entryDom)
     } else {
       console.error('入口文件设置错误,错误值为: ', entryDom)
     }
