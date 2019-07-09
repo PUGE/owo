@@ -36,8 +36,6 @@ _owo.showPage = function() {
   参数3: 进入页面动画
 */
 function $go (pageName, inAnimation, outAnimation, param) {
-  // 测试用的
-  document.getElementsByClassName('sd')
   owo.state.animation = {
     "in": inAnimation,
     "out": outAnimation
