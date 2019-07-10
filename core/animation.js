@@ -71,19 +71,8 @@ function animation (oldDom, newDom, animationIn, animationOut) {
 
 // 切换页面前的准备工作
 function switchPage (oldUrlParam, newUrlParam) {
-  var oldPage = oldUrlParam
-  var newPage = newUrlParam
-  let newPagParamList = newPage.split('&')
-  if (newPage) newPage = newPagParamList[0]
-  
-  // 查找页面跳转前的page页(dom节点)
-  // console.log(oldUrlParam)
-  // 如果源地址获取不到 那么一般是因为源页面为首页
-  if (oldPage === undefined) {
-    oldPage = owo.entry
-  } else {
-    oldPage = oldPage.split('&')[0]
-  }
+  var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
+  var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
   // console.log(oldPage, newPage)
   var oldDom = document.getElementById('o-' + oldPage)
   var newDom = document.getElementById('o-' + newPage)
