@@ -50,6 +50,8 @@ _owo.handleEvent = function (tempDom, templateName) {
           default: {
             // 处理事件 使用bind防止闭包
             tempDom["on" + eventName] = function(event) {
+              // 复制eventFor防止污染
+              let eventForCopy = eventFor
               // 判断页面是否有自己的方法
               var newPageFunction = window.owo.script[window.owo.activePage]
               // console.log(this.attributes)
@@ -62,7 +64,7 @@ _owo.handleEvent = function (tempDom, templateName) {
               // 待优化可以单独提出来
               // 取出参数
               var parameterArr = []
-              var parameterList = eventFor.match(/[^\(\)]+(?=\))/g)
+              var parameterList = eventForCopy.match(/[^\(\)]+(?=\))/g)
               
               if (parameterList && parameterList.length > 0) {
                 // 参数列表
@@ -82,20 +84,20 @@ _owo.handleEvent = function (tempDom, templateName) {
                   }
                   // console.log(parameterArr[i])
                 }
-                eventFor = eventFor.replace('(' + parameterList + ')', '')
+                eventForCopy = eventFor.replace('(' + parameterList + ')', '')
               } else {
                 // 解决 @click="xxx()"会造成的问题
-                eventFor = eventFor.replace('()', '')
+                eventForCopy = eventForCopy.replace('()', '')
               }
-              // console.log(newPageFunction)
+              console.log(newPageFunction, eventForCopy)
               // 如果有方法,则运行它
-              if (newPageFunction[eventFor]) {
+              if (newPageFunction[eventForCopy]) {
                 // 绑定window.owo对象
                 newPageFunction.$event = event
-                newPageFunction[eventFor].apply(newPageFunction, parameterArr)
+                newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
               } else {
                 // 如果没有此方法则交给浏览器引擎尝试运行
-                eval(eventFor)
+                eval(eventForCopy)
               }
             }
           }
