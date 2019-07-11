@@ -35,7 +35,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
     // 待修复,临时获取方式,这种方式获取到的dom不准确
-    var childDom = document.querySelectorAll('[template="' + key +'"]')[0]
+    var childDom = entryDom.querySelectorAll('[template="' + key +'"]')[0]
     // 递归处理
     _owo.handlePage(templateScript, childDom)
   }

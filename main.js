@@ -68,7 +68,7 @@ if (processArgv) {
 }
 
 log.debug('获取到配置信息:')
-log.debug(config)
+// log.debug(config)
 if (!checkConfig(config)) {
   return
 }
