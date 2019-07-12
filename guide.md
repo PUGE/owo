@@ -85,9 +85,9 @@ module.exports = {
 
 > 其中使用<script></script>包裹的部分与普通js的书写方式稍有差别（经过框架封装以自动实现某些功能，稍后详细介绍）
 
-> 其中使用<script></script>包裹的的可以理解为普通css,但是与常规css区别是：每个模块的样式互不影响，只会对自己和自己的模块起作用（全局生效的样式写法后面讲解）
+> 其中使用<style></style>包裹的的可以理解为普通css,但是与常规css区别是：每个模块的样式互不影响，只会对自己和自己的模块起作用（全局生效的样式写法后面讲解）
 
-## 3. 框架在取到页面文件内容后首先会开始解析html内容（<template></template>包裹部分）
+## 3. 框架解析html内容（<template></template>包裹部分）
 框架的template解析程序会对html中的特殊写法做特殊解析以方便实现各种功能，下面以3中最常见的特殊写法做说明
 
 ### 1. 模块标签 ---- <temple></temple>
@@ -125,7 +125,7 @@ module.exports = {
 
 > 当框架template解析程序解析到一个dom节点有一个属性是以@开头时，便会自动监听此dom节点的对应事件，并执行相应的方法
 
-> 示例中的@click="hide"就表示当div被点击时执行当前模块<script>中的hide方法 （在实际中执行的方法不限于当前script中的方法，但是通常绝大多数使用场景时是这样的）
+> 示例中的@click="hide"就表示当div被点击时执行当前模块<script>中的hide方法 （如果方法在模块<script>中不存在则尝试调用全局方法）
 
 ### 3. 资源调用 ---- @&资源文件名&
 ```
@@ -137,3 +137,55 @@ module.exports = {
 ```
 > 如示例所示 img标签的地址在框架中可以写成 @&资源文件名& 的形式，使用者不需要考虑资源文件相对与页面的位置，只需要将文件放置在资源目录中(owo.js中配置)，框架会自动对资源做优化处理并替换标签为真实路径
 
+## 3. 框架解析script内容（<script></script>包裹部分）
+
+script标签里的内容目前由module.exports = {}包裹的部分才能被框架正确处理
+
+#### 1. 普通字段
+module.exports中的字段可以直接被template使用，例如
+```
+<template>
+  <!-- 最终会编译为<div class="example">模板插值</div> -->
+  <div class="example">{{data.text}}</div>
+  <p class="click" @click="showAlert('Jerome', 'Jefferson')">you can click me!</p>
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      text: "模板插值"
+    },
+    showAlert: function (othersName, myName) {
+      console.log('可以传递参数:', othersName, myName)
+      console.log('方便的获取到可能会用到的信息!')
+      // console.log(this.$event.target)
+      this.$event.target.innerText = `Hellow ${othersName}, My name is ${myName}`
+    }
+  }
+</script>
+```
+
+#### 2. 特殊字段 ---- 目前最常用的为created
+
+在模块/页面被显示出来的时候会调用created方法
+
+例如下面的示例不需要任何触发条件，在页面/模块被加载到页面时会自动输出日志
+
+```
+<template>
+  <div>123</div>
+</template>
+
+<script>
+  module.exports = {
+    created: function () {
+      console.log(this)
+      console.log(`my name is ${this.prop.text}!`) 
+    }
+  }
+</script>
+```
+
+## 4. 框架解析style
+
+和普通css写法，解析方法一致
