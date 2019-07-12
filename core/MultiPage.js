@@ -35,7 +35,7 @@ _owo.showPage = function() {
   参数2: 离开页面动画
   参数3: 进入页面动画
 */
-function $go (pageName, inAnimation, outAnimation, param) {
+owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, param) {
   owo.state.animation = {
     "in": inAnimation,
     "out": outAnimation
@@ -51,6 +51,15 @@ function $go (pageName, inAnimation, outAnimation, param) {
     paramString = paramString.slice(0, -1)
   }
   window.location.href = paramString + "#" + pageName
+  // 如果有返回动画那么设置返回动画
+  if (backInAnimation && backOutAnimation) {
+    setTimeout(() => {
+      owo.state.animation = {
+        "in": backInAnimation,
+        "out": backOutAnimation
+      }
+    }, 1000)
+  }
 }
 
 // url发生改变事件
