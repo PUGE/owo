@@ -91,7 +91,7 @@ _owo.handleEvent = function (tempDom, templateName) {
               }
               // console.log(newPageFunction, eventForCopy)
               // 如果有方法,则运行它
-              if (newPageFunction[eventForCopy]) {
+              if (newPageFunction && newPageFunction[eventForCopy]) {
                 // 绑定window.owo对象
                 newPageFunction.$event = event
                 newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
