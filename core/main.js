@@ -33,7 +33,7 @@ _owo.handleEvent = function (tempDom, templateName) {
       var attribute = tempDom.attributes[ind]
       // 判断是否为owo的事件
       // ie不支持startsWith
-      if (attribute.name[0] == '@') {
+      if (attribute.name[0] == ':') {
         var eventName = attribute.name.slice(1)
         var eventFor = attribute.textContent
         switch (eventName) {
@@ -89,7 +89,7 @@ _owo.handleEvent = function (tempDom, templateName) {
                 // 解决 @click="xxx()"会造成的问题
                 eventForCopy = eventForCopy.replace('()', '')
               }
-              console.log(newPageFunction, eventForCopy)
+              // console.log(newPageFunction, eventForCopy)
               // 如果有方法,则运行它
               if (newPageFunction[eventForCopy]) {
                 // 绑定window.owo对象
@@ -97,7 +97,7 @@ _owo.handleEvent = function (tempDom, templateName) {
                 newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
               } else {
                 // 如果没有此方法则交给浏览器引擎尝试运行
-                eval(eventForCopy)
+                eval(eventFor)
               }
             }
           }
