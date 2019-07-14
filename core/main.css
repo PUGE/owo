@@ -15,6 +15,9 @@ body, html, .ox {
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
+.owo-animation-forward {
+  z-index: 999;
+}
 
 a:link, a:visited {
   text-decoration: none;

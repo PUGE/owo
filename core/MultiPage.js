@@ -38,7 +38,8 @@ _owo.showPage = function() {
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, param) {
   owo.state.animation = {
     "in": inAnimation,
-    "out": outAnimation
+    "out": outAnimation,
+    "forward": true
   }
   var paramString = ''
   if (param && typeof param == 'object') {
@@ -56,7 +57,8 @@ owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOut
     setTimeout(() => {
       owo.state.animation = {
         "in": backInAnimation,
-        "out": backOutAnimation
+        "out": backOutAnimation,
+        "forward": false
       }
     }, 1000)
   }

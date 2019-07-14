@@ -9,7 +9,7 @@ function dispalyEffect (oldDom, newDom) {
 }
 
 // 切换页面动画
-function animation (oldDom, newDom, animationIn, animationOut) {
+function animation (oldDom, newDom, animationIn, animationOut, forward) {
   // 获取父元素
   var parentDom = newDom.parentElement
   if (!oldDom) {
@@ -22,19 +22,23 @@ function animation (oldDom, newDom, animationIn, animationOut) {
 
   newDom.style.display = 'block'
   newDom.style.position = 'absolute'
+  // 给即将生效的页面加上“未来”标识
+  if (forward) {
+    newDom.classList.add('owo-animation-forward')
+  } else {
+    oldDom.classList.add('owo-animation-forward')
+  }
   // document.body.style.overflow = 'hidden'
 
   parentDom.style.perspective = '1200px'
   oldDom.classList.add('owo-animation')
   animationIn.split(',').forEach(value => {
     oldDom.classList.add('o-page-' + value)
-    
   })
 
   newDom.classList.add('owo-animation')
   animationOut.split(',').forEach(value => {
     newDom.classList.add('o-page-' + value)
-    
   })
   // 旧DOM执行函数
   function oldDomFun (e) {
@@ -47,6 +51,7 @@ function animation (oldDom, newDom, animationIn, animationOut) {
       // console.log(oldDom)
       oldDom.style.position = ''
       oldDom.classList.remove('owo-animation')
+      oldDom.classList.remove('owo-animation-forward')
       parentDom.style.perspective = ''
       // 清除临时设置的class
       animationIn.split(',').forEach(value => {
@@ -62,6 +67,7 @@ function animation (oldDom, newDom, animationIn, animationOut) {
     // 清除临时设置的style
     newDom.style.position = ''
     newDom.classList.remove('owo-animation')
+    newDom.classList.remove('owo-animation-forward')
     animationOut.split(',').forEach(value => {
       newDom.classList.remove('o-page-' + value)
     })
@@ -94,7 +100,7 @@ function switchPage (oldUrlParam, newUrlParam) {
       return
     }
     owo.state.animation = {}
-    animation(oldDom, newDom, animationIn, animationOut)
+    animation(oldDom, newDom, animationIn, animationOut, owo.state.animation['forward'])
   } else {
     dispalyEffect(oldDom, newDom)
   }
