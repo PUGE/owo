@@ -5,11 +5,11 @@
 }
 
 @-webkit-keyframes moveFromLeftFade {
-	from { opacity: 0.3; -webkit-transform: translateX(-100%); }
+	from { opacity: 0; -webkit-transform: translateX(-100%); }
 }
 @-moz-keyframes moveFromLeftFade {
-	from { opacity: 0.3; -moz-transform: translateX(-100%); }
+	from { opacity: 0; -moz-transform: translateX(-100%); }
 }
 @keyframes moveFromLeftFade {
-	from { opacity: 0.3; transform: translateX(-100%); }
+	from { opacity: 0; transform: translateX(-100%); }
 }

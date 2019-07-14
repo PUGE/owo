@@ -5,11 +5,11 @@
 }
 
 @-webkit-keyframes fade {
-	to { opacity: 0.3; }
+	to { opacity: 0; }
 }
 @-moz-keyframes fade {
-	to { opacity: 0.3; }
+	to { opacity: 0; }
 }
 @keyframes fade {
-	to { opacity: 0.3; }
+	to { opacity: 0; }
 }
