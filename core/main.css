@@ -16,7 +16,7 @@ body, html, .ox {
   transform-style: preserve-3d;
 }
 .owo-animation-forward {
-  z-index: 999;
+  z-index: 99;
 }
 
 a:link, a:visited {

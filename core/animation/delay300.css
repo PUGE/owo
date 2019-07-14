@@ -1,5 +1,5 @@
 .o-page-delay300 {
-	-webkit-animation-delay: .3s;
-	-moz-animation-delay: .3s;
-	animation-delay: .3s;
+	-webkit-animation-delay: .3s !important;
+	-moz-animation-delay: .3s !important;
+	animation-delay: .3s !important;
 }

@@ -1,5 +1,5 @@
 .o-page-delay180 {
-	-webkit-animation-delay: .180s;
-	-moz-animation-delay: .180s;
-	animation-delay: .180s;
+	-webkit-animation-delay: .180s !important;
+	-moz-animation-delay: .180s !important;
+	animation-delay: .180s !important;
 }

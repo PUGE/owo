@@ -10,6 +10,8 @@ function dispalyEffect (oldDom, newDom) {
 
 // 切换页面动画
 function animation (oldDom, newDom, animationIn, animationOut, forward) {
+  // 动画延迟
+  let delay = 0
   // 获取父元素
   var parentDom = newDom.parentElement
   if (!oldDom) {
@@ -32,12 +34,21 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
 
   parentDom.style.perspective = '1200px'
   oldDom.classList.add('owo-animation')
-  animationIn.split(',').forEach(value => {
+  animationIn.forEach(value => {
+    //判断是否为延迟属性
+    if (value.startsWith('delay')) {
+      const tempDelay = parseInt(value.slice(5))
+      if (delay < tempDelay)  delay = tempDelay
+    }
     oldDom.classList.add('o-page-' + value)
   })
 
   newDom.classList.add('owo-animation')
-  animationOut.split(',').forEach(value => {
+  animationOut.forEach(value => {
+    if (value.startsWith('delay')) {
+      const tempDelay = parseInt(value.slice(5))
+      if (delay < tempDelay)  delay = tempDelay
+    }
     newDom.classList.add('o-page-' + value)
   })
   // 旧DOM执行函数
@@ -46,17 +57,19 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
     if (e.target.getAttribute('template')) {
       // 移除监听
       oldDom.removeEventListener('animationend', oldDomFun, false)
-      // 隐藏掉旧的节点
-      oldDom.style.display = 'none'
-      // console.log(oldDom)
-      oldDom.style.position = ''
-      oldDom.classList.remove('owo-animation')
-      oldDom.classList.remove('owo-animation-forward')
-      parentDom.style.perspective = ''
-      // 清除临时设置的class
-      animationIn.split(',').forEach(value => {
-        oldDom.classList.remove('o-page-' + value)
-      })
+      // 延迟后再清除，防止动画还没完成
+      setTimeout(() => {
+        oldDom.style.display = 'none'
+        // console.log(oldDom)
+        oldDom.style.position = ''
+        oldDom.classList.remove('owo-animation')
+        oldDom.classList.remove('owo-animation-forward')
+        parentDom.style.perspective = ''
+        // 清除临时设置的class
+        animationIn.forEach(value => {
+          oldDom.classList.remove('o-page-' + value)
+        })
+      }, delay);
     }
   }
 
@@ -64,13 +77,16 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   function newDomFun () {
     // 移除监听
     newDom.removeEventListener('animationend', newDomFun, false)
-    // 清除临时设置的style
-    newDom.style.position = ''
-    newDom.classList.remove('owo-animation')
-    newDom.classList.remove('owo-animation-forward')
-    animationOut.split(',').forEach(value => {
-      newDom.classList.remove('o-page-' + value)
-    })
+    // 延迟后再清除，防止动画还没完成
+    setTimeout(() => {
+      // 清除临时设置的style
+      newDom.style.position = '';
+      newDom.classList.remove('owo-animation');
+      newDom.classList.remove('owo-animation-forward');
+      animationOut.forEach(function (value) {
+        newDom.classList.remove('o-page-' + value);
+      });
+    }, delay);
   }
 }
 
@@ -100,7 +116,7 @@ function switchPage (oldUrlParam, newUrlParam) {
       return
     }
     owo.state.animation = {}
-    animation(oldDom, newDom, animationIn, animationOut, owo.state.animation['forward'])
+    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), owo.state.animation['forward'])
   } else {
     dispalyEffect(oldDom, newDom)
   }

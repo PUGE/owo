@@ -1,5 +1,5 @@
 .o-page-delay700 {
-	-webkit-animation-delay: .7s;
-	-moz-animation-delay: .7s;
-	animation-delay: .7s;
+	-webkit-animation-delay: .7s !important;
+	-moz-animation-delay: .7s !important;
+	animation-delay: .7s !important;
 }
