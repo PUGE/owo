@@ -15,6 +15,12 @@ body, html, .ox {
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
+.owo-animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
 .owo-animation-forward {
   z-index: 99;
 }
