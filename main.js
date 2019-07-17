@@ -99,7 +99,8 @@ if (config.watcher && config.watcher.enable) {
     // 检测深度
     depth: config.watcher.depth
   })
-
+  // 添加默认监控
+  watcher.add('owo.js', 'owo_modules')
   watcher.on('change', changePath => {
     log.info(`file change: ${changePath}`)
     // 重新打包
