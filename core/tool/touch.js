@@ -1,8 +1,10 @@
 
 /**
  * 滑动检测
- * @param  {DOM} dom 需要监测的dom元素
- * @param  {number} endValue   结束数值
+ * @param  {DOM} el 需要监测的dom元素
+ * @param  {Function} start   开始事件
+ * @param  {Function} touchmove   触摸移动事件
+ * @param  {Function} end   结束事件
  */
 
 owo.tool.touch = function (config) {

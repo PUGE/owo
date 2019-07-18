@@ -13,10 +13,21 @@ var _owo = {
   },
   /* 运行页面初始化方法 */
   runCreated: function (pageFunction) {
-    pageFunction.created.apply(_owo.assign(pageFunction, {
-      data: pageFunction.data,
-      activePage: window.owo.activePage
-    }))
+    // 确保created事件只被执行一次
+    if (pageFunction["_isCreated"]) {
+      if (!pageFunction.show) return
+      pageFunction.show.apply(_owo.assign(pageFunction, {
+        data: pageFunction.data,
+        activePage: window.owo.activePage
+      }))
+    } else {
+      pageFunction["_isCreated"] = true
+      if (!pageFunction.created) return
+      pageFunction.created.apply(_owo.assign(pageFunction, {
+        data: pageFunction.data,
+        activePage: window.owo.activePage
+      }))
+    }
   }
 }
 
