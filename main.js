@@ -6,7 +6,9 @@ const path = require('path')
 // 文件变动检测
 const chokidar = require('chokidar')
 
-const runProcess = require('child_process')
+const ora = require('ora')
+const spinner = ora('开启打包进程').start()
+
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -16,44 +18,15 @@ if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
   console.error('当前目录下找不到owo配置文件哦!')
   return
 }
-// 读取配置文件
-let config = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
-
-// 加载框架SDK
-const owo = require('./lib')
-
-// 配置输出插件
-const log = require('./lib/log')()
 
 // 配置文件检测
 const checkConfig = require('./lib/checkConfig')
 
-// Web 框架
-const express = require('express')
-const app = express()
-// 使express处理ws请求
-const wsServe = require('express-ws')(app)
+// 读取配置文件
+let config = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
 
 // 判断使用哪套配置文件
 const processArgv = process.argv[2]
-// 判断是否为生成脚手架
-if (processArgv === 'init') {
-  console.log('正在生成实例!')
-  runProcess.exec(`git clone https://github.com/owo/example ${process.argv[3] ? process.argv[3] : example}`,function (error, stdout, stderr) {
-    if (error !== null) {
-      console.log('exec error: ' + error)
-      return
-    }
-    console.log('示例生成成功!')
-    console.log(`请运行 cd ./${process.argv[3] ? process.argv[3] : example}`)
-    console.log('并运行npm i 或 yarn 安装依赖包')
-    console.log('使用pack dev测试运行')
-    console.log('使用pack build打包页面')
-    console.log('配置信息储存在目录下owo.js中!')
-  })
-  return
-}
-
 
 // 判断是否处于生成模式
 if (processArgv) {
@@ -67,18 +40,34 @@ if (processArgv) {
   }
 }
 
-log.debug('获取到配置信息:')
-// log.debug(config)
+// 检查配置信息
 if (!checkConfig(config)) {
+  console.error('配置信息检查失败!')
   return
 }
 
-const pack = new owo(config, () => {
-  if (config.autoReload) {
+// 加载框架SDK
+const owo = require('./lib')
+
+// 配置输出插件
+const log = require('./lib/log')()
+
+
+// 使express处理ws请求
+let wsServe = null
+
+// 记录开始打包时间
+let startPackTime = new Date().getTime()
+const pack = new owo(config, (evnet) => {
+  if (evnet.type === 'end' && config.autoReload) {
+    // 编译成功输出文字
+    let outPutInfo = `Compile successfully, Use time: ${new Date().getTime() - startPackTime} msec!`
+    spinner.succeed(outPutInfo)
     log.info(`发送重新页面需要刷新命令!`)
     // 广播发送重新打包消息
     wsServe.getWss().clients.forEach(client => client.send('reload'))
   }
+  spinner.text = evnet.info
 })
 
 // 开始打包
@@ -87,15 +76,16 @@ pack.pack()
 
 // 判断是否开启文件变动自动重新打包
 if (config.watcher && config.watcher.enable) {
-  let watcherFolder = config.root
-  watcherFolder = path.join(runPath, watcherFolder)
-  log.info(`监控文件夹变化: ${watcherFolder}`)
+  const watcherFolder = path.join(runPath, config.root)
   // 文件变动检测
   const watcher = chokidar.watch(watcherFolder, {
     // 忽略目录
     ignored: config.watcher.ignored ? config.watcher.ignored : config.outFolder + '/*',
     persistent: true,
-    usePolling: true,
+    awaitWriteFinish: {
+      stabilityThreshold: 100,
+      pollInterval: 100
+    },
     // 检测深度
     depth: config.watcher.depth
   })
@@ -103,33 +93,39 @@ if (config.watcher && config.watcher.enable) {
   watcher.add('owo.js', 'owo_modules')
   watcher.on('change', changePath => {
     log.info(`file change: ${changePath}`)
+    spinner.start('开始重新打包')
+    startPackTime = new Date().getTime()
     // 重新打包
     pack.pack(changePath)
   })
 }
-
 // 判断是否启用静态文件服务
 if (config.server) {
-  app.use(express.static(path.join(runPath, config.outFolder)))
-}
-
-
-// 处理websocket消息
-if (config.autoReload) {
-  app.ws('/', function(ws, req) {
-    ws.on('message', function(msg) {
-      const data = JSON.parse(msg)
-      // 判断是否为输出日志
-      if (data.type === 'log') {
-        console.log(data.message)
-      }
-    })
-  })
-}
-
-
-if (config.server || config.autoReload) {
+  // 监听端口
   const port = config.serverPort || 8000
+  // Web 框架
+  const express = require('express')
+  const app = express()
+  
+  app.use(express.static(path.join(runPath, config.outFolder)))
+  wsServe = require('express-ws')(app)
+  
   app.listen(port)
-  log.info(`服务器运行在: 127.0.0.1:${port}`)
+  if (config.server) {
+    spinner.info(`Server running at port: ${port} !`)
+  }
+  
+  // 处理websocket消息
+  if (config.autoReload) {
+    app.ws('/', function(ws, req) {
+      ws.on('message', function(msg) {
+        const data = JSON.parse(msg)
+        // 判断是否为输出日志
+        if (data.type === 'log') {
+          console.log(data.message)
+        }
+      })
+    })
+  }
 }
+
