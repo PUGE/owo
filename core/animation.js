@@ -105,10 +105,10 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   // console.log(owo.state.animation)
   // 判断是否有动画效果
-  if (!owo.state.animation) owo.state.animation = {}
+  if (!owo.script[newPage]._animation) owo.script[newPage]._animation = {}
   // 直接.in会在ie下报错
-  var animationIn = owo.state.animation['in']
-  var animationOut = owo.state.animation['out']
+  var animationIn = owo.script[newPage]._animation['in']
+  var animationOut = owo.script[newPage]._animation['out']
   if (animationIn || animationOut) {
     // 如果没用动画参数则使用默认效果
     if (!animationIn || !animationOut) {

@@ -36,7 +36,8 @@ _owo.showPage = function() {
   参数3: 进入页面动画
 */
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, param) {
-  owo.state.animation = {
+  // console.log(owo.script[pageName])
+  owo.script[pageName]._animation = {
     "in": inAnimation,
     "out": outAnimation,
     "forward": true
@@ -51,17 +52,15 @@ owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOut
     // 去掉尾端的&
     paramString = paramString.slice(0, -1)
   }
-  window.location.href = paramString + "#" + pageName
   // 如果有返回动画那么设置返回动画
   if (backInAnimation && backOutAnimation) {
-    setTimeout(() => {
-      owo.state.animation = {
-        "in": backInAnimation,
-        "out": backOutAnimation,
-        "forward": false
-      }
-    }, 1000)
+    owo.script[owo.activePage]._animation = {
+      "in": backInAnimation,
+      "out": backOutAnimation,
+      "forward": false
+    }
   }
+  window.location.href = paramString + "#" + pageName
 }
 
 // url发生改变事件
