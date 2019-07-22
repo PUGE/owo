@@ -68,9 +68,7 @@ _owo.handleEvent = function (tempDom, templateName) {
               // console.log(this.attributes)
               if (templateName && templateName !== owo.activePage) {
                 // 如果模板注册到newPageFunction中，那么证明模板没有script那么直接使用eval执行
-                if (newPageFunction.template) {
-                  newPageFunction = newPageFunction.template[templateName]
-                }
+                if (newPageFunction.template) newPageFunction = newPageFunction.template[templateName]
               }
               // 待优化可以单独提出来
               // 取出参数
@@ -95,11 +93,8 @@ _owo.handleEvent = function (tempDom, templateName) {
                   }
                   // console.log(parameterArr[i])
                 }
-                eventForCopy = eventFor.replace('(' + parameterList + ')', '')
-              } else {
-                // 解决 @click="xxx()"会造成的问题
-                eventForCopy = eventForCopy.replace('()', '')
               }
+              eventForCopy = eventFor.replace(/\(.*\)/, '')
               // console.log(newPageFunction, eventForCopy)
               // 如果有方法,则运行它
               if (newPageFunction && newPageFunction[eventForCopy]) {
