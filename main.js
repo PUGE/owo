@@ -65,7 +65,7 @@ const pack = new owo(config, (evnet) => {
     spinner.succeed(outPutInfo)
     log.info(`发送重新页面需要刷新命令!`)
     // 广播发送重新打包消息
-    wsServe.getWss().clients.forEach(client => client.send('reload'))
+    if (wsServe) wsServe.getWss().clients.forEach(client => client.send('reload'))
   }
   spinner.text = evnet.info
 })
