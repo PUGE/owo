@@ -15,7 +15,7 @@ const runPath = process.cwd()
 
 // 判断运行目录下是否包含配置文件
 if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
-  console.error('当前目录下找不到owo配置文件哦!')
+  spinner.fail('当前目录下找不到owo配置文件哦!')
   return
 }
 
