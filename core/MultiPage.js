@@ -12,7 +12,7 @@ _owo.showPage = function() {
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
   if (page) {
-    var entryDom = document.getElementById('o-' + page)
+    var entryDom = document.querySelector('[template=' + page + ']')
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
