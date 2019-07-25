@@ -96,8 +96,8 @@ function switchPage (oldUrlParam, newUrlParam) {
   var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
   var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
   // console.log(oldPage, newPage)
-  var oldDom = document.getElementById('o-' + oldPage)
-  var newDom = document.getElementById('o-' + newPage)
+  var oldDom = document.querySelector('[template="' + oldPage + '"]')
+  var newDom = document.querySelector('[template="' + newPage + '"]')
   
   if (!newDom) {
     console.error('页面不存在!')
