@@ -3,7 +3,7 @@ _owo.showPage = function() {
   var page = owo.entry
   owo.activePage = page
   // 查找入口
-  var entryDom = document.querySelector('[template="' + page + '"]')
+  var entryDom = document.querySelector('.ox[template="' + page + '"]')
   if (entryDom) {
     _owo.handlePage(window.owo.script[page], entryDom)
     _owo.handleEvent(entryDom, null)
