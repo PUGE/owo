@@ -59,15 +59,19 @@ let wsServe = null
 // 记录开始打包时间
 let startPackTime = new Date().getTime()
 const pack = new owo(config, (evnet) => {
-  if (evnet.type === 'end' && config.autoReload) {
+  if (evnet.type === 'end') {
     // 编译成功输出文字
     let outPutInfo = `Compile successfully, Use time: ${new Date().getTime() - startPackTime} msec!`
     spinner.succeed(outPutInfo)
-    log.info(`发送重新页面需要刷新命令!`)
-    // 广播发送重新打包消息
-    if (wsServe) wsServe.getWss().clients.forEach(client => client.send('reload'))
+    if (config.autoReload) {
+      log.info(`发送重新页面需要刷新命令!`)
+      // 广播发送重新打包消息
+      if (wsServe) wsServe.getWss().clients.forEach(client => client.send('reload'))
+    }
+  } else {
+    spinner.text = evnet.info
   }
-  spinner.text = evnet.info
+  
 })
 
 // 开始打包
