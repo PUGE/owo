@@ -9,7 +9,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   // 查找页面跳转后的page
   
-  var newDom = document.querySelector('.ox[template="' + newDom + '"]')
+  var newDom = document.querySelector('.ox[template="' + newPage + '"]')
   // console.log(newDom)
   if (newDom) {
     // 隐藏掉旧的节点
