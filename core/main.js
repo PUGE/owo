@@ -62,7 +62,7 @@ _owo.handleEvent = function (tempDom, templateName) {
             // 处理事件 使用bind防止闭包
             tempDom["on" + eventName] = function(event) {
               // 复制eventFor防止污染
-              let eventForCopy = eventFor
+              let eventForCopy = this.eventFor
               // 判断页面是否有自己的方法
               var newPageFunction = window.owo.script[window.owo.activePage]
               // console.log(this.attributes)
@@ -94,7 +94,7 @@ _owo.handleEvent = function (tempDom, templateName) {
                   // console.log(parameterArr[i])
                 }
               }
-              eventForCopy = eventFor.replace(/\(.*\)/, '')
+              eventForCopy = this.eventFor.replace(/\(.*\)/, '')
               // console.log(newPageFunction, eventForCopy)
               // 如果有方法,则运行它
               if (newPageFunction && newPageFunction[eventForCopy]) {
@@ -103,9 +103,11 @@ _owo.handleEvent = function (tempDom, templateName) {
                 newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
               } else {
                 // 如果没有此方法则交给浏览器引擎尝试运行
-                eval(eventFor)
+                eval(this.eventFor)
               }
-            }
+            }.bind({
+              eventFor
+            })
           }
         }
       }
