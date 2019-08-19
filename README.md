@@ -29,22 +29,6 @@ owo:  一个高效、易用、干净的html框架
 ```
 npm i -g @owo/owo
 ```
-创建示例项目
-```
-owo init test
-```
-打开示例文件夹
-```
-cd test
-```
-安装依赖包
-```
-npm i 或 yarn
-```
-运行或者编译
-```
-owo dev 或者 owo build
-```
 
 ### 3. 内置方法
 
@@ -57,7 +41,7 @@ owo dev 或者 owo build
 | out        |    页面离开动画    |  string  |   否     |
 | backIn        |   页面返回入场动画   |   string   |   否     |
 | backOut        |    页面返回离开动画    |  string  |   否     |
-
+| noBack        |   是否不需要返回    |  string  |   否     |
 
 ### 4. 其他
 ### 1.getPopPosition
