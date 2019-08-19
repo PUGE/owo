@@ -35,7 +35,7 @@ _owo.showPage = function() {
   参数2: 离开页面动画
   参数3: 进入页面动画
 */
-owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, param) {
+owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, param, noBack) {
   // console.log(owo.script[pageName])
   owo.script[pageName]._animation = {
     "in": inAnimation,
@@ -60,7 +60,11 @@ owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOut
       "forward": false
     }
   }
-  window.location.href = paramString + "#" + pageName
+  if (noBack) {
+    location.replace(paramString + "#" + pageName)
+  } else {
+    window.location.href = paramString + "#" + pageName
+  }
 }
 
 // url发生改变事件
