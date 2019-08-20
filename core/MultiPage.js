@@ -20,7 +20,7 @@ _owo.showPage = function() {
       _owo.handlePage(window.owo.script[page], entryDom)
       _owo.handleEvent(entryDom, null)
     } else {
-      console.error('入口文件设置错误,错误值为: ', entryDom)
+      console.error('入口文件设置错误,错误值为: ', page)
     }
   } else {
     console.error('未设置程序入口!')
