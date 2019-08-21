@@ -23,11 +23,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   }
   /* 判断页面是否有自己的方法 */
   if (!newPageFunction) return
-  // console.log(newPageFunction)
-  // 如果有created方法则执行
-  if (newPageFunction.created) {
-    _owo.runCreated(newPageFunction)
-  }
+  _owo.runCreated(newPageFunction)
 
   // 注册事件监听
   _owo.registerEvent(newPageFunction)
