@@ -13,7 +13,7 @@ var _owo = {
   },
   /* 运行页面初始化方法 */
   runCreated: function (pageFunction) {
-    console.log(pageFunction)
+    // console.log(pageFunction)
     // 确保created事件只被执行一次
     if (!pageFunction["_isCreated"]) {
       pageFunction["_isCreated"] = true

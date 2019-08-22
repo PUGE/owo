@@ -35,7 +35,7 @@ _owo.showPage = function() {
   参数2: 离开页面动画
   参数3: 进入页面动画
 */
-owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, param, noBack) {
+owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
   // console.log(owo.script[pageName])
   owo.script[pageName]._animation = {
     "in": inAnimation,
