@@ -40,7 +40,7 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, templateName) {
   // 处理事件 使用bind防止闭包
   tempDom["on" + eventName] = function(event) {
     // 复制eventFor防止污染
-    let eventForCopy = this.eventFor
+    var eventForCopy = this.eventFor
     // 判断页面是否有自己的方法
     var newPageFunction = window.owo.script[window.owo.activePage]
     // console.log(this.attributes)
