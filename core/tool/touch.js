@@ -37,4 +37,29 @@ owo.tool.touch = function (config) {
       })
     }
   }, false)
+  // 监控鼠标事件
+  dom.addEventListener("mousedown", function (event) {
+    console.log('安现')
+    dom.addEventListener("mousemove", function (event) {
+      end = [event.clientX, event.clientY]
+      if (config.moveing) config.moveing(event)
+    }, false)
+    start = end = [event.clientX, event.clientY]
+    if (config.start) config.start(event)
+  }, false)
+  
+  dom.addEventListener("mouseup", function () {
+    // 移除监听
+    dom.removeEventListener("mousemove", function () {
+
+    }, false)
+    if (config.end) {
+      config.end({
+        target: startTarget,
+        start,
+        end,
+        swipe: [end[0] - start[0], end[1] - start[1]]
+      })
+    }
+  }, false)
 }
