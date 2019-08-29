@@ -39,7 +39,6 @@ owo.tool.touch = function (config) {
   }, false)
   // 监控鼠标事件
   dom.addEventListener("mousedown", function (event) {
-    console.log('安现')
     dom.addEventListener("mousemove", function (event) {
       end = [event.clientX, event.clientY]
       if (config.moveing) config.moveing(event)
