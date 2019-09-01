@@ -16,7 +16,7 @@ owo.tool.animate = function (name, dom, delay) {
     dom.classList.remove(name)
     dom.classList.remove('owo-animated')
     if (delay) {
-      dom.style.animationDelay = 'unset'
+      dom.style.animationDelay = ''
     }
   }
 }
