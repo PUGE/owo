@@ -18,7 +18,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     // 待修复,临时获取方式,这种方式获取到的dom不准确
     var childDom = entryDom.querySelectorAll('[template="' + key +'"]')[0]
     if (!childDom) {
-      console.error('组件丢失！')
+      console.error('组件丢失:', key)
       continue
     }
     // 递归处理
