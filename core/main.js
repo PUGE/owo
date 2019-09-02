@@ -86,9 +86,9 @@ _owo._run = function (eventFor, templateName, event) {
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, templateName) {
   // 处理事件 使用bind防止闭包
-  tempDom.addEventListener(eventName, function(event) {
+  tempDom['on' + eventName] = function(event) {
     _owo._run(eventFor, templateName, event)
-  }.bind({eventFor}), false)
+  }.bind({eventFor: eventFor})
 }
 
 /* owo事件处理 */

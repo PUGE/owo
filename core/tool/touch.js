@@ -31,8 +31,8 @@ owo.tool.touch = function (config) {
     if (config.end) {
       config.end({
         target: startTarget,
-        start,
-        end,
+        start: start,
+        end: end,
         swipe: [end[0] - start[0], end[1] - start[1]]
       })
     }
@@ -55,8 +55,8 @@ owo.tool.touch = function (config) {
     if (config.end) {
       config.end({
         target: startTarget,
-        start,
-        end,
+        start: start,
+        end: end,
         swipe: [end[0] - start[0], end[1] - start[1]]
       })
     }
