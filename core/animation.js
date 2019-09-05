@@ -122,6 +122,8 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   
   window.owo.activePage = newPage
-  _owo.handleEvent(newDom, null)
+  if (!window.owo.script[newPage]._isCreated) {
+    _owo.handleEvent(newDom, null)
+  }
   _owo.handlePage(window.owo.script[newPage], newDom)
 }
