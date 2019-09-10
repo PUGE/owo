@@ -24,12 +24,48 @@ var _owo = {
         }))
       }
     }
+    // 模板插值处理
+    _owo.showHandle(pageFunction)
+
     // console.log(pageFunction)
-    if (!pageFunction.show) return
-    pageFunction.show.apply(_owo.assign(pageFunction, {
-      data: pageFunction.data,
-      activePage: window.owo.activePage
-    }))
+    if (pageFunction.show) {
+      pageFunction.show.apply(_owo.assign(pageFunction, {
+        data: pageFunction.data,
+        activePage: window.owo.activePage
+      }))
+    }
+
+  }
+}
+
+
+_owo.getValFromObj = function (str, value) {
+  // 如果模块没有数据则直接返回null
+  if (!value) value = window
+  var arr = str.split('.')
+  for (let index = 0; index < arr.length; index++) {
+    var element = arr[index]
+    if (value[element]) {
+      value = value[element]
+    } else {
+      return undefined
+    }
+  }
+  return value
+}
+
+_owo.showHandle = function (pageFunction) {
+  var linkList = pageFunction.$el.querySelectorAll('[innerText]')
+  for (var ind = 0; ind < linkList.length; ind++) {
+    var element = linkList[ind]
+    var dataFor = element.getAttribute("innerText")
+    // 获取对应的值
+    var value = _owo.getValFromObj(dataFor, pageFunction)
+    if (value == undefined) {
+      // console.log('从全局获取值!')
+      value = _owo.getValFromObj(dataFor)
+    }
+    element.innerText = value
   }
 }
 
@@ -94,7 +130,6 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, templateName) {
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
-// 参数3: 当前正在处理的模块根dom
 _owo.handleEvent = function (tempDom, templateName) {
   var activePage = window.owo.script[owo.activePage]
   
