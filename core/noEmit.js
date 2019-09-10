@@ -1,14 +1,14 @@
 
 /* 运行页面所属的方法 */
 _owo.handlePage = function (newPageFunction, entryDom) {
+  /* 判断页面是否有自己的方法 */
+  if (!newPageFunction) return
   // console.log(entryDom)
   newPageFunction['$el'] = entryDom
   // 快速选择器
   newPageFunction['query'] = function (str) {
     return this.$el.querySelectorAll(str)
   }
-  /* 判断页面是否有自己的方法 */
-  if (!newPageFunction) return
   // console.log(newPageFunction)
   _owo.runCreated(newPageFunction)
   // debugger

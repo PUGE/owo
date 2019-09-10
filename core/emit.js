@@ -16,13 +16,14 @@ _owo.registerEvent = function (pageFunction) {
 
 /* 运行页面所属的方法 */
 _owo.handlePage = function (newPageFunction, entryDom) {
+  /* 判断页面是否有自己的方法 */
+  if (!newPageFunction) return
   newPageFunction['$el'] = entryDom
   // 快速选择器
   newPageFunction['query'] = function (str) {
     return this.$el.querySelectorAll(str)
   }
-  /* 判断页面是否有自己的方法 */
-  if (!newPageFunction) return
+  
   _owo.runCreated(newPageFunction)
 
   // 注册事件监听
@@ -46,8 +47,6 @@ owo.emit = function (eventName) {
   }
   event.forEach(element => {
     // 注入运行环境运行
-    element.fun.apply(_owo.assign(element.script, {
-      activePage: window.owo.activePage
-    }), argumentsList)
+    element.fun.apply(element.script, argumentsList)
   })
 }

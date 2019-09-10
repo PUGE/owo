@@ -92,8 +92,4 @@ _owo.hashchange = function (e) {
 }
 
 // ios的QQ有BUG 无法触发onhashchange事件
-if(/iPhone\sOS.*QQ[^B]/.test(navigator.userAgent)) {
-  window.onpopstate = _owo.hashchange;
-} else {
-  window.onhashchange = _owo.hashchange;
-}
+if(/iPhone\sOS.*QQ[^B]/.test(navigator.userAgent)) {window.onpopstate = _owo.hashchange;} else {window.onhashchange = _owo.hashchange;}

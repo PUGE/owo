@@ -1,13 +1,3 @@
-// 隐藏旧页面，显示新页面
-function dispalyEffect (oldDom, newDom) {
-  if (oldDom) {
-    // 隐藏掉旧的节点
-    oldDom.style.display = 'none'
-  }
-  // 查找页面跳转后的page
-  newDom.style.display = 'block'
-}
-
 // 切换页面动画
 function animation (oldDom, newDom, animationIn, animationOut, forward) {
   // 动画延迟
@@ -110,15 +100,15 @@ function switchPage (oldUrlParam, newUrlParam) {
   var animationIn = owo.script[newPage]._animation['in']
   var animationOut = owo.script[newPage]._animation['out']
   if (animationIn || animationOut) {
-    // 如果没用动画参数则使用默认效果
-    if (!animationIn || !animationOut) {
-      dispalyEffect(oldDom, newDom)
-      return
-    }
     owo.state.animation = {}
     animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), owo.state.animation['forward'])
   } else {
-    dispalyEffect(oldDom, newDom)
+    if (oldDom) {
+      // 隐藏掉旧的节点
+      oldDom.style.display = 'none'
+    }
+    // 查找页面跳转后的page
+    newDom.style.display = 'block'
   }
   
   window.owo.activePage = newPage

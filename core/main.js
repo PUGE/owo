@@ -1,16 +1,5 @@
 /* 方法合集 */
 var _owo = {
-  /* 对象合并方法 */
-  assign: function(a, b) {
-    var newObj = {}
-    for (var key in a){
-      newObj[key] = a[key]
-    }
-    for (var key in b){
-      newObj[key] = b[key]
-    }
-    return newObj
-  },
   /* 运行页面初始化方法 */
   runCreated: function (pageFunction) {
     // console.log(pageFunction)
@@ -18,10 +7,7 @@ var _owo = {
     if (!pageFunction["_isCreated"]) {
       pageFunction["_isCreated"] = true
       if (pageFunction.created) {
-        pageFunction.created.apply(_owo.assign(pageFunction, {
-          data: pageFunction.data,
-          activePage: window.owo.activePage
-        }))
+        pageFunction.created.apply(pageFunction)
       }
     }
     // 模板插值处理
@@ -29,10 +15,7 @@ var _owo = {
 
     // console.log(pageFunction)
     if (pageFunction.show) {
-      pageFunction.show.apply(_owo.assign(pageFunction, {
-        data: pageFunction.data,
-        activePage: window.owo.activePage
-      }))
+      pageFunction.show.apply(pageFunction)
     }
 
   }
