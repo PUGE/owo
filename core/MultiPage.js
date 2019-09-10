@@ -37,6 +37,10 @@ _owo.showPage = function() {
 */
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
   // console.log(owo.script[pageName])
+  if (!owo.script[pageName]) {
+    console.error('导航到不存在的页面!')
+    return
+  }
   owo.script[pageName]._animation = {
     "in": inAnimation,
     "out": outAnimation,
