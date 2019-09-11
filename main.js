@@ -22,29 +22,34 @@ if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
 // 配置文件检测
 const checkConfig = require('./lib/checkConfig')
 
-// 读取配置文件
-let config = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
+function getConfig () {
+  // 读取配置文件
+  let configTemp = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
 
-// 判断使用哪套配置文件
-const processArgv = process.argv[2]
+  // 判断使用哪套配置文件
+  const processArgv = process.argv[2]
 
-// 判断是否处于生成模式
-if (processArgv) {
-  if (config[processArgv]) {
-    // 深拷贝
-    const processConfig = JSON.parse(JSON.stringify(config[processArgv]))
-    config = Object.assign(processConfig, config)
-  } else {
-    log.error(`config name ${processArgv} not found in owo.js!`)
+  // 判断是否处于生成模式
+  if (processArgv) {
+    if (configTemp[processArgv]) {
+      // 深拷贝
+      const processConfig = JSON.parse(JSON.stringify(configTemp[processArgv]))
+      configTemp = Object.assign(processConfig, configTemp)
+    } else {
+      log.error(`config name ${processArgv} not found in owo.js!`)
+      return
+    }
+  }
+
+  // 检查配置信息
+  if (!checkConfig(configTemp)) {
+    console.error('配置信息检查失败!')
     return
   }
+  return configTemp
 }
 
-// 检查配置信息
-if (!checkConfig(config)) {
-  console.error('配置信息检查失败!')
-  return
-}
+const config = getConfig()
 
 // 加载框架SDK
 const owo = require('./lib')
@@ -71,7 +76,6 @@ const pack = new owo(config, (evnet) => {
   } else {
     spinner.text = evnet.info
   }
-  
 })
 
 // 开始打包
@@ -96,9 +100,13 @@ if (config.watcher && config.watcher.enable) {
   // 添加默认监控
   watcher.add('owo.js', 'owo_modules')
   watcher.on('change', changePath => {
-    log.info(`file change: ${changePath}`)
     spinner.start('开始重新打包')
     startPackTime = new Date().getTime()
+    log.info(`file change: ${changePath}`)
+    // 判断是否为配置文件变更
+    if (changePath === 'owo.js') {
+      pack.config = getConfig()
+    }
     // 重新打包
     pack.pack(changePath)
   })
