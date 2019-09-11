@@ -2,22 +2,26 @@
 var _owo = {
   /* 运行页面初始化方法 */
   runCreated: function (pageFunction) {
-    // console.log(pageFunction)
-    // 确保created事件只被执行一次
-    if (!pageFunction["_isCreated"]) {
-      pageFunction["_isCreated"] = true
-      if (pageFunction.created) {
-        pageFunction.created.apply(pageFunction)
+    try {
+      // console.log(pageFunction)
+      // 确保created事件只被执行一次
+      if (!pageFunction["_isCreated"]) {
+        pageFunction["_isCreated"] = true
+        if (pageFunction.created) {
+          pageFunction.created.apply(pageFunction)
+        }
+      }
+      // 模板插值处理
+      _owo.showHandle(pageFunction)
+
+      // console.log(pageFunction)
+      if (pageFunction.show) {
+        pageFunction.show.apply(pageFunction)
       }
     }
-    // 模板插值处理
-    _owo.showHandle(pageFunction)
-
-    // console.log(pageFunction)
-    if (pageFunction.show) {
-      pageFunction.show.apply(pageFunction)
+    catch (e) {
+      console.error(e)
     }
-
   }
 }
 
