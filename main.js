@@ -105,7 +105,7 @@ if (config.watcher && config.watcher.enable) {
     log.info(`file change: ${changePath}`)
     // 判断是否为配置文件变更
     if (changePath === 'owo.js') {
-      pack.config = getConfig()
+      pack.setConfig(getConfig())
     }
     // 重新打包
     pack.pack(changePath)
