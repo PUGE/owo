@@ -1,13 +1,13 @@
 // 单页面-页面资源加载完毕事件
 _owo.showPage = function() {
-  var page = owo.entry
-  owo.activePage = page
   // 查找入口
-  var entryDom = document.querySelector('.ox[template="' + page + '"]')
+  var entryDom = document.querySelector('[template]')
   if (entryDom) {
-    _owo.handlePage(window.owo.script[page], entryDom)
+    owo.entry = entryDom.getAttribute('template')
+    owo.activePage = owo.entry
+    _owo.handlePage(window.owo.script[owo.activePage], entryDom)
     _owo.handleEvent(entryDom, null)
   } else {
-    console.error('找不到页面入口! 设置的入口为: ' + page)
+    console.error('找不到页面入口!')
   }
 }
