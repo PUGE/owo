@@ -6,6 +6,7 @@ var _owo = {
       // console.log(pageFunction)
       // 确保created事件只被执行一次
       if (!pageFunction["_isCreated"]) {
+        pageFunction._isCreated = true
         if (pageFunction.created) {
           pageFunction.created.apply(pageFunction)
         }
