@@ -30,7 +30,7 @@ _owo.getValFromObj = function (str, value) {
   // 如果模块没有数据则直接返回null
   if (!value) value = window
   var arr = str.split('.')
-  for (let index = 0; index < arr.length; index++) {
+  for (var index = 0; index < arr.length; index++) {
     var element = arr[index]
     if (value[element]) {
       value = value[element]
@@ -108,10 +108,9 @@ _owo._run = function (eventFor, templateName, event) {
 }
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, templateName) {
-  // 处理事件 使用bind防止闭包
   tempDom['on' + eventName] = function(event) {
     _owo._run(eventFor, templateName, event)
-  }.bind({eventFor: eventFor})
+  }
 }
 
 /* owo事件处理 */
@@ -121,7 +120,7 @@ _owo.handleEvent = function (tempDom, templateName) {
   var activePage = window.owo.script[owo.activePage]
   
   if (tempDom.attributes) {
-    for (let ind = 0; ind < tempDom.attributes.length; ind++) {
+    for (var ind = 0; ind < tempDom.attributes.length; ind++) {
       var attribute = tempDom.attributes[ind]
       // 判断是否为owo的事件
       // ie不支持startsWith
@@ -163,12 +162,12 @@ _owo.handleEvent = function (tempDom, templateName) {
     for (var i = 0; i < tempDom.children.length; i++) {
       // 获取子节点实例
       var childrenDom = tempDom.children[i]
-
       // 每个子节点均要判断是否为模块
-      if (childrenDom.attributes['template'] && childrenDom.attributes['template'].textContent) {
+      if (childrenDom.getAttribute('template')) {
+        
         // 如果即将遍历进入模块 设置即将进入的模块为当前模块
         // 获取模块的模块名
-        _owo.handleEvent(childrenDom, childrenDom.attributes['template'].textContent)
+        _owo.handleEvent(childrenDom, childrenDom.getAttribute('template'))
       } else {
         _owo.handleEvent(childrenDom, templateName)
       }
