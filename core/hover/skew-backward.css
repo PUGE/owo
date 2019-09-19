@@ -1,0 +1,18 @@
+/* Skew Backward */
+.owo-hover-skew-backward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+}
+.owo-hover-skew-backward:hover, .owo-hover-skew-backward:focus, .owo-hover-skew-backward:active {
+  -webkit-transform: skew(10deg);
+  transform: skew(10deg);
+}
