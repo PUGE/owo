@@ -3,7 +3,7 @@
  * @return {object} 屏幕信息
  */
 
-owo.tool.getScreenInfo = () => {
+owo.tool.getScreenInfo = function () {
   // 有可能不兼容ie
   return {
     clientWidth: window.innerWidth,

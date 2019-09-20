@@ -8,7 +8,7 @@
  */
 
 owo.tool.touch = function (config) {
-  const dom = config.el
+  var dom = config.el
   // 判断是否已经处于监听状态
   if (dom.getAttribute("monitor") == 'touch') return
   var start = null
