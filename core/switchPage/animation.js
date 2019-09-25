@@ -24,7 +24,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
 
   parentDom.style.perspective = '1200px'
   oldDom.classList.add('owo-animation')
-  animationIn.forEach(value => {
+  animationIn.forEach(function (value) {
     //判断是否为延迟属性
     if (value.startsWith('delay')) {
       const tempDelay = parseInt(value.slice(5))
@@ -56,7 +56,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
         oldDom.classList.remove('owo-animation-forward')
         parentDom.style.perspective = ''
         // 清除临时设置的class
-        animationIn.forEach(value => {
+        animationIn.forEach(function (value) {
           oldDom.classList.remove('o-page-' + value)
         })
       }, delay);

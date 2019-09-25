@@ -1,7 +1,7 @@
 
 _owo.getarg = function (url) { // 获取URL #后面内容
   if (!url) return null
-  const arg = url.split("#");
+  var arg = url.split("#");
   return arg[1] ? arg[1].split('?')[0] : null
 }
 
@@ -51,7 +51,7 @@ owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOut
   if (param && typeof param == 'object') {
     paramString += '?'
     // 生成URL参数
-    for (let paramKey in param) {
+    for (var paramKey in param) {
       paramString += paramKey + '=' + param[paramKey] + '&'
     }
     // 去掉尾端的&

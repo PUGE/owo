@@ -5,7 +5,7 @@
  * @param  {number} time       显示时长
  */
 
-owo.tool.toast = (text, size, time) => {
+owo.tool.toast = function (text, size, time) {
   if (window.owo.state.toastClock) {
     clearTimeout(window.owo.state.toastClock)
     hideToast()
@@ -15,7 +15,7 @@ owo.tool.toast = (text, size, time) => {
     // 默认2秒
     time = 2000
   }
-  const toast = document.createElement("div")
+  var toast = document.createElement("div")
   toast.setAttribute("id", "toast")
   toast.setAttribute("class", "toast")
   // 设置样式
