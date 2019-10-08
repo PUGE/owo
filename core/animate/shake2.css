@@ -1,0 +1,23 @@
+@keyframes shake2 {
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  80% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  60%,
+  90% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+.shake2 {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  animation-name: shake2;
+}

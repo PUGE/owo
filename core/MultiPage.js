@@ -7,9 +7,16 @@ _owo.getarg = function (url) { // 获取URL #后面内容
 
 // 页面资源加载完毕事件
 _owo.showPage = function() {
+  // window.location.href = ''
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
+  /* if="route.startAtHome"
+  if (pageArg !== null) {
+    window.location.href = ''
+    return
+  }
+  end */
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
   if (page) {
