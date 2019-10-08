@@ -1,7 +1,7 @@
 // 切换页面动画
 function animation (oldDom, newDom, animationIn, animationOut, forward) {
   // 动画延迟
-  let delay = 0
+  var delay = 0
   // 获取父元素
   var parentDom = newDom.parentElement
   if (!oldDom) {
@@ -24,23 +24,25 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
 
   parentDom.style.perspective = '1200px'
   oldDom.classList.add('owo-animation')
-  animationIn.forEach(function (value) {
+  for (var ind =0; ind < animationIn.length; ind++) {
+    var value = animationIn[ind]
     //判断是否为延迟属性
     if (value.startsWith('delay')) {
-      const tempDelay = parseInt(value.slice(5))
+      var tempDelay = parseInt(value.slice(5))
       if (delay < tempDelay)  delay = tempDelay
     }
     oldDom.classList.add('o-page-' + value)
-  })
+  }
 
   newDom.classList.add('owo-animation')
-  animationOut.forEach(value => {
+  for (var ind =0; ind < animationOut.length; ind++) {
+    var value = animationOut[ind]
     if (value.startsWith('delay')) {
-      const tempDelay = parseInt(value.slice(5))
+      var tempDelay = parseInt(value.slice(5))
       if (delay < tempDelay)  delay = tempDelay
     }
     newDom.classList.add('o-page-' + value)
-  })
+  }
   // 旧DOM执行函数
   function oldDomFun (e) {
     // 排除非框架引起的结束事件
@@ -48,7 +50,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
       // 移除监听
       oldDom.removeEventListener('animationend', oldDomFun, false)
       // 延迟后再清除，防止动画还没完成
-      setTimeout(() => {
+      setTimeout(function () {
         oldDom.style.display = 'none'
         // console.log(oldDom)
         oldDom.style.position = ''
@@ -56,9 +58,10 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
         oldDom.classList.remove('owo-animation-forward')
         parentDom.style.perspective = ''
         // 清除临时设置的class
-        animationIn.forEach(function (value) {
+        for (var ind =0; ind < animationIn.length; ind++) {
+          var value = animationIn[ind]
           oldDom.classList.remove('o-page-' + value)
-        })
+        }
       }, delay);
     }
   }
@@ -68,14 +71,15 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
     // 移除监听
     newDom.removeEventListener('animationend', newDomFun, false)
     // 延迟后再清除，防止动画还没完成
-    setTimeout(() => {
+    setTimeout(function () {
       // 清除临时设置的style
       newDom.style.position = '';
       newDom.classList.remove('owo-animation');
       newDom.classList.remove('owo-animation-forward');
-      animationOut.forEach(function (value) {
+      for (var ind =0; ind < animationOut.length; ind++) {
+        var value = animationOut[ind]
         newDom.classList.remove('o-page-' + value);
-      });
+      }
     }, delay);
   }
 }
