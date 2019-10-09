@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "7.6.0",
-    "@babel/preset-env": "7.6.0",
-    "autoprefixer": "9.6.1",
-    "chokidar": "3.1.1",
+    "@babel/core": "7.6.3",
+    "@babel/preset-env": "7.6.3",
+    "autoprefixer": "9.6.4",
+    "chokidar": "3.2.1",
     "crypto-js": "^3.1.9-1",
     "css": "^2.2.4",
     "cssnano": "4.1.10",
@@ -27,7 +27,7 @@
     "imagemin-pngquant": "8.0.0",
     "js-beautify": "1.10.2",
     "jsdom": "15.1.1",
-    "ora": "4.0.0",
+    "ora": "4.0.2",
     "pkg-dir": "4.2.0",
     "postcss": "7.0.18",
     "simple-node-logger": "18.12.23",
@@ -39,6 +39,6 @@
     "opera 12"
   ],
   "devDependencies": {
-    "babel-plugin-import": "1.12.1"
+    "babel-plugin-import": "1.12.2"
   }
 }

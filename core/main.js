@@ -100,6 +100,7 @@ _owo._run = function (eventFor, templateName, event) {
   if (newPageFunction && newPageFunction[eventForCopy]) {
     // 绑定window.owo对象
     newPageFunction.$event = event
+    newPageFunction.$target = event.target
     newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
   } else {
     // 如果没有此方法则交给浏览器引擎尝试运行
