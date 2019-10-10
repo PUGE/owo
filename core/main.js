@@ -94,7 +94,7 @@ _owo._run = function (eventFor, templateName, event) {
       // console.log(parameterArr[i])
     }
   }
-  eventForCopy = eventFor.replace(/\(.*\)/, '')
+  eventForCopy = eventFor.replace(/\([\d\D]*\)/, '')
   // console.log(newPageFunction, eventForCopy)
   // 如果有方法,则运行它
   if (newPageFunction && newPageFunction[eventForCopy]) {
