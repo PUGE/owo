@@ -21,7 +21,7 @@ _owo.showPage = function() {
   var page = pageArg ? pageArg : owo.entry
   /* if="phoneEnter"
   // 手机进入特制页
-  if (_owo.isMobi) {page = owo.phoneEnter}
+  if (_owo.isMobi) {owo.entry = page = owo.phoneEnter}
   end */
   if (page) {
     var entryDom = document.querySelector('.ox[template="' + page + '"]')
