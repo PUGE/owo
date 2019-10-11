@@ -17,12 +17,12 @@ _owo.showPage = function() {
     return
   }
   end */
-  // 从配置项中取出程序入口
-  var page = pageArg ? pageArg : owo.entry
   /* if="phoneEnter"
   // 手机进入特制页
-  if (_owo.isMobi) {owo.entry = page = owo.phoneEnter}
+  if (_owo.isMobi) {owo.entry = owo.phoneEnter}
   end */
+  // 从配置项中取出程序入口
+  var page = pageArg ? pageArg : owo.entry
   if (page) {
     var entryDom = document.querySelector('.ox[template="' + page + '"]')
     if (entryDom) {
