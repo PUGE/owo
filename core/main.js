@@ -1,14 +1,16 @@
 /* 方法合集 */
 var _owo = {
   /* 运行页面初始化方法 */
-  runCreated: function (pageFunction) {
+  runCreated: function (pageFunction, entryDom) {
     try {
       // console.log(pageFunction)
+      var copyPageFunction = JSON.parse(JSON.stringify(pageFunction))
       // 确保created事件只被执行一次
       if (!pageFunction["_isCreated"]) {
         pageFunction._isCreated = true
         if (pageFunction.created) {
-          pageFunction.created.apply(pageFunction)
+          copyPageFunction.$el = entryDom
+          pageFunction.created.apply(copyPageFunction)
         }
       }
       // 模板插值处理
@@ -16,7 +18,8 @@ var _owo = {
 
       // console.log(pageFunction)
       if (pageFunction.show) {
-        pageFunction.show.apply(pageFunction)
+        copyPageFunction.$el = entryDom
+        pageFunction.show.apply(copyPageFunction)
       }
     }
     catch (e) {
@@ -191,18 +194,21 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   // console.log(entryDom)
   newPageFunction['$el'] = entryDom
   // console.log(newPageFunction)
-  _owo.runCreated(newPageFunction)
+  newPageFunction._isCreated = false
+  _owo.runCreated(newPageFunction, entryDom)
   // debugger
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
     // 待修复,临时获取方式,这种方式获取到的dom不准确
-    var childDom = entryDom.querySelectorAll('[template="' + key +'"]')[0]
-    if (!childDom) {
+    var childDom = entryDom.querySelectorAll('[template="' + key +'"]')
+    if (!childDom[0]) {
       console.error('组件丢失:', key)
       continue
     }
-    // 递归处理
-    _owo.handlePage(templateScript, childDom)
+    for (var ind = 0; ind < childDom.length; ind++) {
+      // 递归处理
+      _owo.handlePage(templateScript, childDom[ind])
+    }
   }
 }
