@@ -11,13 +11,13 @@ _owo.showPage = function() {
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
-  /* if="route.startAtHome"
+  /* if="this.config.route.startAtHome"
   if (pageArg !== null) {
     window.location.href = ''
     return
   }
   end */
-  /* if="phoneEnter"
+  /* if="this.config.phoneEnter"
   // 手机进入特制页
   if (_owo.isMobi) {owo.entry = owo.phoneEnter}
   end */

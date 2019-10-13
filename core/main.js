@@ -3,15 +3,15 @@ var _owo = {
   /* 运行页面初始化方法 */
   runCreated: function (pageFunction, entryDom) {
     try {
-      console.log(entryDom)
       // 确保created事件只被执行一次
       if (pageFunction.created && !pageFunction["_isCreated"]) {
         pageFunction._isCreated = true
         pageFunction.created.apply(pageFunction)
       }
+      /* if="this.htmlTemple.includes('o-innertext')"
       // 模板插值处理
       _owo.innerTextHandle(pageFunction)
-
+      end */
       // console.log(pageFunction)
       if (pageFunction.show) {
         pageFunction.show.apply(pageFunction)
@@ -21,7 +21,7 @@ var _owo = {
     }
   }
 }
-
+/* if="this.htmlTemple.includes('o-innertext')"
 _owo.getValFromObj = function (str, value) {
   if (!str) return undefined
   // 如果模块没有数据则直接返回null
@@ -40,10 +40,10 @@ _owo.getValFromObj = function (str, value) {
 
 // 模板插值处理
 _owo.innerTextHandle = function (pageFunction) {
-  var linkList = pageFunction.$el.querySelectorAll('[o-innerText]')
+  var linkList = pageFunction.$el.querySelectorAll('[o-innertext]')
   for (var ind = 0; ind < linkList.length; ind++) {
     var element = linkList[ind]
-    var dataFor = element.getAttribute("o-innerText")
+    var dataFor = element.getAttribute("o-innertext")
     // 获取对应的值
     var value = _owo.getValFromObj(dataFor, pageFunction)
     // 从全局获取值!
@@ -51,6 +51,8 @@ _owo.innerTextHandle = function (pageFunction) {
     element.innerText = value
   }
 }
+end */
+
 
 // 判断是否为手机
 _owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
