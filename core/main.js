@@ -3,33 +3,27 @@ var _owo = {
   /* 运行页面初始化方法 */
   runCreated: function (pageFunction, entryDom) {
     try {
-      // console.log(pageFunction)
-      var copyPageFunction = JSON.parse(JSON.stringify(pageFunction))
+      console.log(entryDom)
       // 确保created事件只被执行一次
-      if (!pageFunction["_isCreated"]) {
+      if (pageFunction.created && !pageFunction["_isCreated"]) {
         pageFunction._isCreated = true
-        if (pageFunction.created) {
-          copyPageFunction.$el = entryDom
-          pageFunction.created.apply(copyPageFunction)
-        }
+        pageFunction.created.apply(pageFunction)
       }
       // 模板插值处理
-      _owo.showHandle(pageFunction)
+      _owo.innerTextHandle(pageFunction)
 
       // console.log(pageFunction)
       if (pageFunction.show) {
-        copyPageFunction.$el = entryDom
-        pageFunction.show.apply(copyPageFunction)
+        pageFunction.show.apply(pageFunction)
       }
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e)
     }
   }
 }
 
-
 _owo.getValFromObj = function (str, value) {
+  if (!str) return undefined
   // 如果模块没有数据则直接返回null
   if (!value) value = window
   var arr = str.split('.')
@@ -44,17 +38,16 @@ _owo.getValFromObj = function (str, value) {
   return value
 }
 
-_owo.showHandle = function (pageFunction) {
-  var linkList = pageFunction.$el.querySelectorAll('[innerText]')
+// 模板插值处理
+_owo.innerTextHandle = function (pageFunction) {
+  var linkList = pageFunction.$el.querySelectorAll('[o-innerText]')
   for (var ind = 0; ind < linkList.length; ind++) {
     var element = linkList[ind]
-    var dataFor = element.getAttribute("innerText")
+    var dataFor = element.getAttribute("o-innerText")
     // 获取对应的值
     var value = _owo.getValFromObj(dataFor, pageFunction)
-    if (value == undefined) {
-      // console.log('从全局获取值!')
-      value = _owo.getValFromObj(dataFor)
-    }
+    // 从全局获取值!
+    if (value == undefined) { value = _owo.getValFromObj(dataFor) }
     element.innerText = value
   }
 }
@@ -194,21 +187,14 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   // console.log(entryDom)
   newPageFunction['$el'] = entryDom
   // console.log(newPageFunction)
-  newPageFunction._isCreated = false
   _owo.runCreated(newPageFunction, entryDom)
   // debugger
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
-    // 待修复,临时获取方式,这种方式获取到的dom不准确
-    var childDom = entryDom.querySelectorAll('[template="' + key +'"]')
-    if (!childDom[0]) {
-      console.error('组件丢失:', key)
-      continue
-    }
-    for (var ind = 0; ind < childDom.length; ind++) {
-      // 递归处理
-      _owo.handlePage(templateScript, childDom[ind])
-    }
+    var childDom = entryDom.querySelector('[template="' + key +'"]')
+    // 判断相关模块是否在存在
+    if (!childDom) {continue}
+    _owo.handlePage(templateScript, childDom)
   }
 }
