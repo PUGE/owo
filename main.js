@@ -71,7 +71,7 @@ if (config.scheme && config.scheme.length > 0) {
   config.scheme.forEach(element => {
     log.debug(`添加解决方案: ${element.name}`)
     const code = Tool.loadFile(path.join(__dirname, `./scheme/${element.name}/index.js`))
-    config = eval(code).init(config)
+    config = eval(code).init(config, element)
   })
 }
 const pack = new owo(config, (evnet) => {

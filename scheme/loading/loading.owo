@@ -11,18 +11,7 @@
   module.exports = {
     created: function () {
       const mum = owo.query('.progress-num')[0]
-      const loadImgList = [
-        "@|bg-1.jpg|",
-        "@|bg-2.jpg|",
-        "@|one-show.png|",
-        "@|one-show-2.png|",
-        "@|one-show-3.png|",
-        "@|one-text.png|",
-        "@|one-text-2.png|",
-        "@|one-text-3.png|",
-        "@|two-show.png|"
-      ]
-      this.preloadImages(loadImgList, (e) => {
+      this.preloadImages(this.prop.imgList, (e) => {
         setTimeout(() => {
           owo.go('one', 'scaleDownCenter', 'scaleUpCenter&&delay400', 'scaleDownCenter', 'scaleUpCenter&&delay400')
         }, 800)
