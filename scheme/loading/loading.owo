@@ -1,0 +1,93 @@
+<template>
+  <div class="loading-wrap">
+    <div class="loading-text-wrap">
+      <img class="loading-img" src="http://politics.people.com.cn/img/MAIN/2019/08/119609/images/loading.gif">
+      <div class="progress-num">1%</div>
+    </div>
+  </div>
+</template>
+
+<script>
+  module.exports = {
+    created: function () {
+      const mum = owo.query('.progress-num')[0]
+      const loadImgList = [
+        "@|bg-1.jpg|",
+        "@|bg-2.jpg|",
+        "@|one-show.png|",
+        "@|one-show-2.png|",
+        "@|one-show-3.png|",
+        "@|one-text.png|",
+        "@|one-text-2.png|",
+        "@|one-text-3.png|",
+        "@|two-show.png|"
+      ]
+      this.preloadImages(loadImgList, (e) => {
+        setTimeout(() => {
+          owo.go('one', 'scaleDownCenter', 'scaleUpCenter&&delay400', 'scaleDownCenter', 'scaleUpCenter&&delay400')
+        }, 800)
+      }, (num) => {
+        mum.innerText = num + '%'
+      })
+    },
+    preloadImage: function (src, successFn) {
+      var image = new Image()
+      image.src = src
+      image.onload = function () {
+        successFn && successFn(src)
+      }
+      image.onerror = function (error) {
+        successFn && successFn(src)
+      }
+    },
+    preloadImages: function (srcs, doneFn, progressFn) {
+      if (!Array.isArray(srcs)) {
+        console.log('第一个参数只能是一个数组')
+      } else {
+        var allCount = srcs.length
+        var doneCount = 0
+        srcs.forEach((srcItem) => {
+          this.preloadImage(srcItem, function () {
+            doneCount++
+            progressFn && progressFn(Math.ceil(100 * doneCount / allCount))
+            if (doneCount === allCount) {
+              doneFn && doneFn()
+            }
+          })
+        })
+      }
+    }
+  }
+</script>
+
+
+<style lang="less">
+.loading-wrap {
+  background: #a81911;
+  background: linear-gradient(to bottom, #4a0706, #a81911);
+}
+.loading-text-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 300px;
+  height: 179px;
+}
+img {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.progress-num {
+  line-height: 50px;
+  font-size: 30px;
+  text-align: center;
+  color: #d0a472;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+</style>

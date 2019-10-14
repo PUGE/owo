@@ -11,7 +11,7 @@ _owo.showPage = function() {
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
-  /* if="this.config.route.startAtHome"
+  /* if="this.config.route && this.config.route.startAtHome"
   if (pageArg !== null) {
     window.location.href = ''
     return
@@ -24,7 +24,7 @@ _owo.showPage = function() {
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
   if (page) {
-    var entryDom = document.querySelector('.ox[template="' + page + '"]')
+    var entryDom = document.querySelector('.owo[template="' + page + '"]')
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
@@ -49,10 +49,7 @@ _owo.showPage = function() {
 */
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
   // console.log(owo.script[pageName])
-  if (!owo.script[pageName]) {
-    console.error('导航到不存在的页面!')
-    return
-  }
+  if (!owo.script[pageName]) { document.querySelector('[template]').getAttribute('template')}
   owo.script[pageName]._animation = {
     "in": inAnimation,
     "out": outAnimation,

@@ -3,6 +3,7 @@
 'use strict'
 const fs = require('fs')
 const path = require('path')
+const Tool = require('./lib/tool')
 // 文件变动检测
 const chokidar = require('chokidar')
 
@@ -49,7 +50,7 @@ function getConfig () {
   return configTemp
 }
 
-const config = getConfig()
+let config = getConfig()
 
 // 加载框架SDK
 const owo = require('./lib')
@@ -63,6 +64,16 @@ let wsServe = null
 
 // 记录开始打包时间
 let startPackTime = new Date().getTime()
+// 添加解决方案
+if (config.scheme && config.scheme.length > 0) {
+  // 创建解决方案目录
+  Tool.creatDirIfNotExist(path.join(process.cwd(), 'owo_scheme'))
+  config.scheme.forEach(element => {
+    log.debug(`添加解决方案: ${element.name}`)
+    const code = Tool.loadFile(path.join(__dirname, `./scheme/${element.name}/index.js`))
+    config = eval(code).init(config)
+  })
+}
 const pack = new owo(config, (evnet) => {
   if (evnet.type === 'end') {
     // 编译成功输出文字

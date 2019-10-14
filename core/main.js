@@ -179,7 +179,7 @@ _owo.handleEvent = function (tempDom, templateName) {
 
 // 快速选择器
 owo.query = function (str) {
-  return document.querySelectorAll('.ox[template=' + owo.activePage +'] ' + str)
+  return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
 }
 
 /* 运行页面所属的方法 */
