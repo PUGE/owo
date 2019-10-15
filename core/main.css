@@ -1,6 +1,11 @@
-body, html, .owo {
+body, html, .owo, .page-box {
   padding: 0;
   margin: 0;
+}
+
+.page-box, .owo {
+  width: 100%;
+  height: 100%;
 }
 
 .owo-animation {
