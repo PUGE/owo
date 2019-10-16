@@ -27,10 +27,9 @@
     "imagemin-pngquant": "8.0.0",
     "js-beautify": "1.10.2",
     "jsdom": "15.2.0",
+    "log4js": "^5.2.2",
     "ora": "4.0.2",
-    "pkg-dir": "4.2.0",
     "postcss": "7.0.18",
-    "simple-node-logger": "18.12.23",
     "urllib-sync": "^1.1.4"
   },
   "browserslist": [
