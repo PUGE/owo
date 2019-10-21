@@ -8,13 +8,13 @@ _owo.ready = (function() {               //这个函数返回whenReady()函数
   
   //当文档就绪时,调用事件处理程序
   function handler(e) {
-    // 确保事件处理程序只运行一次
-    if(window.owo.state.isRrady) return
-    window.owo.state.isRrady = true
     //如果发生onreadystatechange事件，但其状态不是complete的话,那么文档尚未准备好
     if(e.type === 'onreadystatechange' && document.readyState !== 'complete') {
       return
     }
+    // 确保事件处理程序只运行一次
+    if(window.owo.state.isRrady) return
+    window.owo.state.isRrady = true
     
     // 运行所有注册函数
     for(var i=0; i<funcs.length; i++) {
