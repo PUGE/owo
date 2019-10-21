@@ -109,7 +109,8 @@ if (config.watcher && config.watcher.enable) {
     depth: config.watcher.depth
   })
   // 添加默认监控
-  watcher.add('owo.js', 'owo_modules')
+  watcher.add('owo.js')
+  watcher.add('owo_modules')
   watcher.on('change', changePath => {
     spinner.start('开始重新打包')
     startPackTime = new Date().getTime()
