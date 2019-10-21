@@ -108,7 +108,7 @@ _owo._run = function (eventFor, templateName, event) {
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, templateName) {
   tempDom['on' + eventName] = function(event) {
-    _owo._run(eventFor, templateName, event)
+    _owo._run(eventFor, templateName, event || this)
   }
 }
 
@@ -125,7 +125,7 @@ _owo.handleEvent = function (tempDom, templateName) {
       // ie不支持startsWith
       if (attribute.name[0] == ':') {
         var eventName = attribute.name.slice(1)
-        var eventFor = attribute.textContent
+        var eventFor = attribute.textContent || attribute.value
         switch (eventName) {
           case 'show' : {
             // 初步先简单处理吧
@@ -142,7 +142,7 @@ _owo.handleEvent = function (tempDom, templateName) {
             // 根据手机和PC做不同处理
             if (_owo.isMobi) {
               _owo._event_tap(tempDom, function (event) {
-                _owo._run(eventFor, templateName, event)
+                _owo._run(eventFor, templateName, event || this)
               })
             } else _owo.bindEvent('click', eventFor, tempDom, templateName)
             break

@@ -28,6 +28,9 @@ body, html, .owo, .page-box {
 a:link, a:visited {
   text-decoration: none;
 }
+img {
+  border: none;
+}
 
 /* 清除浮动 */
 .clear:after {
