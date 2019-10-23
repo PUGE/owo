@@ -1,7 +1,7 @@
 /* 方法合集 */
 var _owo = {
   /* 运行页面初始化方法 */
-  runCreated: function (pageFunction, entryDom) {
+  runCreated: function (pageFunction) {
     try {
       // 确保created事件只被执行一次
       if (pageFunction.created && !pageFunction["_isCreated"]) {
@@ -189,7 +189,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   // console.log(entryDom)
   newPageFunction['$el'] = entryDom
   // console.log(newPageFunction)
-  _owo.runCreated(newPageFunction, entryDom)
+  _owo.runCreated(newPageFunction)
   // debugger
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {

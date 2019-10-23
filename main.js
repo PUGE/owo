@@ -3,7 +3,7 @@
 'use strict'
 const fs = require('fs')
 const path = require('path')
-const Tool = require('./lib/tool')
+const Tool = require('./lib/tool/tool')
 // 文件变动检测
 const chokidar = require('chokidar')
 
@@ -21,7 +21,7 @@ if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
 }
 
 // 配置文件检测
-const checkConfig = require('./lib/checkConfig')
+const checkConfig = require('./lib/tool/checkConfig')
 
 function getConfig () {
   // 读取配置文件
@@ -56,7 +56,7 @@ let config = getConfig()
 const owo = require('./lib')
 
 // 配置输出插件
-const log = require('./lib/log')()
+const log = require('./lib/tool/log')()
 
 
 // 使express处理ws请求
@@ -74,6 +74,7 @@ if (config.scheme && config.scheme.length > 0) {
     config = eval(code).init(config, element)
   })
 }
+
 const pack = new owo(config, (evnet) => {
   if (evnet.type === 'end') {
     // 编译成功输出文字
