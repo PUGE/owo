@@ -13,7 +13,7 @@
       const mum = owo.query('.progress-num')[0]
       this.preloadImages(this.prop.imgList, (e) => {
         setTimeout(() => {
-          owo.go('one', 'scaleDownCenter', 'scaleUpCenter&&delay400', 'scaleDownCenter', 'scaleUpCenter&&delay400')
+          owo.go('one', 'scaleDownCenter', 'scaleUpCenter&&delay400', 'scaleDownCenter', 'scaleUpCenter&&delay400', true)
         }, 800)
       }, (num) => {
         mum.innerText = num + '%'
