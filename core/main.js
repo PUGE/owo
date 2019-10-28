@@ -16,8 +16,10 @@ _owo.runCreated = function (pageFunction) {
     if (pageFunction.created) {
       pageFunction.created.apply(pageFunction)
     }
+    /* if="this.htmlTemple.includes('o-innertext')"
     // 模板插值处理
     _owo.innerTextHandle(pageFunction)
+    end */
   } catch (e) {
     console.error(e)
   }
