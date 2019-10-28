@@ -1,26 +1,28 @@
 /* 方法合集 */
-var _owo = {
-  /* 运行页面初始化方法 */
-  runCreated: function (pageFunction) {
-    try {
-      // 确保created事件只被执行一次
-      if (pageFunction.created && !pageFunction["_isCreated"]) {
-        pageFunction._isCreated = true
-        pageFunction.created.apply(pageFunction)
-      }
-      /* if="this.htmlTemple.includes('o-innertext')"
-      // 模板插值处理
-      _owo.innerTextHandle(pageFunction)
-      end */
-      // console.log(pageFunction)
-      if (pageFunction.show) {
-        pageFunction.show.apply(pageFunction)
-      }
-    } catch (e) {
-      console.error(e)
+var _owo = {}
+
+/* 运行页面初始化方法 */
+_owo.runCreated = function (pageFunction) {
+  try {
+    // console.log(pageFunction)
+    if (pageFunction.show) {
+      pageFunction.show.apply(pageFunction)
     }
+    if (pageFunction["_isCreated"]) return
+
+    // 确保created事件只被执行一次
+    pageFunction._isCreated = true
+    
+    if (pageFunction.created) {
+      pageFunction.created.apply(pageFunction)
+    }
+    // 模板插值处理
+    _owo.innerTextHandle(pageFunction)
+  } catch (e) {
+    console.error(e)
   }
 }
+
 /* if="this.htmlTemple.includes('o-innertext')"
 _owo.getValFromObj = function (str, value) {
   if (!str) return undefined
