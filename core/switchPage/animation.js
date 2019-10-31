@@ -116,8 +116,10 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   
   window.owo.activePage = newPage
+  // 不可调换位置
   if (!window.owo.script[newPage]._isCreated) {
     _owo.handleEvent(newDom, null)
   }
+  // 不可调换位置
   _owo.handlePage(window.owo.script[newPage], newDom)
 }

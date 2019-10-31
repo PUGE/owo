@@ -15,17 +15,20 @@ function switchPage (oldUrlParam, newUrlParam) {
     console.error('页面不存在!')
     return
   }
-  newDom.style.display = 'block'
 
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'
   }
+
+  newDom.style.display = 'block'
   // 查找页面跳转后的page
   
   window.owo.activePage = newPage
-  _owo.handlePage(window.owo.script[newPage], newDom)
+  // 不可调换位置
   if (!window.owo.script[newPage]._isCreated) {
     _owo.handleEvent(newDom, null)
   }
+  // 不可调换位置
+  _owo.handlePage(window.owo.script[newPage], newDom)
 }
