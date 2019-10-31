@@ -43,7 +43,7 @@ module.exports = {
 
 ```
 <template>
-  <temple name="titleBar" src="https://owo.ink/public/8b2a5bb5645c82458e8d3a71d58cd42d.page"></temple>
+  <plug name="titleBar" src="https://owo.ink/public/8b2a5bb5645c82458e8d3a71d58cd42d.page"></plug>
   <div class="example">{{prop.text}}</div>
 </template>
 
@@ -90,13 +90,13 @@ module.exports = {
 ## 3. 框架解析html内容（<template></template>包裹部分）
 框架的template解析程序会对html中的特殊写法做特殊解析以方便实现各种功能，下面以3中最常见的特殊写法做说明
 
-### 1. 模块标签 ---- <temple></temple>
+### 1. 模块标签 ---- <plug></plug>
 ```
 <template>
   <!-- 本地模块 -->
-  <temple name="button" src="./src/module/button.owo"></temple>
+  <plug name="button" src="./src/module/button.owo"></plug>
   <!-- 网络模块 -->
-  <temple name="titleBar" src="https://owo.ink/public/8b2a5bb5645c82458e8d3a71d58cd42d.page"></temple>
+  <plug name="titleBar" src="https://owo.ink/public/8b2a5bb5645c82458e8d3a71d58cd42d.page"></plug>
   <div class="example">{{prop.text}}</div>
 </template>
 ```

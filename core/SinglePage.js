@@ -11,3 +11,6 @@ _owo.showPage = function() {
     console.error('找不到页面入口!')
   }
 }
+
+// 执行页面加载完毕方法
+_owo.ready(_owo.showPage)

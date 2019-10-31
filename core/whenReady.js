@@ -40,6 +40,3 @@ _owo.ready = (function() {               //这个函数返回whenReady()函数
     }
   }
 })()
-
-// 执行页面加载完毕方法
-_owo.ready(_owo.showPage)

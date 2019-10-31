@@ -145,6 +145,7 @@ _owo.handleEvent = function (tempDom, templateName) {
             // 待优化 可合并
             // 根据手机和PC做不同处理
             if (_owo.isMobi) {
+              if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
               _owo._event_tap(tempDom, function (event) {
                 _owo._run(eventFor, templateName, event || this)
               })

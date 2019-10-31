@@ -80,10 +80,10 @@ const pack = new owo(config, (evnet) => {
     // 编译成功输出文字
     let outPutInfo = `Compile successfully, Use time: ${new Date().getTime() - startPackTime} msec!`
     spinner.succeed(outPutInfo)
-    if (config.autoReload) {
+    if (config.autoReload && wsServe) {
       log.info(`发送重新页面需要刷新命令!`)
       // 广播发送重新打包消息
-      if (wsServe) wsServe.getWss().clients.forEach(client => client.send('reload'))
+      wsServe.getWss().clients.forEach(client => client.send('reload'))
     }
   } else {
     spinner.text = evnet.info
