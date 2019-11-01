@@ -25,6 +25,10 @@ body, html, .owo, .page-box {
   z-index: 99;
 }
 
+a {
+  color: #333;
+}
+
 a:link, a:visited {
   text-decoration: none;
 }
