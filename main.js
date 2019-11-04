@@ -7,16 +7,13 @@ const Tool = require('./lib/tool/tool')
 // 文件变动检测
 const chokidar = require('chokidar')
 
-const ora = require('ora')
-const spinner = ora('开启打包进程').start()
-
 
 // 命令行运行目录
 const runPath = process.cwd()
 
 // 判断运行目录下是否包含配置文件
 if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
-  spinner.fail('当前目录下找不到owo配置文件哦!')
+  console.error('当前目录下找不到owo配置文件哦!')
   return
 }
 
@@ -76,17 +73,17 @@ if (config.scheme && config.scheme.length > 0) {
 }
 
 const pack = new owo(config, (evnet) => {
+  
   if (evnet.type === 'end') {
     // 编译成功输出文字
-    let outPutInfo = `Compile successfully, Use time: ${new Date().getTime() - startPackTime} msec!`
-    spinner.succeed(outPutInfo)
+    console.log(`Compile successfully, Use time: ${new Date().getTime() - startPackTime} msec!`)
     if (config.autoReload && wsServe) {
-      log.info(`发送重新页面需要刷新命令!`)
+      log.info(`发送页面需要刷新命令!`)
       // 广播发送重新打包消息
-      wsServe.getWss().clients.forEach(client => client.send('reload'))
+      setTimeout(() => {
+        wsServe.getWss().clients.forEach(client => client.send('reload'))
+      }, 0)
     }
-  } else {
-    spinner.text = evnet.info
   }
 })
 
@@ -113,7 +110,6 @@ if (config.watcher && config.watcher.enable) {
   watcher.add('owo.js')
   watcher.add('owo_modules')
   watcher.on('change', changePath => {
-    spinner.start('开始重新打包')
     startPackTime = new Date().getTime()
     log.info(`file change: ${changePath}`)
     // 判断是否为配置文件变更
@@ -137,7 +133,7 @@ if (config.server) {
   
   app.listen(port)
   if (config.server) {
-    spinner.info(`Server running at port: ${port} !`)
+    console.log(`Server running at port: ${port} !`)
   }
   
   // 处理websocket消息
