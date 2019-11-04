@@ -36,6 +36,5 @@
     "opera 12"
   ],
   "devDependencies": {
-    "babel-plugin-import": "1.12.2"
   }
 }
