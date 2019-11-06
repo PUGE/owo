@@ -65,10 +65,15 @@ let startPackTime = new Date().getTime()
 if (config.scheme && config.scheme.length > 0) {
   // 创建解决方案目录
   Tool.creatDirIfNotExist(path.join(process.cwd(), 'owo_scheme'))
+  log.debug(`方案列表: ${config.scheme}`)
   config.scheme.forEach(element => {
     log.debug(`添加解决方案: ${element.name}`)
     const code = Tool.loadFile(path.join(__dirname, `./scheme/${element.name}/index.js`))
-    config = eval(code).init(config, element)
+    if (code) {
+      config = eval(code).init(config, element)
+    } else {
+      console.error(`方案: ./scheme/${element.name}/index.js 加载失败!`)
+    }
   })
 }
 
