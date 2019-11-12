@@ -1,8 +1,8 @@
 
 // 事件推送方法
 owo.tool.emit = function (eventName) {
-  let argumentsList = []
-  for (let ind = 1; ind < arguments.length; ind++) {
+  var argumentsList = []
+  for (var ind = 1; ind < arguments.length; ind++) {
     argumentsList.push(arguments[ind])
   }
   for (var key in owo.script) {
