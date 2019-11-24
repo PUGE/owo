@@ -34,7 +34,7 @@ function getConfig () {
       const processConfig = JSON.parse(JSON.stringify(configTemp[processArgv]))
       configTemp = Object.assign(processConfig, configTemp)
     } else {
-      log.error(`config name ${processArgv} not found in owo.js!`)
+      console.error(`config name ${processArgv} not found in owo.js!`)
       return
     }
   }
