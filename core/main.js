@@ -134,9 +134,7 @@ _owo.handleEvent = function (tempDom, templateName) {
           case 'show' : {
             // 初步先简单处理吧
             var temp = eventFor.replace(/ /g, '')
-            // 取出条件
-            var condition = temp.split("==")
-            if (activePage.data[condition[0]] != condition[1]) {
+            if (!activePage.data[temp]) {
               tempDom.style.display = 'none'
             }
             break
