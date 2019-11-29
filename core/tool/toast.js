@@ -6,10 +6,11 @@
  * @param  {number} container  显示容器
  */
 
-owo.tool.toast = function (text, fontSize, time, container) {
-  time = time || 2000
-  fontSize = fontSize || 14
-  container = container || document.body
+owo.tool.toast = function (text, config) {
+  if (!config) config = {}
+  time = config.time || 2000
+  fontSize = config.fontSize || 14
+  container = config.container || document.body
   if (window.owo.state.toastClock) {
     clearTimeout(window.owo.state.toastClock)
     hideToast()
