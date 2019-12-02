@@ -24,12 +24,18 @@ _owo.showPage = function() {
   var page = pageArg ? pageArg : owo.entry
   if (page) {
     var entryDom = document.querySelector('.owo[template="' + page + '"]')
+    var idList = document.querySelectorAll('.owo[template="' + page + '"] [id]')
+    owo.script[page].$dom = {}
+    for (var ind = 0; ind < idList.length; ind++) {
+      owo.script[page].$dom[idList[ind].getAttribute('id')] = idList[ind]
+    }
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
       window.owo.activePage = page
-      _owo.handlePage(window.owo.script[page], entryDom)
+      _owo.handlePage(owo.script[page], entryDom)
       _owo.handleEvent(entryDom, null)
+
     } else {
       console.error('入口文件设置错误,错误值为: ', page)
     }
