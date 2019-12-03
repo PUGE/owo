@@ -20,15 +20,20 @@ _owo.showPage = function() {
   // 手机进入特制页
   if (_owo.isMobi) {owo.entry = owo.phoneEnter}
   end */
-  // 从配置项中取出程序入口
-  var page = pageArg ? pageArg : owo.entry
-  if (page) {
-    var entryDom = document.querySelector('.owo[template="' + page + '"]')
+
+  // 计算$dom
+  for(var page in owo.script) {
     var idList = document.querySelectorAll('.owo[template="' + page + '"] [id]')
     owo.script[page].$dom = {}
     for (var ind = 0; ind < idList.length; ind++) {
       owo.script[page].$dom[idList[ind].getAttribute('id')] = idList[ind]
     }
+  }
+
+  // 从配置项中取出程序入口
+  var page = pageArg ? pageArg : owo.entry
+  if (page) {
+    var entryDom = document.querySelector('.owo[template="' + page + '"]')
     if (entryDom) {
       // 显示主页面
       entryDom.style.display = 'block'
@@ -62,7 +67,10 @@ _owo.showPage = function() {
 */
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
   // console.log(owo.script[pageName])
-  if (!owo.script[pageName]) { document.querySelector('[template]').getAttribute('template')}
+  if (!owo.script[pageName]) {
+    console.error("导航到不存在的页面!")
+    return
+  }
   owo.script[pageName]._animation = {
     "in": inAnimation,
     "out": outAnimation,
