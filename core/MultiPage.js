@@ -34,16 +34,18 @@ _owo.showPage = function() {
   var page = pageArg ? pageArg : owo.entry
   if (page) {
     var entryDom = document.querySelector('.owo[template="' + page + '"]')
-    if (entryDom) {
-      // 显示主页面
-      entryDom.style.display = 'block'
-      window.owo.activePage = page
-      _owo.handlePage(owo.script[page], entryDom)
-      _owo.handleEvent(entryDom, null)
-
-    } else {
+    if (!entryDom) {
       console.error('入口文件设置错误,错误值为: ', page)
+      entryDom = document.querySelector('.owo')
+      page = entryDom.getAttribute('template')
+      window.location.replace('#' + page)
+      return
     }
+    // 显示主页面
+    entryDom.style.display = 'block'
+    window.owo.activePage = page
+    _owo.handlePage(owo.script[page], entryDom)
+    _owo.handleEvent(entryDom, null)
   } else {
     console.error('未设置程序入口!')
   }
