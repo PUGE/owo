@@ -6,7 +6,7 @@ _owo.showPage = function() {
     owo.entry = entryDom.getAttribute('template')
     owo.activePage = owo.entry
     _owo.handlePage(window.owo.script[owo.activePage], entryDom)
-    _owo.handleEvent(entryDom, null)
+    _owo.handleEvent(entryDom, null, window.owo.script[owo.activePage])
   } else {
     console.error('找不到页面入口!')
   }

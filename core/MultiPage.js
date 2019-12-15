@@ -45,7 +45,7 @@ _owo.showPage = function() {
     entryDom.style.display = 'block'
     window.owo.activePage = page
     _owo.handlePage(owo.script[page], entryDom)
-    _owo.handleEvent(entryDom, null)
+    _owo.handleEvent(entryDom, null, owo.script[page])
   } else {
     console.error('未设置程序入口!')
   }
