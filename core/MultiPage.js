@@ -70,7 +70,7 @@ _owo.showPage = function() {
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
   // console.log(owo.script[pageName])
   if (!owo.script[pageName]) {
-    console.error("导航到不存在的页面!")
+    console.error("导航到不存在的页面: " + pageName)
     return
   }
   owo.script[pageName]._animation = {
