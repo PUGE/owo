@@ -99,6 +99,7 @@ pack.pack()
 // 判断是否开启文件变动自动重新打包
 if (config.watcher && config.watcher.enable) {
   const watcherFolder = path.join(runPath, config.root)
+  console.log(watcherFolder)
   // 文件变动检测
   const watcher = chokidar.watch(watcherFolder, {
     // 忽略目录
