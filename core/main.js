@@ -142,6 +142,7 @@ _owo.handleEvent = function (tempDom, templateName, moudleScript) {
         }
       } else {
         if (attribute.name === 'o-show') {
+          var eventFor = attribute.textContent || attribute.value
           // 初步先简单处理吧
           var temp = eventFor.replace(/ /g, '')
           function tempRun (temp) {
