@@ -120,9 +120,9 @@ _owo.handleEvent = function (tempDom, templateName, moudleScript) {
     for (var ind = 0; ind < tempDom.attributes.length; ind++) {
       var attribute = tempDom.attributes[ind]
       // 判断是否为owo的事件
-      // ie不支持startsWith
-      var eventFor = attribute.textContent || attribute.value
       if (attribute.name[0] == ':') {
+        // ie不支持startsWith
+        var eventFor = attribute.textContent || attribute.value
         var eventName = attribute.name.slice(1)
         switch (eventName) {
           case 'tap': {
