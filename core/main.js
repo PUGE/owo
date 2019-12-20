@@ -115,7 +115,7 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
-_owo.handleEvent = function (tempDom, templateName, moudleScript) {  
+_owo.handleEvent = function (tempDom, moudleScript) {  
   if (tempDom.attributes) {
     for (var ind = 0; ind < tempDom.attributes.length; ind++) {
       var attribute = tempDom.attributes[ind]
@@ -170,9 +170,9 @@ _owo.handleEvent = function (tempDom, templateName, moudleScript) {
       if (templateName) {
         // 如果即将遍历进入模块 设置即将进入的模块为当前模块
         // 获取模块的模块名
-        _owo.handleEvent(childrenDom, templateName, moudleScript.template[templateName])
+        _owo.handleEvent(childrenDom, moudleScript.template[templateName])
       } else {
-        _owo.handleEvent(childrenDom, templateName, moudleScript)
+        _owo.handleEvent(childrenDom, moudleScript)
       }
     }
   } else {

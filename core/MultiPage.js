@@ -45,14 +45,14 @@ _owo.showPage = function() {
     entryDom.style.display = 'block'
     window.owo.activePage = page
     _owo.handlePage(owo.script[page], entryDom)
-    _owo.handleEvent(entryDom, null, owo.script[page])
+    _owo.handleEvent(entryDom, owo.script[page])
     // 处理插件
     var plugList = document.getElementsByClassName('owo-plug')
     for (var ind = 0; ind < plugList.length; ind++) {
       var plugEL = plugList[ind]
       var plugName = plugEL.getAttribute('template')
       _owo.handlePage(owo.script[plugName], plugEL)
-      _owo.handleEvent(plugEL, null, owo.script[plugName])
+      _owo.handleEvent(plugEL, owo.script[plugName])
     }
   } else {
     console.error('未设置程序入口!')
