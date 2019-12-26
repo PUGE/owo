@@ -3,6 +3,19 @@
  * @return {object} 屏幕信息
  */
 
+_owo.getValueFromScript = function (arr, data) {
+  var returnData = data
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index];
+    if (returnData[element] !== undefined) {
+      returnData = returnData[element]
+    } else {
+      return undefined
+    }
+  }
+  return returnData
+}
+
 owo.tool.change = function (environment, key, value) {
   environment.data[key] = value
   var showList = environment.$el.querySelectorAll('[o-show]')
@@ -26,8 +39,15 @@ owo.tool.change = function (environment, key, value) {
       return eval(temp)
     }
     const value = tempRun.apply(environment, [temp])
-    console.log(value)
+    // console.log(value)
     valueDom.value = value
+  }
+  for (var key in environment.template) {
+    const templateItem = environment.template[key]
+    for (var key2 in templateItem.propMap) {
+      const propMapItem = templateItem.propMap[key2]
+      templateItem.prop[key2] = _owo.getValueFromScript(propMapItem.split('.'), environment)
+    }
   }
   // console.log(environment, key, value)
 }

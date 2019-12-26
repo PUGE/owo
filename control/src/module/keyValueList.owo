@@ -1,0 +1,18 @@
+<template lang="pug">
+.key-value-list
+  
+</template>
+
+<script>
+  module.exports = {
+    created: function () {
+      setTimeout(() => {
+        console.log(this.prop)
+      }, 1000);
+    }
+  }
+</script>
+
+<style lang="less">
+
+</style>

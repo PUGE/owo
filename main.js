@@ -29,9 +29,9 @@ function getConfig () {
 
   // 判断是否处于生成模式
   if (processArgv) {
-    if (configTemp[processArgv]) {
+    if (configTemp.mode && configTemp.mode[processArgv]) {
       // 深拷贝
-      const processConfig = JSON.parse(JSON.stringify(configTemp[processArgv]))
+      const processConfig = JSON.parse(JSON.stringify(configTemp.mode[processArgv]))
       configTemp = Object.assign(processConfig, configTemp)
     } else {
       console.error(`config name ${processArgv} not found in owo.js!`)

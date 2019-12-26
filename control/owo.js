@@ -99,61 +99,63 @@ module.exports = {
       src: './src/page/home.owo'
     }
   ],
-  // 调试模式配置
-  dev: {
-    // 基础目录
-    basePath: './',
-    debug: true,
-    // 是否监测文件改动重新打包
-    watcher: {
-      // 是否启用
-      enable: true,
-      // 忽略监控的文件或文件夹，支持正则，默认为输出目录
-      ignored: './dist/*',
-      // 监测深度,默认99
-      depth: 99
+  mode: {
+    // 调试模式配置
+    dev: {
+      // 基础目录
+      basePath: './',
+      debug: true,
+      // 是否监测文件改动重新打包
+      watcher: {
+        // 是否启用
+        enable: true,
+        // 忽略监控的文件或文件夹，支持正则，默认为输出目录
+        ignored: './dist/*',
+        // 监测深度,默认99
+        depth: 99
+      },
+      // 输出配置
+      outPut: {
+        // 是否将主要css, js合并到html中
+        merge: true,
+        // 是否压缩css
+        minifyCss: false,
+        // 是否压缩js
+        minifyJs: false,
+        // 输出文件自动追加版本号，可以用来消除缓存
+        addVersion: false,
+        allAnimate: false
+      },
+      serverPort: 8000,
+      // 静态文件服务
+      server: true,
+      // 自动重新加载
+      autoReload: true,
+      // 远程调试
+      remoteDebug: false
     },
-    // 输出配置
-    outPut: {
-      // 是否将主要css, js合并到html中
-      merge: true,
-      // 是否压缩css
-      minifyCss: false,
-      // 是否压缩js
-      minifyJs: false,
-      // 输出文件自动追加版本号，可以用来消除缓存
-      addVersion: false,
-      allAnimate: false
-    },
-    serverPort: 8000,
-    // 静态文件服务
-    server: true,
-    // 自动重新加载
-    autoReload: true,
-    // 远程调试
-    remoteDebug: false
-  },
-  // 编译模式配置
-  build: {
-    debug: false,
-    // 基础目录
-    basePath: './',
-    // 外链警告
-    alertLink: true,
-    // 输出配置
-    outPut: {
-      // 是否压缩css
-      minifyCss: false,
-      // 是否压缩js
-      minifyJs: false,
-      // 输出文件自动追加版本号，可以用来消除缓存
-      addVersion: true,
-      // 小于多大的资源会嵌入到代码中,单位kb,默认10,设置为0则不启用
-      embedSize: 0,
-      // 将重要样式和js合并到html中以优化页面打开速度
-      merge: false,
-      // 输出所有动画效果
-      allAnimate: false
+    // 编译模式配置
+    build: {
+      debug: false,
+      // 基础目录
+      basePath: './',
+      // 外链警告
+      alertLink: true,
+      // 输出配置
+      outPut: {
+        // 是否压缩css
+        minifyCss: false,
+        // 是否压缩js
+        minifyJs: false,
+        // 输出文件自动追加版本号，可以用来消除缓存
+        addVersion: true,
+        // 小于多大的资源会嵌入到代码中,单位kb,默认10,设置为0则不启用
+        embedSize: 0,
+        // 将重要样式和js合并到html中以优化页面打开速度
+        merge: false,
+        // 输出所有动画效果
+        allAnimate: false
+      }
     }
   }
 }
