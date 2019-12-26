@@ -137,6 +137,8 @@ if (config.server) {
   app.use(express.static(path.join(runPath, config.outFolder)))
   wsServe = require('express-ws')(app)
   
+  app.use('/control', express.static(path.join(__dirname, `./control/dist`)))
+
   app.listen(port)
   if (config.server) {
     console.log(`Server running at port: ${port} !`)
@@ -153,6 +155,10 @@ if (config.server) {
         }
       })
     })
+    app.get('/getControl', function (req, res) {
+      res.send(JSON.stringify(config))
+    })
   }
+
 }
 

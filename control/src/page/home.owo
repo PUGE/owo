@@ -1,0 +1,30 @@
+<template lang="pug">
+.home
+  .content.w1000
+    .input-bar
+      .label 基本目录
+      input.basePath(type="text" o-value="this.data.config.basePath")
+    input.root(type="text" o-value="this.data.config.root")
+    input.outFolder(type="text" o-value="this.data.config.outFolder")
+    input.title(type="text" o-value="this.data.config.title")
+    input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      config: {}
+    },
+    created: function () {
+      fetch('../getControl').then(response => response.json()).then(data => {
+        console.log(data)
+        owo.tool.change(this, 'config', data)
+      })
+    }
+  }
+</script>
+
+
+<style lang="less">
+
+</style>

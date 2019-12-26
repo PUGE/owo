@@ -18,5 +18,16 @@ owo.tool.change = function (environment, key, value) {
       showDom.style.display = 'none'
     }
   }
-  console.log(environment, key, value)
+  var valueList = environment.$el.querySelectorAll('[o-value]')
+  for (var ind = 0; ind < valueList.length; ind++) {
+    var valueDom = valueList[ind]
+    var temp = valueDom.getAttribute('o-value').replace(/ /g, '')
+    function tempRun (temp) {
+      return eval(temp)
+    }
+    const value = tempRun.apply(environment, [temp])
+    console.log(value)
+    valueDom.value = value
+  }
+  // console.log(environment, key, value)
 }
