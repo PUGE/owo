@@ -1,23 +1,59 @@
 <template lang="pug">
-table.value-list
+table.style-list
 </template>
 
 <script>
   module.exports = {
+    data: {
+      addNewNeedResource: false
+    },
     broadcast: {
       changeData: function (value) {
         const data = value.styleList
         let newHtml = '<tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th>操作</th></tr>'
-        data.forEach(element => {
-          newHtml += `<tr class="key-value-item"><td class="name">${element.name}</td><td class="value">${element.src}</td><td class="resource icon" o-tap="resourceChange">${element.resource ? '&#xe661;' : '&#xe614;'}</td><td class="tool"><span class="icon">&#xe645;</span></td></tr>`
-        })
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const element = data[key];
+            newHtml += `<tr class="key-value-item"><td class="name">${element.name}</td><td class="value">${element.src}</td><td class="resource icon${element.resource ? ' check' : ''}" ind="${key}" o-tap="resourceChange">${element.resource ? '&#xe661;' : '&#xe614;'}</td><td class="tool"><span class="icon" o-tap="delete(${key})">&#xe645;</span></td></tr>`  
+          }
+        }
+        newHtml += `<tr><td><input type="text" placeholder="新增样式名称" class="nameInput"></input></td><td><input placeholder="新增样式路径" type="text" class="srcInput"></input></td><td width="70px" class="icon icon-box resource-check" o-tap="addNewResourceChange">&#xe614;</td><td class="tool icon" o-tap="add">&#xe600;</td></tr>`
         this.$el.innerHTML = newHtml
-        console.log(this)
         this.$refresh()
       }
     },
     resourceChange: function () {
-      console.log('sd')
+      const target = this.$target
+      const ind = parseInt(target.getAttribute('ind'))
+      owo.script.home.data.config.styleList[ind].resource = !target.classList.contains('check')
+      owo.tool.emit('changeData', owo.script.home.data.config)
+    },
+    addNewResourceChange: function () {
+      const target = this.$target
+      this.data.addNewNeedResource = !this.data.addNewNeedResource
+      if (this.data.addNewNeedResource) {
+        target.classList.add('check')
+        target.innerHTML = '&#xe661;'
+      } else {
+        target.classList.remove('check')
+        target.innerHTML = '&#xe614;'
+      }
+    },
+    add: function () {
+      const name = this.$el.getElementsByClassName('nameInput')[0].value
+      const src = this.$el.getElementsByClassName('srcInput')[0].value
+      if (name && src) {
+        owo.script.home.data.config.styleList.push({
+          name,
+          src,
+          resource: this.data.addNewNeedResource 
+        })
+      }
+      owo.tool.emit('changeData', owo.script.home.data.config)
+    },
+    delete: function (key) {
+      delete owo.script.home.data.config.styleList[key]
+      owo.tool.emit('changeData', owo.script.home.data.config)
     }
   }
 </script>
@@ -50,7 +86,10 @@ td {
 .resource, .defer, .babel {
   text-align: center;
   font-size: 20px;
-  color: orange;
+  color: #ccc;
   cursor: pointer;
+}
+.check {
+  color: orange;
 }
 </style>

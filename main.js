@@ -16,7 +16,7 @@ if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
   console.error('当前目录下找不到owo配置文件哦!')
   return
 }
-
+let config = null
 // 配置文件检测
 const checkConfig = require('./lib/tool/checkConfig')
 
@@ -44,10 +44,11 @@ function getConfig () {
     console.error('配置信息检查失败!')
     return
   }
+  config = configTemp
   return configTemp
 }
 
-let config = getConfig()
+getConfig()
 
 // 加载框架SDK
 const owo = require('./lib')
@@ -77,8 +78,7 @@ if (config.scheme && config.scheme.length > 0) {
   })
 }
 
-const pack = new owo(config, (evnet) => {
-  
+const owoCallBack = (evnet) => {
   if (evnet.type === 'end') {
     // 编译成功输出文字
     console.log(`Compile successfully, Use time: ${new Date().getTime() - startPackTime} msec!`)
@@ -90,7 +90,9 @@ const pack = new owo(config, (evnet) => {
       }, 0)
     }
   }
-})
+}
+
+let pack = new owo(config, owoCallBack)
 
 // 开始打包
 pack.pack()
@@ -99,7 +101,6 @@ pack.pack()
 // 判断是否开启文件变动自动重新打包
 if (config.watcher && config.watcher.enable) {
   const watcherFolder = path.join(runPath, config.root)
-  console.log(watcherFolder)
   // 文件变动检测
   const watcher = chokidar.watch(watcherFolder, {
     // 忽略目录
@@ -117,13 +118,17 @@ if (config.watcher && config.watcher.enable) {
   watcher.add('owo_modules')
   watcher.on('change', changePath => {
     startPackTime = new Date().getTime()
+    
     log.info(`file change: ${changePath}`)
     // 判断是否为配置文件变更
     if (changePath === 'owo.js') {
-      pack.setConfig(getConfig())
+      console.log('配置文件被改变!')
+      pack = new owo(getConfig(), owoCallBack)
+      pack.pack()
+    } else {
+      // 重新打包
+      pack.pack(changePath)
     }
-    // 重新打包
-    pack.pack(changePath)
   })
 }
 // 判断是否启用静态文件服务
@@ -133,6 +138,8 @@ if (config.server) {
   // Web 框架
   const express = require('express')
   const app = express()
+  const bodyParser = require('body-parser')
+  app.use(bodyParser())
   
   app.use(express.static(path.join(runPath, config.outFolder)))
   wsServe = require('express-ws')(app)
@@ -158,7 +165,15 @@ if (config.server) {
     app.get('/getControl', function (req, res) {
       res.send(JSON.stringify(config))
     })
+    app.post('/setControl', (req, res) => {
+      fs.writeFile(path.join(runPath, 'owo.js'), `module.exports = ` + JSON.stringify(req.body), () => {
+        // 重新加载配置
+        res.send(JSON.stringify({
+          err: 0,
+          config,
+        }))
+      })
+    })
   }
-
 }
 

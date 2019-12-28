@@ -3,16 +3,16 @@
   .content.w1000
     .input-bar
       .label 基本目录
-      input.basePath(type="text" o-value="this.data.config.basePath")
+      input.basePath(type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')")
     .input-bar
       .label 项目目录
-      input.root(type="text" o-value="this.data.config.root")
+      input.root(type="text" o-value="this.data.config.root" o-input="changeConfig('root')")
     .input-bar
       .label 打包输出目录
-      input.outFolder(type="text" o-value="this.data.config.outFolder")
+      input.outFolder(type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')")
     .input-bar
       .label 网页名称
-      input.title(type="text" o-value="this.data.config.title")
+      input.title(type="text" o-value="this.data.config.title" o-input="changeConfig('title')")
     .input-bar
       .label 资源目录
       input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
@@ -20,6 +20,7 @@
     plug(_src="./src/module/styleList.owo" _name="styleList")
     plug(_src="./src/module/scriptList.owo" _name="scriptList")
     plug(_src="./src/module/pageList.owo" _name="pageList")
+    .button(o-tap="seveConfig") 发送
 </template>
 
 <script>
@@ -29,15 +30,58 @@
     },
     created: function () {
       fetch('../getControl').then(response => response.json()).then(data => {
-        console.log(data)
         owo.tool.change(this, 'config', data)
         owo.tool.emit('changeData', data)
       })
+    },
+    postData: function (url, data) {
+      // Default options are marked with *
+      return fetch(url, {
+        body: JSON.stringify(data), // must match 'Content-Type' header
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, same-origin, *omit
+        headers: {
+          'user-agent': 'Mozilla/4.0 MDN Example',
+          'content-type': 'application/json'
+        },
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, cors, *same-origin
+        redirect: 'follow', // manual, *follow, error
+        referrer: 'no-referrer', // *client, no-referrer
+      })
+      .then(response => response.json()) // parses response to JSON
+    },
+    seveConfig: function () {
+      console.log(this.data.config)
+      this.postData('../setControl', this.data.config).then((res) => {
+        console.log(res)
+      })
+    },
+    changeConfig: function (key) {
+      this.data.config[key] = this.$target.value
     }
   }
 </script>
 
 
 <style lang="less">
-
+table {
+  input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+  .icon-box {
+    text-align: center;
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+  }
+}
 </style>
