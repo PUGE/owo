@@ -1,0 +1,1311 @@
+[2019-12-28T15:59:49.119] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T15:59:49.119] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T15:59:49.119] [INFO] default - 首次启动!
+[2019-12-28T15:59:49.119] [INFO] default - 生成版本号: v29wvht1pp
+[2019-12-28T15:59:49.125] [INFO] default - 清理资源文件夹: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static
+[2019-12-28T15:59:49.125] [INFO] default - 文件夹不存在: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static
+[2019-12-28T15:59:49.126] [INFO] default - 创建文件夹: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static
+[2019-12-28T15:59:49.126] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T15:59:49.126] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T15:59:49.126] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T15:59:49.129] [INFO] default - 开始处理模块: home
+[2019-12-28T15:59:50.648] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T15:59:50.681] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T15:59:50.769] [DEBUG] default - 模块headKeyValueList处理用时: 121 毫秒!
+[2019-12-28T15:59:50.769] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T15:59:50.769] [DEBUG] default - 页面home处理用时: 1640 毫秒!
+[2019-12-28T15:59:50.784] [INFO] default - 文件夹不存在: C:/Users/PUGE/Documents/GitHub/pack/control/dist/static/resource
+[2019-12-28T15:59:50.784] [INFO] default - 创建文件夹: C:/Users/PUGE/Documents/GitHub/pack/control/dist/static/resource
+[2019-12-28T15:59:50.784] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T15:59:51.959] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T15:59:52.183] [INFO] default - 文件夹不存在: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css
+[2019-12-28T15:59:52.183] [INFO] default - 创建文件夹: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css
+[2019-12-28T15:59:52.183] [INFO] default - 开始处理附属css中的资源
+[2019-12-28T15:59:52.184] [INFO] default - 附属css中的资源处理完毕!
+[2019-12-28T15:59:52.184] [INFO] default - 处理字体: {}
+[2019-12-28T15:59:52.495] [INFO] default - 使用postcss处理完毕! 用时: 536 毫秒
+[2019-12-28T15:59:52.496] [INFO] default - 正在处理script!
+[2019-12-28T15:59:53.594] [INFO] default - 工程中只有一个页面!
+[2019-12-28T15:59:53.611] [INFO] default - js中的资源处理完毕!
+[2019-12-28T15:59:53.611] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T15:59:53.612] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T15:59:53.612] [DEBUG] default - 处理脚本: main
+[2019-12-28T15:59:53.612] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T15:59:53.613] [DEBUG] default - 输出scriptData
+[2019-12-28T15:59:53.617] [DEBUG] default - 准备输出html!
+[2019-12-28T15:59:53.619] [INFO] default - 文件夹不存在: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js
+[2019-12-28T15:59:53.620] [INFO] default - 创建文件夹: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js
+[2019-12-28T15:59:53.622] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T15:59:53.624] [INFO] default - 编译结束!
+[2019-12-28T15:59:53.681] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T15:59:53.843] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T15:59:53.844] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T15:59:53.844] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T15:59:53.844] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T15:59:53.844] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T15:59:53.863] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\main.css
+[2019-12-28T15:59:58.712] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T15:59:58.712] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T15:59:58.712] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T15:59:58.712] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T15:59:58.712] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T15:59:58.714] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T15:59:58.714] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T15:59:58.715] [INFO] default - 开始处理模块: home
+[2019-12-28T15:59:58.783] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T15:59:58.885] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T15:59:58.903] [DEBUG] default - 模块headKeyValueList处理用时: 120 毫秒!
+[2019-12-28T15:59:58.903] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T15:59:58.907] [DEBUG] default - 页面home处理用时: 192 毫秒!
+[2019-12-28T15:59:58.907] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T15:59:58.907] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T15:59:58.917] [INFO] default - 处理字体: {}
+[2019-12-28T15:59:58.917] [INFO] default - 使用postcss处理完毕! 用时: 6 毫秒
+[2019-12-28T15:59:58.917] [INFO] default - 正在处理script!
+[2019-12-28T15:59:58.959] [INFO] default - 工程中只有一个页面!
+[2019-12-28T15:59:58.960] [INFO] default - js中的资源处理完毕!
+[2019-12-28T15:59:58.960] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T15:59:58.960] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T15:59:58.960] [DEBUG] default - 处理脚本: main
+[2019-12-28T15:59:58.960] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T15:59:58.960] [DEBUG] default - 输出scriptData
+[2019-12-28T15:59:58.962] [DEBUG] default - 准备输出html!
+[2019-12-28T15:59:58.964] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T15:59:58.964] [INFO] default - 编译结束!
+[2019-12-28T15:59:58.965] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T15:59:58.965] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T15:59:58.966] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T15:59:58.966] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T15:59:58.967] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:03:21.372] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T16:03:21.373] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:03:21.374] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:03:21.374] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T16:03:21.374] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:03:21.380] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:03:21.381] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:03:21.383] [INFO] default - 开始处理模块: home
+[2019-12-28T16:03:21.474] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:03:21.487] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:03:21.498] [DEBUG] default - 模块headKeyValueList处理用时: 24 毫秒!
+[2019-12-28T16:03:21.499] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:03:21.500] [DEBUG] default - 页面home处理用时: 118 毫秒!
+[2019-12-28T16:03:21.502] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:03:21.502] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:03:21.508] [INFO] default - 开始处理附属css中的资源
+[2019-12-28T16:03:21.508] [INFO] default - 附属css中的资源处理完毕!
+[2019-12-28T16:03:21.508] [INFO] default - 处理字体: {}
+[2019-12-28T16:03:21.509] [INFO] default - 使用postcss处理完毕! 用时: 7 毫秒
+[2019-12-28T16:03:21.510] [INFO] default - 正在处理script!
+[2019-12-28T16:03:21.542] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:03:21.546] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:03:21.546] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:03:21.546] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:03:21.546] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:03:21.546] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:03:21.546] [DEBUG] default - 输出scriptData
+[2019-12-28T16:03:21.548] [DEBUG] default - 准备输出html!
+[2019-12-28T16:03:21.548] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:03:21.549] [INFO] default - 编译结束!
+[2019-12-28T16:03:21.550] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:03:21.552] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T16:03:21.552] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:03:21.552] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:03:21.552] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:03:21.554] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:03:21.554] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\main.css
+[2019-12-28T16:04:15.735] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:04:15.735] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:04:15.736] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:04:15.736] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:04:15.736] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:04:15.745] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:04:15.745] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:04:15.748] [INFO] default - 开始处理模块: home
+[2019-12-28T16:04:15.882] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:04:16.015] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:04:16.049] [DEBUG] default - 模块headKeyValueList处理用时: 168 毫秒!
+[2019-12-28T16:04:16.049] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:04:16.053] [DEBUG] default - 页面home处理用时: 305 毫秒!
+[2019-12-28T16:04:16.053] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:04:16.057] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:04:16.064] [INFO] default - 处理字体: {}
+[2019-12-28T16:04:16.068] [INFO] default - 使用postcss处理完毕! 用时: 11 毫秒
+[2019-12-28T16:04:16.068] [INFO] default - 正在处理script!
+[2019-12-28T16:04:16.216] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:04:16.221] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:04:16.221] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:04:16.221] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:04:16.221] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:04:16.221] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:04:16.223] [DEBUG] default - 输出scriptData
+[2019-12-28T16:04:16.231] [DEBUG] default - 准备输出html!
+[2019-12-28T16:04:16.236] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:04:16.244] [INFO] default - 编译结束!
+[2019-12-28T16:04:16.362] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:04:16.368] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:04:16.369] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:04:16.369] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:04:16.369] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:09:50.905] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:09:50.906] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:09:50.906] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:09:50.906] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:09:50.906] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:09:50.909] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:09:50.909] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:09:50.910] [INFO] default - 开始处理模块: home
+[2019-12-28T16:09:50.974] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:09:51.058] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:09:51.074] [DEBUG] default - 模块headKeyValueList处理用时: 100 毫秒!
+[2019-12-28T16:09:51.090] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:09:51.090] [DEBUG] default - 页面home处理用时: 180 毫秒!
+[2019-12-28T16:09:51.090] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:09:51.090] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:09:51.090] [INFO] default - 处理字体: {}
+[2019-12-28T16:09:51.090] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T16:09:51.090] [INFO] default - 正在处理script!
+[2019-12-28T16:09:51.194] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:09:51.200] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:09:51.200] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:09:51.200] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:09:51.201] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:09:51.201] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:09:51.201] [DEBUG] default - 输出scriptData
+[2019-12-28T16:09:51.203] [DEBUG] default - 准备输出html!
+[2019-12-28T16:09:51.205] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:09:51.206] [INFO] default - 编译结束!
+[2019-12-28T16:09:51.207] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:09:51.209] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:09:51.209] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:09:51.209] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:09:51.211] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:11:24.907] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:11:24.907] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:11:24.907] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:11:24.907] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:11:24.907] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:11:24.910] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:11:24.910] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:11:24.910] [INFO] default - 开始处理模块: home
+[2019-12-28T16:11:24.968] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:11:25.052] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:11:25.058] [DEBUG] default - 模块headKeyValueList处理用时: 90 毫秒!
+[2019-12-28T16:11:25.058] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:11:25.058] [DEBUG] default - 页面home处理用时: 148 毫秒!
+[2019-12-28T16:11:25.074] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:11:25.074] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:11:25.074] [INFO] default - 处理字体: {}
+[2019-12-28T16:11:25.074] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T16:11:25.074] [INFO] default - 正在处理script!
+[2019-12-28T16:11:25.125] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:11:25.136] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:11:25.136] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:11:25.136] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:11:25.136] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:11:25.136] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:11:25.136] [DEBUG] default - 输出scriptData
+[2019-12-28T16:11:25.138] [DEBUG] default - 准备输出html!
+[2019-12-28T16:11:25.140] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:11:25.141] [INFO] default - 编译结束!
+[2019-12-28T16:11:25.142] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:11:25.143] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:11:25.144] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:11:25.145] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:11:25.148] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:17:19.522] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T16:17:19.522] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:17:19.522] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:17:19.522] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T16:17:19.522] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:17:19.524] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:17:19.524] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:17:19.525] [INFO] default - 开始处理模块: home
+[2019-12-28T16:17:19.635] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:17:19.663] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:17:19.681] [DEBUG] default - 模块headKeyValueList处理用时: 46 毫秒!
+[2019-12-28T16:17:19.681] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:17:19.693] [DEBUG] default - 页面home处理用时: 156 毫秒!
+[2019-12-28T16:17:19.693] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:17:19.693] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:17:19.709] [INFO] default - 处理字体: {}
+[2019-12-28T16:17:19.709] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:17:19.709] [INFO] default - 正在处理script!
+[2019-12-28T16:17:19.784] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:17:19.786] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:17:19.801] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:17:19.801] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:17:19.801] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:17:19.802] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:17:19.802] [DEBUG] default - 输出scriptData
+[2019-12-28T16:17:19.806] [DEBUG] default - 准备输出html!
+[2019-12-28T16:17:19.809] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:17:19.812] [INFO] default - 编译结束!
+[2019-12-28T16:17:19.814] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:17:19.822] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:17:19.822] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:17:19.824] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:17:19.828] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:17:48.032] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:17:48.032] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:17:48.034] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:17:48.034] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:17:48.034] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:17:48.036] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:17:48.036] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:17:48.037] [INFO] default - 开始处理模块: home
+[2019-12-28T16:17:48.084] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:17:48.154] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:17:48.169] [DEBUG] default - 模块headKeyValueList处理用时: 85 毫秒!
+[2019-12-28T16:17:48.169] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:17:48.169] [DEBUG] default - 页面home处理用时: 132 毫秒!
+[2019-12-28T16:17:48.169] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:17:48.169] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:17:48.185] [INFO] default - 处理字体: {}
+[2019-12-28T16:17:48.185] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:17:48.185] [INFO] default - 正在处理script!
+[2019-12-28T16:17:48.250] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:17:48.250] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:17:48.250] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:17:48.250] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:17:48.250] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:17:48.250] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:17:48.250] [DEBUG] default - 输出scriptData
+[2019-12-28T16:17:48.268] [DEBUG] default - 准备输出html!
+[2019-12-28T16:17:48.272] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:17:48.274] [INFO] default - 编译结束!
+[2019-12-28T16:17:48.276] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:17:48.288] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:17:48.292] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:17:48.312] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:17:48.321] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:18:05.691] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:18:05.691] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:18:05.691] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:18:05.691] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:18:05.691] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:18:05.693] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:18:05.693] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:18:05.693] [INFO] default - 开始处理模块: home
+[2019-12-28T16:18:05.790] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:18:05.850] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:18:05.883] [DEBUG] default - 模块headKeyValueList处理用时: 93 毫秒!
+[2019-12-28T16:18:05.883] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:18:05.883] [DEBUG] default - 页面home处理用时: 190 毫秒!
+[2019-12-28T16:18:05.883] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:18:05.883] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:18:05.899] [INFO] default - 处理字体: {}
+[2019-12-28T16:18:05.899] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:18:05.899] [INFO] default - 正在处理script!
+[2019-12-28T16:18:05.985] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:18:05.987] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:18:05.987] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:18:05.987] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:18:05.987] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:18:05.987] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:18:05.987] [DEBUG] default - 输出scriptData
+[2019-12-28T16:18:05.994] [DEBUG] default - 准备输出html!
+[2019-12-28T16:18:06.001] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:18:06.003] [INFO] default - 编译结束!
+[2019-12-28T16:18:06.005] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:18:06.014] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:18:06.018] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:18:06.018] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:18:06.043] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:18:20.052] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:18:20.052] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:18:20.052] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:18:20.052] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:18:20.052] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:18:20.055] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:18:20.055] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:18:20.057] [INFO] default - 开始处理模块: home
+[2019-12-28T16:18:20.127] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:18:20.209] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:18:20.230] [DEBUG] default - 模块headKeyValueList处理用时: 103 毫秒!
+[2019-12-28T16:18:20.230] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:18:20.246] [DEBUG] default - 页面home处理用时: 189 毫秒!
+[2019-12-28T16:18:20.247] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:18:20.247] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:18:20.249] [INFO] default - 处理字体: {}
+[2019-12-28T16:18:20.249] [INFO] default - 使用postcss处理完毕! 用时: 2 毫秒
+[2019-12-28T16:18:20.249] [INFO] default - 正在处理script!
+[2019-12-28T16:18:20.299] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:18:20.310] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:18:20.310] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:18:20.310] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:18:20.310] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:18:20.310] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:18:20.311] [DEBUG] default - 输出scriptData
+[2019-12-28T16:18:20.312] [DEBUG] default - 准备输出html!
+[2019-12-28T16:18:20.315] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:18:20.315] [INFO] default - 编译结束!
+[2019-12-28T16:18:20.317] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:18:20.318] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:18:20.318] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:18:20.318] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:18:20.318] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:19:42.972] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:19:42.972] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:19:42.972] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:19:42.972] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:19:42.972] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:19:42.972] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:19:42.972] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:19:42.972] [INFO] default - 开始处理模块: home
+[2019-12-28T16:19:43.042] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:19:43.054] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:19:43.070] [DEBUG] default - 模块headKeyValueList处理用时: 28 毫秒!
+[2019-12-28T16:19:43.070] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:19:43.070] [DEBUG] default - 页面home处理用时: 98 毫秒!
+[2019-12-28T16:19:43.085] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:19:43.085] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:19:43.095] [INFO] default - 处理字体: {}
+[2019-12-28T16:19:43.097] [INFO] default - 使用postcss处理完毕! 用时: 12 毫秒
+[2019-12-28T16:19:43.097] [INFO] default - 正在处理script!
+[2019-12-28T16:19:43.142] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:19:43.146] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:19:43.146] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:19:43.146] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:19:43.146] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:19:43.146] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:19:43.146] [DEBUG] default - 输出scriptData
+[2019-12-28T16:19:43.149] [DEBUG] default - 准备输出html!
+[2019-12-28T16:19:43.150] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:19:43.152] [INFO] default - 编译结束!
+[2019-12-28T16:19:43.153] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:19:43.154] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:19:43.154] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:19:43.154] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:19:43.156] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:20:23.558] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T16:20:23.558] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:20:23.558] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:20:23.558] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T16:20:23.558] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:20:23.559] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:20:23.559] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:20:23.559] [INFO] default - 开始处理模块: home
+[2019-12-28T16:20:23.674] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:20:23.707] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:20:23.723] [DEBUG] default - 模块headKeyValueList处理用时: 49 毫秒!
+[2019-12-28T16:20:23.724] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:20:23.763] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:20:23.767] [DEBUG] default - 模块styleList处理用时: 44 毫秒!
+[2019-12-28T16:20:23.767] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:20:23.771] [DEBUG] default - 页面home处理用时: 212 毫秒!
+[2019-12-28T16:20:23.772] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:20:23.773] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:20:23.777] [INFO] default - 处理字体: {}
+[2019-12-28T16:20:23.778] [INFO] default - 使用postcss处理完毕! 用时: 5 毫秒
+[2019-12-28T16:20:23.778] [INFO] default - 正在处理script!
+[2019-12-28T16:20:23.808] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:20:23.808] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:20:23.808] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:20:23.808] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:20:23.808] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:20:23.808] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:20:23.808] [DEBUG] default - 输出scriptData
+[2019-12-28T16:20:23.818] [DEBUG] default - 准备输出html!
+[2019-12-28T16:20:23.820] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:20:23.820] [INFO] default - 编译结束!
+[2019-12-28T16:20:23.822] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:20:23.822] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:20:23.822] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:20:23.824] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:20:23.825] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:23:24.615] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:23:24.615] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:23:24.615] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:23:24.616] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:23:24.616] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:23:24.618] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:23:24.618] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:23:24.619] [INFO] default - 开始处理模块: home
+[2019-12-28T16:23:24.687] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:23:24.713] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:23:24.713] [DEBUG] default - 模块headKeyValueList处理用时: 26 毫秒!
+[2019-12-28T16:23:24.713] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:23:24.784] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:23:24.802] [DEBUG] default - 模块styleList处理用时: 89 毫秒!
+[2019-12-28T16:23:24.802] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:23:24.802] [DEBUG] default - 页面home处理用时: 183 毫秒!
+[2019-12-28T16:23:24.802] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:23:24.802] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:23:24.817] [INFO] default - 处理字体: {}
+[2019-12-28T16:23:24.817] [INFO] default - 使用postcss处理完毕! 用时: 15 毫秒
+[2019-12-28T16:23:24.817] [INFO] default - 正在处理script!
+[2019-12-28T16:23:24.872] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:23:24.888] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:23:24.888] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:23:24.888] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:23:24.888] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:23:24.888] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:23:24.888] [DEBUG] default - 输出scriptData
+[2019-12-28T16:23:24.893] [DEBUG] default - 准备输出html!
+[2019-12-28T16:23:24.894] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:23:24.894] [INFO] default - 编译结束!
+[2019-12-28T16:23:24.897] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:23:24.897] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:23:24.897] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:23:24.900] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:23:24.900] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:28:41.619] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T16:28:41.619] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:28:41.619] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:28:41.619] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T16:28:41.619] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:28:41.625] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:28:41.625] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:28:41.625] [INFO] default - 开始处理模块: home
+[2019-12-28T16:28:41.725] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:28:41.737] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:28:41.747] [DEBUG] default - 模块headKeyValueList处理用时: 23 毫秒!
+[2019-12-28T16:28:41.747] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:28:41.760] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:28:41.770] [DEBUG] default - 模块styleList处理用时: 23 毫秒!
+[2019-12-28T16:28:41.774] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:28:41.774] [DEBUG] default - 页面home处理用时: 149 毫秒!
+[2019-12-28T16:28:41.774] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:28:41.774] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:28:41.778] [INFO] default - 开始处理附属css中的资源
+[2019-12-28T16:28:41.778] [INFO] default - 附属css中的资源处理完毕!
+[2019-12-28T16:28:41.778] [INFO] default - 处理字体: {}
+[2019-12-28T16:28:41.782] [INFO] default - 使用postcss处理完毕! 用时: 8 毫秒
+[2019-12-28T16:28:41.782] [INFO] default - 正在处理script!
+[2019-12-28T16:28:41.834] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:28:41.836] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:28:41.836] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:28:41.836] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:28:41.836] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:28:41.836] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:28:41.836] [DEBUG] default - 输出scriptData
+[2019-12-28T16:28:41.839] [DEBUG] default - 准备输出html!
+[2019-12-28T16:28:41.841] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:28:41.842] [INFO] default - 编译结束!
+[2019-12-28T16:28:41.843] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:28:41.849] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:28:41.850] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.css
+[2019-12-28T16:28:41.851] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:28:41.852] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:28:41.854] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:28:41.854] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\main.css
+[2019-12-28T16:31:55.157] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:31:55.157] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:31:55.157] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:31:55.161] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:31:55.161] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:31:55.174] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:31:55.174] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:31:55.178] [INFO] default - 开始处理模块: home
+[2019-12-28T16:31:55.222] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:31:55.235] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:31:55.243] [DEBUG] default - 模块headKeyValueList处理用时: 21 毫秒!
+[2019-12-28T16:31:55.243] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:31:55.359] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:31:55.384] [DEBUG] default - 模块styleList处理用时: 141 毫秒!
+[2019-12-28T16:31:55.388] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:31:55.388] [DEBUG] default - 页面home处理用时: 210 毫秒!
+[2019-12-28T16:31:55.388] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:31:55.388] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:31:55.422] [INFO] default - 处理字体: {}
+[2019-12-28T16:31:55.423] [INFO] default - 使用postcss处理完毕! 用时: 35 毫秒
+[2019-12-28T16:31:55.423] [INFO] default - 正在处理script!
+[2019-12-28T16:31:55.544] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:31:55.546] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:31:55.546] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:31:55.546] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:31:55.546] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:31:55.546] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:31:55.546] [DEBUG] default - 输出scriptData
+[2019-12-28T16:31:55.554] [DEBUG] default - 准备输出html!
+[2019-12-28T16:31:55.558] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:31:55.560] [INFO] default - 编译结束!
+[2019-12-28T16:31:55.563] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:31:55.821] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:31:55.821] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:31:55.832] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:31:55.832] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:32:31.959] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:32:31.959] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:32:31.959] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:32:31.960] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:32:31.960] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:32:31.961] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:32:31.961] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:32:31.962] [INFO] default - 开始处理模块: home
+[2019-12-28T16:32:32.013] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:32:32.044] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:32:32.060] [DEBUG] default - 模块headKeyValueList处理用时: 47 毫秒!
+[2019-12-28T16:32:32.060] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:32:32.124] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:32:32.139] [DEBUG] default - 模块styleList处理用时: 79 毫秒!
+[2019-12-28T16:32:32.139] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:32:32.139] [DEBUG] default - 页面home处理用时: 177 毫秒!
+[2019-12-28T16:32:32.155] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:32:32.155] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:32:32.155] [INFO] default - 处理字体: {}
+[2019-12-28T16:32:32.155] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T16:32:32.155] [INFO] default - 正在处理script!
+[2019-12-28T16:32:32.256] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:32:32.256] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:32:32.266] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:32:32.266] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:32:32.266] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:32:32.266] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:32:32.266] [DEBUG] default - 输出scriptData
+[2019-12-28T16:32:32.269] [DEBUG] default - 准备输出html!
+[2019-12-28T16:32:32.271] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:32:32.273] [INFO] default - 编译结束!
+[2019-12-28T16:32:32.274] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:32:32.277] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:32:32.279] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:32:32.280] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:32:32.294] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:32:47.557] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:32:47.557] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:32:47.557] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:32:47.557] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:32:47.557] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:32:47.558] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:32:47.558] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:32:47.558] [INFO] default - 开始处理模块: home
+[2019-12-28T16:32:47.606] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:32:47.653] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:32:47.653] [DEBUG] default - 模块headKeyValueList处理用时: 47 毫秒!
+[2019-12-28T16:32:47.653] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:32:47.710] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:32:47.718] [DEBUG] default - 模块styleList处理用时: 65 毫秒!
+[2019-12-28T16:32:47.718] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:32:47.718] [DEBUG] default - 页面home处理用时: 160 毫秒!
+[2019-12-28T16:32:47.722] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:32:47.722] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:32:47.727] [INFO] default - 处理字体: {}
+[2019-12-28T16:32:47.727] [INFO] default - 使用postcss处理完毕! 用时: 5 毫秒
+[2019-12-28T16:32:47.727] [INFO] default - 正在处理script!
+[2019-12-28T16:32:47.797] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:32:47.798] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:32:47.798] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:32:47.798] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:32:47.798] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:32:47.798] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:32:47.798] [DEBUG] default - 输出scriptData
+[2019-12-28T16:32:47.801] [DEBUG] default - 准备输出html!
+[2019-12-28T16:32:47.804] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:32:47.805] [INFO] default - 编译结束!
+[2019-12-28T16:32:47.807] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:32:47.809] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:32:47.812] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:32:47.812] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:32:47.812] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:32:54.625] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:32:54.626] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:32:54.626] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:32:54.626] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:32:54.626] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:32:54.628] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:32:54.629] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:32:54.630] [INFO] default - 开始处理模块: home
+[2019-12-28T16:32:54.687] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:32:54.717] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:32:54.750] [DEBUG] default - 模块headKeyValueList处理用时: 63 毫秒!
+[2019-12-28T16:32:54.750] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:32:54.830] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:32:54.856] [DEBUG] default - 模块styleList处理用时: 106 毫秒!
+[2019-12-28T16:32:54.860] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:32:54.864] [DEBUG] default - 页面home处理用时: 233 毫秒!
+[2019-12-28T16:32:54.866] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:32:54.867] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:32:54.881] [INFO] default - 处理字体: {}
+[2019-12-28T16:32:54.887] [INFO] default - 使用postcss处理完毕! 用时: 20 毫秒
+[2019-12-28T16:32:54.887] [INFO] default - 正在处理script!
+[2019-12-28T16:32:55.130] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:32:55.131] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:32:55.131] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:32:55.131] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:32:55.131] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:32:55.131] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:32:55.131] [DEBUG] default - 输出scriptData
+[2019-12-28T16:32:55.133] [DEBUG] default - 准备输出html!
+[2019-12-28T16:32:55.135] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:32:55.136] [INFO] default - 编译结束!
+[2019-12-28T16:32:55.138] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:32:55.141] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:32:55.141] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:32:55.142] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:32:55.155] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:33:25.623] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:33:25.624] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:33:25.624] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:33:25.624] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:33:25.624] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:33:25.626] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:33:25.626] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:33:25.627] [INFO] default - 开始处理模块: home
+[2019-12-28T16:33:25.658] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:33:25.692] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:33:25.716] [DEBUG] default - 模块headKeyValueList处理用时: 58 毫秒!
+[2019-12-28T16:33:25.716] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:33:25.781] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:33:25.803] [DEBUG] default - 模块styleList处理用时: 87 毫秒!
+[2019-12-28T16:33:25.803] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:33:25.803] [DEBUG] default - 页面home处理用时: 176 毫秒!
+[2019-12-28T16:33:25.803] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:33:25.803] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:33:25.819] [INFO] default - 处理字体: {}
+[2019-12-28T16:33:25.819] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:33:25.819] [INFO] default - 正在处理script!
+[2019-12-28T16:33:25.889] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:33:25.891] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:33:25.891] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:33:25.891] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:33:25.891] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:33:25.891] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:33:25.891] [DEBUG] default - 输出scriptData
+[2019-12-28T16:33:25.892] [DEBUG] default - 准备输出html!
+[2019-12-28T16:33:25.894] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:33:25.895] [INFO] default - 编译结束!
+[2019-12-28T16:33:25.896] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:33:25.896] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:33:25.898] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:33:25.899] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:33:25.899] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:34:34.810] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:34:34.810] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:34:34.810] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:34:34.810] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:34:34.811] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:34:34.811] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:34:34.811] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:34:34.811] [INFO] default - 开始处理模块: home
+[2019-12-28T16:34:34.874] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:34:34.904] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:34:34.919] [DEBUG] default - 模块headKeyValueList处理用时: 50 毫秒!
+[2019-12-28T16:34:34.919] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:34:34.975] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:34:34.991] [DEBUG] default - 模块styleList处理用时: 72 毫秒!
+[2019-12-28T16:34:34.991] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:34:34.991] [DEBUG] default - 页面home处理用时: 180 毫秒!
+[2019-12-28T16:34:34.991] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:34:34.991] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:34:35.006] [INFO] default - 处理字体: {}
+[2019-12-28T16:34:35.006] [INFO] default - 使用postcss处理完毕! 用时: 15 毫秒
+[2019-12-28T16:34:35.006] [INFO] default - 正在处理script!
+[2019-12-28T16:34:35.027] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:34:35.027] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:34:35.027] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:34:35.027] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:34:35.027] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:34:35.027] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:34:35.027] [DEBUG] default - 输出scriptData
+[2019-12-28T16:34:35.042] [DEBUG] default - 准备输出html!
+[2019-12-28T16:34:35.043] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:34:35.045] [INFO] default - 编译结束!
+[2019-12-28T16:34:35.045] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:34:35.046] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:34:35.047] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:34:35.047] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:34:35.049] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:36:15.612] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:36:15.612] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:36:15.612] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:36:15.612] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:36:15.612] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:36:15.614] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:36:15.614] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:36:15.615] [INFO] default - 开始处理模块: home
+[2019-12-28T16:36:15.664] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:36:15.686] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:36:15.703] [DEBUG] default - 模块headKeyValueList处理用时: 39 毫秒!
+[2019-12-28T16:36:15.704] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:36:15.812] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:36:15.862] [DEBUG] default - 模块styleList处理用时: 159 毫秒!
+[2019-12-28T16:36:15.863] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:36:15.868] [DEBUG] default - 页面home处理用时: 253 毫秒!
+[2019-12-28T16:36:15.871] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:36:15.871] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:36:15.886] [INFO] default - 处理字体: {}
+[2019-12-28T16:36:15.887] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:36:15.887] [INFO] default - 正在处理script!
+[2019-12-28T16:36:16.115] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:36:16.119] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:36:16.121] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:36:16.121] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:36:16.121] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:36:16.121] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:36:16.122] [DEBUG] default - 输出scriptData
+[2019-12-28T16:36:16.124] [DEBUG] default - 准备输出html!
+[2019-12-28T16:36:16.127] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:36:16.127] [INFO] default - 编译结束!
+[2019-12-28T16:36:16.127] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:36:16.279] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:36:16.284] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:36:16.291] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:36:16.292] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:37:35.100] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:37:35.100] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:37:35.100] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:37:35.100] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:37:35.100] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:37:35.102] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:37:35.103] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:37:35.103] [INFO] default - 开始处理模块: home
+[2019-12-28T16:37:35.141] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:37:35.153] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:37:35.159] [DEBUG] default - 模块headKeyValueList处理用时: 18 毫秒!
+[2019-12-28T16:37:35.159] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:37:35.189] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:37:35.197] [DEBUG] default - 模块styleList处理用时: 38 毫秒!
+[2019-12-28T16:37:35.197] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:37:35.199] [DEBUG] default - 页面home处理用时: 96 毫秒!
+[2019-12-28T16:37:35.199] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:37:35.199] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:37:35.200] [INFO] default - 处理字体: {}
+[2019-12-28T16:37:35.204] [INFO] default - 使用postcss处理完毕! 用时: 5 毫秒
+[2019-12-28T16:37:35.204] [INFO] default - 正在处理script!
+[2019-12-28T16:37:35.258] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:37:35.258] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:37:35.259] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:37:35.259] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:37:35.259] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:37:35.259] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:37:35.259] [DEBUG] default - 输出scriptData
+[2019-12-28T16:37:35.263] [DEBUG] default - 准备输出html!
+[2019-12-28T16:37:35.265] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:37:35.266] [INFO] default - 编译结束!
+[2019-12-28T16:37:35.270] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:37:35.271] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:37:35.282] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:37:35.283] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:37:35.290] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:37:45.218] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:37:45.218] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:37:45.218] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:37:45.218] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:37:45.218] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:37:45.219] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:37:45.219] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:37:45.219] [INFO] default - 开始处理模块: home
+[2019-12-28T16:37:45.283] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:37:45.318] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:37:45.331] [DEBUG] default - 模块headKeyValueList处理用时: 48 毫秒!
+[2019-12-28T16:37:45.332] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:37:45.368] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:37:45.384] [DEBUG] default - 模块styleList处理用时: 52 毫秒!
+[2019-12-28T16:37:45.384] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:37:45.384] [DEBUG] default - 页面home处理用时: 165 毫秒!
+[2019-12-28T16:37:45.384] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:37:45.384] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:37:45.384] [INFO] default - 处理字体: {}
+[2019-12-28T16:37:45.384] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T16:37:45.384] [INFO] default - 正在处理script!
+[2019-12-28T16:37:45.651] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:37:45.658] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:37:45.659] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:37:45.659] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:37:45.659] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:37:45.659] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:37:45.659] [DEBUG] default - 输出scriptData
+[2019-12-28T16:37:45.664] [DEBUG] default - 准备输出html!
+[2019-12-28T16:37:45.667] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:37:45.669] [INFO] default - 编译结束!
+[2019-12-28T16:37:45.670] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:37:45.671] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:37:45.673] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:37:45.681] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:37:45.682] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:38:42.472] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:38:42.472] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:38:42.475] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:38:42.475] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:38:42.475] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:38:42.477] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:38:42.477] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:38:42.478] [INFO] default - 开始处理模块: home
+[2019-12-28T16:38:42.553] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:38:42.580] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:38:42.590] [DEBUG] default - 模块headKeyValueList处理用时: 41 毫秒!
+[2019-12-28T16:38:42.590] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:38:42.678] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:38:42.678] [DEBUG] default - 模块styleList处理用时: 88 毫秒!
+[2019-12-28T16:38:42.694] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:38:42.694] [DEBUG] default - 页面home处理用时: 216 毫秒!
+[2019-12-28T16:38:42.694] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:38:42.694] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:38:42.701] [INFO] default - 处理字体: {}
+[2019-12-28T16:38:42.701] [INFO] default - 使用postcss处理完毕! 用时: 7 毫秒
+[2019-12-28T16:38:42.701] [INFO] default - 正在处理script!
+[2019-12-28T16:38:42.757] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:38:42.758] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:38:42.758] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:38:42.758] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:38:42.758] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:38:42.758] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:38:42.758] [DEBUG] default - 输出scriptData
+[2019-12-28T16:38:42.761] [DEBUG] default - 准备输出html!
+[2019-12-28T16:38:42.763] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:38:42.764] [INFO] default - 编译结束!
+[2019-12-28T16:38:42.769] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:38:42.770] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:38:42.771] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:38:42.771] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:38:42.776] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:38:54.532] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:38:54.532] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:38:54.532] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:38:54.532] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:38:54.532] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:38:54.535] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:38:54.535] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:38:54.536] [INFO] default - 开始处理模块: home
+[2019-12-28T16:38:54.593] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:38:54.616] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:38:54.631] [DEBUG] default - 模块headKeyValueList处理用时: 38 毫秒!
+[2019-12-28T16:38:54.631] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:38:54.703] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:38:54.737] [DEBUG] default - 模块styleList处理用时: 106 毫秒!
+[2019-12-28T16:38:54.738] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:38:54.738] [DEBUG] default - 页面home处理用时: 202 毫秒!
+[2019-12-28T16:38:54.742] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:38:54.742] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:38:54.754] [INFO] default - 处理字体: {}
+[2019-12-28T16:38:54.761] [INFO] default - 使用postcss处理完毕! 用时: 19 毫秒
+[2019-12-28T16:38:54.761] [INFO] default - 正在处理script!
+[2019-12-28T16:38:54.866] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:38:54.893] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:38:54.893] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:38:54.894] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:38:54.894] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:38:54.894] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:38:54.894] [DEBUG] default - 输出scriptData
+[2019-12-28T16:38:54.953] [DEBUG] default - 准备输出html!
+[2019-12-28T16:38:54.957] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:38:54.958] [INFO] default - 编译结束!
+[2019-12-28T16:38:54.958] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:38:54.960] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:38:54.961] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:38:54.961] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:38:54.962] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:41:19.199] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:41:19.199] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:41:19.199] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:41:19.199] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:41:19.199] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:41:19.205] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:41:19.205] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:41:19.205] [INFO] default - 开始处理模块: home
+[2019-12-28T16:41:19.285] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:41:19.296] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:41:19.316] [DEBUG] default - 模块headKeyValueList处理用时: 31 毫秒!
+[2019-12-28T16:41:19.316] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:41:19.390] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:41:19.421] [DEBUG] default - 模块styleList处理用时: 105 毫秒!
+[2019-12-28T16:41:19.421] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:41:19.421] [DEBUG] default - 页面home处理用时: 216 毫秒!
+[2019-12-28T16:41:19.421] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:41:19.421] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:41:19.437] [INFO] default - 处理字体: {}
+[2019-12-28T16:41:19.437] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:41:19.437] [INFO] default - 正在处理script!
+[2019-12-28T16:41:19.512] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:41:19.512] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:41:19.512] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:41:19.512] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:41:19.512] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:41:19.512] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:41:19.512] [DEBUG] default - 输出scriptData
+[2019-12-28T16:41:19.522] [DEBUG] default - 准备输出html!
+[2019-12-28T16:41:19.525] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:41:19.526] [INFO] default - 编译结束!
+[2019-12-28T16:41:19.527] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:41:19.529] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:41:19.529] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:41:19.530] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:41:19.530] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:42:30.217] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:42:30.217] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:42:30.217] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:42:30.217] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:42:30.217] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:42:30.217] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:42:30.217] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:42:30.217] [INFO] default - 开始处理模块: home
+[2019-12-28T16:42:30.265] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:42:30.279] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:42:30.290] [DEBUG] default - 模块headKeyValueList处理用时: 25 毫秒!
+[2019-12-28T16:42:30.290] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:42:30.334] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:42:30.350] [DEBUG] default - 模块styleList处理用时: 60 毫秒!
+[2019-12-28T16:42:30.350] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:42:30.350] [DEBUG] default - 页面home处理用时: 133 毫秒!
+[2019-12-28T16:42:30.350] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:42:30.350] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:42:30.366] [INFO] default - 处理字体: {}
+[2019-12-28T16:42:30.366] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T16:42:30.366] [INFO] default - 正在处理script!
+[2019-12-28T16:42:30.408] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:42:30.408] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:42:30.408] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:42:30.408] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:42:30.408] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:42:30.408] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:42:30.408] [DEBUG] default - 输出scriptData
+[2019-12-28T16:42:30.411] [DEBUG] default - 准备输出html!
+[2019-12-28T16:42:30.413] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:42:30.413] [INFO] default - 编译结束!
+[2019-12-28T16:42:30.414] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:42:30.415] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:42:30.415] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:42:30.415] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:42:30.416] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:43:02.457] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:43:02.457] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:43:02.457] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:43:02.457] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:43:02.457] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:43:02.458] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:43:02.458] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:43:02.460] [INFO] default - 开始处理模块: home
+[2019-12-28T16:43:02.490] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:43:02.528] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:43:02.543] [DEBUG] default - 模块headKeyValueList处理用时: 53 毫秒!
+[2019-12-28T16:43:02.543] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:43:02.613] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:43:02.637] [DEBUG] default - 模块styleList处理用时: 94 毫秒!
+[2019-12-28T16:43:02.637] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:43:02.637] [DEBUG] default - 页面home处理用时: 177 毫秒!
+[2019-12-28T16:43:02.641] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:43:02.641] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:43:02.650] [INFO] default - 处理字体: {}
+[2019-12-28T16:43:02.654] [INFO] default - 使用postcss处理完毕! 用时: 13 毫秒
+[2019-12-28T16:43:02.654] [INFO] default - 正在处理script!
+[2019-12-28T16:43:02.733] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:43:02.735] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:43:02.735] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:43:02.735] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:43:02.735] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:43:02.735] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:43:02.735] [DEBUG] default - 输出scriptData
+[2019-12-28T16:43:02.739] [DEBUG] default - 准备输出html!
+[2019-12-28T16:43:02.741] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:43:02.742] [INFO] default - 编译结束!
+[2019-12-28T16:43:02.744] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:43:02.749] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:43:02.749] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:43:02.750] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:43:02.750] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:45:26.803] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T16:45:26.803] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:45:26.803] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:45:26.803] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T16:45:26.803] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:45:26.805] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:45:26.805] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:45:26.806] [INFO] default - 开始处理模块: home
+[2019-12-28T16:45:26.902] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:45:26.917] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:45:26.917] [DEBUG] default - 模块headKeyValueList处理用时: 15 毫秒!
+[2019-12-28T16:45:26.917] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:45:26.929] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:45:26.929] [DEBUG] default - 模块styleList处理用时: 12 毫秒!
+[2019-12-28T16:45:26.929] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T16:45:26.947] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T16:45:26.947] [DEBUG] default - 模块scriptList处理用时: 18 毫秒!
+[2019-12-28T16:45:26.953] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:45:26.953] [DEBUG] default - 页面home处理用时: 147 毫秒!
+[2019-12-28T16:45:26.954] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:45:26.954] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:45:26.954] [INFO] default - 处理字体: {}
+[2019-12-28T16:45:26.954] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T16:45:26.954] [INFO] default - 正在处理script!
+[2019-12-28T16:45:26.989] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:45:26.990] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:45:26.990] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:45:26.992] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:45:26.992] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:45:26.992] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:45:26.992] [DEBUG] default - 输出scriptData
+[2019-12-28T16:45:26.993] [DEBUG] default - 准备输出html!
+[2019-12-28T16:45:26.994] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:45:26.995] [INFO] default - 编译结束!
+[2019-12-28T16:45:26.996] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:45:26.996] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:45:26.996] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:45:26.996] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:45:26.997] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:45:46.385] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\scriptList.owo
+[2019-12-28T16:45:46.385] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:45:46.385] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:45:46.385] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\scriptList.owo
+[2019-12-28T16:45:46.385] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:45:46.388] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:45:46.388] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:45:46.389] [INFO] default - 开始处理模块: home
+[2019-12-28T16:45:46.458] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:45:46.507] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:45:46.539] [DEBUG] default - 模块headKeyValueList处理用时: 81 毫秒!
+[2019-12-28T16:45:46.541] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:45:46.573] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:45:46.594] [DEBUG] default - 模块styleList处理用时: 55 毫秒!
+[2019-12-28T16:45:46.595] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T16:45:46.660] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T16:45:46.678] [DEBUG] default - 模块scriptList处理用时: 84 毫秒!
+[2019-12-28T16:45:46.680] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:45:46.680] [DEBUG] default - 页面home处理用时: 291 毫秒!
+[2019-12-28T16:45:46.684] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:45:46.684] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:45:46.697] [INFO] default - 处理字体: {}
+[2019-12-28T16:45:46.699] [INFO] default - 使用postcss处理完毕! 用时: 15 毫秒
+[2019-12-28T16:45:46.699] [INFO] default - 正在处理script!
+[2019-12-28T16:45:46.761] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:45:46.765] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:45:46.765] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:45:46.765] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:45:46.765] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:45:46.765] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:45:46.765] [DEBUG] default - 输出scriptData
+[2019-12-28T16:45:46.769] [DEBUG] default - 准备输出html!
+[2019-12-28T16:45:46.773] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:45:46.776] [INFO] default - 编译结束!
+[2019-12-28T16:45:46.778] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:45:46.781] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:45:46.781] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:45:46.781] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:45:46.785] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:45:54.148] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:45:54.151] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:45:54.151] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:45:54.151] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:45:54.152] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:45:54.155] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:45:54.155] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:45:54.156] [INFO] default - 开始处理模块: home
+[2019-12-28T16:45:54.245] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:45:54.253] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:45:54.263] [DEBUG] default - 模块headKeyValueList处理用时: 18 毫秒!
+[2019-12-28T16:45:54.263] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:45:54.298] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:45:54.315] [DEBUG] default - 模块styleList处理用时: 52 毫秒!
+[2019-12-28T16:45:54.315] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T16:45:54.356] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T16:45:54.356] [DEBUG] default - 模块scriptList处理用时: 41 毫秒!
+[2019-12-28T16:45:54.356] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:45:54.356] [DEBUG] default - 页面home处理用时: 200 毫秒!
+[2019-12-28T16:45:54.371] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:45:54.371] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:45:54.371] [INFO] default - 处理字体: {}
+[2019-12-28T16:45:54.384] [INFO] default - 使用postcss处理完毕! 用时: 13 毫秒
+[2019-12-28T16:45:54.384] [INFO] default - 正在处理script!
+[2019-12-28T16:45:54.415] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:45:54.415] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:45:54.415] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:45:54.415] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:45:54.415] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:45:54.415] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:45:54.415] [DEBUG] default - 输出scriptData
+[2019-12-28T16:45:54.425] [DEBUG] default - 准备输出html!
+[2019-12-28T16:45:54.428] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:45:54.428] [INFO] default - 编译结束!
+[2019-12-28T16:45:54.429] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:45:54.430] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:45:54.430] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:45:54.430] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:45:54.433] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:46:02.496] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:46:02.496] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:46:02.496] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:46:02.496] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\headKeyValueList.owo
+[2019-12-28T16:46:02.496] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:46:02.498] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:46:02.498] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:46:02.498] [INFO] default - 开始处理模块: home
+[2019-12-28T16:46:02.542] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:46:02.614] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:46:02.614] [DEBUG] default - 模块headKeyValueList处理用时: 72 毫秒!
+[2019-12-28T16:46:02.614] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:46:02.647] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:46:02.656] [DEBUG] default - 模块styleList处理用时: 42 毫秒!
+[2019-12-28T16:46:02.656] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T16:46:02.672] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T16:46:02.672] [DEBUG] default - 模块scriptList处理用时: 16 毫秒!
+[2019-12-28T16:46:02.672] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:46:02.672] [DEBUG] default - 页面home处理用时: 174 毫秒!
+[2019-12-28T16:46:02.672] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:46:02.672] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:46:02.672] [INFO] default - 处理字体: {}
+[2019-12-28T16:46:02.672] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T16:46:02.672] [INFO] default - 正在处理script!
+[2019-12-28T16:46:02.710] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:46:02.711] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:46:02.711] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:46:02.711] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:46:02.711] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:46:02.711] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:46:02.711] [DEBUG] default - 输出scriptData
+[2019-12-28T16:46:02.712] [DEBUG] default - 准备输出html!
+[2019-12-28T16:46:02.713] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:46:02.714] [INFO] default - 编译结束!
+[2019-12-28T16:46:02.715] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:46:02.716] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:46:02.716] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T16:46:02.717] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:46:02.718] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:59:12.621] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:59:12.621] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T16:59:12.621] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T16:59:12.621] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\styleList.owo
+[2019-12-28T16:59:12.621] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T16:59:12.623] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T16:59:12.623] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T16:59:12.624] [INFO] default - 开始处理模块: home
+[2019-12-28T16:59:12.678] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T16:59:12.697] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T16:59:12.712] [DEBUG] default - 模块headKeyValueList处理用时: 34 毫秒!
+[2019-12-28T16:59:12.712] [INFO] default - 开始处理模块: styleList
+[2019-12-28T16:59:12.791] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T16:59:12.791] [DEBUG] default - 模块styleList处理用时: 79 毫秒!
+[2019-12-28T16:59:12.791] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T16:59:12.817] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T16:59:12.846] [DEBUG] default - 模块scriptList处理用时: 55 毫秒!
+[2019-12-28T16:59:12.849] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T16:59:12.849] [DEBUG] default - 页面home处理用时: 225 毫秒!
+[2019-12-28T16:59:12.849] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T16:59:12.849] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T16:59:12.868] [INFO] default - 处理字体: {}
+[2019-12-28T16:59:12.870] [INFO] default - 使用postcss处理完毕! 用时: 21 毫秒
+[2019-12-28T16:59:12.870] [INFO] default - 正在处理script!
+[2019-12-28T16:59:12.898] [INFO] default - 工程中只有一个页面!
+[2019-12-28T16:59:12.910] [INFO] default - js中的资源处理完毕!
+[2019-12-28T16:59:12.910] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T16:59:12.911] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T16:59:12.911] [DEBUG] default - 处理脚本: main
+[2019-12-28T16:59:12.911] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:59:12.911] [DEBUG] default - 输出scriptData
+[2019-12-28T16:59:12.913] [DEBUG] default - 准备输出html!
+[2019-12-28T16:59:12.915] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T16:59:12.915] [INFO] default - 编译结束!
+[2019-12-28T16:59:12.917] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T16:59:12.918] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T16:59:12.919] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T16:59:12.919] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T16:59:12.922] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T17:02:52.022] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\pageList.owo
+[2019-12-28T17:02:52.022] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T17:02:52.022] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T17:02:52.026] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\pageList.owo
+[2019-12-28T17:02:52.027] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T17:02:52.029] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T17:02:52.029] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T17:02:52.029] [INFO] default - 开始处理模块: home
+[2019-12-28T17:02:52.111] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T17:02:52.128] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T17:02:52.144] [DEBUG] default - 模块headKeyValueList处理用时: 33 毫秒!
+[2019-12-28T17:02:52.144] [INFO] default - 开始处理模块: styleList
+[2019-12-28T17:02:52.159] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T17:02:52.176] [DEBUG] default - 模块styleList处理用时: 32 毫秒!
+[2019-12-28T17:02:52.176] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T17:02:52.192] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T17:02:52.208] [DEBUG] default - 模块scriptList处理用时: 32 毫秒!
+[2019-12-28T17:02:52.208] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T17:02:52.208] [DEBUG] default - 页面home处理用时: 179 毫秒!
+[2019-12-28T17:02:52.208] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T17:02:52.208] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T17:02:52.208] [INFO] default - 处理字体: {}
+[2019-12-28T17:02:52.208] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T17:02:52.208] [INFO] default - 正在处理script!
+[2019-12-28T17:02:52.251] [INFO] default - 工程中只有一个页面!
+[2019-12-28T17:02:52.251] [INFO] default - js中的资源处理完毕!
+[2019-12-28T17:02:52.251] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T17:02:52.251] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T17:02:52.251] [DEBUG] default - 处理脚本: main
+[2019-12-28T17:02:52.251] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T17:02:52.251] [DEBUG] default - 输出scriptData
+[2019-12-28T17:02:52.258] [DEBUG] default - 准备输出html!
+[2019-12-28T17:02:52.261] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T17:02:52.262] [INFO] default - 编译结束!
+[2019-12-28T17:02:52.270] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T17:02:52.273] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T17:02:52.273] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T17:02:52.273] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T17:02:52.278] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T17:05:11.970] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\pageList.owo
+[2019-12-28T17:05:11.970] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T17:05:11.970] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T17:05:11.970] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\module\pageList.owo
+[2019-12-28T17:05:11.970] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T17:05:11.972] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T17:05:11.972] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T17:05:11.973] [INFO] default - 开始处理模块: home
+[2019-12-28T17:05:12.003] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T17:05:12.033] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T17:05:12.033] [DEBUG] default - 模块headKeyValueList处理用时: 30 毫秒!
+[2019-12-28T17:05:12.033] [INFO] default - 开始处理模块: styleList
+[2019-12-28T17:05:12.049] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T17:05:12.049] [DEBUG] default - 模块styleList处理用时: 16 毫秒!
+[2019-12-28T17:05:12.049] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T17:05:12.063] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T17:05:12.063] [DEBUG] default - 模块scriptList处理用时: 14 毫秒!
+[2019-12-28T17:05:12.063] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T17:05:12.063] [DEBUG] default - 页面home处理用时: 90 毫秒!
+[2019-12-28T17:05:12.063] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T17:05:12.063] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T17:05:12.063] [INFO] default - 处理字体: {}
+[2019-12-28T17:05:12.063] [INFO] default - 使用postcss处理完毕! 用时: 0 毫秒
+[2019-12-28T17:05:12.063] [INFO] default - 正在处理script!
+[2019-12-28T17:05:12.096] [INFO] default - 工程中只有一个页面!
+[2019-12-28T17:05:12.096] [INFO] default - js中的资源处理完毕!
+[2019-12-28T17:05:12.096] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T17:05:12.096] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T17:05:12.096] [DEBUG] default - 处理脚本: main
+[2019-12-28T17:05:12.096] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T17:05:12.096] [DEBUG] default - 输出scriptData
+[2019-12-28T17:05:12.099] [DEBUG] default - 准备输出html!
+[2019-12-28T17:05:12.100] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T17:05:12.101] [INFO] default - 编译结束!
+[2019-12-28T17:05:12.102] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T17:05:12.103] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T17:05:12.104] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css
+[2019-12-28T17:05:12.104] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T17:05:12.106] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T17:05:36.579] [INFO] default - file change: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T17:05:36.579] [INFO] default - --------------------------- 开始编译 ---------------------------
+[2019-12-28T17:05:36.579] [INFO] default - 程序运行目录: C:\Users\PUGE\Documents\GitHub\pack\control
+[2019-12-28T17:05:36.579] [INFO] default - 刷新模式,变化目录: C:\Users\PUGE\Documents\GitHub\pack\control\src\page\home.owo
+[2019-12-28T17:05:36.579] [INFO] default - 读取模板文件: C:\Users\PUGE\Documents\GitHub\pack\lib\index.html
+[2019-12-28T17:05:36.580] [DEBUG] default - 读取网页标题: {TAG_14226_TAG}
+[2019-12-28T17:05:36.580] [DEBUG] default - 处理页面源信息: [{"http-equiv":"content-type","content":"text/html; charset=UTF-8"},{"name":"viewport","content":"width=1200, user-scalable=no"},{"name":"format-detection","content":"telephone=no, email=no"},{"name":"apple-mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-status-bar-style","content":"white"},{"name":"renderer","content":"webkit"},{"http-equiv":"X-UA-Compatible","content":"IE=edge,chrome=1"},{"name":"filetype","content":"1"},{"name":"publishedtype","content":"1"},{"name":"pagetype","content":"2"},{"name":"screen-orientation","content":"landscape"},{"name":"x5-orientation","content":"landscape"},{"name":"full-screen","content":"yes"},{"name":"x5-fullscreen","content":"true"},{"name":"browsermode","content":"application"},{"name":"x5-page-mode","content":"app"}]
+[2019-12-28T17:05:36.580] [INFO] default - 开始处理模块: home
+[2019-12-28T17:05:36.659] [INFO] default - 开始处理模块: headKeyValueList
+[2019-12-28T17:05:36.698] [DEBUG] default - 缓存模板: headKeyValueList./src/module/headKeyValueList.owo
+[2019-12-28T17:05:36.707] [DEBUG] default - 模块headKeyValueList处理用时: 48 毫秒!
+[2019-12-28T17:05:36.711] [INFO] default - 开始处理模块: styleList
+[2019-12-28T17:05:36.727] [DEBUG] default - 缓存模板: styleList./src/module/styleList.owo
+[2019-12-28T17:05:36.740] [DEBUG] default - 模块styleList处理用时: 33 毫秒!
+[2019-12-28T17:05:36.740] [INFO] default - 开始处理模块: scriptList
+[2019-12-28T17:05:36.756] [DEBUG] default - 缓存模板: scriptList./src/module/scriptList.owo
+[2019-12-28T17:05:36.771] [DEBUG] default - 模块scriptList处理用时: 31 毫秒!
+[2019-12-28T17:05:36.771] [INFO] default - 开始处理模块: pageList
+[2019-12-28T17:05:36.817] [DEBUG] default - 缓存模板: pageList./src/module/pageList.owo
+[2019-12-28T17:05:36.817] [DEBUG] default - 模块pageList处理用时: 46 毫秒!
+[2019-12-28T17:05:36.817] [DEBUG] default - 缓存模板: home./src/page/home.owo
+[2019-12-28T17:05:36.817] [DEBUG] default - 页面home处理用时: 237 毫秒!
+[2019-12-28T17:05:36.817] [DEBUG] default - css中的资源处理完毕!
+[2019-12-28T17:05:36.817] [DEBUG] default - 使用postcss处理样式，使用了1个插件!
+[2019-12-28T17:05:36.833] [INFO] default - 处理字体: {}
+[2019-12-28T17:05:36.833] [INFO] default - 使用postcss处理完毕! 用时: 16 毫秒
+[2019-12-28T17:05:36.833] [INFO] default - 正在处理script!
+[2019-12-28T17:05:36.896] [INFO] default - 工程中只有一个页面!
+[2019-12-28T17:05:36.896] [INFO] default - js中的资源处理完毕!
+[2019-12-28T17:05:36.896] [DEBUG] default - 处理引用脚本: [{"name":"main","src":"./src/main.js","resource":true}]
+[2019-12-28T17:05:36.896] [DEBUG] default - 外部脚本数量: 1
+[2019-12-28T17:05:36.896] [DEBUG] default - 处理脚本: main
+[2019-12-28T17:05:36.896] [INFO] default - 读取文件: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T17:05:36.896] [DEBUG] default - 输出scriptData
+[2019-12-28T17:05:36.899] [DEBUG] default - 准备输出html!
+[2019-12-28T17:05:36.901] [DEBUG] default - 页面中不包含切换动画!
+[2019-12-28T17:05:36.901] [INFO] default - 编译结束!
+[2019-12-28T17:05:36.902] [INFO] default - 发送页面需要刷新命令!
+[2019-12-28T17:05:37.001] [INFO] default - 主要逻辑文件写出成功!
+[2019-12-28T17:05:37.001] [INFO] default - 读取成功: C:\Users\PUGE\Documents\GitHub\pack\control\src\main.js
+[2019-12-28T17:05:37.005] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\js\main.js
+[2019-12-28T17:05:37.006] [INFO] default - 写入文件: C:\Users\PUGE\Documents\GitHub\pack\control\dist\static\css\owo.main.css

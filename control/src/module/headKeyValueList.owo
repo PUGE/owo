@@ -1,0 +1,50 @@
+<template lang="pug">
+table.key-value-list
+  tr
+    th 键名
+    th 键值
+    th 介绍
+    th 操作
+  tr(:for="item in 5") 55555
+</template>
+
+<script>
+  module.exports = {
+    broadcast: {
+      changeData: function (value) {
+        const data = value.headList
+        let newHtml = '<tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>'
+        data.forEach(element => {
+          newHtml += `<tr class="key-value-item"><td class="td">${element.name || element['http-equiv']}</td><td class="value">${element.content}</td><td class="info"></td><td class="tool"><span class="icon">&#xe645;</span></td></tr>`
+        })
+        this.$el.innerHTML = newHtml
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+table {
+  width: 100%;
+}
+tr {
+  line-height: 25px;
+}
+th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+.tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+</style>

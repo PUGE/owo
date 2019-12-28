@@ -16,7 +16,10 @@
     .input-bar
       .label 资源目录
       input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
-    plug(_src="./src/module/keyValueList.owo" _name="keyValueList" list="{{data.config.headList}}")
+    plug(_src="./src/module/headKeyValueList.owo" _name="headKeyValueList")
+    plug(_src="./src/module/styleList.owo" _name="styleList")
+    plug(_src="./src/module/scriptList.owo" _name="scriptList")
+    plug(_src="./src/module/pageList.owo" _name="pageList")
 </template>
 
 <script>
@@ -28,6 +31,7 @@
       fetch('../getControl').then(response => response.json()).then(data => {
         console.log(data)
         owo.tool.change(this, 'config', data)
+        owo.tool.emit('changeData', data)
       })
     }
   }

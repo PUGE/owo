@@ -1,0 +1,45 @@
+<template lang="pug">
+table.page-list
+</template>
+
+<script>
+  module.exports = {
+    broadcast: {
+      changeData: function (value) {
+        const data = value.pageList
+        let newHtml = '<tr><th>页面名</th><th>页面路径</th><th width="70px">类型</th><th>操作</th></tr>'
+        data.forEach(element => {
+          newHtml += `<tr class="key-value-item"><td class="name">${element.name}</td><td class="value">${element.src}</td><td class="type icon">${element.type}</td><td class="tool"><span class="icon">&#xe645;</span></td></tr>`
+        })
+        this.$el.innerHTML = newHtml
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+table {
+  width: 100%;
+}
+tr {
+  height: 30px;
+  line-height: 30px;
+}
+th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+.tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+</style>

@@ -65,3 +65,17 @@ h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, bu
 .fl {
   float: left;
 }
+
+@font-face {
+  font-family: 'iconfont';  /* project id 1587659 */
+  src: url('//at.alicdn.com/t/font_1587659_ku9qefq129.eot');
+  src: url('//at.alicdn.com/t/font_1587659_ku9qefq129.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1587659_ku9qefq129.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1587659_ku9qefq129.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1587659_ku9qefq129.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1587659_ku9qefq129.svg#iconfont') format('svg');
+}
+
+.icon {
+  font-family: "iconfont";
+}

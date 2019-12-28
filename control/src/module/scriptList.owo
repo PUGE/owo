@@ -1,0 +1,56 @@
+<template lang="pug">
+table.value-list
+  tr
+    th 键名
+    th 键值
+    th 介绍
+    th 操作
+  tr(:for="item in 5") 55555
+</template>
+
+<script>
+  module.exports = {
+    broadcast: {
+      changeData: function (value) {
+        const data = value.scriptList
+        let newHtml = '<tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th width="70px">babel</th><th width="70px">异步加载</th><th>操作</th></tr>'
+        data.forEach(element => {
+          newHtml += `<tr class="key-value-item"><td class="name">${element.name}</td><td class="value">${element.src}</td><td class="resource icon">${element.resource ? '&#xe661;' : '&#xe614;'}</td><td class="babel icon">${element.babel ? '&#xe661;' : '&#xe614;'}</td><td class="defer icon">${element.defer ? '&#xe661;' : '&#xe614;'}</td><td class="tool"><span class="icon">&#xe645;</span></td></tr>`
+        })
+        this.$el.innerHTML = newHtml
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+table {
+  width: 100%;
+}
+tr {
+  height: 30px;
+  line-height: 30px;
+}
+th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+.tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+.resource, .defer, .babel {
+  text-align: center;
+  font-size: 20px;
+  color: orange;
+}
+</style>
