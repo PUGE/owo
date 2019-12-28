@@ -191,6 +191,9 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   if (!newPageFunction) return
   // console.log(entryDom)
   newPageFunction['$el'] = entryDom
+  newPageFunction.$refresh = function () {
+    _owo.handleEvent(newPageFunction.$el, newPageFunction)
+  }
   // console.log(newPageFunction)
   _owo.runCreated(newPageFunction)
   // debugger
