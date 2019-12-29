@@ -139,7 +139,7 @@ if (config.server) {
   const express = require('express')
   const app = express()
   const bodyParser = require('body-parser')
-  app.use(bodyParser())
+  app.use(bodyParser.json())
   
   app.use(express.static(path.join(runPath, config.outFolder)))
   wsServe = require('express-ws')(app)
@@ -166,7 +166,28 @@ if (config.server) {
       res.send(JSON.stringify(config))
     })
     app.post('/setControl', (req, res) => {
-      fs.writeFile(path.join(runPath, 'owo.js'), `module.exports = ` + JSON.stringify(req.body), () => {
+      const data = req.body
+      data.needCreatFile.forEach(element => {
+        const filePath = path.join(runPath, element.src)
+        if (!fs.existsSync(filePath)) {
+          fs.writeFileSync(filePath, `
+<template lang="pug">
+.box
+</template>
+
+<script>
+  module.exports = {
+  }
+</script>
+
+
+<style lang="less">
+
+</style>
+          `)
+        }
+      })
+      fs.writeFile(path.join(runPath, 'owo.js'), `module.exports = ` + JSON.stringify(data.config), () => {
         // 重新加载配置
         res.send(JSON.stringify({
           err: 0,

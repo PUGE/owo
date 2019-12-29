@@ -26,7 +26,8 @@
 <script>
   module.exports = {
     data: {
-      config: {}
+      config: {},
+      needCreatFile: []
     },
     created: function () {
       fetch('../getControl').then(response => response.json()).then(data => {
@@ -53,7 +54,10 @@
     },
     seveConfig: function () {
       console.log(this.data.config)
-      this.postData('../setControl', this.data.config).then((res) => {
+      this.postData('../setControl', {
+        config: this.data.config,
+        needCreatFile: this.data.needCreatFile,
+      }).then((res) => {
         console.log(res)
       })
     },
@@ -82,6 +86,17 @@ table {
     font-size: 20px;
     color: #ccc;
     cursor: pointer;
+  }
+  select {
+    border: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+  }
+  .icon {
+    padding: 0;
   }
 }
 </style>

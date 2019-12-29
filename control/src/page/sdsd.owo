@@ -1,0 +1,15 @@
+
+<template lang="pug">
+.box
+</template>
+
+<script>
+  module.exports = {
+  }
+</script>
+
+
+<style lang="less">
+
+</style>
+          

@@ -52,7 +52,7 @@ table.style-list
       owo.tool.emit('changeData', owo.script.home.data.config)
     },
     delete: function (key) {
-      delete owo.script.home.data.config.styleList[key]
+      owo.script.home.data.config.styleList.splice(key, 1)
       owo.tool.emit('changeData', owo.script.home.data.config)
     }
   }

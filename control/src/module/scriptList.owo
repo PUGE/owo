@@ -4,6 +4,11 @@ table.scrip-list
 
 <script>
   module.exports = {
+    data: {
+      resource: false,
+      babel: false,
+      defer: false
+    },
     broadcast: {
       changeData: function (value) {
         const data = value.scriptList
@@ -16,9 +21,18 @@ table.scrip-list
             <td class="resource icon${element.resource ? ' check' : ''}" ind="${key}" o-tap="changeValue('resource')">${element.resource ? '&#xe661;' : '&#xe614;'}</td>
             <td class="babel icon${element.babel ? ' check' : ''}" ind="${key}" o-tap="changeValue('babel')">${element.babel ? '&#xe661;' : '&#xe614;'}</td>
             <td class="defer icon${element.defer ? ' check' : ''}" ind="${key}" o-tap="changeValue('defer')">${element.defer ? '&#xe661;' : '&#xe614;'}</td>
-            <td class="tool"><span class="icon">&#xe645;</span></td></tr>`
+            <td class="tool"><span class="icon" o-tap="delete(${key})">&#xe645;</span></td></tr>`
           }
         }
+        newHtml += `
+          <tr>
+            <td><input type="text" placeholder="新增样式名称" class="nameInput"></input></td>
+            <td><input placeholder="新增样式路径" type="text" class="srcInput"></input></td>
+            <td width="70px" class="icon icon-box resource-check" o-tap="changeDataValue('resource')">&#xe614;</td>
+            <td width="70px" class="icon icon-box" o-tap="changeDataValue('babel')">&#xe614;</td>
+            <td width="70px" class="icon icon-box" o-tap="changeDataValue('defer')">&#xe614;</td>
+            <td class="tool icon" o-tap="add">&#xe600;</td>
+          </tr>`
         this.$el.innerHTML = newHtml
         this.$refresh()
       }
@@ -27,6 +41,37 @@ table.scrip-list
       const target = this.$target
       const ind = parseInt(target.getAttribute('ind'))
       owo.script.home.data.config.scriptList[ind][key] = !target.classList.contains('check')
+      owo.tool.emit('changeData', owo.script.home.data.config)
+    },
+    changeDataValue: function (dataItem) {
+      const target = this.$target
+      this.data[dataItem] = !this.data[dataItem]
+      if (this.data[dataItem]) {
+        target.classList.add('check')
+        target.innerHTML = '&#xe661;'
+      } else {
+        target.classList.remove('check')
+        target.innerHTML = '&#xe614;'
+      }
+    },
+    add: function () {
+      const name = this.$el.getElementsByClassName('nameInput')[0].value
+      const src = this.$el.getElementsByClassName('srcInput')[0].value
+      if (name && src) {
+        owo.script.home.data.config.scriptList.push({
+          name,
+          src,
+          resource: this.data.resource,
+          babel: this.data.babel,
+          defer: this.data.defer
+        })
+      } else {
+        owo.tool.remind('名称和路径不能为空!')
+      }
+      owo.tool.emit('changeData', owo.script.home.data.config)
+    },
+    delete: function (key) {
+      owo.script.home.data.config.scriptList.splice(key, 1)
       owo.tool.emit('changeData', owo.script.home.data.config)
     }
   }
