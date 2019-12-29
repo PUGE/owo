@@ -49,5 +49,16 @@ owo.tool.change = function (environment, key, value) {
       templateItem.prop[key2] = _owo.getValueFromScript(propMapItem.split('.'), environment)
     }
   }
+  var htmlList = environment.$el.querySelectorAll('[o-html]')
+  for (var ind = 0; ind < htmlList.length; ind++) {
+    var valueDom = htmlList[ind]
+    var temp = valueDom.getAttribute('o-html').replace(/ /g, '')
+    function tempRun (temp) {
+      return eval(temp)
+    }
+    const value = tempRun.apply(environment, [temp])
+    // console.log(value)
+    valueDom.innerHTML = value
+  }
   // console.log(environment, key, value)
 }

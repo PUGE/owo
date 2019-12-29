@@ -150,6 +150,14 @@ _owo.handleEvent = function (tempDom, moudleScript) {
             }
             break
           }
+          case 'html': {
+            var temp = eventFor.replace(/ /g, '')
+            function tempRun (temp) {
+              return eval(temp)
+            }
+            tempDom.innerHTML = tempRun.apply(moudleScript, [temp])
+            break
+          }
           default: {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
