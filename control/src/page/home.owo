@@ -16,7 +16,7 @@
       .menu-item
         .icon &#xe662;
         .text 打包配置
-      .menu-item
+      .menu-item(o-tap="activeContentItem('log')")
         .icon &#xe601;
         .text 日志管理
     .content.info(o-show="this.data.contentItem === 'info'")
@@ -26,10 +26,10 @@
           p(o-html="this.data.config.pageList.length")
         .card-bar-item
           h3 编译警告
-          p(style="color: #c1c187;") 0
+          p(style="color: #c1c187;" o-html="this.data.logInfo.warningNum") 0
         .card-bar-item
           h3  编译报错
-          p(style="color: red;") 0
+          p(style="color: red;" o-html="this.data.logInfo.errorNum") 0
         .card-bar-item
           h3 页面大小
           p(style="color: skyblue;") 1.23Mb
@@ -49,6 +49,7 @@
       .input-bar
         .label 资源目录
         input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
+      plug.content(src="./src/module/logContent.owo" name="logContent" o-show="this.data.contentItem === 'else'")
       plug(_src="./src/module/headKeyValueList.owo" _name="headKeyValueList")
       plug(_src="./src/module/styleList.owo" _name="styleList")
       plug(_src="./src/module/scriptList.owo" _name="scriptList")
@@ -60,11 +61,16 @@
     data: {
       contentItem: "info",
       config: {},
+      logInfo: {},
       needCreatFile: []
     },
     created: function () {
-      fetch('../getControl').then(response => response.json()).then(data => {
-        owo.tool.change(this, 'config', data)
+      fetch('../getControl').then(response => response.json()).then(res => {
+        const data = JSON.parse(res.config)
+        owo.tool.change(this, {
+          config: data,
+          logInfo: res.log
+        })
         owo.tool.emit('changeData', data)
       })
     },
@@ -98,7 +104,9 @@
       this.data.config[key] = this.$target.value
     },
     activeContentItem: function (value) {
-      owo.tool.change(this, 'contentItem', value)
+      owo.tool.change(this, {
+        contentItem: value
+      })
       this.$target.classList.add('active')
     }
   }

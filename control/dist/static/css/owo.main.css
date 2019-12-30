@@ -1,0 +1,349 @@
+body, html, .owo, .page-box {
+  padding: 0;
+  margin: 0;
+}
+
+.owo-animation {
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.owo-animated {
+  -webkit-animation-duration: 1s;
+  -o-animation-duration: 1s;
+     animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+     animation-fill-mode: both;
+}
+.owo-animation-forward {
+  z-index: 99;
+}
+
+
+a {
+  color: #333;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+img {
+  border: none;
+}
+
+/* 清除浮动 */
+.clear:after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+
+table {
+  width: 100%;
+}
+
+.key-value-list tr {
+  line-height: 25px;
+}
+
+.key-value-list th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.key-value-list td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+
+.key-value-list .tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+table {
+  width: 100%;
+}
+
+.style-list tr {
+  height: 30px;
+  line-height: 30px;
+}
+
+.style-list th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.style-list td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+
+.style-list .tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+
+.style-list .resource,
+.style-list .defer,
+.style-list .babel {
+  text-align: center;
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.style-list .check {
+  color: orange;
+}
+table {
+  width: 100%;
+}
+
+.scrip-list tr {
+  height: 30px;
+  line-height: 30px;
+}
+
+.scrip-list th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.scrip-list td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+
+.scrip-list .tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+
+.scrip-list .resource,
+.scrip-list .defer,
+.scrip-list .babel {
+  text-align: center;
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.scrip-list .check {
+  color: orange;
+}
+table {
+  width: 100%;
+}
+
+.page-list tr {
+  height: 30px;
+  line-height: 30px;
+}
+
+.page-list th {
+  background-color: burlywood;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.page-list td {
+  text-align: left;
+  background-color: ghostwhite;
+  padding: 0 10px;
+  color: #333;
+}
+
+.page-list .tool {
+  text-align: center;
+  color: #009fe9;
+  font-size: 20px;
+}
+.content-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: calc(100% - 50px);
+  overflow: hidden;
+}
+
+.content-box .menu {
+  width: 180px;
+  background-color: #333;
+}
+
+.content-box .content {
+  height: calc(100% - 40px);
+  overflow: auto;
+  width: calc(100% - 220px);
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+.title-bar {
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  background-color: #262626;
+}
+
+.title-bar .icon {
+  width: 40px;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: 26px;
+}
+
+table input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 30px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+table .icon-box {
+  text-align: center;
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+table select {
+  border: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 30px;
+}
+
+table .icon {
+  padding: 0;
+}
+
+.menu-item {
+  color: #bbb;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.menu-item .icon {
+  width: 40px;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+
+.menu-item .text {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  font-size: 16px;
+}
+
+.menu-item:hover {
+  background-color: #444;
+}
+
+.save-button {
+  line-height: 50px;
+  color: #bbb;
+  width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+}
+
+.card-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 80px;
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  padding: 20px;
+}
+
+.card-bar .card-bar-item {
+  width: 20%;
+  color: #888;
+  border-right: 1px solid #ccc;
+}
+
+.card-bar h3 {
+  line-height: 30px;
+  font-weight: normal;
+}
+
+.card-bar h3 .icon {
+  margin-right: 4px;
+}
+
+.card-bar p {
+  line-height: 50px;
+  color: black;
+  font-size: 30px;
+}
+
+.card-bar .card-bar-item:last-child {
+  border-right: none;
+}
+

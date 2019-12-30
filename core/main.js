@@ -98,11 +98,9 @@ _owo._run = function (eventFor, event, newPageFunction) {
     newPageFunction.$target = event.target
     newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
   } else {
-    // 如果没有此方法则交给浏览器引擎尝试运行
-    function tempRun (temp) {
-      eval(temp)
-    }
-    tempRun.apply(newPageFunction, [eventFor])
+    (function (temp) {
+      try {return eval(temp)} catch (error) {return undefined}
+    }).apply(newPageFunction, [eventFor])
   }
 }
 
@@ -152,10 +150,13 @@ _owo.handleEvent = function (tempDom, moudleScript) {
           }
           case 'html': {
             var temp = eventFor.replace(/ /g, '')
-            function tempRun (temp) {
-              return eval(temp)
-            }
-            tempDom.innerHTML = tempRun.apply(moudleScript, [temp])
+            tempDom.innerHTML = (function (temp) {
+              try {
+                return eval(temp)
+              } catch (error) {
+                return undefined
+              }
+            }).apply(moudleScript, [temp])
             break
           }
           default: {

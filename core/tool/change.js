@@ -16,8 +16,14 @@ _owo.getValueFromScript = function (arr, data) {
   return returnData
 }
 
-owo.tool.change = function (environment, key, value) {
-  environment.data[key] = value
+owo.tool.change = function (environment, obj) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+      environment.data[key] = value
+    }
+  }
+  
   var showList = environment.$el.querySelectorAll('[o-show]')
   for (var ind = 0; ind < showList.length; ind++) {
     var showDom = showList[ind]
@@ -35,10 +41,13 @@ owo.tool.change = function (environment, key, value) {
   for (var ind = 0; ind < valueList.length; ind++) {
     var valueDom = valueList[ind]
     var temp = valueDom.getAttribute('o-value').replace(/ /g, '')
-    function tempRun (temp) {
-      return eval(temp)
-    }
-    const value = tempRun.apply(environment, [temp])
+    const value = (function (temp) {
+      try {
+        return eval(temp)
+      } catch (error) {
+        return undefined
+      }
+    }).apply(environment, [temp])
     // console.log(value)
     valueDom.value = value
   }
@@ -53,10 +62,13 @@ owo.tool.change = function (environment, key, value) {
   for (var ind = 0; ind < htmlList.length; ind++) {
     var valueDom = htmlList[ind]
     var temp = valueDom.getAttribute('o-html').replace(/ /g, '')
-    function tempRun (temp) {
-      return eval(temp)
-    }
-    const value = tempRun.apply(environment, [temp])
+    const value = (function (temp) {
+      try {
+        return eval(temp)
+      } catch (error) {
+        return undefined
+      }
+    }).apply(environment, [temp])
     // console.log(value)
     valueDom.innerHTML = value
   }
