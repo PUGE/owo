@@ -1,4 +1,4 @@
-// Mon Dec 30 2019 22:10:16 GMT+0800 (中国标准时间)
+// Mon Dec 30 2019 23:51:19 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}

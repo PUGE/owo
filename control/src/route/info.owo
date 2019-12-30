@@ -1,0 +1,54 @@
+<template lang="pug">
+.info
+  .card-bar
+    .card-bar-item
+      h3 页面数量
+      p(o-html="this.data.config.pageList.length")
+    .card-bar-item
+      h3 编译警告
+      p(style="color: #c1c187;" o-html="this.data.logInfo.warningNum") 0
+    .card-bar-item
+      h3  编译报错
+      p(style="color: red;" o-html="this.data.logInfo.errorNum") 0
+    .card-bar-item
+      h3 页面大小
+      p(style="color: skyblue;") 1.23Mb
+</template>
+
+<script>
+  module.exports = {
+
+  }
+</script>
+
+<style lang="less">
+
+.card-bar {
+  display: flex;
+  justify-content: space-around;
+  height: 80px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.2);
+  background-color: white;
+  padding: 20px;
+  .card-bar-item {
+    width: 20%;
+    color: #888;
+    border-right: 1px solid #ccc;
+  }
+  h3 {
+    line-height: 30px;
+    font-weight: normal;
+    .icon {
+      margin-right: 4px;
+    }
+  }
+  p {
+    line-height: 50px;
+    color: black;
+    font-size: 30px;
+  }
+  .card-bar-item:last-child { 
+    border-right: none;
+  }
+}
+</style>
