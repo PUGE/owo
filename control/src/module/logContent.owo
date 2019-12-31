@@ -1,0 +1,15 @@
+<template lang="pug">
+.log
+</template>
+
+<script>
+  module.exports = {
+    show: function () {
+      console.log('sdsd')
+    }
+  }
+</script>
+
+<style lang="less">
+
+</style>

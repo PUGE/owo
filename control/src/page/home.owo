@@ -16,43 +16,32 @@
       .menu-item
         .icon &#xe662;
         .text 打包配置
-      .menu-item
+      .menu-item(o-tap="activeContentItem('log')")
         .icon &#xe601;
         .text 日志管理
-    .content.info(o-show="this.data.contentItem === 'info'")
-      .card-bar
-        .card-bar-item
-          h3 页面数量
-          p(o-html="this.data.config.pageList.length")
-        .card-bar-item
-          h3 编译警告
-          p(style="color: #c1c187;") 0
-        .card-bar-item
-          h3  编译报错
-          p(style="color: red;") 0
-        .card-bar-item
-          h3 页面大小
-          p(style="color: skyblue;") 1.23Mb
-    .content(o-show="this.data.contentItem === 'else'")
-      .input-bar
-        .label 基本目录
-        input.basePath(type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')")
-      .input-bar
-        .label 项目目录
-        input.root(type="text" o-value="this.data.config.root" o-input="changeConfig('root')")
-      .input-bar
-        .label 打包输出目录
-        input.outFolder(type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')")
-      .input-bar
-        .label 网页名称
-        input.title(type="text" o-value="this.data.config.title" o-input="changeConfig('title')")
-      .input-bar
-        .label 资源目录
-        input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
-      plug(_src="./src/module/headKeyValueList.owo" _name="headKeyValueList")
-      plug(_src="./src/module/styleList.owo" _name="styleList")
-      plug(_src="./src/module/scriptList.owo" _name="scriptList")
-      plug(_src="./src/module/pageList.owo" _name="pageList")
+    view.router
+      route(name="info" src="./src/route/info.owo")
+      .content(o-show="this.data.contentItem === 'else'")
+        .input-bar
+          .label 基本目录
+          input.basePath(type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')")
+        .input-bar
+          .label 项目目录
+          input.root(type="text" o-value="this.data.config.root" o-input="changeConfig('root')")
+        .input-bar
+          .label 打包输出目录
+          input.outFolder(type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')")
+        .input-bar
+          .label 网页名称
+          input.title(type="text" o-value="this.data.config.title" o-input="changeConfig('title')")
+        .input-bar
+          .label 资源目录
+          input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
+        plug.content(src="./src/module/logContent.owo" name="logContent" o-show="this.data.contentItem === 'else'")
+        plug(_src="./src/module/headKeyValueList.owo" _name="headKeyValueList")
+        plug(_src="./src/module/styleList.owo" _name="styleList")
+        plug(_src="./src/module/scriptList.owo" _name="scriptList")
+        plug(_src="./src/module/pageList.owo" _name="pageList")
 </template>
 
 <script>
@@ -60,11 +49,16 @@
     data: {
       contentItem: "info",
       config: {},
+      logInfo: {},
       needCreatFile: []
     },
     created: function () {
-      fetch('../getControl').then(response => response.json()).then(data => {
-        owo.tool.change(this, 'config', data)
+      fetch('../getControl').then(response => response.json()).then(res => {
+        const data = JSON.parse(res.config)
+        owo.tool.change(this, {
+          config: data,
+          logInfo: res.log
+        })
         owo.tool.emit('changeData', data)
       })
     },
@@ -98,7 +92,9 @@
       this.data.config[key] = this.$target.value
     },
     activeContentItem: function (value) {
-      owo.tool.change(this, 'contentItem', value)
+      owo.tool.change(this, {
+        contentItem: value
+      })
       this.$target.classList.add('active')
     }
   }
@@ -114,7 +110,7 @@
     width: 180px;
     background-color: #333;
   }
-  .content {
+  .router {
     height: calc(100% - 40px);
     overflow: auto;
     width: calc(100% - 220px);
@@ -194,33 +190,4 @@ table {
   cursor: pointer;
 }
 
-
-.card-bar {
-  display: flex;
-  justify-content: space-around;
-  height: 80px;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,.2);
-  background-color: white;
-  padding: 20px;
-  .card-bar-item {
-    width: 20%;
-    color: #888;
-    border-right: 1px solid #ccc;
-  }
-  h3 {
-    line-height: 30px;
-    font-weight: normal;
-    .icon {
-      margin-right: 4px;
-    }
-  }
-  p {
-    line-height: 50px;
-    color: black;
-    font-size: 30px;
-  }
-  .card-bar-item:last-child { 
-    border-right: none;
-  }
-}
 </style>

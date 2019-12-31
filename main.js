@@ -54,7 +54,7 @@ getConfig()
 const owo = require('./lib')
 
 // 配置输出插件
-const log = require('./lib/tool/log')()
+const log = require('./lib/tool/log')
 
 
 // 使express处理ws请求
@@ -163,7 +163,11 @@ if (config.server) {
       })
     })
     app.get('/getControl', function (req, res) {
-      res.send(JSON.stringify(config))
+      res.send({
+        err: 0,
+        config: JSON.stringify(config),
+        log
+      })
     })
     app.post('/setControl', (req, res) => {
       const data = req.body
@@ -192,6 +196,7 @@ if (config.server) {
         res.send(JSON.stringify({
           err: 0,
           config,
+          log,
         }))
       })
     })
