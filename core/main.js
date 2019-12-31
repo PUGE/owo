@@ -214,4 +214,13 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     if (!childDom) {continue}
     _owo.handlePage(templateScript, childDom)
   }
+  // 判断页面中是否有路由
+  for (var viewName in newPageFunction.view) {
+    var routeList = newPageFunction.view[viewName]
+    var viewDom = entryDom.querySelector('[view="' + viewName +'"] [route]')
+    // 判断相关模块是否在存在
+    if (!viewDom) {continue}
+    routeList[0].$el = viewDom
+    _owo.handlePage(routeList[0], viewDom)
+  }
 }
