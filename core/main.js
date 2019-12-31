@@ -130,17 +130,9 @@ _owo.handleEvent = function (tempDom, moudleScript) {
             // 根据手机和PC做不同处理
             if (_owo.isMobi) {
               if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-              // 待修复 这种方式太傻了
-              function sandbox() {
-                var _this = this
-                _owo._event_tap(tempDom, function (event) {
-                  _owo._run(_this.eventFor, event || _this, this.moudleScript)
-                })
-              }
-              sandbox.bind({
-                eventFor,
-                moudleScript
-              })()
+              _owo._event_tap.apply(this, [tempDom, function (event) {
+                _owo._run(eventFor, event || this, moudleScript)
+              }])
             } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
             break
           }
