@@ -56,3 +56,14 @@ ul {
 li {
   list-style: none;
 }
+
+[view] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+[route] {
+  display: none;
+}
