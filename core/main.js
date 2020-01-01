@@ -128,9 +128,9 @@ _owo.handleEvent = function (tempDom, moudleScript) {
             // 根据手机和PC做不同处理
             if (_owo.isMobi) {
               if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-              _owo._event_tap.apply(this, [tempDom, function (event) {
+              _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
                 _owo._run(eventFor, event || this, moudleScript)
-              }])
+              })
             } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
             break
           }
@@ -221,6 +221,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     // 判断相关模块是否在存在
     if (!viewDom) {continue}
     routeList[0].$el = viewDom
+    viewDom.classList.add('active-route')
     _owo.handlePage(routeList[0], viewDom)
   }
 }

@@ -54,6 +54,13 @@ _owo.showPage = function() {
       _owo.handlePage(owo.script[plugName], plugEL)
       _owo.handleEvent(plugEL, owo.script[plugName])
     }
+
+    // 路由列表
+    var viewList = entryDom.querySelectorAll('[view]')
+    for (let index = 0; index < viewList.length; index++) {
+      const element = viewList[index];
+      element.children[0].style.display = 'block'
+    }
   } else {
     console.error('未设置程序入口!')
   }

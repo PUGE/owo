@@ -444,3 +444,9 @@ function switchPage (oldUrlParam, newUrlParam) {
   // 不可调换位置
   _owo.handlePage(window.owo.script[newPage], newDom)
 }
+
+// 切换路由前的准备工作
+function switchRoute (view, newRouteName) {
+  var view = document.querySelector('[template=' + owo.activePage + '] [view=' + view + ']')
+  console.log(view)
+}
