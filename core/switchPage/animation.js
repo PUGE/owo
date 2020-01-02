@@ -84,6 +84,19 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   }
 }
 
+_owo.showViewIndex = function (viewList, ind) {
+  for (let viewIndex = 0; viewIndex < viewList.length; viewIndex++) {
+    const route = viewList[viewIndex];
+    for (let routeIndex = 0; routeIndex < route.children.length; routeIndex++) {
+      const element = route.children[routeIndex];
+      if (routeIndex == ind) {
+        element.style.display = 'block'
+      } else {
+        element.style.display = 'none'
+      }
+    }
+  }
+}
 
 // 切换页面前的准备工作
 function switchPage (oldUrlParam, newUrlParam) {
@@ -122,6 +135,9 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   // 不可调换位置
   _owo.handlePage(window.owo.script[newPage], newDom)
+  // 显示路由
+  var viewList = newDom.querySelectorAll('[view]')
+  _owo.showViewIndex(viewList, 0)
 }
 
 // 切换路由前的准备工作

@@ -57,10 +57,7 @@ _owo.showPage = function() {
 
     // 路由列表
     var viewList = entryDom.querySelectorAll('[view]')
-    for (let index = 0; index < viewList.length; index++) {
-      const element = viewList[index];
-      element.children[0].style.display = 'block'
-    }
+    _owo.showViewIndex(viewList, 0)
   } else {
     console.error('未设置程序入口!')
   }
