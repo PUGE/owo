@@ -84,20 +84,6 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   }
 }
 
-_owo.showViewIndex = function (viewList, ind) {
-  for (let viewIndex = 0; viewIndex < viewList.length; viewIndex++) {
-    const route = viewList[viewIndex];
-    for (let routeIndex = 0; routeIndex < route.children.length; routeIndex++) {
-      const element = route.children[routeIndex];
-      if (routeIndex == ind) {
-        element.style.display = 'block'
-      } else {
-        element.style.display = 'none'
-      }
-    }
-  }
-}
-
 // 切换页面前的准备工作
 function switchPage (oldUrlParam, newUrlParam) {
   var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry

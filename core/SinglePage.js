@@ -10,6 +10,21 @@ _owo.showPage = function() {
   } else {
     console.error('找不到页面入口!')
   }
+  // 路由列表
+  var viewList = entryDom.querySelectorAll('[view]')
+  // 获取url参数
+  owo.state.urlVariable = _owo.getQueryVariable()
+  for (let index = 0; index < viewList.length; index++) {
+    const viewItem = viewList[index];
+    var viewName = viewItem.getAttribute('view')
+    var viewValue = owo.state.urlVariable['view-' + viewName]
+    console.log(viewValue)
+    if (viewValue) {
+      _owo.showViewName(viewItem, viewValue)
+    } else {
+      _owo.showViewIndex(viewItem, 0)
+    }
+  }
 }
 
 // 执行页面加载完毕方法

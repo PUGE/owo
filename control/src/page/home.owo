@@ -19,29 +19,9 @@
       .menu-item(o-tap="activeContentItem('log')")
         .icon &#xe601;
         .text 日志管理
-    view.router
+    view.router(name="content")
       route(name="info" src="./src/route/info.owo")
-      .content(o-show="this.data.contentItem === 'else'")
-        .input-bar
-          .label 基本目录
-          input.basePath(type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')")
-        .input-bar
-          .label 项目目录
-          input.root(type="text" o-value="this.data.config.root" o-input="changeConfig('root')")
-        .input-bar
-          .label 打包输出目录
-          input.outFolder(type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')")
-        .input-bar
-          .label 网页名称
-          input.title(type="text" o-value="this.data.config.title" o-input="changeConfig('title')")
-        .input-bar
-          .label 资源目录
-          input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
-        plug.content(src="./src/module/logContent.owo" name="logContent" o-show="this.data.contentItem === 'else'")
-        plug(_src="./src/module/headKeyValueList.owo" _name="headKeyValueList")
-        plug(_src="./src/module/styleList.owo" _name="styleList")
-        plug(_src="./src/module/scriptList.owo" _name="scriptList")
-        plug(_src="./src/module/pageList.owo" _name="pageList")
+      route(name="else" src="./src/route/else.owo")
 </template>
 
 <script>

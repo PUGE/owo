@@ -1,4 +1,4 @@
-// Sat Jan 04 2020 13:59:55 GMT+0800 (中国标准时间)
+// Sat Jan 04 2020 17:13:05 GMT+0800 (中国标准时间)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -203,6 +203,42 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     _owo.handlePage(routeList[0], viewDom)
   }
 }
+
+_owo.showViewIndex = function (viewItem, ind) {
+  var routeList = viewItem.querySelectorAll('[route]')
+  for (let routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
+    const element = routeList[routeIndex];
+    if (routeIndex == ind) {
+      element.style.display = 'block'
+    } else {
+      element.style.display = 'none'
+    }
+  }
+}
+
+_owo.showViewName = function (viewItem, name) {
+  var routeList = viewItem.querySelectorAll('[route]')
+  for (let routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
+    const element = routeList[routeIndex];
+    if (element.getAttribute('route') == name) {
+      element.style.display = 'block'
+    } else {
+      element.style.display = 'none'
+    }
+  }
+}
+
+// 获取URL中的参数
+_owo.getQueryVariable = function () {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  var temp = {}
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    temp[pair[0]] = pair[1];
+  }
+  return temp;
+}
 /*
  * 传递函数给whenReady()
  * 当文档解析完毕且为操作准备就绪时，函数作为document的方法调用
@@ -256,6 +292,21 @@ _owo.showPage = function() {
     _owo.handleEvent(entryDom, window.owo.script[owo.activePage])
   } else {
     console.error('找不到页面入口!')
+  }
+  // 路由列表
+  var viewList = entryDom.querySelectorAll('[view]')
+  // 获取url参数
+  owo.state.urlVariable = _owo.getQueryVariable()
+  for (let index = 0; index < viewList.length; index++) {
+    const viewItem = viewList[index];
+    var viewName = viewItem.getAttribute('view')
+    var viewValue = owo.state.urlVariable['view-' + viewName]
+    console.log(viewValue)
+    if (viewValue) {
+      _owo.showViewName(viewItem, viewValue)
+    } else {
+      _owo.showViewIndex(viewItem, 0)
+    }
   }
 }
 

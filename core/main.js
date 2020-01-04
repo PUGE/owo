@@ -234,3 +234,39 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     _owo.handlePage(routeList[0], viewDom)
   }
 }
+
+_owo.showViewIndex = function (viewItem, ind) {
+  var routeList = viewItem.querySelectorAll('[route]')
+  for (let routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
+    const element = routeList[routeIndex];
+    if (routeIndex == ind) {
+      element.style.display = 'block'
+    } else {
+      element.style.display = 'none'
+    }
+  }
+}
+
+_owo.showViewName = function (viewItem, name) {
+  var routeList = viewItem.querySelectorAll('[route]')
+  for (let routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
+    const element = routeList[routeIndex];
+    if (element.getAttribute('route') == name) {
+      element.style.display = 'block'
+    } else {
+      element.style.display = 'none'
+    }
+  }
+}
+
+// 获取URL中的参数
+_owo.getQueryVariable = function () {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  var temp = {}
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    temp[pair[0]] = pair[1];
+  }
+  return temp;
+}
