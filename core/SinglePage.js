@@ -6,7 +6,7 @@ _owo.showPage = function() {
     owo.entry = entryDom.getAttribute('template')
     owo.activePage = owo.entry
     _owo.handlePage(window.owo.script[owo.activePage], entryDom)
-    _owo.handleEvent(entryDom, window.owo.script[owo.activePage])
+    _owo.handleEvent(window.owo.script[owo.activePage])
   } else {
     console.error('找不到页面入口!')
   }
@@ -18,7 +18,6 @@ _owo.showPage = function() {
     const viewItem = viewList[index];
     var viewName = viewItem.getAttribute('view')
     var viewValue = owo.state.urlVariable['view-' + viewName]
-    console.log(viewValue)
     if (viewValue) {
       _owo.showViewName(viewItem, viewValue)
     } else {

@@ -34,7 +34,7 @@ table.scrip-list
             <td class="tool icon" o-tap="add">&#xe600;</td>
           </tr>`
         this.$el.innerHTML = newHtml
-        this.$refresh()
+        _owo.handleEvent(this)
       }
     },
     changeValue: function (key) {

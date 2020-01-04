@@ -5,25 +5,27 @@ owo.tool.emit = function (eventName) {
   for (var ind = 1; ind < arguments.length; ind++) {
     argumentsList.push(arguments[ind])
   }
-  for (var key in owo.script) {
-    if (owo.script.hasOwnProperty(key)) {
-      var page = owo.script[key];
-      if (page.broadcast && page.broadcast[eventName]) {
-        if (!page.$el) page.$el = document.querySelector('[template="' + key + '"]')
-        page.broadcast[eventName].apply(page, argumentsList)
-      }
-      // 判断是否有组件
-      if (page.template) {
-        for (var key in page.template) {
-          if (page.template.hasOwnProperty(key)) {
-            var template = page.template[key];
-            if (template.broadcast && template.broadcast[eventName]) {
-              if (!template.$el) template.$el = document.querySelector('[template="' + key + '"]')
-              template.broadcast[eventName].apply(template, argumentsList)
-            }
+  function recursion(obj) {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        var page = obj[key];
+        if (page.broadcast && page.broadcast[eventName]) {
+          if (!page.$el) page.$el = document.querySelector('[template="' + key + '"]')
+          page.broadcast[eventName].apply(page, argumentsList)
+        }
+        // 判断是否有组件
+        if (page.template) {
+          recursion(page.template)
+        }
+        if (page.view) {
+          for (var viewKey in page.view) {
+            var template = page.view[viewKey];
+            recursion(template)
           }
         }
       }
     }
   }
+
+  recursion(owo.script)
 }

@@ -4,6 +4,9 @@ table.page-list
 
 <script>
   module.exports = {
+    created: function (params) {
+      console.log('ss')
+    },
     broadcast: {
       changeData: function (value) {
         const data = value.pageList
@@ -38,7 +41,7 @@ table.page-list
             <td class="tool icon" o-tap="add">&#xe600;</td>
           </tr>`
         this.$el.innerHTML = newHtml
-        this.$refresh()
+        _owo.handleEvent(this)
       }
     },
     changeSrc: function () {

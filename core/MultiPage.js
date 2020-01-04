@@ -45,30 +45,14 @@ _owo.showPage = function() {
     entryDom.style.display = 'block'
     window.owo.activePage = page
     _owo.handlePage(owo.script[page], entryDom)
-    _owo.handleEvent(entryDom, owo.script[page])
+    _owo.handleEvent(owo.script[page])
     // 处理插件
     var plugList = document.getElementsByClassName('owo-plug')
     for (var ind = 0; ind < plugList.length; ind++) {
       var plugEL = plugList[ind]
       var plugName = plugEL.getAttribute('template')
       _owo.handlePage(owo.script[plugName], plugEL)
-      _owo.handleEvent(plugEL, owo.script[plugName])
-    }
-
-    // 路由列表
-    var viewList = entryDom.querySelectorAll('[view]')
-    // 获取url参数
-    owo.state.urlVariable = _owo.getQueryVariable()
-    for (let index = 0; index < viewList.length; index++) {
-      const viewItem = viewList[index];
-      var viewName = viewItem.getAttribute('view')
-      var viewValue = owo.state.urlVariable['view-' + viewName]
-      console.log(viewValue)
-      if (viewValue) {
-        _owo.showViewName(viewItem, viewValue)
-      } else {
-        _owo.showViewIndex(viewItem, 0)
-      }
+      _owo.handleEvent(owo.script[plugName])
     }
     
   } else {

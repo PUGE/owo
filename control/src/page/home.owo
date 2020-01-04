@@ -7,16 +7,16 @@
   .content-box
     //- 左侧菜单
     .menu
-      .menu-item(o-tap="activeContentItem('info')")
+      a.menu-item(href="?view-content=info")
         .icon &#xe659;
         .text 页面概况
-      .menu-item(o-tap="activeContentItem('else')")
+      a.menu-item(href="?view-content=else")
         .icon &#xe730;
         .text 页面管理
       .menu-item
         .icon &#xe662;
         .text 打包配置
-      .menu-item(o-tap="activeContentItem('log')")
+      .menu-item()
         .icon &#xe601;
         .text 日志管理
     view.router(name="content")
@@ -32,7 +32,7 @@
       logInfo: {},
       needCreatFile: []
     },
-    created: function () {
+    show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
         const data = res.config
         owo.tool.change(this, {
@@ -70,12 +70,6 @@
     },
     changeConfig: function (key) {
       this.data.config[key] = this.$target.value
-    },
-    activeContentItem: function (value) {
-      owo.tool.change(this, {
-        contentItem: value
-      })
-      this.$target.classList.add('active')
     }
   }
 </script>

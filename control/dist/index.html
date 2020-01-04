@@ -30,7 +30,7 @@
   <body>
     <!-- 页面区域 -->
     <!-- 页面[home]-->
-    <div class="home owo" template="home"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><div class="menu-item" o-tap="activeContentItem('info')"><div class="icon"></div><div class="text">页面概况</div></div><div class="menu-item" o-tap="activeContentItem('else')"><div class="icon"></div><div class="text">页面管理</div></div><div class="menu-item"><div class="icon"></div><div class="text">打包配置</div></div><div class="menu-item" o-tap="activeContentItem('log')"><div class="icon"></div><div class="text">日志管理</div></div></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="info" route="else"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder"></div><div class="log content" template="logContent"></div><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
+    <div class="home owo" template="home"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><div class="menu-item"><div class="icon"></div><div class="text">打包配置</div></div><div class="menu-item"><div class="icon"></div><div class="text">日志管理</div></div></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="info" route="else"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder"></div><div class="log content" template="logContent"></div><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
@@ -38,7 +38,8 @@
 <tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div></div></div></div>
     
 
-    <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
+    <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script>
+    <script src="./static/js/test.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
 <script src="./static/js/owo.main.js" type="text/javascript" charset="UTF-8"></script>
 <script>/*
   存储每个页面的函数
@@ -54,7 +55,7 @@ owo.script = {
       "logInfo": {},
       "needCreatFile": []
     },
-    "created": function created() {
+    "show": function show() {
       var _this = this;
 
       fetch('../getControl').then(function (response) {
@@ -104,12 +105,6 @@ owo.script = {
     },
     "changeConfig": function changeConfig(key) {
       this.data.config[key] = this.$target.value;
-    },
-    "activeContentItem": function activeContentItem(value) {
-      owo.tool.change(this, {
-        contentItem: value
-      });
-      this.$target.classList.add('active');
     },
     "view": {
       "content": [{
@@ -174,7 +169,8 @@ owo.script = {
 
                 newHtml += "<tr><td><input type=\"text\" placeholder=\"\u65B0\u589E\u6837\u5F0F\u540D\u79F0\" class=\"nameInput\"></input></td><td><input placeholder=\"\u65B0\u589E\u6837\u5F0F\u8DEF\u5F84\" type=\"text\" class=\"srcInput\"></input></td><td width=\"70px\" class=\"icon icon-box resource-check\" o-tap=\"addNewResourceChange\">&#xe614;</td><td class=\"tool icon\" o-tap=\"add\">&#xe600;</td></tr>";
                 this.$el.innerHTML = newHtml;
-                this.$refresh();
+
+                _owo.handleEvent(this);
               }
             },
             "resourceChange": function resourceChange() {
@@ -239,7 +235,8 @@ owo.script = {
 
                 newHtml += "\n          <tr>\n            <td><input type=\"text\" placeholder=\"\u65B0\u589E\u6837\u5F0F\u540D\u79F0\" class=\"nameInput\"></input></td>\n            <td><input placeholder=\"\u65B0\u589E\u6837\u5F0F\u8DEF\u5F84\" type=\"text\" class=\"srcInput\"></input></td>\n            <td width=\"70px\" class=\"icon icon-box resource-check\" o-tap=\"changeDataValue('resource')\">&#xe614;</td>\n            <td width=\"70px\" class=\"icon icon-box\" o-tap=\"changeDataValue('babel')\">&#xe614;</td>\n            <td width=\"70px\" class=\"icon icon-box\" o-tap=\"changeDataValue('defer')\">&#xe614;</td>\n            <td class=\"tool icon\" o-tap=\"add\">&#xe600;</td>\n          </tr>";
                 this.$el.innerHTML = newHtml;
-                this.$refresh();
+
+                _owo.handleEvent(this);
               }
             },
             "changeValue": function changeValue(key) {
@@ -289,6 +286,9 @@ owo.script = {
             "propMap": {}
           },
           "pageList": {
+            "created": function created(params) {
+              console.log('ss');
+            },
             "broadcast": {
               "changeData": function changeData(value) {
                 var data = value.pageList;
@@ -303,7 +303,8 @@ owo.script = {
 
                 newHtml += "\n          <tr>\n            <td><input type=\"text\" placeholder=\"\u9875\u9762\u540D\u79F0\" o-input=\"changeSrc\" class=\"nameInput\"></input></td>\n            <td><input placeholder=\"\u9875\u9762\u8DEF\u5F84\" type=\"text\" class=\"srcInput\" disabled=\"disabled\"></input></td>\n            <td width=\"70px\" class=\"icon icon-box resource-check\" o-tap=\"changeDataValue('resource')\">\n              <select class=\"type-select\">\n                <option value =\"page\">\u9875\u9762</option>\n                <option value =\"plug\">\u63D2\u4EF6</option>\n              </select>\n            </td>\n            <td class=\"tool icon\" o-tap=\"add\">&#xe600;</td>\n          </tr>";
                 this.$el.innerHTML = newHtml;
-                this.$refresh();
+
+                _owo.handleEvent(this);
               }
             },
             "changeSrc": function changeSrc() {
