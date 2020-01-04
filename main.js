@@ -4,25 +4,25 @@
 const fs = require('fs')
 const path = require('path')
 const Tool = require('./lib/tool/tool')
+const Server = require('./server.js')
 // 文件变动检测
 const chokidar = require('chokidar')
-
 
 // 命令行运行目录
 const runPath = process.cwd()
 
+
 // 判断运行目录下是否包含配置文件
-if (!fs.existsSync(path.join(runPath, 'owo.js'))) {
+if (!fs.existsSync(path.join(runPath, 'owo.json'))) {
   console.error('当前目录下找不到owo配置文件哦!')
   return
 }
-let config = null
 // 配置文件检测
 const checkConfig = require('./lib/tool/checkConfig')
 
 function getConfig () {
   // 读取配置文件
-  let configTemp = eval(fs.readFileSync(path.join(runPath, 'owo.js'), 'utf8'))
+  let configTemp = JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8'))
 
   // 判断使用哪套配置文件
   const processArgv = process.argv[2]
@@ -34,7 +34,7 @@ function getConfig () {
       const processConfig = JSON.parse(JSON.stringify(configTemp.mode[processArgv]))
       configTemp = Object.assign(processConfig, configTemp)
     } else {
-      console.error(`config name ${processArgv} not found in owo.js!`)
+      console.error(`config name ${processArgv} not found in owo.json!`)
       return
     }
   }
@@ -44,11 +44,10 @@ function getConfig () {
     console.error('配置信息检查失败!')
     return
   }
-  config = configTemp
   return configTemp
 }
 
-getConfig()
+let config = getConfig()
 
 // 加载框架SDK
 const owo = require('./lib')
@@ -56,9 +55,6 @@ const owo = require('./lib')
 // 配置输出插件
 const log = require('./lib/tool/log')
 
-
-// 使express处理ws请求
-let wsServe = null
 
 // 记录开始打包时间
 let startPackTime = new Date().getTime()
@@ -92,11 +88,8 @@ const owoCallBack = (evnet) => {
   }
 }
 
-let pack = new owo(config, owoCallBack)
-
-// 开始打包
-pack.pack()
-
+let pack = null
+let wsServe = null
 
 // 判断是否开启文件变动自动重新打包
 if (config.watcher && config.watcher.enable) {
@@ -114,14 +107,14 @@ if (config.watcher && config.watcher.enable) {
     depth: config.watcher.depth
   })
   // 添加默认监控
-  watcher.add('owo.js')
+  watcher.add('owo.json')
   watcher.add('owo_modules')
   watcher.on('change', changePath => {
     startPackTime = new Date().getTime()
     
     log.info(`file change: ${changePath}`)
     // 判断是否为配置文件变更
-    if (changePath === 'owo.js') {
+    if (changePath === 'owo.json') {
       console.log('配置文件被改变!')
       pack = new owo(getConfig(), owoCallBack)
       pack.pack()
@@ -133,73 +126,22 @@ if (config.watcher && config.watcher.enable) {
 }
 // 判断是否启用静态文件服务
 if (config.server) {
-  // 监听端口
-  const port = config.serverPort || 8000
   // Web 框架
   const express = require('express')
   const app = express()
+  const path = require('path')
   const bodyParser = require('body-parser')
-  app.use(bodyParser.json())
-  
-  app.use(express.static(path.join(runPath, config.outFolder)))
   wsServe = require('express-ws')(app)
-  
+  app.use(bodyParser.json())
+  // 设置静态目录
+  app.use(express.static(path.join(runPath, config.outFolder)))
   app.use('/control', express.static(path.join(__dirname, `./control/dist`)))
-
-  app.listen(port)
-  if (config.server) {
-    console.log(`Server running at port: ${port} !`)
-  }
-  
-  // 处理websocket消息
-  if (config.autoReload) {
-    app.ws('/', function(ws, req) {
-      ws.on('message', function(msg) {
-        const data = JSON.parse(msg)
-        // 判断是否为输出日志
-        if (data.type === 'log') {
-          console.log(data.message)
-        }
-      })
-    })
-    app.get('/getControl', function (req, res) {
-      res.send({
-        err: 0,
-        config: JSON.stringify(config),
-        log
-      })
-    })
-    app.post('/setControl', (req, res) => {
-      const data = req.body
-      data.needCreatFile.forEach(element => {
-        const filePath = path.join(runPath, element.src)
-        if (!fs.existsSync(filePath)) {
-          fs.writeFileSync(filePath, `
-<template lang="pug">
-.box
-</template>
-
-<script>
-  module.exports = {
-  }
-</script>
-
-
-<style lang="less">
-
-</style>
-          `)
-        }
-      })
-      fs.writeFile(path.join(runPath, 'owo.js'), `module.exports = ` + JSON.stringify(data.config), () => {
-        // 重新加载配置
-        res.send(JSON.stringify({
-          err: 0,
-          config,
-          log,
-        }))
-      })
-    })
-  }
+  // 开启服务器
+  Server(config, app)
+  // 开始打包
+  pack = new owo(config, owoCallBack)
+} else {
+  pack = new owo(config).pack()
 }
+pack.pack()
 

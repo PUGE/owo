@@ -54,7 +54,7 @@
     },
     created: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
-        const data = JSON.parse(res.config)
+        const data = res.config
         owo.tool.change(this, {
           config: data,
           logInfo: res.log

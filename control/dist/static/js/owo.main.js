@@ -1,4 +1,4 @@
-// Tue Dec 31 2019 16:40:23 GMT+0800 (GMT+08:00)
+// Sat Jan 04 2020 13:59:55 GMT+0800 (中国标准时间)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -82,14 +82,14 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
-_owo.handleEvent = function (tempDom, moudleScript) {  
+_owo.handleEvent = function (tempDom, moudleScript, viewName, routeName) {
   if (tempDom.attributes) {
     for (var ind = 0; ind < tempDom.attributes.length; ind++) {
       var attribute = tempDom.attributes[ind]
+      // ie不支持startsWith
+      var eventFor = attribute.textContent || attribute.value
       // 判断是否为owo的事件
       if (new RegExp("^o-").test(attribute.name)) {
-        // ie不支持startsWith
-        var eventFor = attribute.textContent || attribute.value
         var eventName = attribute.name.slice(2)
         switch (eventName) {
           case 'tap': {
@@ -97,9 +97,9 @@ _owo.handleEvent = function (tempDom, moudleScript) {
             // 根据手机和PC做不同处理
             if (_owo.isMobi) {
               if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-              _owo._event_tap.apply(this, [tempDom, function (event) {
+              _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
                 _owo._run(eventFor, event || this, moudleScript)
-              }])
+              })
             } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
             break
           }
@@ -132,6 +132,10 @@ _owo.handleEvent = function (tempDom, moudleScript) {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
         }
+      } else if (attribute.name == 'view') {
+        viewName = eventFor
+      } else if (attribute.name == 'route') {
+        routeName = eventFor
       }
     }
   }
@@ -147,9 +151,14 @@ _owo.handleEvent = function (tempDom, moudleScript) {
       if (templateName) {
         // 如果即将遍历进入模块 设置即将进入的模块为当前模块
         // 获取模块的模块名
-        _owo.handleEvent(childrenDom, moudleScript.template[templateName])
+        if (viewName && routeName) {
+          _owo.handleEvent(childrenDom, moudleScript.view[viewName][routeName], viewName, routeName)
+        } else {
+          _owo.handleEvent(childrenDom, moudleScript.template[templateName], viewName, routeName)
+        }
+        
       } else {
-        _owo.handleEvent(childrenDom, moudleScript)
+        _owo.handleEvent(childrenDom, moudleScript, viewName, routeName)
       }
     }
   } else {
@@ -190,6 +199,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     // 判断相关模块是否在存在
     if (!viewDom) {continue}
     routeList[0].$el = viewDom
+    viewDom.classList.add('active-route')
     _owo.handlePage(routeList[0], viewDom)
   }
 }
@@ -252,7 +262,7 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
-_owo._event_tap = function (tempDom, callBack) {
+_owo._event_tap = function (tempDom, eventFor, callBack) {
   // 变量
   var startTime = 0
   var isMove = false
@@ -264,7 +274,7 @@ _owo._event_tap = function (tempDom, callBack) {
   })
   tempDom.addEventListener('touchend', function(e) {
     if (Date.now() - startTime < 300 && !isMove) {
-      callBack(e)
+      callBack(e, eventFor)
     }
     // 清零
     startTime = 0;
@@ -443,10 +453,4 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   // 不可调换位置
   _owo.handlePage(window.owo.script[newPage], newDom)
-}
-
-// 切换路由前的准备工作
-function switchRoute (view, newRouteName) {
-  var view = document.querySelector('[template=' + owo.activePage + '] [view=' + view + ']')
-  console.log(view)
 }
