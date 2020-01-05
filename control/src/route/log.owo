@@ -1,0 +1,39 @@
+<template lang="pug">
+.log
+  ul
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      logInfo: []
+    },
+    broadcast: {
+      changeLog: function (data) {
+        let logHtml = ``
+        data.logList.forEach(element => {
+          logHtml += `<li class="${element.type}">${element.text}</li>`
+        });
+        console.log(data)
+        this.$el.getElementsByTagName('ul')[0].innerHTML = logHtml
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  li {
+    line-height: 25px;
+    border-bottom: 1px solid #b2bac1;
+    font-size: 14px;
+    display: flex;
+    padding: 0 5px;
+    color: #333;
+  }
+  .info {
+    background-color: #ccc;
+  }
+  .debug {
+    background-color: gainsboro;
+  }
+</style>

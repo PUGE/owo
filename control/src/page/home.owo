@@ -13,15 +13,17 @@
       a.menu-item(href="?view-content=else")
         .icon &#xe730;
         .text 页面管理
-      .menu-item
+      a.menu-item(href="?view-content=build")
         .icon &#xe662;
         .text 打包配置
-      .menu-item()
+      a.menu-item(href="?view-content=log")
         .icon &#xe601;
         .text 日志管理
     view.router(name="content")
       route(name="info" src="./src/route/info.owo")
       route(name="else" src="./src/route/else.owo")
+      route(name="build" src="./src/route/build.owo")
+      route(name="log" src="./src/route/log.owo")
 </template>
 
 <script>
@@ -35,11 +37,13 @@
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
         const data = res.config
+        // console.log(data)
         owo.tool.change(this, {
           config: data,
           logInfo: res.log
         })
         owo.tool.emit('changeData', data)
+        owo.tool.emit('changeLog', res.log)
       })
     },
     postData: function (url, data) {
@@ -90,6 +94,13 @@
     width: calc(100% - 220px);
     padding: 20px;
     background-color: #f2f2f2;
+  }
+  a {
+    display: flex;
+  }
+  a:hover {
+    color: white;
+    text-decoration: none;
   }
 }
 .title-bar {

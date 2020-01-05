@@ -111,7 +111,7 @@ if (config.watcher && config.watcher.enable) {
   watcher.add('owo_modules')
   watcher.on('change', changePath => {
     startPackTime = new Date().getTime()
-    
+    log.clear()
     log.info(`file change: ${changePath}`)
     // 判断是否为配置文件变更
     if (changePath === 'owo.json') {

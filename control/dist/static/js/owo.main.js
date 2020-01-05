@@ -1,4 +1,4 @@
-// Sun Jan 05 2020 01:16:59 GMT+0800 (中国标准时间)
+// Sun Jan 05 2020 19:52:34 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -83,7 +83,6 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
 _owo.handleEvent = function (moudleScript) {
-  console.log(moudleScript)
   if (!moudleScript.$el) throw 'error'
   var tempDom = moudleScript.$el
   // 递归处理元素属性
@@ -161,7 +160,7 @@ _owo.handleEvent = function (moudleScript) {
   }
   recursion(moudleScript.$el)
   // 递归处理子模板
-  for (const key in moudleScript.template) {
+  for (var key in moudleScript.template) {
     _owo.handleEvent(moudleScript.template[key])
   }
 }
@@ -192,10 +191,10 @@ _owo.handlePage = function (newPageFunction, entryDom) {
     for (var viewName in newPageFunction.view) {
       var routeList = newPageFunction.view[viewName]
       // 标识是否没有指定显示哪个路由
-      let activeRouteIndex = 0
+      var activeRouteIndex = 0
       var urlViewName = owo.state.urlVariable['view-' + viewName]
-      for (const routeInd in routeList) {
-        const routeItem = routeList[routeInd]
+      for (var routeInd in routeList) {
+        var routeItem = routeList[routeInd]
         routeList[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
         routeList[routeInd].$el.setAttribute('route-ind', routeInd)
         // console.log(urlViewName, )
@@ -211,23 +210,27 @@ _owo.handlePage = function (newPageFunction, entryDom) {
 }
 
 _owo.showViewIndex = function (routeList, ind) {
-  for (let routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
-    const element = routeList[routeIndex];
+  for (var routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
+    var element = routeList[routeIndex];
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
+      element.$el.classList.add('route-active')
     } else {
       element.$el.style.display = 'none'
+      element.$el.classList.remove('route-active')
     }
   }
 }
 
 _owo.showViewName = function (routeList, name) {
-  for (let routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
-    const element = routeList[routeIndex];
+  for (var routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
+    var element = routeList[routeIndex];
     if (element._name == name) {
       element.$el.style.display = 'block'
+      element.$el.classList.add('route-active')
     } else {
       element.$el.style.display = 'none'
+      element.$el.classList.remove('route-active')
     }
   }
 }
@@ -301,8 +304,8 @@ _owo.showPage = function() {
   var viewList = entryDom.querySelectorAll('[view]')
   // 获取url参数
   owo.state.urlVariable = _owo.getQueryVariable()
-  for (let index = 0; index < viewList.length; index++) {
-    const viewItem = viewList[index];
+  for (var index = 0; index < viewList.length; index++) {
+    var viewItem = viewList[index];
     var viewName = viewItem.getAttribute('view')
     var viewValue = owo.state.urlVariable['view-' + viewName]
     if (viewValue) {

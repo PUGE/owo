@@ -30,12 +30,12 @@
   <body>
     <!-- 页面区域 -->
     <!-- 页面[home]-->
-    <div class="home owo" template="home"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><div class="menu-item"><div class="icon"></div><div class="text">打包配置</div></div><div class="menu-item"><div class="icon"></div><div class="text">日志管理</div></div></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="info" route="else"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder"></div><div class="log content" template="logContent"></div><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
+    <div class="home owo" template="home"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><a class="menu-item" href="?view-content=build"><div class="icon"></div><div class="text">打包配置</div></a><a class="menu-item" href="?view-content=log"><div class="icon"></div><div class="text">日志管理</div></a></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="page" route="else"><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div></div></div></div>
+<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder"></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
     
 
     <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script>
@@ -61,12 +61,14 @@ owo.script = {
       fetch('../getControl').then(function (response) {
         return response.json();
       }).then(function (res) {
-        var data = res.config;
+        var data = res.config; // console.log(data)
+
         owo.tool.change(_this, {
           config: data,
           logInfo: res.log
         });
         owo.tool.emit('changeData', data);
+        owo.tool.emit('changeLog', res.log);
       });
     },
     "postData": function postData(url, data) {
@@ -122,18 +124,6 @@ owo.script = {
         "_name": "else",
         "propMap": {},
         "template": {
-          "logContent": {
-            "show": function show() {
-              console.log('sdsd');
-            },
-            "prop": {
-              "class": "content",
-              "src": "./src/module/logContent.owo",
-              "name": "logContent",
-              "o-show": "this.data.contentItem === 'else'"
-            },
-            "propMap": {}
-          },
           "headKeyValueList": {
             "broadcast": {
               "changeData": function changeData(value) {
@@ -341,6 +331,34 @@ owo.script = {
             "propMap": {}
           }
         }
+      }, {
+        "broadcast": {},
+        "prop": {
+          "name": "build",
+          "src": "./src/route/build.owo"
+        },
+        "_name": "build",
+        "propMap": {}
+      }, {
+        "data": {
+          "logInfo": []
+        },
+        "broadcast": {
+          "changeLog": function changeLog(data) {
+            var logHtml = "";
+            data.logList.forEach(function (element) {
+              logHtml += "<li class=\"" + element.type + "\">" + element.text + "</li>";
+            });
+            console.log(data);
+            this.$el.getElementsByTagName('ul')[0].innerHTML = logHtml;
+          }
+        },
+        "prop": {
+          "name": "log",
+          "src": "./src/route/log.owo"
+        },
+        "_name": "log",
+        "propMap": {}
       }]
     }
   }

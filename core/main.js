@@ -245,8 +245,10 @@ _owo.showViewIndex = function (routeList, ind) {
     var element = routeList[routeIndex];
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
+      element.$el.classList.add('route-active')
     } else {
       element.$el.style.display = 'none'
+      element.$el.classList.remove('route-active')
     }
   }
 }
@@ -256,8 +258,10 @@ _owo.showViewName = function (routeList, name) {
     var element = routeList[routeIndex];
     if (element._name == name) {
       element.$el.style.display = 'block'
+      element.$el.classList.add('route-active')
     } else {
       element.$el.style.display = 'none'
+      element.$el.classList.remove('route-active')
     }
   }
 }
