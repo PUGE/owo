@@ -27,7 +27,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   for (var ind =0; ind < animationIn.length; ind++) {
     var value = animationIn[ind]
     //判断是否为延迟属性
-    if (value.startsWith('delay')) {
+    if (value.slice(0, 5) == 'delay') {
       var tempDelay = parseInt(value.slice(5))
       if (delay < tempDelay)  delay = tempDelay
     }
@@ -37,7 +37,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   newDom.classList.add('owo-animation')
   for (var ind =0; ind < animationOut.length; ind++) {
     var value = animationOut[ind]
-    if (value.startsWith('delay')) {
+    if (value.slice(0, 5) == 'delay') {
       var tempDelay = parseInt(value.slice(5))
       if (delay < tempDelay)  delay = tempDelay
     }
@@ -103,8 +103,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   var animationIn = owo.script[newPage]._animation['in']
   var animationOut = owo.script[newPage]._animation['out']
   if (animationIn || animationOut) {
-    owo.state.animation = {}
-    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), owo.state.animation['forward'])
+    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'))
   } else {
     if (oldDom) {
       // 隐藏掉旧的节点
@@ -115,19 +114,16 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   
   window.owo.activePage = newPage
-  // 不可调换位置
-  if (!window.owo.script[newPage]._isCreated) {
-    _owo.handleEvent(window.owo.script[newPage])
-  }
-  // 不可调换位置
   _owo.handlePage(window.owo.script[newPage], newDom)
+  _owo.handleEvent(window.owo.script[newPage])
+  
   // 显示路由
   var viewList = newDom.querySelectorAll('[view]')
   _owo.showViewIndex(viewList, 0)
 }
 
 // 切换路由前的准备工作
-function switchRoute (view, newRouteName, animationIn, animationOut, forward) {
+function switchRoute (view, newRouteName, animationIn, animationOut) {
   var view = document.querySelector('[template=' + owo.activePage + '] [view=' + view + ']')
   var oldDom = view.querySelector('.active-route')
   var newDom = view.querySelector('[route=' + newRouteName +']')
@@ -140,11 +136,7 @@ function switchRoute (view, newRouteName, animationIn, animationOut, forward) {
   newDom.style.display = 'block'
   newDom.style.position = 'absolute'
   // 给即将生效的页面加上“未来”标识
-  if (forward) {
-    newDom.classList.add('owo-animation-forward')
-  } else {
-    oldDom.classList.add('owo-animation-forward')
-  }
+  newDom.classList.add('owo-animation-forward')
   // document.body.style.overflow = 'hidden'
 
   // parentDom.style.perspective = '1200px'
@@ -152,7 +144,7 @@ function switchRoute (view, newRouteName, animationIn, animationOut, forward) {
   for (var ind =0; ind < animationIn.length; ind++) {
     var value = animationIn[ind]
     //判断是否为延迟属性
-    if (value.startsWith('delay')) {
+    if (value.slice(0, 5) == 'delay') {
       var tempDelay = parseInt(value.slice(5))
       if (delay < tempDelay)  delay = tempDelay
     }
@@ -180,7 +172,6 @@ function switchRoute (view, newRouteName, animationIn, animationOut, forward) {
         // console.log(oldDom)
         oldDom.style.position = ''
         oldDom.classList.remove('owo-animation')
-        oldDom.classList.remove('owo-animation-forward')
         parentDom.style.perspective = ''
         // 清除临时设置的class
         for (var ind =0; ind < animationIn.length; ind++) {

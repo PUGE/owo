@@ -1,0 +1,32 @@
+.owo-animation-leftToRight {
+  -webkit-animation: leftToRight 2s linear infinite;
+  -moz-animation: leftToRight 2s linear infinite;
+  -ms-animation: leftToRight 2s linear infinite;
+  -o-animation: leftToRight 2s linear infinite;
+  animation: leftToRight 2s linear infinite;
+}
+
+@-webkit-keyframes leftToRight {
+  0% { transform: translateX(30px);}
+  100% {transform: translateX(-30px);}
+}
+
+@-moz-keyframes leftToRight {
+  0% { transform: translateX(30px);}
+  100% {transform: translateX(-30px);}
+}
+
+@-ms-keyframes leftToRight {
+  0% { transform: translateX(30px);}
+  100% {transform: translateX(-30px);}
+}
+
+@-o-keyframes leftToRight {
+  0% { transform: translateX(30px);}
+  100% {transform: translateX(-30px);}
+}
+
+@keyframes leftToRight {
+  0% { transform: translateX(30px);}
+  100% {transform: translateX(-30px);}
+}

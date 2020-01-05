@@ -14,8 +14,8 @@ _owo.showPage = function() {
   var viewList = entryDom.querySelectorAll('[view]')
   // 获取url参数
   owo.state.urlVariable = _owo.getQueryVariable()
-  for (let index = 0; index < viewList.length; index++) {
-    const viewItem = viewList[index];
+  for (var index = 0; index < viewList.length; index++) {
+    var viewItem = viewList[index];
     var viewName = viewItem.getAttribute('view')
     var viewValue = owo.state.urlVariable['view-' + viewName]
     if (viewValue) {
