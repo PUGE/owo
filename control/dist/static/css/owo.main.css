@@ -24,14 +24,6 @@ body, html, .owo, .page-box {
   z-index: 99;
 }
 
-
-a {
-  color: #333;
-}
-
-a:link, a:visited {
-  text-decoration: none;
-}
 img {
   border: none;
 }
@@ -56,18 +48,7 @@ li {
   list-style: none;
 }
 
-view {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-[route] {
-  display: none;
-}
-
-.info .card-bar {
+.card-bar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -80,28 +61,28 @@ view {
   padding: 20px;
 }
 
-.info .card-bar .card-bar-item {
+.card-bar .card-bar-item {
   width: 20%;
   color: #888;
   border-right: 1px solid #ccc;
 }
 
-.info .card-bar h3 {
+.card-bar h3 {
   line-height: 30px;
   font-weight: normal;
 }
 
-.info .card-bar h3 .icon {
+.card-bar h3 .icon {
   margin-right: 4px;
 }
 
-.info .card-bar p {
+.card-bar p {
   line-height: 50px;
   color: black;
   font-size: 30px;
 }
 
-.info .card-bar .card-bar-item:last-child {
+.card-bar .card-bar-item:last-child {
   border-right: none;
 }
 table {
@@ -243,7 +224,7 @@ table {
 }
 
 
-.log li {
+li {
   line-height: 25px;
   border-bottom: 1px solid #b2bac1;
   font-size: 14px;
@@ -254,12 +235,18 @@ table {
   color: #333;
 }
 
-.log .info {
-  background-color: #ccc;
+.info {
+  background-color: darkslategray;
+  color: white;
 }
 
-.log .debug {
+.debug {
   background-color: gainsboro;
+}
+
+.error {
+  background-color: red;
+  color: white;
 }
 .content-box {
   display: -webkit-box;

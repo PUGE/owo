@@ -230,6 +230,11 @@ _owo.handlePage = function (newPageFunction, entryDom) {
       for (var routeInd in routeList) {
         var routeItem = routeList[routeInd]
         routeList[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
+        // 错误处理
+        if (!routeList[routeInd].$el) {
+          console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
+          break
+        }
         routeList[routeInd].$el.setAttribute('route-ind', routeInd)
         // console.log(urlViewName, )
         if (urlViewName && urlViewName == routeItem._name) {

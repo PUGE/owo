@@ -31,7 +31,8 @@
     color: #333;
   }
   .info {
-    background-color: #ccc;
+    background-color: darkslategray;
+    color: white;
   }
   .debug {
     background-color: gainsboro;
