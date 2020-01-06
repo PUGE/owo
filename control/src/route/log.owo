@@ -36,4 +36,8 @@
   .debug {
     background-color: gainsboro;
   }
+  .error {
+    background-color: red;
+    color: white;
+  }
 </style>
