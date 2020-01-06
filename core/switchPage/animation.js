@@ -102,6 +102,11 @@ function switchPage (oldUrlParam, newUrlParam) {
   // 直接.in会在ie下报错
   var animationIn = owo.script[newPage]._animation['in']
   var animationOut = owo.script[newPage]._animation['out']
+  // 全局跳转设置判断
+  if (owo.state.go) {
+    animationIn = animationIn || owo.state.go.inAnimation
+    animationOut = animationOut || owo.state.go.outAnimation
+  }
   if (animationIn || animationOut) {
     animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'))
   } else {

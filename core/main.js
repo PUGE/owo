@@ -192,6 +192,7 @@ _owo.handleEvent = function (moudleScript) {
   recursion(moudleScript.$el)
   // 递归处理子模板
   for (var key in moudleScript.template) {
+    moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
     _owo.handleEvent(moudleScript.template[key])
   }
 }
@@ -213,7 +214,9 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
   for (var key in newPageFunction.template) {
     var templateScript = newPageFunction.template[key]
+    
     templateScript.$el = entryDom.querySelector('[template="' + key +'"]')
+    _owo.runCreated(templateScript)
   }
 
   owo.state.urlVariable = _owo.getQueryVariable()

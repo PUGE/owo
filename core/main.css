@@ -25,14 +25,6 @@ body, html, .owo, .page-box {
   z-index: 99;
 }
 
-
-a {
-  color: #333;
-}
-
-a:link, a:visited {
-  text-decoration: none;
-}
 img {
   border: none;
 }
@@ -55,15 +47,4 @@ ul {
 
 li {
   list-style: none;
-}
-
-view {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-[route] {
-  display: none;
 }

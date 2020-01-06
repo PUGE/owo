@@ -141,7 +141,7 @@ if (config.server) {
   // 开始打包
   pack = new owo(config, owoCallBack)
 } else {
-  pack = new owo(config).pack()
+  pack = new owo(config)
 }
 pack.pack()
 

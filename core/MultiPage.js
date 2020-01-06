@@ -47,10 +47,11 @@ _owo.showPage = function() {
     _owo.handlePage(owo.script[page], entryDom)
     _owo.handleEvent(owo.script[page])
     // 处理插件
-    var plugList = document.querySelectorAll('.owo-plug')
+    var plugList = document.querySelectorAll('.owo-block')
     for (var ind = 0; ind < plugList.length; ind++) {
       var plugEL = plugList[ind]
       var plugName = plugEL.getAttribute('template')
+      owo.script[plugName].$el = plugEL
       _owo.handlePage(owo.script[plugName], plugEL)
       _owo.handleEvent(owo.script[plugName])
     }
@@ -60,8 +61,8 @@ _owo.showPage = function() {
   }
   /* if="this.config.pageList.find(function(element) {return element.isPlug;})"
   for (var key in owo.script) {
-    if (owo.script[key].type == 'plug') {
-      owo.script[key].$el = document.querySelector('.owo-plug[template="' + key + '"]')
+    if (owo.script[key].type == 'block') {
+      owo.script[key].$el = document.querySelector('.owo-block[template="' + key + '"]')
       _owo.runCreated(owo.script[key])
     }
   }
@@ -77,14 +78,6 @@ _owo.showPage = function() {
   参数3: 进入页面动画
 */
 owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
-  // 全局跳转设置判断
-  if (owo.state.go) {
-    inAnimation = inAnimation || owo.state.go.inAnimation
-    outAnimation = outAnimation || owo.state.go.outAnimation
-    backInAnimation = backInAnimation || owo.state.go.backInAnimation
-    backOutAnimation = backOutAnimation || owo.state.go.backOutAnimation
-    noBack = noBack || owo.state.go.noBack
-  }
   if (!owo.script[pageName]) {
     console.error("导航到不存在的页面: " + pageName)
     return
