@@ -30,12 +30,12 @@
   <body>
     <!-- 页面区域 -->
     <!-- 页面[home]-->
-    <div class="home owo" template="home"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><a class="menu-item" href="?view-content=build"><div class="icon"></div><div class="text">打包配置</div></a><a class="menu-item" href="?view-content=log"><div class="icon"></div><div class="text">日志管理</div></a></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="page" route="else"><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
+    <div class="home owo" template="home"><div class="title-bar"><div class="mode-bar"></div><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><a class="menu-item" href="?view-content=build"><div class="icon"></div><div class="text">打包配置</div></a><a class="menu-item" href="?view-content=log"><div class="icon"></div><div class="text">日志管理</div></a></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="page" route="else"><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder"></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
+<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath || this.data.config.mode[this.data.activeMode].basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root || this.data.config.mode[this.data.activeMode].root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder || this.data.config.mode[this.data.activeMode].outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title || this.data.config.mode[this.data.activeMode].title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder || this.data.config.mode[this.data.activeMode].resourceFolder"></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
     
 
     <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script>
@@ -50,10 +50,12 @@ owo.phoneEnter = "null";
 owo.script = {
   "home": {
     "data": {
+      "originalData": null,
       "contentItem": "info",
       "config": {},
       "logInfo": {},
-      "needCreatFile": []
+      "needCreatFile": [],
+      "activeMode": null
     },
     "show": function show() {
       var _this = this;
@@ -61,14 +63,29 @@ owo.script = {
       fetch('../getControl').then(function (response) {
         return response.json();
       }).then(function (res) {
-        var data = res.config; // console.log(data)
+        _this.data.originalData = res; // 设置当前活跃模式
+
+        var modeHtml = '';
+        _this.data.activeMode = Object.keys(res.config.mode)[0];
+
+        for (var key in res.config.mode) {
+          if (res.config.mode.hasOwnProperty(key)) {
+            var element = res.config.mode[key];
+            modeHtml += "<span o-tap=\"changeActiveMode('" + key + "')\">" + key + "</span>";
+          }
+        }
+
+        owo.query('.mode-bar')[0].innerHTML = modeHtml; // console.log(data)
 
         owo.tool.change(_this, {
-          config: data,
+          config: res.config,
           logInfo: res.log
         });
-        owo.tool.emit('changeData', data);
-        owo.tool.emit('changeLog', res.log);
+        owo.tool.emit('changeData', res.config);
+        owo.tool.emit('changeLog', res.log); // 获取模式
+        // console.log(res.config.mode)
+
+        _owo.handleEvent(_this);
       });
     },
     "postData": function postData(url, data) {
@@ -106,7 +123,11 @@ owo.script = {
       });
     },
     "changeConfig": function changeConfig(key) {
-      this.data.config[key] = this.$target.value;
+      this.data.config.mode[this.data.activeMode][key] = this.$target.value;
+    },
+    "changeActiveMode": function changeActiveMode(name) {
+      console.log("\u66F4\u6539\u6D3B\u8DC3\u6A21\u5F0F\u4E3A: " + name);
+      this.data.activeMode = name;
     },
     "view": {
       "content": [{
@@ -332,7 +353,13 @@ owo.script = {
           }
         }
       }, {
+        "show": function show() {
+          console.log(this);
+        },
         "broadcast": {},
+        "changeConfig": function changeConfig(key) {
+          this.data.config.mode[this.data.activeMode][key] = this.$target.value;
+        },
         "prop": {
           "name": "build",
           "src": "./src/route/build.owo"

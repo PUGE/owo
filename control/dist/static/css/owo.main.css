@@ -222,32 +222,6 @@ table {
   color: #009fe9;
   font-size: 20px;
 }
-
-
-li {
-  line-height: 25px;
-  border-bottom: 1px solid #b2bac1;
-  font-size: 14px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0 5px;
-  color: #333;
-}
-
-.info {
-  background-color: darkslategray;
-  color: white;
-}
-
-.debug {
-  background-color: gainsboro;
-}
-
-.error {
-  background-color: red;
-  color: white;
-}
 .content-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -285,9 +259,9 @@ li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background-color: #262626;
 }
 
@@ -371,6 +345,17 @@ table .icon {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
+}
+
+.mode-bar {
+  color: white;
+}
+
+.mode-bar span {
+  margin: 0 15px;
+  line-height: 50px;
+  font-size: 20px;
   cursor: pointer;
 }
 

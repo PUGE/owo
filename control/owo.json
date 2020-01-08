@@ -1,22 +1,4 @@
 {
-	"basePath": "./",
-	"debug": true,
-	"watcher": {
-		"enable": true,
-		"ignored": "./dist/*",
-		"depth": 99
-	},
-	"outPut": {
-		"merge": true,
-		"minifyCss": false,
-		"minifyJs": false,
-		"addVersion": false,
-		"allAnimate": false
-	},
-	"serverPort": 8000,
-	"server": true,
-	"autoReload": true,
-	"remoteDebug": false,
 	"root": "/src",
 	"title": "owo管理页面",
 	"scheme": [],

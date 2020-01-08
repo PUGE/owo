@@ -1,4 +1,4 @@
-// Tue Jan 07 2020 00:26:38 GMT+0800 (中国标准时间)
+// Wed Jan 08 2020 23:29:57 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -515,9 +515,6 @@ function switchPage (oldUrlParam, newUrlParam) {
   
   window.owo.activePage = newPage
   // 不可调换位置
-  if (!window.owo.script[newPage]._isCreated) {
-    _owo.handleEvent(window.owo.script[newPage])
-  }
-  // 不可调换位置
   _owo.handlePage(window.owo.script[newPage], newDom)
+  _owo.handleEvent(window.owo.script[newPage])
 }

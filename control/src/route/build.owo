@@ -2,24 +2,30 @@
 .boild
   .input-bar
     .label 基本目录
-    input.basePath(type="text" o-value="this.data.config.basePath" o-input="changeConfig('basePath')")
+    input.basePath(type="text" o-value="this.data.config.basePath || this.data.config.mode[this.data.activeMode].basePath" o-input="changeConfig('basePath')")
   .input-bar
     .label 项目目录
-    input.root(type="text" o-value="this.data.config.root" o-input="changeConfig('root')")
+    input.root(type="text" o-value="this.data.config.root || this.data.config.mode[this.data.activeMode].root" o-input="changeConfig('root')")
   .input-bar
     .label 打包输出目录
-    input.outFolder(type="text" o-value="this.data.config.outFolder" o-input="changeConfig('outFolder')")
+    input.outFolder(type="text" o-value="this.data.config.outFolder || this.data.config.mode[this.data.activeMode].outFolder" o-input="changeConfig('outFolder')")
   .input-bar
     .label 网页名称
-    input.title(type="text" o-value="this.data.config.title" o-input="changeConfig('title')")
+    input.title(type="text" o-value="this.data.config.title || this.data.config.mode[this.data.activeMode].title" o-input="changeConfig('title')")
   .input-bar
     .label 资源目录
-    input.resourceFolder(type="text" o-value="this.data.config.resourceFolder")
+    input.resourceFolder(type="text" o-value="this.data.config.resourceFolder || this.data.config.mode[this.data.activeMode].resourceFolder")
 </template>
 
 <script>
   module.exports = {
+    show: function () {
+      console.log(this)
+    },
     broadcast: {
+    },
+    changeConfig: function (key) {
+      this.data.config.mode[this.data.activeMode][key] = this.$target.value
     }
   }
 </script>

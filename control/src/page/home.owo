@@ -1,6 +1,8 @@
 <template lang="pug">
 .home
   .title-bar
+    .mode-bar
+
     .save-button
       .icon &#xea6f;
       span(o-tap="seveConfig") 发送
@@ -29,21 +31,38 @@
 <script>
   module.exports = {
     data: {
+      originalData: null,
       contentItem: "info",
       config: {},
       logInfo: {},
-      needCreatFile: []
+      needCreatFile: [],
+      activeMode: null
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
-        const data = res.config
+        this.data.originalData = res
+        // 设置当前活跃模式
+        let modeHtml = ''
+        this.data.activeMode = Object.keys(res.config.mode)[0]
+        for (const key in res.config.mode) {
+          if (res.config.mode.hasOwnProperty(key)) {
+            const element = res.config.mode[key];
+            modeHtml += `<span o-tap="changeActiveMode('${key}')">${key}</span>`
+          }
+        }
+        owo.query('.mode-bar')[0].innerHTML = modeHtml
         // console.log(data)
         owo.tool.change(this, {
-          config: data,
+          config: res.config,
           logInfo: res.log
         })
-        owo.tool.emit('changeData', data)
+        
+
+        owo.tool.emit('changeData', res.config)
         owo.tool.emit('changeLog', res.log)
+        // 获取模式
+        // console.log(res.config.mode)
+        _owo.handleEvent(this)
       })
     },
     postData: function (url, data) {
@@ -73,7 +92,11 @@
       })
     },
     changeConfig: function (key) {
-      this.data.config[key] = this.$target.value
+      this.data.config.mode[this.data.activeMode][key] = this.$target.value
+    },
+    changeActiveMode: function (name) {
+      console.log(`更改活跃模式为: ${name}`)
+      this.data.activeMode = name
     }
   }
 </script>
@@ -106,7 +129,7 @@
 .title-bar {
   height: 50px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   background-color: #262626;
   .icon {
     width: 40px;
@@ -174,5 +197,13 @@ table {
   display: flex;
   cursor: pointer;
 }
-
+.mode-bar {
+  color: white;
+  span {
+    margin: 0 15px;
+    line-height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
 </style>
