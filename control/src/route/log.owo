@@ -22,23 +22,23 @@
 </script>
 
 <style lang="less">
-  li {
-    line-height: 25px;
-    border-bottom: 1px solid #b2bac1;
-    font-size: 14px;
-    display: flex;
-    padding: 0 5px;
-    color: #333;
-  }
-  .info {
-    background-color: darkslategray;
-    color: white;
-  }
-  .debug {
-    background-color: gainsboro;
-  }
-  .error {
-    background-color: red;
-    color: white;
-  }
+li {
+  line-height: 25px;
+  border-bottom: 1px solid #b2bac1;
+  font-size: 14px;
+  display: flex;
+  padding: 0 5px;
+  color: #333;
+}
+.info {
+  background-color: darkslategray;
+  color: white;
+}
+.debug {
+  background-color: gainsboro;
+}
+.error {
+  background-color: red;
+  color: white;
+}
 </style>

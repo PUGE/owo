@@ -48,7 +48,7 @@ li {
   list-style: none;
 }
 
-.card-bar {
+.info .card-bar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,28 +61,28 @@ li {
   padding: 20px;
 }
 
-.card-bar .card-bar-item {
+.info .card-bar .card-bar-item {
   width: 20%;
   color: #888;
   border-right: 1px solid #ccc;
 }
 
-.card-bar h3 {
+.info .card-bar h3 {
   line-height: 30px;
   font-weight: normal;
 }
 
-.card-bar h3 .icon {
+.info .card-bar h3 .icon {
   margin-right: 4px;
 }
 
-.card-bar p {
+.info .card-bar p {
   line-height: 50px;
   color: black;
   font-size: 30px;
 }
 
-.card-bar .card-bar-item:last-child {
+.info .card-bar .card-bar-item:last-child {
   border-right: none;
 }
 table {
@@ -221,6 +221,32 @@ table {
   text-align: center;
   color: #009fe9;
   font-size: 20px;
+}
+
+
+.log li {
+  line-height: 25px;
+  border-bottom: 1px solid #b2bac1;
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 5px;
+  color: #333;
+}
+
+.log .info {
+  background-color: darkslategray;
+  color: white;
+}
+
+.log .debug {
+  background-color: gainsboro;
+}
+
+.log .error {
+  background-color: red;
+  color: white;
 }
 .content-box {
   display: -webkit-box;
