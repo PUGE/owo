@@ -13,31 +13,31 @@
 }
 
 @-webkit-keyframes float {
-  0% { transform: translateY(-1vh);}
-  50% {transform: translateY(-2vh);}
-  100% {transform: translateY(-1vh);}
+  0% { transform: translateY(-2vh);}
+  50% {transform: translateY(-4vh);}
+  100% {transform: translateY(-2vh);}
 }
 
 @-moz-keyframes float {
-  0% { transform: translateY(-1vh);}
-  50% {transform: translateY(-2vh);}
-  100% {transform: translateY(-1vh);}
+  0% { transform: translateY(-2vh);}
+  50% {transform: translateY(-4vh);}
+  100% {transform: translateY(-2vh);}
 }
 
 @-ms-keyframes float {
-  0% { transform: translateY(-1vh);}
-  50% {transform: translateY(-2vh);}
-  100% {transform: translateY(-1vh);}
+  0% { transform: translateY(-2vh);}
+  50% {transform: translateY(-4vh);}
+  100% {transform: translateY(-2vh);}
 }
 
 @-o-keyframes float {
-  0% { transform: translateY(-1vh);}
-  50% {transform: translateY(-2vh);}
-  100% {transform: translateY(-1vh);}
+  0% { transform: translateY(-2vh);}
+  50% {transform: translateY(-4vh);}
+  100% {transform: translateY(-2vh);}
 }
 
 @keyframes float {
-  0% { transform: translateY(-1vh);}
-  50% {transform: translateY(-2vh);}
-  100% {transform: translateY(-1vh);}
+  0% { transform: translateY(-2vh);}
+  50% {transform: translateY(-4vh);}
+  100% {transform: translateY(-2vh);}
 }
