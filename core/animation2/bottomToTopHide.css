@@ -1,0 +1,32 @@
+.owo-animation-bottomToTopHide {
+  -webkit-animation: bottomToTopHide 1.5s linear infinite;
+  -moz-animation: bottomToTopHide 1.5s linear infinite;
+  -ms-animation: bottomToTopHide 1.5s linear infinite;
+  -o-animation: bottomToTopHide 1.5s linear infinite;
+  animation: bottomToTopHide 1.5s linear infinite;
+}
+
+@-webkit-keyframes bottomToTopHide {
+  0% { transform: translateY(0px);}
+  100% {transform: translateY(-30px);opacity: 0;}
+}
+
+@-moz-keyframes bottomToTopHide {
+  0% { transform: translateY(0px);}
+  100% {transform: translateY(-30px);opacity: 0;}
+}
+
+@-ms-keyframes bottomToTopHide {
+  0% { transform: translateY(0px);}
+  100% {transform: translateY(-30px);opacity: 0;}
+}
+
+@-o-keyframes bottomToTopHide {
+  0% { transform: translateY(0px);}
+  100% {transform: translateY(-30px);opacity: 0;}
+}
+
+@keyframes bottomToTopHide {
+  0% { transform: translateY(0px);}
+  100% {transform: translateY(-30px);opacity: 0;}
+}

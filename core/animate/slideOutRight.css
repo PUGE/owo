@@ -11,4 +11,5 @@
 
 .slideOutRight {
   animation-name: slideOutRight;
+  animation-fill-mode: forwards;
 }
