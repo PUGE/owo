@@ -1,4 +1,4 @@
-// Thu Jan 09 2020 22:57:42 GMT+0800 (GMT+08:00)
+// Sat Jan 11 2020 14:22:32 GMT+0800 (中国标准时间)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -371,34 +371,57 @@ owo.tool.change = function (environment, obj) {
       environment.data[key] = value
     }
   }
-  
-  var showList = environment.$el.querySelectorAll('[o-show]')
-  for (var ind = 0; ind < showList.length; ind++) {
-    var showDom = showList[ind]
-    var temp = showDom.getAttribute('o-show').replace(/ /g, '')
-    function tempRun (temp) {
-      return eval(temp)
-    }
-    if (tempRun.apply(environment, [temp])) {
-      showDom.style.display = ''
-    } else {
-      showDom.style.display = 'none'
-    }
-  }
-  var valueList = environment.$el.querySelectorAll('[o-value]')
-  for (var ind = 0; ind < valueList.length; ind++) {
-    var valueDom = valueList[ind]
-    var temp = valueDom.getAttribute('o-value').replace(/ /g, '')
-    const value = (function (temp) {
-      try {
+  // 递归
+  function recursion(el) {
+    // 判断o-show
+    var showValue = el.getAttribute('o-show')
+    if (showValue) {
+      var temp = showValue.replace(/ /g, '')
+      function tempRun (temp) {
         return eval(temp)
-      } catch (error) {
-        return undefined
       }
-    }).apply(environment, [temp])
-    // console.log(value)
-    valueDom.value = value
+      if (tempRun.apply(environment, [temp])) {
+        showDom.style.display = ''
+      } else {
+        showDom.style.display = 'none'
+      }
+    }
+    var valueValue = el.getAttribute('o-value')
+    if (valueValue) {
+      var temp = valueValue.replace(/ /g, '')
+      const value = (function (temp) {
+        try {
+          return eval(temp)
+        } catch (error) {
+          return undefined
+        }
+      }).apply(environment, [temp])
+      el.value = value
+    }
+    var htmlValue = el.getAttribute('o-html')
+    if (htmlValue) {
+      var temp = htmlValue.replace(/ /g, '')
+      const value = (function (temp) {
+        try {
+          return eval(temp)
+        } catch (error) {
+          return undefined
+        }
+      }).apply(environment, [temp])
+      // console.log(value)
+      temp.innerHTML = value
+    }
+    // 判断元素是否还属于当前模块
+    if (!el.getAttribute('view') && !el.getAttribute('template')) {
+      // 递归子元素
+      for (let index = 0; index < el.children.length; index++) {
+        const element = el.children[index]
+        recursion(element)
+      }
+    }
+    
   }
+  recursion(environment.$el)
   for (var key in environment.template) {
     const templateItem = environment.template[key]
     for (var key2 in templateItem.propMap) {
@@ -406,21 +429,6 @@ owo.tool.change = function (environment, obj) {
       templateItem.prop[key2] = _owo.getValueFromScript(propMapItem.split('.'), environment)
     }
   }
-  var htmlList = environment.$el.querySelectorAll('[o-html]')
-  for (var ind = 0; ind < htmlList.length; ind++) {
-    var valueDom = htmlList[ind]
-    var temp = valueDom.getAttribute('o-html').replace(/ /g, '')
-    const value = (function (temp) {
-      try {
-        return eval(temp)
-      } catch (error) {
-        return undefined
-      }
-    }).apply(environment, [temp])
-    // console.log(value)
-    valueDom.innerHTML = value
-  }
-  // console.log(environment, key, value)
 }
 
 // 事件推送方法

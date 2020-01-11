@@ -14,7 +14,7 @@
         data.logList.forEach(element => {
           logHtml += `<li class="${element.type}">${element.text}</li>`
         });
-        console.log(data)
+        // console.log(data)
         this.$el.getElementsByTagName('ul')[0].innerHTML = logHtml
       }
     }

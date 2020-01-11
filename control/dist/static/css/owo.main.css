@@ -223,7 +223,35 @@ table {
   font-size: 20px;
 }
 
+.boild .card {
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+  background-color: white;
+  -webkit-box-shadow: 1px 1px 3px #ccc;
+          box-shadow: 1px 1px 3px #ccc;
+  padding: 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 
+.boild .card span {
+  display: block;
+  margin-left: 10px;
+  color: #333;
+}
+
+.boild input[type="checkbox"] {
+  width: 26px;
+  height: 26px;
+}
 .log li {
   line-height: 25px;
   border-bottom: 1px solid #b2bac1;

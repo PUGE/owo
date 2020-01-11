@@ -35,11 +35,10 @@
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.config.basePath || this.data.config.mode[this.data.activeMode].basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.config.root || this.data.config.mode[this.data.activeMode].root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.config.outFolder || this.data.config.mode[this.data.activeMode].outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.config.title || this.data.config.mode[this.data.activeMode].title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.config.resourceFolder || this.data.config.mode[this.data.activeMode].resourceFolder"></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
+<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="card"><input type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')"><span>debug模式</span></div><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.copyConfig.resourceFolder"></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
     
 
-    <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script>
-    <script src="./static/js/test.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
+    <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
 <script src="./static/js/owo.main.js" type="text/javascript" charset="UTF-8"></script>
 <script>/*
   存储每个页面的函数
@@ -353,10 +352,16 @@ owo.script = {
           }
         }
       }, {
-        "show": function show() {
-          console.log(this);
+        "data": {
+          "copyConfig": null
         },
-        "broadcast": {},
+        "broadcast": {
+          "changeData": function changeData(config) {
+            owo.tool.change(this, {
+              copyConfig: Object.assign(config.mode[owo.script.home.data.activeMode], config)
+            });
+          }
+        },
         "changeConfig": function changeConfig(key) {
           this.data.config.mode[this.data.activeMode][key] = this.$target.value;
         },
@@ -375,8 +380,8 @@ owo.script = {
             var logHtml = "";
             data.logList.forEach(function (element) {
               logHtml += "<li class=\"" + element.type + "\">" + element.text + "</li>";
-            });
-            console.log(data);
+            }); // console.log(data)
+
             this.$el.getElementsByTagName('ul')[0].innerHTML = logHtml;
           }
         },
