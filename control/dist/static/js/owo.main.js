@@ -1,4 +1,4 @@
-// Sat Jan 11 2020 14:22:32 GMT+0800 (中国标准时间)
+// Sat Jan 11 2020 23:35:29 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -396,7 +396,19 @@ owo.tool.change = function (environment, obj) {
           return undefined
         }
       }).apply(environment, [temp])
-      el.value = value
+      switch (el.tagName) {
+        case 'INPUT':
+          switch (el.getAttribute('type')) {
+            case 'text':
+              el.value = value
+              break;
+            case 'checkbox':
+              el.checked = Boolean(value)
+              break;
+          }
+          break;
+      }
+      
     }
     var htmlValue = el.getAttribute('o-html')
     if (htmlValue) {

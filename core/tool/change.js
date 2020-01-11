@@ -48,7 +48,19 @@ owo.tool.change = function (environment, obj) {
           return undefined
         }
       }).apply(environment, [temp])
-      el.value = value
+      switch (el.tagName) {
+        case 'INPUT':
+          switch (el.getAttribute('type')) {
+            case 'text':
+              el.value = value
+              break;
+            case 'checkbox':
+              el.checked = Boolean(value)
+              break;
+          }
+          break;
+      }
+      
     }
     var htmlValue = el.getAttribute('o-html')
     if (htmlValue) {

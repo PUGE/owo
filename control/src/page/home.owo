@@ -83,7 +83,7 @@
       .then(response => response.json()) // parses response to JSON
     },
     seveConfig: function () {
-      console.log(this.data.config)
+      // console.log(this.data.config)
       this.postData('../setControl', {
         config: this.data.config,
         needCreatFile: this.data.needCreatFile,
@@ -97,6 +97,7 @@
     changeActiveMode: function (name) {
       console.log(`更改活跃模式为: ${name}`)
       this.data.activeMode = name
+      owo.tool.emit('changeData', this.data.config)
     }
   }
 </script>

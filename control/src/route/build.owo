@@ -1,23 +1,36 @@
 <template lang="pug">
 .boild
-  .card
-    input(type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')")
-    span debug模式
-  .input-bar
-    .label 基本目录
-    input.basePath(type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')")
-  .input-bar
-    .label 项目目录
-    input.root(type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')")
-  .input-bar
-    .label 打包输出目录
-    input.outFolder(type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')")
-  .input-bar
-    .label 网页名称
-    input.title(type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')")
-  .input-bar
-    .label 资源目录
-    input.resourceFolder(type="text" o-value="this.data.copyConfig.resourceFolder")
+  .card-box.clear
+    .card
+      span debug模式
+      input(type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')")
+    .card
+      span 后台服务
+      input(type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')")
+    .card
+      span 外链提示
+      input(type="checkbox" o-value="this.data.copyConfig.alertLink" o-input="changeConfig('alertLink')")
+    .card
+      span 基本目录
+      input.basePath(type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')")
+    .card
+      span 包裹容器
+      input.basePath(type="text" o-value="this.data.copyConfig.container" o-input="changeConfig('container')")
+    .card
+      span 手机入口
+      input.basePath(type="text" o-value="this.data.copyConfig.phoneEnter" o-input="changeConfig('phoneEnter')")
+    .card
+      span 项目目录
+      input.root(type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')")
+    .card
+      span 打包输出目录
+      input.outFolder(type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')")
+    .card
+      span 网页名称
+      input.title(type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')")
+    .card
+      span 资源目录
+      input.resourceFolder(type="text" o-value="this.data.copyConfig.resourceFolder")
   
 </template>
 
@@ -28,9 +41,13 @@
     },
     broadcast: {
       changeData: function (config) {
+        console.log(owo.script.home.data.activeMode)
         owo.tool.change(this, {
           copyConfig: Object.assign(config.mode[owo.script.home.data.activeMode], config)
         })
+        setTimeout(() => {
+          console.log(this.data.copyConfig.debug)
+        }, 500)
       }
     },
     changeConfig: function (key) {
@@ -41,18 +58,19 @@
 
 <style lang="less">
 .card {
-  width: 200px;
+  width: 300px;
   height: 40px;
   line-height: 40px;
   background-color: white;
   box-shadow: 1px 1px 3px #ccc;
   padding: 0 10px;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
+  float: left;
+  margin: 5px;
   span {
     display: block;
-    margin-left: 10px;
     color: #333;
   }
 }

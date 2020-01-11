@@ -35,7 +35,7 @@
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="card"><input type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')"><span>debug模式</span></div><div class="input-bar"><div class="label">基本目录</div><input class="basePath" type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')"></div><div class="input-bar"><div class="label">项目目录</div><input class="root" type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')"></div><div class="input-bar"><div class="label">打包输出目录</div><input class="outFolder" type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')"></div><div class="input-bar"><div class="label">网页名称</div><input class="title" type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')"></div><div class="input-bar"><div class="label">资源目录</div><input class="resourceFolder" type="text" o-value="this.data.copyConfig.resourceFolder"></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
+<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="card-box clear"><div class="card"><span>debug模式</span><input type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')"></div><div class="card"><span>后台服务</span><input type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')"></div><div class="card"><span>外链提示</span><input type="checkbox" o-value="this.data.copyConfig.alertLink" o-input="changeConfig('alertLink')"></div><div class="card"><span>基本目录</span><input class="basePath" type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')"></div><div class="card"><span>包裹容器</span><input class="basePath" type="text" o-value="this.data.copyConfig.container" o-input="changeConfig('container')"></div><div class="card"><span>手机入口</span><input class="basePath" type="text" o-value="this.data.copyConfig.phoneEnter" o-input="changeConfig('phoneEnter')"></div><div class="card"><span>项目目录</span><input class="root" type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')"></div><div class="card"><span>打包输出目录</span><input class="outFolder" type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')"></div><div class="card"><span>网页名称</span><input class="title" type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')"></div><div class="card"><span>资源目录</span><input class="resourceFolder" type="text" o-value="this.data.copyConfig.resourceFolder"></div></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
     
 
     <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
@@ -113,7 +113,7 @@ owo.script = {
       }); // parses response to JSON
     },
     "seveConfig": function seveConfig() {
-      console.log(this.data.config);
+      // console.log(this.data.config)
       this.postData('../setControl', {
         config: this.data.config,
         needCreatFile: this.data.needCreatFile
@@ -127,6 +127,7 @@ owo.script = {
     "changeActiveMode": function changeActiveMode(name) {
       console.log("\u66F4\u6539\u6D3B\u8DC3\u6A21\u5F0F\u4E3A: " + name);
       this.data.activeMode = name;
+      owo.tool.emit('changeData', this.data.config);
     },
     "view": {
       "content": [{
@@ -357,9 +358,15 @@ owo.script = {
         },
         "broadcast": {
           "changeData": function changeData(config) {
+            var _this2 = this;
+
+            console.log(owo.script.home.data.activeMode);
             owo.tool.change(this, {
               copyConfig: Object.assign(config.mode[owo.script.home.data.activeMode], config)
             });
+            setTimeout(function () {
+              console.log(_this2.data.copyConfig.debug);
+            }, 500);
           }
         },
         "changeConfig": function changeConfig(key) {
