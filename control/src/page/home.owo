@@ -21,7 +21,7 @@
       a.menu-item(href="?view-content=log")
         .icon &#xe601;
         .text 日志管理
-    view.router(name="content")
+    view.router(name="content" o-if="this.data.config")
       route(name="info" src="./src/route/info.owo")
       route(name="else" src="./src/route/else.owo")
       route(name="build" src="./src/route/build.owo")
@@ -31,7 +31,7 @@
 <script>
   module.exports = {
     data: {
-      originalData: null,
+      originalConfig: null,
       contentItem: "info",
       config: {},
       logInfo: {},
@@ -40,7 +40,7 @@
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
-        this.data.originalData = res
+        this.data.originalConfig = JSON.stringify(res.config)
         // 设置当前活跃模式
         let modeHtml = ''
         this.data.activeMode = Object.keys(res.config.mode)[0]
@@ -51,11 +51,8 @@
           }
         }
         owo.query('.mode-bar')[0].innerHTML = modeHtml
-        // console.log(data)
-        owo.tool.change(this, {
-          config: res.config,
-          logInfo: res.log
-        })
+        this.data.config = res.config
+        this.data.logInfo = res.log
         
 
         owo.tool.emit('changeData', res.config)
@@ -83,7 +80,8 @@
       .then(response => response.json()) // parses response to JSON
     },
     seveConfig: function () {
-      // console.log(this.data.config)
+      console.log('发送数据:')
+      console.log(this.data.config)
       this.postData('../setControl', {
         config: this.data.config,
         needCreatFile: this.data.needCreatFile,
@@ -91,12 +89,12 @@
         console.log(res)
       })
     },
-    changeConfig: function (key) {
-      this.data.config.mode[this.data.activeMode][key] = this.$target.value
-    },
     changeActiveMode: function (name) {
       console.log(`更改活跃模式为: ${name}`)
       this.data.activeMode = name
+      const copyConfig = JSON.parse(this.data.originalConfig)
+      // console.log(copyConfig)
+      // this.data.config = Object.assign(copyConfig, copyConfig.mode[this.data.activeMode])
       owo.tool.emit('changeData', this.data.config)
     }
   }

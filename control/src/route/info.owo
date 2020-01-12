@@ -1,15 +1,15 @@
 <template lang="pug">
 .info
-  .card-bar
+  .card-bar(o-if="owo.script.home.data.config")
     .card-bar-item
       h3 页面数量
-      p(o-html="this.data.config.pageList.length")
+      p(o-html="owo.script.home.data.config.pageList.length")
     .card-bar-item
       h3 编译警告
-      p(style="color: #c1c187;" o-html="this.data.logInfo.warningNum") 0
+      p(style="color: #c1c187;" o-html="owo.script.home.data.logInfo.warningNum")
     .card-bar-item
       h3  编译报错
-      p(style="color: red;" o-html="this.data.logInfo.errorNum") 0
+      p(style="color: red;" o-html="owo.script.home.data.logInfo.errorNum")
     .card-bar-item
       h3 页面大小
       p(style="color: skyblue;") 1.23Mb
@@ -17,7 +17,11 @@
 
 <script>
   module.exports = {
-
+    broadcast: {
+      changeData: function (config) {
+        _owo.handleEvent(this)
+      }
+    }
   }
 </script>
 

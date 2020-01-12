@@ -127,5 +127,6 @@
 				"allAnimate": false
 			}
 		}
-	}
+	},
+	"basePath": "./"
 }

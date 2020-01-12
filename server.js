@@ -28,26 +28,26 @@ function Server (config, app) {
         }
       })
     })
-    app.get('/getControl', function (req, res) {
-      res.send({
-        err: 0,
-        config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
-        log
-      })
-    })
-    app.post('/setControl', (req, res) => {
-      const data = req.body
-      data.needCreatFile.forEach(element => {
-        const filePath = path.join(runPath, element.src)
-        if (!fs.existsSync(filePath)) {
-          fs.writeFileSync(filePath, `<template lang="pug">.box</template><script>module.exports = {}</script><style lang="less"></style>`)
-        }
-      })
-      fs.writeFile(path.join(runPath, 'owo.json'), JSON.stringify(data.config, null, '\t'), () => {
-        // 重新加载配置
-        res.send(JSON.stringify({err: 0, config: data.config, log}))
-      })
-    })
   }
+  app.get('/getControl', function (req, res) {
+    res.send({
+      err: 0,
+      config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
+      log
+    })
+  })
+  app.post('/setControl', (req, res) => {
+    const data = req.body
+    data.needCreatFile.forEach(element => {
+      const filePath = path.join(runPath, element.src)
+      if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, `<template lang="pug">.box</template><script>module.exports = {}</script><style lang="less"></style>`)
+      }
+    })
+    fs.writeFile(path.join(runPath, 'owo.json'), JSON.stringify(data.config, null, '\t'), () => {
+      // 重新加载配置
+      res.send(JSON.stringify({err: 0, config: data.config, log}))
+    })
+  })
 }
 module.exports = Server

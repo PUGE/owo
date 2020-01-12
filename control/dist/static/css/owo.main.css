@@ -253,6 +253,27 @@ table {
   width: 26px;
   height: 26px;
 }
+
+.boild tr {
+  line-height: 30px;
+  background-color: white;
+  color: #333;
+}
+
+.boild td {
+  text-align: center;
+}
+
+.boild td input {
+  display: inline;
+  color: #333;
+  text-align: center;
+}
+
+.boild tbody th {
+  background-color: #009fe9;
+  color: white;
+}
 .log li {
   line-height: 25px;
   border-bottom: 1px solid #b2bac1;

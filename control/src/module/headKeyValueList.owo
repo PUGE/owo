@@ -1,11 +1,5 @@
 <template lang="pug">
 table.key-value-list
-  tr
-    th 键名
-    th 键值
-    th 介绍
-    th 操作
-  tr(:for="item in 5") 55555
 </template>
 
 <script>

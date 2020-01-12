@@ -30,12 +30,7 @@
   <body>
     <!-- 页面区域 -->
     <!-- 页面[home]-->
-    <div class="home owo" template="home"><div class="title-bar"><div class="mode-bar"></div><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><a class="menu-item" href="?view-content=build"><div class="icon"></div><div class="text">打包配置</div></a><a class="menu-item" href="?view-content=log"><div class="icon"></div><div class="text">日志管理</div></a></div><div class="router" view="content"><div class="info" route="info"><div class="card-bar"><div class="card-bar-item"><h3>页面数量</h3><p o-html="this.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="this.data.logInfo.warningNum">0</p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="this.data.logInfo.errorNum">0</p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="page" route="else"><table class="key-value-list" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>介绍</th><th>操作</th></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr>
-<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" o-if="this.data.copyConfig" route="build"><div class="card-box clear"><div class="card"><span>debug模式</span><input type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')"></div><div class="card"><span>外链提示</span><input type="checkbox" o-value="this.data.copyConfig.alertLink" o-input="changeConfig('alertLink')"></div><div class="card"><span>基本目录</span><input class="basePath" type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')"></div><div class="card"><span>包裹容器</span><input class="basePath" type="text" o-value="this.data.copyConfig.container" o-input="changeConfig('container')"></div><div class="card"><span>手机入口</span><input class="basePath" type="text" o-value="this.data.copyConfig.phoneEnter" o-input="changeConfig('phoneEnter')"></div><div class="card"><span>项目目录</span><input class="root" type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')"></div><div class="card"><span>打包输出目录</span><input class="outFolder" type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')"></div><div class="card"><span>网页名称</span><input class="title" type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')"></div><div class="card"><span>资源目录</span><input class="resourceFolder" type="text" o-value="this.data.copyConfig.resourceFolder"></div></div><div class="lable">服务设置</div><div class="card-box clear"><div class="card"><span>后台服务</span><input type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')"></div><div class="other" o-if="this.data.copyConfig.server"><div class="card"><span>服务端口</span><input class="serverPort" type="text" o-value="this.data.copyConfig.serverPort" o-input="changeConfig('serverPort')"></div><div class="card"><span>自动刷新页面</span><input type="checkbox" o-value="this.data.copyConfig.autoReload" o-input="changeConfig('autoReload')"></div><div class="card"><span>远程调试</span><input type="checkbox" o-value="this.data.copyConfig.remoteDebug" o-input="changeConfig('remoteDebug')"></div></div></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
+    <div class="home owo" template="home"><div class="title-bar"><div class="mode-bar"></div><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><a class="menu-item" href="?view-content=build"><div class="icon"></div><div class="text">打包配置</div></a><a class="menu-item" href="?view-content=log"><div class="icon"></div><div class="text">日志管理</div></a></div><div class="router" view="content" o-if="this.data.config"><div class="info" route="info"><div class="card-bar" o-if="owo.script.home.data.config"><div class="card-bar-item"><h3>页面数量</h3><p o-html="owo.script.home.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-html="owo.script.home.data.logInfo.warningNum"></p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-html="owo.script.home.data.logInfo.errorNum"></p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div></div><div class="page" route="else"><table class="key-value-list" template="headKeyValueList"></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" o-if="owo.script.home.data.config" route="build"><table><tbody><tr><th>配置名称</th><th>全局配置</th><th>dev模式</th><th>build模式</th></tr><tr><td>debug模式</td><td><input type="checkbox" o-value="owo.script.home.data.config.debug"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.dev.debug"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.build.debug"></td></tr><tr><td>外链提示</td><td><input type="checkbox" o-value="owo.script.home.data.config.alertLink"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.dev.alertLink"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.build.alertLink"></td></tr><tr><td>基本目录</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.basePath"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.basePath"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.basePath"></td></tr><tr><td>包裹容器</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.container"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.container"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.container"></td></tr><tr><td>手机入口</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.phoneEnter"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.phoneEnter"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.phoneEnter"></td></tr><tr><td>项目目录</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.root"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.root"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.root"></td></tr><tr><td>输出目录</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.outFolder"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.outFolder"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.outFolder"></td></tr><tr><td>网页名称</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.title"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.title"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.title"></td></tr><tr><td>资源目录</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.resourceFolder"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.resourceFolder"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.resourceFolder"></td></tr><tr><td>开启服务</td><td><input type="checkbox" o-value="owo.script.home.data.config.server"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.dev.server"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.build.server"></td></tr><tr><td>服务端口</td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.serverPort"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.serverPort"></td><td><input type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.serverPort"></td></tr><tr><td>自动刷新</td><td><input type="checkbox" o-value="owo.script.home.data.config.autoReload"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.dev.autoReload"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.build.autoReload"></td></tr><tr><td>远程调试</td><td><input type="checkbox" o-value="owo.script.home.data.config.remoteDebug"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.dev.remoteDebug"></td><td><input type="checkbox" o-value="owo.script.home.data.config.mode.build.remoteDebug"></td></tr></tbody></table></div><div class="log" route="log"><ul></ul></div></div></div></div>
     
 
     <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
@@ -49,7 +44,7 @@ owo.phoneEnter = "null";
 owo.script = {
   "home": {
     "data": {
-      "originalData": null,
+      "originalConfig": null,
       "contentItem": "info",
       "config": {},
       "logInfo": {},
@@ -62,7 +57,7 @@ owo.script = {
       fetch('../getControl').then(function (response) {
         return response.json();
       }).then(function (res) {
-        _this.data.originalData = res; // 设置当前活跃模式
+        _this.data.originalConfig = JSON.stringify(res.config); // 设置当前活跃模式
 
         var modeHtml = '';
         _this.data.activeMode = Object.keys(res.config.mode)[0];
@@ -74,12 +69,9 @@ owo.script = {
           }
         }
 
-        owo.query('.mode-bar')[0].innerHTML = modeHtml; // console.log(data)
-
-        owo.tool.change(_this, {
-          config: res.config,
-          logInfo: res.log
-        });
+        owo.query('.mode-bar')[0].innerHTML = modeHtml;
+        _this.data.config = res.config;
+        _this.data.logInfo = res.log;
         owo.tool.emit('changeData', res.config);
         owo.tool.emit('changeLog', res.log); // 获取模式
         // console.log(res.config.mode)
@@ -113,7 +105,8 @@ owo.script = {
       }); // parses response to JSON
     },
     "seveConfig": function seveConfig() {
-      // console.log(this.data.config)
+      console.log('发送数据:');
+      console.log(this.data.config);
       this.postData('../setControl', {
         config: this.data.config,
         needCreatFile: this.data.needCreatFile
@@ -121,16 +114,21 @@ owo.script = {
         console.log(res);
       });
     },
-    "changeConfig": function changeConfig(key) {
-      this.data.config.mode[this.data.activeMode][key] = this.$target.value;
-    },
     "changeActiveMode": function changeActiveMode(name) {
       console.log("\u66F4\u6539\u6D3B\u8DC3\u6A21\u5F0F\u4E3A: " + name);
       this.data.activeMode = name;
+      var copyConfig = JSON.parse(this.data.originalConfig); // console.log(copyConfig)
+      // this.data.config = Object.assign(copyConfig, copyConfig.mode[this.data.activeMode])
+
       owo.tool.emit('changeData', this.data.config);
     },
     "view": {
       "content": [{
+        "broadcast": {
+          "changeData": function changeData(config) {
+            _owo.handleEvent(this);
+          }
+        },
         "prop": {
           "name": "info",
           "src": "./src/route/info.owo"
@@ -353,19 +351,10 @@ owo.script = {
           }
         }
       }, {
-        "data": {
-          "copyConfig": null
-        },
         "broadcast": {
           "changeData": function changeData(config) {
-            // console.log(owo.script.home.data.activeMode)
-            owo.tool.change(this, {
-              copyConfig: Object.assign(config.mode[owo.script.home.data.activeMode], config)
-            });
+            _owo.handleEvent(this);
           }
-        },
-        "changeConfig": function changeConfig(key) {
-          this.data.config.mode[this.data.activeMode][key] = this.$target.value;
         },
         "prop": {
           "name": "build",

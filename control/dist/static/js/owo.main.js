@@ -1,4 +1,4 @@
-// Sun Jan 12 2020 13:37:41 GMT+0800 (GMT+08:00)
+// Sun Jan 12 2020 21:47:28 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -67,15 +67,23 @@ _owo._run = function (eventFor, event, newPageFunction) {
     newPageFunction.$target = event.target
     newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
   } else {
-    (function (temp) {
-      try {return eval(temp)} catch (error) {return undefined}
-    }).apply(newPageFunction, [eventFor])
+    shaheRun.apply(newPageFunction, [eventFor])
   }
 }
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
   tempDom['on' + eventName] = function(event) {
     _owo._run(eventFor, event || this, moudleScript)
+  }
+}
+
+// 沙盒运行
+function shaheRun (code) {
+  try {
+    return eval(code)
+  } catch (error) {
+    console.error(error)
+    return undefined
   }
 }
 
@@ -92,6 +100,7 @@ _owo.handleEvent = function (moudleScript) {
         var attribute = tempDom.attributes[ind]
         // ie不支持startsWith
         var eventFor = attribute.textContent || attribute.value
+        eventFor = eventFor.replace(/ /g, '')
         // 判断是否为owo的事件
         if (new RegExp("^o-").test(attribute.name)) {
           var eventName = attribute.name.slice(2)
@@ -108,13 +117,7 @@ _owo.handleEvent = function (moudleScript) {
               break
             }
             case 'show': {
-              var eventFor = attribute.textContent || attribute.value
-              // 初步先简单处理吧
-              var temp = eventFor.replace(/ /g, '')
-              function tempRun (temp) {
-                return eval(temp)
-              }
-              if (tempRun.apply(moudleScript, [temp])) {
+              if (shaheRun.apply(moudleScript, [eventFor])) {
                 tempDom.style.display = ''
               } else {
                 tempDom.style.display = 'none'
@@ -122,14 +125,31 @@ _owo.handleEvent = function (moudleScript) {
               break
             }
             case 'html': {
-              var temp = eventFor.replace(/ /g, '')
-              tempDom.innerHTML = (function (temp) {
-                try {
-                  return eval(temp)
-                } catch (error) {
-                  return undefined
-                }
-              }).apply(moudleScript, [temp])
+              tempDom.innerHTML = shaheRun.apply(moudleScript, [eventFor])
+              break
+            }
+            // 处理o-value
+            case 'value': {
+              var value = shaheRun.apply(moudleScript, [eventFor])
+              switch (tempDom.tagName) {
+                case 'INPUT':
+                  switch (tempDom.getAttribute('type')) {
+                    case 'text':
+                      if (value == undefined) value = ''
+                      tempDom.value = value
+                      tempDom.oninput = function (e) {
+                        shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
+                      }
+                      break;
+                    case 'checkbox':
+                      tempDom.checked = Boolean(value)
+                      tempDom.onclick = function (e) {
+                        shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
+                      }
+                      break;
+                  }
+                  break;
+              }
               break
             }
             default: {
@@ -145,26 +165,22 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      // o-if处理
-      var ifValue = tempDom.getAttribute('o-if')
-      if (ifValue) {
-        var temp = ifValue.replace(/ /g, '')
-        var show = (function (temp) {
-          try {
-            return Boolean(eval(temp))
-          } catch (error) {
-            return false
-          }
-        }).apply(moudleScript, [temp])
-        if (!show) {
-          tempDom.style.display = 'none'
-          return
-        }
-      }
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
         var childrenDom = tempDom.children[i]
+        // o-if处理
+        var ifValue = childrenDom.getAttribute('o-if')
+        if (ifValue) {
+          var temp = ifValue.replace(/ /g, '')
+          var show = shaheRun.apply(moudleScript, [temp])
+          if (!show) {
+            childrenDom.style.display = 'none'
+            return
+          } else {
+            childrenDom.style.display = ''
+          }
+        }
         if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
           recursion(childrenDom)
         }
@@ -361,118 +377,6 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
     startTime = 0;
     isMove = false
   })
-}
-/**
- * 改变数据
- * @return {object} 屏幕信息
- */
-
-_owo.getValueFromScript = function (arr, data) {
-  var returnData = data
-  for (let index = 0; index < arr.length; index++) {
-    const element = arr[index];
-    if (returnData[element] !== undefined) {
-      returnData = returnData[element]
-    } else {
-      return undefined
-    }
-  }
-  return returnData
-}
-
-owo.tool.change = function (environment, obj) {
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      const value = obj[key];
-      environment.data[key] = value
-    }
-  }
-  // 递归
-  function recursion(el) {
-    // 判断o-if
-    var ifValue = el.getAttribute('o-if')
-    if (ifValue) {
-      
-      var temp = ifValue.replace(/ /g, '')
-      function tempRun (temp) {
-        return eval(temp)
-      }
-      if (Boolean(tempRun.apply(environment, [temp]))) {
-        console.log('回复')
-        el.style.display = ''
-      } else {
-        el.style.display = 'none'
-        return
-      }
-    }
-    // 判断o-show
-    var showValue = el.getAttribute('o-show')
-    if (showValue) {
-      var temp = showValue.replace(/ /g, '')
-      function tempRun (temp) {
-        return eval(temp)
-      }
-      if (tempRun.apply(environment, [temp])) {
-        el.style.display = ''
-      } else {
-        el.style.display = 'none'
-      }
-    }
-    var valueValue = el.getAttribute('o-value')
-    if (valueValue) {
-      var temp = valueValue.replace(/ /g, '')
-      const value = (function (temp) {
-        try {
-          return eval(temp)
-        } catch (error) {
-          return undefined
-        }
-      }).apply(environment, [temp])
-      switch (el.tagName) {
-        case 'INPUT':
-          switch (el.getAttribute('type')) {
-            case 'text':
-              el.value = value
-              break;
-            case 'checkbox':
-              el.checked = Boolean(value)
-              break;
-          }
-          break;
-      }
-      
-    }
-    var htmlValue = el.getAttribute('o-html')
-    if (htmlValue) {
-      var temp = htmlValue.replace(/ /g, '')
-      const value = (function (temp) {
-        try {
-          return eval(temp)
-        } catch (error) {
-          return undefined
-        }
-      }).apply(environment, [temp])
-      // console.log(value)
-      temp.innerHTML = value
-    }
-    // 判断元素是否还属于当前模块
-    if (!el.getAttribute('view') && !el.getAttribute('template')) {
-      // 递归子元素
-      for (let index = 0; index < el.children.length; index++) {
-        const element = el.children[index]
-        recursion(element)
-      }
-    }
-    
-  }
-  recursion(environment.$el)
-  for (var key in environment.template) {
-    const templateItem = environment.template[key]
-    for (var key2 in templateItem.propMap) {
-      const propMapItem = templateItem.propMap[key2]
-      templateItem.prop[key2] = _owo.getValueFromScript(propMapItem.split('.'), environment)
-    }
-  }
 }
 
 // 事件推送方法

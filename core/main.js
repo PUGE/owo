@@ -98,15 +98,23 @@ _owo._run = function (eventFor, event, newPageFunction) {
     newPageFunction.$target = event.target
     newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
   } else {
-    (function (temp) {
-      try {return eval(temp)} catch (error) {return undefined}
-    }).apply(newPageFunction, [eventFor])
+    shaheRun.apply(newPageFunction, [eventFor])
   }
 }
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
   tempDom['on' + eventName] = function(event) {
     _owo._run(eventFor, event || this, moudleScript)
+  }
+}
+
+// 沙盒运行
+function shaheRun (code) {
+  try {
+    return eval(code)
+  } catch (error) {
+    console.error(error)
+    return undefined
   }
 }
 
@@ -123,6 +131,7 @@ _owo.handleEvent = function (moudleScript) {
         var attribute = tempDom.attributes[ind]
         // ie不支持startsWith
         var eventFor = attribute.textContent || attribute.value
+        eventFor = eventFor.replace(/ /g, '')
         // 判断是否为owo的事件
         if (new RegExp("^o-").test(attribute.name)) {
           var eventName = attribute.name.slice(2)
@@ -139,13 +148,7 @@ _owo.handleEvent = function (moudleScript) {
               break
             }
             case 'show': {
-              var eventFor = attribute.textContent || attribute.value
-              // 初步先简单处理吧
-              var temp = eventFor.replace(/ /g, '')
-              function tempRun (temp) {
-                return eval(temp)
-              }
-              if (tempRun.apply(moudleScript, [temp])) {
+              if (shaheRun.apply(moudleScript, [eventFor])) {
                 tempDom.style.display = ''
               } else {
                 tempDom.style.display = 'none'
@@ -153,14 +156,31 @@ _owo.handleEvent = function (moudleScript) {
               break
             }
             case 'html': {
-              var temp = eventFor.replace(/ /g, '')
-              tempDom.innerHTML = (function (temp) {
-                try {
-                  return eval(temp)
-                } catch (error) {
-                  return undefined
-                }
-              }).apply(moudleScript, [temp])
+              tempDom.innerHTML = shaheRun.apply(moudleScript, [eventFor])
+              break
+            }
+            // 处理o-value
+            case 'value': {
+              var value = shaheRun.apply(moudleScript, [eventFor])
+              switch (tempDom.tagName) {
+                case 'INPUT':
+                  switch (tempDom.getAttribute('type')) {
+                    case 'text':
+                      if (value == undefined) value = ''
+                      tempDom.value = value
+                      tempDom.oninput = function (e) {
+                        shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
+                      }
+                      break;
+                    case 'checkbox':
+                      tempDom.checked = Boolean(value)
+                      tempDom.onclick = function (e) {
+                        shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
+                      }
+                      break;
+                  }
+                  break;
+              }
               break
             }
             default: {
@@ -176,26 +196,22 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      // o-if处理
-      var ifValue = tempDom.getAttribute('o-if')
-      if (ifValue) {
-        var temp = ifValue.replace(/ /g, '')
-        var show = (function (temp) {
-          try {
-            return Boolean(eval(temp))
-          } catch (error) {
-            return false
-          }
-        }).apply(moudleScript, [temp])
-        if (!show) {
-          tempDom.style.display = 'none'
-          return
-        }
-      }
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
         var childrenDom = tempDom.children[i]
+        // o-if处理
+        var ifValue = childrenDom.getAttribute('o-if')
+        if (ifValue) {
+          var temp = ifValue.replace(/ /g, '')
+          var show = shaheRun.apply(moudleScript, [temp])
+          if (!show) {
+            childrenDom.style.display = 'none'
+            return
+          } else {
+            childrenDom.style.display = ''
+          }
+        }
         if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
           recursion(childrenDom)
         }
