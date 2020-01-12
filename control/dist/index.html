@@ -35,7 +35,7 @@
 <tr></tr>
 <tr></tr>
 <tr></tr>
-<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" route="build"><div class="card-box clear"><div class="card"><span>debug模式</span><input type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')"></div><div class="card"><span>后台服务</span><input type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')"></div><div class="card"><span>外链提示</span><input type="checkbox" o-value="this.data.copyConfig.alertLink" o-input="changeConfig('alertLink')"></div><div class="card"><span>基本目录</span><input class="basePath" type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')"></div><div class="card"><span>包裹容器</span><input class="basePath" type="text" o-value="this.data.copyConfig.container" o-input="changeConfig('container')"></div><div class="card"><span>手机入口</span><input class="basePath" type="text" o-value="this.data.copyConfig.phoneEnter" o-input="changeConfig('phoneEnter')"></div><div class="card"><span>项目目录</span><input class="root" type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')"></div><div class="card"><span>打包输出目录</span><input class="outFolder" type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')"></div><div class="card"><span>网页名称</span><input class="title" type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')"></div><div class="card"><span>资源目录</span><input class="resourceFolder" type="text" o-value="this.data.copyConfig.resourceFolder"></div></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
+<tr></tr></tbody></table><table class="style-list" template="styleList"></table><table class="scrip-list" template="scriptList"></table><table class="page-list" template="pageList"></table></div><div class="boild" o-if="this.data.copyConfig" route="build"><div class="card-box clear"><div class="card"><span>debug模式</span><input type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')"></div><div class="card"><span>外链提示</span><input type="checkbox" o-value="this.data.copyConfig.alertLink" o-input="changeConfig('alertLink')"></div><div class="card"><span>基本目录</span><input class="basePath" type="text" o-value="this.data.copyConfig.basePath" o-input="changeConfig('basePath')"></div><div class="card"><span>包裹容器</span><input class="basePath" type="text" o-value="this.data.copyConfig.container" o-input="changeConfig('container')"></div><div class="card"><span>手机入口</span><input class="basePath" type="text" o-value="this.data.copyConfig.phoneEnter" o-input="changeConfig('phoneEnter')"></div><div class="card"><span>项目目录</span><input class="root" type="text" o-value="this.data.copyConfig.root" o-input="changeConfig('root')"></div><div class="card"><span>打包输出目录</span><input class="outFolder" type="text" o-value="this.data.copyConfig.outFolder" o-input="changeConfig('outFolder')"></div><div class="card"><span>网页名称</span><input class="title" type="text" o-value="this.data.copyConfig.title" o-input="changeConfig('title')"></div><div class="card"><span>资源目录</span><input class="resourceFolder" type="text" o-value="this.data.copyConfig.resourceFolder"></div></div><div class="lable">服务设置</div><div class="card-box clear"><div class="card"><span>后台服务</span><input type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')"></div><div class="other" o-if="this.data.copyConfig.server"><div class="card"><span>服务端口</span><input class="serverPort" type="text" o-value="this.data.copyConfig.serverPort" o-input="changeConfig('serverPort')"></div><div class="card"><span>自动刷新页面</span><input type="checkbox" o-value="this.data.copyConfig.autoReload" o-input="changeConfig('autoReload')"></div><div class="card"><span>远程调试</span><input type="checkbox" o-value="this.data.copyConfig.remoteDebug" o-input="changeConfig('remoteDebug')"></div></div></div></div><div class="log" route="log"><ul></ul></div></div></div></div>
     
 
     <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
@@ -358,15 +358,10 @@ owo.script = {
         },
         "broadcast": {
           "changeData": function changeData(config) {
-            var _this2 = this;
-
-            console.log(owo.script.home.data.activeMode);
+            // console.log(owo.script.home.data.activeMode)
             owo.tool.change(this, {
               copyConfig: Object.assign(config.mode[owo.script.home.data.activeMode], config)
             });
-            setTimeout(function () {
-              console.log(_this2.data.copyConfig.debug);
-            }, 500);
           }
         },
         "changeConfig": function changeConfig(key) {

@@ -1,12 +1,9 @@
 <template lang="pug">
-.boild
+.boild(o-if="this.data.copyConfig")
   .card-box.clear
     .card
       span debug模式
       input(type="checkbox" o-value="this.data.copyConfig.debug" o-input="changeConfig('debug')")
-    .card
-      span 后台服务
-      input(type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')")
     .card
       span 外链提示
       input(type="checkbox" o-value="this.data.copyConfig.alertLink" o-input="changeConfig('alertLink')")
@@ -31,7 +28,21 @@
     .card
       span 资源目录
       input.resourceFolder(type="text" o-value="this.data.copyConfig.resourceFolder")
-  
+  .lable 服务设置
+  .card-box.clear
+    .card
+      span 后台服务
+      input(type="checkbox" o-value="this.data.copyConfig.server" o-input="changeConfig('server')")
+    .other(o-if="this.data.copyConfig.server")
+      .card
+        span 服务端口
+        input.serverPort(type="text" o-value="this.data.copyConfig.serverPort" o-input="changeConfig('serverPort')")
+      .card
+        span 自动刷新页面
+        input(type="checkbox" o-value="this.data.copyConfig.autoReload" o-input="changeConfig('autoReload')")
+      .card
+        span 远程调试
+        input(type="checkbox" o-value="this.data.copyConfig.remoteDebug" o-input="changeConfig('remoteDebug')")
 </template>
 
 <script>
@@ -41,13 +52,10 @@
     },
     broadcast: {
       changeData: function (config) {
-        console.log(owo.script.home.data.activeMode)
+        // console.log(owo.script.home.data.activeMode)
         owo.tool.change(this, {
           copyConfig: Object.assign(config.mode[owo.script.home.data.activeMode], config)
         })
-        setTimeout(() => {
-          console.log(this.data.copyConfig.debug)
-        }, 500)
       }
     },
     changeConfig: function (key) {

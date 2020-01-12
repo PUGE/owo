@@ -176,11 +176,27 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
+      // o-if处理
+      var ifValue = tempDom.getAttribute('o-if')
+      if (ifValue) {
+        var temp = ifValue.replace(/ /g, '')
+        var show = (function (temp) {
+          try {
+            return Boolean(eval(temp))
+          } catch (error) {
+            return false
+          }
+        }).apply(moudleScript, [temp])
+        if (!show) {
+          tempDom.style.display = 'none'
+          return
+        }
+      }
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
         var childrenDom = tempDom.children[i]
-        if (!childrenDom.hasAttribute('template')) {
+        if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
           recursion(childrenDom)
         }
       }

@@ -25,6 +25,22 @@ owo.tool.change = function (environment, obj) {
   }
   // 递归
   function recursion(el) {
+    // 判断o-if
+    var ifValue = el.getAttribute('o-if')
+    if (ifValue) {
+      
+      var temp = ifValue.replace(/ /g, '')
+      function tempRun (temp) {
+        return eval(temp)
+      }
+      if (Boolean(tempRun.apply(environment, [temp]))) {
+        console.log('回复')
+        el.style.display = ''
+      } else {
+        el.style.display = 'none'
+        return
+      }
+    }
     // 判断o-show
     var showValue = el.getAttribute('o-show')
     if (showValue) {
@@ -33,9 +49,9 @@ owo.tool.change = function (environment, obj) {
         return eval(temp)
       }
       if (tempRun.apply(environment, [temp])) {
-        showDom.style.display = ''
+        el.style.display = ''
       } else {
-        showDom.style.display = 'none'
+        el.style.display = 'none'
       }
     }
     var valueValue = el.getAttribute('o-value')
