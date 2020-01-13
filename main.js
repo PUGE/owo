@@ -136,10 +136,10 @@ if (config.server) {
   // 设置静态目录
   app.use(express.static(path.join(runPath, config.outFolder)))
   app.use('/control', express.static(path.join(__dirname, `./control/dist`)))
-  // 开启服务器
-  Server(config, app)
   // 开始打包
   pack = new owo(config, owoCallBack)
+  // 开启服务器
+  Server(config, app, pack)
 } else {
   pack = new owo(config)
 }

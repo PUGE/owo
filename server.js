@@ -8,7 +8,7 @@ const log = require('./lib/tool/log')
 const runPath = process.cwd()
 
 
-function Server (config, app) {
+function Server (config, app, owo) {
   // 监听端口
   const port = config.serverPort || 8000
 
@@ -33,7 +33,8 @@ function Server (config, app) {
     res.send({
       err: 0,
       config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
-      log
+      log,
+      resourceList: owo.resource.imageCache
     })
   })
   app.post('/setControl', (req, res) => {

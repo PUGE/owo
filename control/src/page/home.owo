@@ -21,11 +21,15 @@
       a.menu-item(href="?view-content=log")
         .icon &#xe601;
         .text 日志管理
+      a.menu-item(href="?view-content=resource")
+        .icon &#xe601;
+        .text 资源管理
     view.router(name="content" o-if="this.data.config")
       route(name="info" src="./src/route/info.owo")
       route(name="else" src="./src/route/else.owo")
       route(name="build" src="./src/route/build.owo")
       route(name="log" src="./src/route/log.owo")
+      route(name="resource" src="./src/route/resource.owo")
 </template>
 
 <script>
@@ -57,6 +61,7 @@
 
         owo.tool.emit('changeData', res.config)
         owo.tool.emit('changeLog', res.log)
+        owo.tool.emit('changeResource', res.resourceList)
         // 获取模式
         // console.log(res.config.mode)
         _owo.handleEvent(this)

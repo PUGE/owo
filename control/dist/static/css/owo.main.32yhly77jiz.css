@@ -298,6 +298,30 @@ table {
   background-color: red;
   color: white;
 }
+.resource li {
+  line-height: 25px;
+  border-bottom: 1px solid #b2bac1;
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 5px;
+  color: #333;
+}
+
+.resource .info {
+  background-color: darkslategray;
+  color: white;
+}
+
+.resource .debug {
+  background-color: gainsboro;
+}
+
+.resource .error {
+  background-color: red;
+  color: white;
+}
 .content-box {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1,0 +1,44 @@
+<template lang="pug">
+.resource
+  ul
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      logInfo: []
+    },
+    broadcast: {
+      changeResource: function (data) {
+        let resourceHtml = ``
+        data.forEach(element => {
+          resourceHtml += `<li>${element}</li>`
+        });
+        // console.log(data)
+        this.$el.getElementsByTagName('ul')[0].innerHTML = resourceHtml
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+li {
+  line-height: 25px;
+  border-bottom: 1px solid #b2bac1;
+  font-size: 14px;
+  display: flex;
+  padding: 0 5px;
+  color: #333;
+}
+.info {
+  background-color: darkslategray;
+  color: white;
+}
+.debug {
+  background-color: gainsboro;
+}
+.error {
+  background-color: red;
+  color: white;
+}
+</style>
