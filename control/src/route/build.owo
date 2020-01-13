@@ -1,121 +1,51 @@
 <template lang="pug">
-.boild(o-if="owo.script.home.data.config")
-  table
-    tr
-      th 配置名称
-      th 全局配置
-      th dev模式
-      th build模式
-    tr
-      td debug模式
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.debug")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.dev.debug")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.build.debug")
-    tr
-      td 外链提示
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.alertLink")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.dev.alertLink")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.build.alertLink")
-    tr
-      td 基本目录
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.basePath")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.basePath")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.basePath")
-    tr
-      td 包裹容器
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.container")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.container")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.container")
-    tr
-      td 手机入口
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.phoneEnter")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.phoneEnter")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.phoneEnter")
-    tr
-      td 项目目录
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.root")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.root")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.root")
-    tr
-      td 输出目录
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.outFolder")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.outFolder")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.outFolder")
-    tr
-      td 网页名称
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.title")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.title")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.title")
-    tr
-      td 资源目录
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.resourceFolder")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.resourceFolder")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.resourceFolder")
-    tr
-      td 开启服务
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.server")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.dev.server")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.build.server")
-    tr
-      td 服务端口
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.serverPort")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.dev.serverPort")
-      td
-        input(type="text" placeholder="未设置" o-value="owo.script.home.data.config.mode.build.serverPort")
-    tr
-      td 自动刷新
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.autoReload")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.dev.autoReload")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.build.autoReload")
-    tr
-      td 远程调试
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.remoteDebug")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.dev.remoteDebug")
-      td
-        input(type="checkbox" o-value="owo.script.home.data.config.mode.build.remoteDebug")
+.build(o-if="owo.script.home.data.config")
+  table.build-table
 </template>
 
 <script>
   module.exports = {
+    data: {
+      configList: [
+        {name: "debug模式", type: "checkbox", value: "debug"},
+        {name: "外链提示", type: "checkbox", value: "alertLink"},
+        {name: "基本目录", type: "text", value: "basePath"},
+        {name: "包裹容器", type: "text", value: "container"},
+        {name: "手机入口", type: "text", value: "phoneEnter"},
+        {name: "项目目录", type: "text", value: "root"},
+        {name: "输出目录", type: "text", value: "outFolder"},
+        {name: "网页名称", type: "text", value: "title"},
+        {name: "资源目录", type: "text", value: "resourceFolder"},
+        {name: "开启服务", type: "checkbox", value: "server"},
+        {name: "服务端口", type: "number", value: "serverPort"},
+        {name: "自动刷新", type: "checkbox", value: "autoReload"},
+        {name: "远程调试", type: "checkbox", value: "remoteDebug"},
+        {name: "监视器", type: "checkbox", value: "watcherEnable"},
+        {name: "忽略监视", type: "text", value: "watcherIgnored"},
+        {name: "监视深度", type: "number", value: "watcherdepth"},
+        {name: "压缩css", type: "checkbox", value: "minifyCss"},
+        {name: "压缩js", type: "checkbox", value: "minifyJs"},
+        {name: "添加版本号", type: "checkbox", value: "addVersion"},
+        {name: "合并到html", type: "checkbox", value: "merge"},
+        {name: "输出所有样式", type: "checkbox", value: "allAnimate"},
+      ]
+    },
     broadcast: {
       changeData: function (config) {
+        let titleData = `<tr><th>配置名称</th><th>通用配置</th>`
+        for (const key in config.mode) {
+          titleData += `<th>${key}</th>`
+        }
+        titleData += `</tr>`
+        let bodyData = ``
+        this.data.configList.forEach(element => {
+          let temp = `<tr><td>${element.name}</td><td><input type="${element.type}" placeholder="未设置" o-value="owo.script.home.data.config.${element.value}"></td>`
+          for (const key in config.mode) {
+            temp += `<td><input type="${element.type}" placeholder="未设置" o-value="owo.script.home.data.config.mode.${key}.${element.value}"></td>`
+          }
+          bodyData += temp + `</tr>`
+        })
+        owo.query('.build-table')[0].innerHTML = titleData + bodyData
         _owo.handleEvent(this)
       }
     }

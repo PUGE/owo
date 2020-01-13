@@ -165,6 +165,13 @@ _owo.handleEvent = function (moudleScript) {
               switch (tempDom.tagName) {
                 case 'INPUT':
                   switch (tempDom.getAttribute('type')) {
+                    case 'number':
+                      if (value == undefined) value = ''
+                      tempDom.value = value
+                      tempDom.oninput = function (e) {
+                        shaheRun.apply(moudleScript, [eventFor + '=' + e.target.value])
+                      }
+                      break;
                     case 'text':
                       if (value == undefined) value = ''
                       tempDom.value = value

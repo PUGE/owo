@@ -97,18 +97,14 @@
 		"dev": {
 			"basePath": "./",
 			"debug": true,
-			"watcher": {
-				"enable": true,
-				"ignored": "./dist/*",
-				"depth": 99
-			},
-			"outPut": {
-				"merge": true,
-				"minifyCss": false,
-				"minifyJs": false,
-				"addVersion": false,
-				"allAnimate": false
-			},
+			"watcherEnable": true,
+			"watcherIgnored": "./dist/*",
+			"watcherdepth": 99,
+			"merge": true,
+			"minifyCss": false,
+			"minifyJs": false,
+			"addVersion": false,
+			"allAnimate": false,
 			"serverPort": 8000,
 			"server": true,
 			"autoReload": true,
@@ -118,14 +114,12 @@
 			"debug": false,
 			"basePath": "./",
 			"alertLink": true,
-			"outPut": {
-				"minifyCss": false,
-				"minifyJs": false,
-				"addVersion": true,
-				"embedSize": 0,
-				"merge": false,
-				"allAnimate": false
-			}
+			"minifyCss": false,
+			"minifyJs": false,
+			"addVersion": true,
+			"embedSize": 0,
+			"merge": false,
+			"allAnimate": false
 		}
 	},
 	"basePath": "./"

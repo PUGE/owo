@@ -92,19 +92,23 @@ let pack = null
 let wsServe = null
 
 // 判断是否开启文件变动自动重新打包
-if (config.watcher && config.watcher.enable) {
+if (config.watcherEnable) {
+  log.debug('开启变动检测!')
   const watcherFolder = path.join(runPath, config.root)
+  const ignoredPath = config.watcherIgnored ? config.watcherIgnored : config.outFolder + '/*'
+  log.debug('忽略检测文件夹:' + ignoredPath)
+  log.debug('检测深度:' + config.watcherdepth)
   // 文件变动检测
   const watcher = chokidar.watch(watcherFolder, {
     // 忽略目录
-    ignored: config.watcher.ignored ? config.watcher.ignored : config.outFolder + '/*',
+    ignored: ignoredPath,
     persistent: true,
     awaitWriteFinish: {
       stabilityThreshold: 100,
       pollInterval: 100
     },
     // 检测深度
-    depth: config.watcher.depth
+    depth: config.watcherdepth
   })
   // 添加默认监控
   watcher.add('owo.json')

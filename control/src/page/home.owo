@@ -1,8 +1,6 @@
 <template lang="pug">
 .home
   .title-bar
-    .mode-bar
-
     .save-button
       .icon &#xea6f;
       span(o-tap="seveConfig") 发送
@@ -39,22 +37,11 @@
       contentItem: "info",
       config: {},
       logInfo: {},
-      needCreatFile: [],
-      activeMode: null
+      needCreatFile: []
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
         this.data.originalConfig = JSON.stringify(res.config)
-        // 设置当前活跃模式
-        let modeHtml = ''
-        this.data.activeMode = Object.keys(res.config.mode)[0]
-        for (const key in res.config.mode) {
-          if (res.config.mode.hasOwnProperty(key)) {
-            const element = res.config.mode[key];
-            modeHtml += `<span o-tap="changeActiveMode('${key}')">${key}</span>`
-          }
-        }
-        owo.query('.mode-bar')[0].innerHTML = modeHtml
         this.data.config = res.config
         this.data.logInfo = res.log
         
@@ -93,14 +80,6 @@
       }).then((res) => {
         console.log(res)
       })
-    },
-    changeActiveMode: function (name) {
-      console.log(`更改活跃模式为: ${name}`)
-      this.data.activeMode = name
-      const copyConfig = JSON.parse(this.data.originalConfig)
-      // console.log(copyConfig)
-      // this.data.config = Object.assign(copyConfig, copyConfig.mode[this.data.activeMode])
-      owo.tool.emit('changeData', this.data.config)
     }
   }
 </script>
@@ -200,14 +179,5 @@ table {
   width: 100px;
   display: flex;
   cursor: pointer;
-}
-.mode-bar {
-  color: white;
-  span {
-    margin: 0 15px;
-    line-height: 50px;
-    font-size: 20px;
-    cursor: pointer;
-  }
 }
 </style>

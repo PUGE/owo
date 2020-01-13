@@ -223,7 +223,7 @@ table {
   font-size: 20px;
 }
 
-.boild .card {
+.build .card {
   width: 300px;
   height: 40px;
   line-height: 40px;
@@ -244,33 +244,33 @@ table {
   margin: 5px;
 }
 
-.boild .card span {
+.build .card span {
   display: block;
   color: #333;
 }
 
-.boild input[type="checkbox"] {
+.build input[type="checkbox"] {
   width: 26px;
   height: 26px;
 }
 
-.boild tr {
+.build tr {
   line-height: 30px;
   background-color: white;
   color: #333;
 }
 
-.boild td {
+.build td {
   text-align: center;
 }
 
-.boild td input {
+.build td input {
   display: inline;
   color: #333;
   text-align: center;
 }
 
-.boild tbody th {
+.build tbody th {
   background-color: #009fe9;
   color: white;
 }
@@ -445,17 +445,6 @@ table .icon {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  cursor: pointer;
-}
-
-.mode-bar {
-  color: white;
-}
-
-.mode-bar span {
-  margin: 0 15px;
-  line-height: 50px;
-  font-size: 20px;
   cursor: pointer;
 }
 
