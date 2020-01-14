@@ -28,6 +28,7 @@
         {name: "添加版本号", type: "checkbox", value: "addVersion"},
         {name: "合并到html", type: "checkbox", value: "merge"},
         {name: "输出所有样式", type: "checkbox", value: "allAnimate"},
+        {name: "强制首页开始", type: "checkbox", value: "startAtHome"},
       ]
     },
     broadcast: {
@@ -71,8 +72,12 @@
   }
 }
 input[type="checkbox"] {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
 }
 tr {
   line-height: 30px;

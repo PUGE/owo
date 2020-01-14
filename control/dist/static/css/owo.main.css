@@ -250,8 +250,14 @@ table {
 }
 
 .build input[type="checkbox"] {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
 }
 
 .build tr {
