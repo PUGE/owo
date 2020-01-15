@@ -12,13 +12,13 @@ table.scrip-list(o-if="")
     td.name {value.name}
     td.value {value.src}
     td.resource
-      input(type="checkbox" checked="{value.resource ? 'checked' : 'false'}")
+      input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].resource")
     td.babel
-      input(type="checkbox" checked="{value.babel ? 'checked' : 'false'}")
+      input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].babel")
     td.defer
-      input(type="checkbox" checked="{value.defer ? 'checked' : 'false'}")
+      input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer")
     td.merge
-      input(type="checkbox" checked="{value.merge ? 'checked' : 'false'}")
+      input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge")
     td.tool
       span.icon(o-tap="delete({key})") &#xe645;
   tr

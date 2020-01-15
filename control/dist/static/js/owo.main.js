@@ -1,4 +1,4 @@
-// Wed Jan 15 2020 17:45:28 GMT+0800 (GMT+08:00)
+// Wed Jan 15 2020 21:21:28 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -83,6 +83,7 @@ function shaheRun (code) {
     return eval(code)
   } catch (error) {
     console.error(error)
+    console.log('执行代码: ' + code)
     return undefined
   }
 }
@@ -105,29 +106,9 @@ _owo.handleEvent = function (moudleScript) {
         if (new RegExp("^o-").test(attribute.name)) {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
-            case 'tap': {
-              // 待优化 可合并
-              // 根据手机和PC做不同处理
-              if (_owo.isMobi) {
-                if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-                _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
-                  _owo._run(eventFor, event || this, moudleScript)
-                })
-              } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
-              break
-            }
-            case 'show': {
-              if (shaheRun.apply(moudleScript, [eventFor])) {
-                tempDom.style.display = ''
-              } else {
-                tempDom.style.display = 'none'
-              }
-              break
-            }
-            case 'html': {
-              tempDom.innerHTML = shaheRun.apply(moudleScript, [eventFor])
-              break
-            }
+            
+            
+            
             // 处理o-value
             case 'value': {
               var value = shaheRun.apply(moudleScript, [eventFor])
@@ -159,32 +140,7 @@ _owo.handleEvent = function (moudleScript) {
               }
               break
             }
-            // 处理o-for
-            case 'for': {
-              // console.log(new Function('a', 'b', 'return a + b'))
-              var forEle = shaheRun.apply(moudleScript, [eventFor])
-              tempDom.removeAttribute("o-for")
-              var temp = tempDom.outerHTML
-              var outHtml = ''
-              
-              
-              for (const key in forEle) {
-                const value = forEle[key];
-                var tempCopy = temp
-                // 获取模板插值
-                // var tempVar = new RegExp("(?<={).*?(?=})","g").exec(tempCopy)
-                var tempVar = tempCopy.match(/(?<={).*?(?=})/g)
-                // console.log(tempVar)
-                for (const varKey in tempVar) {
-                  var varValue = tempVar[varKey]
-                  // 默认变量
-                  var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + varKey + ';\r\n '
-                  tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
-                }
-                outHtml += tempCopy
-              }
-              tempDom.outerHTML = outHtml
-            }
+            
             default: {
               _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
             }
@@ -198,6 +154,39 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
+      
+      // 第一次循环是为了处理o-for
+      for (var i = 0; i < tempDom.children.length; i++) {
+        // 获取子节点实例
+        var childrenDom = tempDom.children[i]
+        // 判断是否有o-for
+        var forValue = childrenDom.getAttribute('o-for')
+        if (forValue) {
+          // console.log(new Function('a', 'b', 'return a + b'))
+          var forEle = shaheRun.apply(moudleScript, [forValue])
+          childrenDom.removeAttribute("o-for")
+          var temp = childrenDom.outerHTML
+          var outHtml = ''
+          for (var key in forEle) {
+            var value = forEle[key];
+            var tempCopy = temp
+            // 获取模板插值
+            // var tempVar = new RegExp("(?<={).*?(?=})","g").exec(tempCopy)
+            var tempVar = temp.match(/(?<={).*?(?=})/g)
+            for (var varKey in tempVar) {
+              
+              var varValue = tempVar[varKey]
+              // 默认变量
+              var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + key + ';\r\n '
+              tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
+            }
+            outHtml += tempCopy
+          }
+          childrenDom.outerHTML = outHtml + ''
+          break
+        }
+      }
+      
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
