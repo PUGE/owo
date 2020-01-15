@@ -1,5 +1,41 @@
 <template lang="pug">
-table.scrip-list
+table.scrip-list(o-if="")
+  tr
+    th 脚本名
+    th 脚本路径
+    th(width="70px") 资源处理
+    th(width="70px") 异步加载
+    th(width="70px") babel
+    th 合并文件
+    th 操作
+  tr(o-for="owo.script.home.data.config.scriptList")
+    td.name {value.name}
+    td.value {value.src}
+    td.resource
+      input(type="checkbox" checked="{value.resource ? 'checked' : 'false'}")
+    td.babel
+      input(type="checkbox" checked="{value.babel ? 'checked' : 'false'}")
+    td.defer
+      input(type="checkbox" checked="{value.defer ? 'checked' : 'false'}")
+    td.merge
+      input(type="checkbox" checked="{value.merge ? 'checked' : 'false'}")
+    td.tool
+      span.icon(o-tap="delete({key})") &#xe645;
+  tr
+    td
+      input.nameInput(type="text" placeholder="新增样式名称")
+    td
+      input.srcInput(type="text" placeholder="新增样式路径")
+    td
+      input(type="checkbox" o-value="this.data.resource")
+    td
+      input(type="checkbox" o-value="this.data.babel")
+    td
+      input(type="checkbox" o-value="this.data.defer")
+    td
+      input(type="checkbox" o-value="this.data.merge")
+    td.tool
+      span.icon(o-tap="add") &#xe600;
 </template>
 
 <script>
@@ -7,33 +43,11 @@ table.scrip-list
     data: {
       resource: false,
       babel: false,
-      defer: false
+      defer: false,
+      merge: false
     },
     broadcast: {
       changeData: function (value) {
-        const data = value.scriptList
-        let newHtml = '<tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th width="70px">babel</th><th width="70px">异步加载</th><th>操作</th></tr>'
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const element = data[key];
-            newHtml += `<tr>
-            <td class="name">${element.name}</td><td class="value">${element.src}</td>
-            <td class="resource icon${element.resource ? ' check' : ''}" ind="${key}" o-tap="changeValue('resource')">${element.resource ? '&#xe661;' : '&#xe614;'}</td>
-            <td class="babel icon${element.babel ? ' check' : ''}" ind="${key}" o-tap="changeValue('babel')">${element.babel ? '&#xe661;' : '&#xe614;'}</td>
-            <td class="defer icon${element.defer ? ' check' : ''}" ind="${key}" o-tap="changeValue('defer')">${element.defer ? '&#xe661;' : '&#xe614;'}</td>
-            <td class="tool"><span class="icon" o-tap="delete(${key})">&#xe645;</span></td></tr>`
-          }
-        }
-        newHtml += `
-          <tr>
-            <td><input type="text" placeholder="新增样式名称" class="nameInput"></input></td>
-            <td><input placeholder="新增样式路径" type="text" class="srcInput"></input></td>
-            <td width="70px" class="icon icon-box resource-check" o-tap="changeDataValue('resource')">&#xe614;</td>
-            <td width="70px" class="icon icon-box" o-tap="changeDataValue('babel')">&#xe614;</td>
-            <td width="70px" class="icon icon-box" o-tap="changeDataValue('defer')">&#xe614;</td>
-            <td class="tool icon" o-tap="add">&#xe600;</td>
-          </tr>`
-        this.$el.innerHTML = newHtml
         _owo.handleEvent(this)
       }
     },
@@ -57,6 +71,13 @@ table.scrip-list
     add: function () {
       const name = this.$el.getElementsByClassName('nameInput')[0].value
       const src = this.$el.getElementsByClassName('srcInput')[0].value
+      console.log({
+        name,
+        src,
+        resource: this.data.resource,
+        babel: this.data.babel,
+        defer: this.data.defer
+      })
       if (name && src) {
         owo.script.home.data.config.scriptList.push({
           name,
@@ -102,7 +123,7 @@ td {
   color: #009fe9;
   font-size: 20px;
 }
-.resource, .defer, .babel {
+.resource, .defer, .babel, .merge {
   text-align: center;
   font-size: 20px;
   color: #ccc;

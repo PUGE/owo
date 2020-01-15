@@ -1,4 +1,4 @@
-// Tue Jan 14 2020 16:39:16 GMT+0800 (GMT+08:00)
+// Wed Jan 15 2020 17:45:28 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -158,6 +158,32 @@ _owo.handleEvent = function (moudleScript) {
                   break;
               }
               break
+            }
+            // 处理o-for
+            case 'for': {
+              // console.log(new Function('a', 'b', 'return a + b'))
+              var forEle = shaheRun.apply(moudleScript, [eventFor])
+              tempDom.removeAttribute("o-for")
+              var temp = tempDom.outerHTML
+              var outHtml = ''
+              
+              
+              for (const key in forEle) {
+                const value = forEle[key];
+                var tempCopy = temp
+                // 获取模板插值
+                // var tempVar = new RegExp("(?<={).*?(?=})","g").exec(tempCopy)
+                var tempVar = tempCopy.match(/(?<={).*?(?=})/g)
+                // console.log(tempVar)
+                for (const varKey in tempVar) {
+                  var varValue = tempVar[varKey]
+                  // 默认变量
+                  var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + varKey + ';\r\n '
+                  tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
+                }
+                outHtml += tempCopy
+              }
+              tempDom.outerHTML = outHtml
             }
             default: {
               _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
