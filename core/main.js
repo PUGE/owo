@@ -137,7 +137,7 @@ _owo.handleEvent = function (moudleScript) {
         if (new RegExp("^o-").test(attribute.name)) {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
-            /* if="this.htmlTemple.includes('o-show')"
+            /* if="this.htmlTemple.includes('o-tap')"
             case 'tap': {
               // 待优化 可合并
               // 根据手机和PC做不同处理
@@ -160,6 +160,7 @@ _owo.handleEvent = function (moudleScript) {
               break
             }
             end */
+            
             /* if="this.htmlTemple.includes('o-value')"
             // 处理o-value
             case 'value': {
