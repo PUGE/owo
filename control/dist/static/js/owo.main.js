@@ -1,4 +1,4 @@
-// Wed Jan 15 2020 21:21:28 GMT+0800 (GMT+08:00)
+// Sun Jan 19 2020 23:12:31 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -18,13 +18,10 @@ _owo.runCreated = function (pageFunction) {
     if (pageFunction.created) {
       pageFunction.created.apply(pageFunction)
     }
-    
   } catch (e) {
     console.error(e)
   }
 }
-
-
 
 
 // 判断是否为手机
@@ -107,6 +104,19 @@ _owo.handleEvent = function (moudleScript) {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
             
+            case 'tap': {
+              // 待优化 可合并
+              // 根据手机和PC做不同处理
+              if (_owo.isMobi) {
+                if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
+                _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
+                  _owo._run(eventFor, event || this, moudleScript)
+                })
+              } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
+              break
+            }
+            
+            
             
             
             // 处理o-value
@@ -135,7 +145,11 @@ _owo.handleEvent = function (moudleScript) {
                         shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
                       }
                       break;
+                    
                   }
+                  break;
+                default:
+                  tempDom.innerHTML = value
                   break;
               }
               break
@@ -154,7 +168,7 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      
+      // 
       // 第一次循环是为了处理o-for
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -165,9 +179,18 @@ _owo.handleEvent = function (moudleScript) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
           childrenDom.removeAttribute("o-for")
-          var temp = childrenDom.outerHTML
+          var tempNode = childrenDom.cloneNode(true)
           var outHtml = ''
+          if (!moudleScript.for) moudleScript.for = []
+          moudleScript.for.push({
+            for: forValue,
+            ind: key,
+            children: forEle.length
+          })
           for (var key in forEle) {
+            tempNode.setAttribute('o-temp-for', forValue)
+            tempNode.setAttribute('o-ind', key)
+            var temp = tempNode.outerHTML
             var value = forEle[key];
             var tempCopy = temp
             // 获取模板插值
@@ -186,7 +209,7 @@ _owo.handleEvent = function (moudleScript) {
           break
         }
       }
-      
+      // 
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
