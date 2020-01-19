@@ -1,0 +1,25 @@
+.owo-animation-rotate {
+  -webkit-animation: rotate 6s linear alternate infinite;
+  animation: rotate 6s linear alternate infinite;
+  -webkit-transform-origin: center top;
+  -ms-transform-origin: center top;
+  -moz-transform-origin: center top;
+  -o-transform-origin: center top;
+  transform-origin: center top;
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
+}

@@ -14,30 +14,30 @@
 
 @-webkit-keyframes floatLeftRight {
   0% { transform: translateX(-5vw);}
-  50% {transform: translateX(-10vw);}
+  50% {transform: translateX(5vw);}
   100% {transform: translateX(-5vw);}
 }
 
 @-moz-keyframes floatLeftRight {
   0% { transform: translateX(-5vw);}
-  50% {transform: translateX(-10vw);}
+  50% {transform: translateX(5vw);}
   100% {transform: translateX(-5vw);}
 }
 
 @-ms-keyframes floatLeftRight {
   0% { transform: translateX(-5vw);}
-  50% {transform: translateX(-10vw);}
+  50% {transform: translateX(5vw);}
   100% {transform: translateX(-5vw);}
 }
 
 @-o-keyframes float {
   0% { transform: translateX(-5vw);}
-  50% {transform: translateX(-10vw);}
+  50% {transform: translateX(5vw);}
   100% {transform: translateX(-5vw);}
 }
 
 @keyframes float {
   0% { transform: translateX(-5vw);}
-  50% {transform: translateX(-10vw);}
+  50% {transform: translateX(5vw);}
   100% {transform: translateX(-5vw);}
 }
