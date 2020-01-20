@@ -1,0 +1,43 @@
+
+.owo-animation-floatUpDownSmall {
+  -webkit-animation: floatUpDownSmall 3s linear infinite;
+  -moz-animation: floatUpDownSmall 3s linear infinite;
+  -ms-animation: floatUpDownSmall 3s linear infinite;
+  -o-animation: floatUpDownSmall 3s linear infinite;
+  animation: floatUpDownSmall 3s linear infinite;
+  -webkit-animation-direction: alternate;
+  -moz-animation-direction: alternate;
+  -ms-animation-direction: alternate;
+  -o-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+@-webkit-keyframes floatUpDownSmall {
+  0% { transform: translateY(-2px);}
+  50% {transform: translateY(2px);}
+  100% {transform: translateY(-2px);}
+}
+
+@-moz-keyframes floatUpDownSmall {
+  0% { transform: translateY(-2px);}
+  50% {transform: translateY(2px);}
+  100% {transform: translateY(-2px);}
+}
+
+@-ms-keyframes floatUpDownSmall {
+  0% { transform: translateY(-2px);}
+  50% {transform: translateY(2px);}
+  100% {transform: translateY(-2px);}
+}
+
+@-o-keyframes floatUpDownSmall {
+  0% { transform: translateY(-2px);}
+  50% {transform: translateY(2px);}
+  100% {transform: translateY(-2px);}
+}
+
+@keyframes floatUpDownSmall {
+  0% { transform: translateY(-2px);}
+  50% {transform: translateY(2px);}
+  100% {transform: translateY(-2px);}
+}
