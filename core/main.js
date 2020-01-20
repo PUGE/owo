@@ -89,6 +89,20 @@ function shaheRun (code) {
 _owo.handleEvent = function (moudleScript) {
   if (!moudleScript.$el) throw 'error'
   var tempDom = moudleScript.$el
+  // 判断是否有o-for需要处理
+  if (moudleScript.for && moudleScript.for.length > 0) {
+    // 处理o-for
+    for (const key in moudleScript.for) {
+      const forItem = moudleScript.for[key];
+      const forDomList = tempDom.querySelectorAll(`[o-temp-for="${forItem.for}"]`)
+      if (forDomList.length > 0) {
+        forDomList[0].outerHTML = forItem.template
+        for (let domIndex = 1; domIndex < forDomList.length; domIndex++) {
+          forDomList[domIndex].remove()
+        }
+      }
+    }
+  }
   // 递归处理元素属性
   function recursion(tempDom) {
     if (tempDom.attributes) {
@@ -185,17 +199,20 @@ _owo.handleEvent = function (moudleScript) {
         if (forValue) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
+          if (!moudleScript.for) moudleScript.for = []
+          
+          moudleScript.for.push({
+            for: forValue,
+            children: forEle.length,
+            template: childrenDom.outerHTML
+          })
+
           childrenDom.removeAttribute("o-for")
           var tempNode = childrenDom.cloneNode(true)
           var outHtml = ''
-          if (!moudleScript.for) moudleScript.for = []
-          moudleScript.for.push({
-            for: forValue,
-            children: forEle.length
-          })
+          
           for (var key in forEle) {
             tempNode.setAttribute('o-temp-for', forValue)
-            tempNode.setAttribute('o-ind', key)
             var temp = tempNode.outerHTML
             var value = forEle[key];
             var tempCopy = temp

@@ -71,13 +71,6 @@ table.scrip-list(o-if="")
     add: function () {
       const name = this.$el.getElementsByClassName('nameInput')[0].value
       const src = this.$el.getElementsByClassName('srcInput')[0].value
-      console.log({
-        name,
-        src,
-        resource: this.data.resource,
-        babel: this.data.babel,
-        defer: this.data.defer
-      })
       if (name && src) {
         owo.script.home.data.config.scriptList.push({
           name,
