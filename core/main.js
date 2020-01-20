@@ -16,46 +16,10 @@ _owo.runCreated = function (pageFunction) {
     if (pageFunction.created) {
       pageFunction.created.apply(pageFunction)
     }
-    /* if="this.htmlTemple.includes('o-innertext')"
-    // 模板插值处理
-    _owo.innerTextHandle(pageFunction)
-    end */
   } catch (e) {
     console.error(e)
   }
 }
-
-/* if="this.htmlTemple.includes('o-innertext')"
-_owo.getValFromObj = function (str, value) {
-  if (!str) return undefined
-  // 如果模块没有数据则直接返回null
-  if (!value) value = window
-  var arr = str.split('.')
-  for (var index = 0; index < arr.length; index++) {
-    var element = arr[index]
-    if (value[element]) {
-      value = value[element]
-    } else {
-      return undefined
-    }
-  }
-  return value
-}
-
-// 模板插值处理
-_owo.innerTextHandle = function (pageFunction) {
-  var linkList = pageFunction.$el.querySelectorAll('[o-innertext]')
-  for (var ind = 0; ind < linkList.length; ind++) {
-    var element = linkList[ind]
-    var dataFor = element.getAttribute("o-innertext")
-    // 获取对应的值
-    var value = _owo.getValFromObj(dataFor, pageFunction)
-    // 从全局获取值!
-    if (value == undefined) { value = _owo.getValFromObj(dataFor) }
-    element.innerText = value
-  }
-}
-end */
 
 
 // 判断是否为手机
@@ -188,7 +152,11 @@ _owo.handleEvent = function (moudleScript) {
                         shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
                       }
                       break;
+                    
                   }
+                  break;
+                default:
+                  tempDom.innerHTML = value
                   break;
               }
               break
@@ -207,7 +175,7 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      /* if="this.htmlTemple.includes('o-for')"
+      // /* if="this.htmlTemple.includes('o-for')"
       // 第一次循环是为了处理o-for
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -218,9 +186,17 @@ _owo.handleEvent = function (moudleScript) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
           childrenDom.removeAttribute("o-for")
-          var temp = childrenDom.outerHTML
+          var tempNode = childrenDom.cloneNode(true)
           var outHtml = ''
+          if (!moudleScript.for) moudleScript.for = []
+          moudleScript.for.push({
+            for: forValue,
+            children: forEle.length
+          })
           for (var key in forEle) {
+            tempNode.setAttribute('o-temp-for', forValue)
+            tempNode.setAttribute('o-ind', key)
+            var temp = tempNode.outerHTML
             var value = forEle[key];
             var tempCopy = temp
             // 获取模板插值
@@ -239,7 +215,7 @@ _owo.handleEvent = function (moudleScript) {
           break
         }
       }
-      end */
+      // end */
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例

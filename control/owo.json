@@ -75,6 +75,13 @@
 			"name": "main",
 			"src": "./src/main.js",
 			"resource": true
+		},
+		{
+			"name": "main",
+			"src": "./src/main.js",
+			"resource": false,
+			"babel": false,
+			"defer": false
 		}
 	],
 	"styleList": [
