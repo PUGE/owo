@@ -424,20 +424,27 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
   // 变量
   var startTime = 0
   var isMove = false
-  tempDom.addEventListener('touchstart', function() {
+  function startEvent () {
     startTime = Date.now();
-  })
-  tempDom.addEventListener('touchmove', function() {
+  }
+  function moveEvent () {
     isMove = true
-  })
-  tempDom.addEventListener('touchend', function(e) {
+  }
+  function endEvent (e) {
     if (Date.now() - startTime < 300 && !isMove) {
       callBack(e, eventFor)
     }
     // 清零
     startTime = 0;
     isMove = false
-  })
+  }
+  // 清除之前的事件防止重复
+  tempDom.removeEventListener('touchstart', startEvent)
+  tempDom.removeEventListener('touchmove', moveEvent)
+  tempDom.removeEventListener('touchend', endEvent)
+  tempDom.addEventListener('touchstart', startEvent)
+  tempDom.addEventListener('touchmove', moveEvent)
+  tempDom.addEventListener('touchend', endEvent)
 }
 
 // 事件推送方法
