@@ -4,8 +4,8 @@ table.scrip-list(o-if="")
     th 脚本名
     th 脚本路径
     th(width="70px") 资源处理
-    th(width="70px") 异步加载
     th(width="70px") babel
+    th(width="70px") 异步加载
     th 合并文件
     th 操作
   tr(o-for="owo.script.home.data.config.scriptList")

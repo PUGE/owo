@@ -1,4 +1,4 @@
-// Mon Jan 20 2020 23:08:42 GMT+0800 (GMT+08:00)
+// Tue Jan 21 2020 23:19:38 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -424,13 +424,13 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
   // 变量
   var startTime = 0
   var isMove = false
-  function startEvent () {
+  tempDom.ontouchstart = function () {
     startTime = Date.now();
   }
-  function moveEvent () {
+  tempDom.ontouchmove = function () {
     isMove = true
   }
-  function endEvent (e) {
+  tempDom.ontouchend = function (e) {
     if (Date.now() - startTime < 300 && !isMove) {
       callBack(e, eventFor)
     }
@@ -438,13 +438,6 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
     startTime = 0;
     isMove = false
   }
-  // 清除之前的事件防止重复
-  tempDom.removeEventListener('touchstart', startEvent)
-  tempDom.removeEventListener('touchmove', moveEvent)
-  tempDom.removeEventListener('touchend', endEvent)
-  tempDom.addEventListener('touchstart', startEvent)
-  tempDom.addEventListener('touchmove', moveEvent)
-  tempDom.addEventListener('touchend', endEvent)
 }
 
 // 事件推送方法
