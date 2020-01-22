@@ -10,7 +10,7 @@ _owo.showPage = function() {
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
-  /* if="this.config.route && this.config.route.startAtHome"
+  /* if="this.config.startAtHome"
   if (pageArg !== null) {
     window.location.href = ''
     return
