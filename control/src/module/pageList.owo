@@ -1,46 +1,35 @@
 <template lang="pug">
 table.page-list
+  tr
+    th 页面名
+    th 页面路径
+    th(width="70px") 类型
+    th 操作
+  tr(o-for="owo.script.home.data.config.pageList")
+    td.name {value.name}
+    td.value {value.src}
+    td.type
+      select(value="page")
+        option(value="page") 页面
+        option(value="plug") 插件
+    td.tool
+      span.icon(o-tap="delete({key})") &#xe645;
+  tr
+    td
+      input.nameInput(type='text', placeholder='页面名称', o-input='changeSrc')
+    td
+      input.srcInput(placeholder='页面路径', type='text', disabled='disabled')
+    td.icon.icon-box.resource-check(width='70px', o-tap="changeDataValue('resource')")
+      select.type-select
+        option(value='page') 页面
+        option(value='plug') 插件
+    td.tool.icon(o-tap='add') &#xE600;
 </template>
 
 <script>
   module.exports = {
-    created: function (params) {
-      console.log('ss')
-    },
     broadcast: {
       changeData: function (value) {
-        const data = value.pageList
-        let newHtml = '<tr><th>页面名</th><th>页面路径</th><th width="70px">类型</th><th>操作</th></tr>'
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            const element = data[key];
-            newHtml += `
-              <tr class="key-value-item">
-                <td class="name">${element.name}</td>
-                <td class="value">${element.src}</td>
-                <td class="type icon">
-                  <select value="${element.type}">
-                    <option value ="page">页面</option>
-                    <option value ="plug">插件</option>
-                  </select>
-                </td>
-                <td class="tool"><span class="icon" o-tap="delete(${key})">&#xe645;</span></td>
-              </tr>`
-          }
-        }
-        newHtml += `
-          <tr>
-            <td><input type="text" placeholder="页面名称" o-input="changeSrc" class="nameInput"></input></td>
-            <td><input placeholder="页面路径" type="text" class="srcInput" disabled="disabled"></input></td>
-            <td width="70px" class="icon icon-box resource-check" o-tap="changeDataValue('resource')">
-              <select class="type-select">
-                <option value ="page">页面</option>
-                <option value ="plug">插件</option>
-              </select>
-            </td>
-            <td class="tool icon" o-tap="add">&#xe600;</td>
-          </tr>`
-        this.$el.innerHTML = newHtml
         _owo.handleEvent(this)
       }
     },

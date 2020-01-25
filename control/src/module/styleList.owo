@@ -1,5 +1,23 @@
 <template lang="pug">
 table.style-list
+  tr
+    th 脚本名
+    th 脚本路径
+    th(width='70px') 资源处理
+    th 操作
+  tr.key-value-item(o-for="owo.script.home.data.config.scriptList")
+    td.name {value.name}
+    td.value {value.src}
+    td.resource.icon(class="{value.resource ? 'check' : ''}" ind='{key}' o-tap='resourceChange') {value.resource ? '&#xE661;' : '&#xE614;'}
+    td.tool
+      span.icon(o-tap='delete({key})') &#xE645;
+  tr
+    td
+      input.nameInput(type='text', placeholder='新增样式名称')
+    td
+      input.srcInput(placeholder='新增样式路径', type='text')
+    td.icon.icon-box.resource-check(width='70px', o-tap='addNewResourceChange') &#xE614;
+    td.tool.icon(o-tap='add') &#xE600;
 </template>
 
 <script>

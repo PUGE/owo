@@ -1,30 +1,27 @@
 <template lang="pug">
-table.key-value-list
+table.key-value-list(o-if="owo.script.home.data.config")
+  tr
+    th 键名
+    th 键值
+    th 操作
+  tr.key-value-item(o-for="owo.script.home.data.config.headList")
+    td.td {value.name || value['http-equiv']}
+    td.value
+      input(type="text" o-value="owo.script.home.data.config.headList[{key}].content")
+    td.tool
+      span.icon &#xe645;
+  tr
+    td
+      input.nameInput(type="text" placeholder="键名")
+    td
+      input.contentInput(placeholder="键值" type="text")
+    td.tool.icon(o-tap="add") &#xe600;
 </template>
 
 <script>
   module.exports = {
     broadcast: {
       changeData: function (value) {
-        const data = value.headList
-        let newHtml = '<tr><th>键名</th><th>键值</th><th>操作</th></tr>'
-        data.forEach(element => {
-          newHtml += `
-          <tr class="key-value-item">
-            <td class="td">${element.name || element['http-equiv']}</td>
-            <td class="value">${element.content}</td>
-            <td class="tool">
-              <span class="icon">&#xe645;</span>
-            </td>
-          </tr>`
-        })
-        newHtml += `
-          <tr>
-            <td><input type="text" placeholder="键名" class="nameInput"></input></td>
-            <td><input placeholder="键值" type="text" class="contentInput"></input></td>
-            <td class="tool icon" o-tap="add">&#xe600;</td>
-          </tr>`
-        this.$el.innerHTML = newHtml
         _owo.handleEvent(this)
       }
     },
