@@ -74,7 +74,8 @@
 		{
 			"name": "main",
 			"src": "./src/main.js",
-			"resource": true
+			"resource": true,
+			"merge": true
 		}
 	],
 	"styleList": [

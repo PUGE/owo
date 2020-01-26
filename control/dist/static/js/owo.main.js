@@ -1,4 +1,6 @@
-// Sat Jan 25 2020 19:15:57 GMT+0800 (GMT+08:00)
+
+console.log('ss')
+// Sun Jan 26 2020 22:58:55 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
