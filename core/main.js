@@ -90,14 +90,14 @@ _owo.handleEvent = function (moudleScript) {
   if (!moudleScript.$el) throw 'error'
   var tempDom = moudleScript.$el
   // 判断是否有o-for需要处理
-  if (moudleScript.for && moudleScript.for.length > 0) {
+  if (moudleScript['for'] && moudleScript['for'].length > 0) {
     // 处理o-for
-    for (const key in moudleScript.for) {
-      const forItem = moudleScript.for[key];
-      const forDomList = tempDom.querySelectorAll(`[o-temp-for="${forItem.for}"]`)
+    for (var key in moudleScript['for']) {
+      var forItem = moudleScript['for'][key];
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
       if (forDomList.length > 0) {
         forDomList[0].outerHTML = forItem.template
-        for (let domIndex = 1; domIndex < forDomList.length; domIndex++) {
+        for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
           forDomList[domIndex].remove()
         }
       }
@@ -199,12 +199,12 @@ _owo.handleEvent = function (moudleScript) {
         if (forValue) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
-          if (!moudleScript.for) moudleScript.for = []
+          if (!moudleScript['for']) moudleScript['for'] = []
           
-          moudleScript.for.push({
-            for: forValue,
-            children: forEle.length,
-            template: childrenDom.outerHTML
+          moudleScript['for'].push({
+            "for": forValue,
+            "children": forEle.length,
+            "template": childrenDom.outerHTML
           })
 
           childrenDom.removeAttribute("o-for")
@@ -217,11 +217,8 @@ _owo.handleEvent = function (moudleScript) {
             var value = forEle[key];
             var tempCopy = temp
             // 获取模板插值
-            // var tempVar = new RegExp("(?<={).*?(?=})","g").exec(tempCopy)
-            var tempVar = temp.match(/(?<={).*?(?=})/g)
-            for (var varKey in tempVar) {
-              
-              var varValue = tempVar[varKey]
+            var tempReg = new RegExp("(?<={).*?(?=})","g")
+            while (varValue = tempReg.exec(tempCopy)) {
               // 默认变量
               var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + key + ';\r\n '
               tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
@@ -322,10 +319,10 @@ _owo.showViewIndex = function (routeList, ind) {
     var element = routeList[routeIndex];
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
-      element.$el.classList.add('route-active')
+      element.$el.setAttribute('route-active', 'true')
     } else {
       element.$el.style.display = 'none'
-      element.$el.classList.remove('route-active')
+      element.$el.removeAttribute('route-active')
     }
   }
 }
@@ -335,10 +332,10 @@ _owo.showViewName = function (routeList, name) {
     var element = routeList[routeIndex];
     if (element._name == name) {
       element.$el.style.display = 'block'
-      element.$el.classList.add('route-active')
+      element.$el.setAttribute('route-active', 'true')
     } else {
       element.$el.style.display = 'none'
-      element.$el.classList.remove('route-active')
+      element.$el.removeAttribute('route-active')
     }
   }
 }
