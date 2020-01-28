@@ -112,7 +112,7 @@
 .title-bar {
   height: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   background-color: #262626;
   .icon {
     width: 40px;

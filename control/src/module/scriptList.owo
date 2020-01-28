@@ -11,13 +11,13 @@ table.scrip-list(o-if="")
   tr(o-for="owo.script.home.data.config.scriptList")
     td.name {value.name}
     td.value {value.src}
-    td.resource
+    td.resource.input-td
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].resource")
-    td.babel
+    td.babel.input-td
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].babel")
-    td.defer
+    td.defer.input-td
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer")
-    td.merge
+    td.merge.input-td
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge")
     td.tool
       span.icon(o-tap="delete({key})") &#xe645;
@@ -26,13 +26,13 @@ table.scrip-list(o-if="")
       input.nameInput(type="text" placeholder="新增样式名称")
     td
       input.srcInput(type="text" placeholder="新增样式路径")
-    td
+    td.input-td
       input(type="checkbox" o-value="this.data.resource")
-    td
+    td.input-td
       input(type="checkbox" o-value="this.data.babel")
-    td
+    td.input-td
       input(type="checkbox" o-value="this.data.defer")
-    td
+    td.input-td
       input(type="checkbox" o-value="this.data.merge")
     td.tool
       span.icon(o-tap="add") &#xe600;
@@ -116,7 +116,7 @@ td {
   color: #009fe9;
   font-size: 20px;
 }
-.resource, .defer, .babel, .merge {
+.input-td {
   text-align: center;
   font-size: 20px;
   color: #ccc;

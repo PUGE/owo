@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Tue Jan 28 2020 01:32:14 GMT+0800 (GMT+08:00)
+// Tue Jan 28 2020 13:32:07 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -263,6 +263,37 @@ owo.query = function (str) {
   return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
 }
 
+function View (obj, entryDom) {
+  for (var viewName in obj) {
+    var routeList = obj[viewName]
+    this[viewName] = []
+    // 标识是否没有指定显示哪个路由
+    var activeRouteIndex = 0
+    // 从url中获取路由信息
+    var urlViewName = owo.state.urlVariable['view-' + viewName]
+    for (var routeInd in routeList) {
+      var routeItem = routeList[routeInd]
+      this[viewName][routeInd] = routeItem
+      this[viewName][routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
+      
+      console.log(this[viewName][routeInd])
+      // 错误处理
+      if (!this[viewName][routeInd].$el) {
+        console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
+        break
+      }
+      this[viewName][routeInd].$el.setAttribute('route-ind', routeInd)
+      // console.log(urlViewName, )
+      if (urlViewName && urlViewName == routeItem._name) {
+        activeRouteIndex = routeInd
+      }
+    }
+    // 激活对应路由
+    _owo.showViewIndex(this[viewName], activeRouteIndex)
+    _owo.handlePage(this[viewName][activeRouteIndex], this[viewName][activeRouteIndex].$el)
+  }
+}
+
 /* 运行页面所属的方法 */
 _owo.handlePage = function (newPageFunction, entryDom) {
   /* 判断页面是否有自己的方法 */
@@ -283,29 +314,7 @@ _owo.handlePage = function (newPageFunction, entryDom) {
   owo.state.urlVariable = _owo.getQueryVariable()
   // 判断页面中是否有路由
   if (newPageFunction.view) {
-    for (var viewName in newPageFunction.view) {
-      var routeList = newPageFunction.view[viewName]
-      // 标识是否没有指定显示哪个路由
-      var activeRouteIndex = 0
-      var urlViewName = owo.state.urlVariable['view-' + viewName]
-      for (var routeInd in routeList) {
-        var routeItem = routeList[routeInd]
-        routeList[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
-        // 错误处理
-        if (!routeList[routeInd].$el) {
-          console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
-          break
-        }
-        routeList[routeInd].$el.setAttribute('route-ind', routeInd)
-        // console.log(urlViewName, )
-        if (urlViewName && urlViewName == routeItem._name) {
-          activeRouteIndex = routeInd
-        }
-      }
-      // 激活对应路由
-      _owo.showViewIndex(routeList, activeRouteIndex)
-      _owo.handlePage(routeList[activeRouteIndex], routeList[activeRouteIndex].$el)
-    }
+    newPageFunction.view = new View(newPageFunction.view, entryDom)
   }
 }
 
@@ -485,6 +494,23 @@ owo.tool.remind = function (text, time) {
 }
 
 
+
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
+    }
+  }
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
+}
 
 
 

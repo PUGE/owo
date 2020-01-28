@@ -182,10 +182,7 @@ table {
   font-size: 20px;
 }
 
-.scrip-list .resource,
-.scrip-list .defer,
-.scrip-list .babel,
-.scrip-list .merge {
+.scrip-list .input-td {
   text-align: center;
   font-size: 20px;
   color: #ccc;
@@ -366,9 +363,9 @@ table {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   background-color: #262626;
 }
 

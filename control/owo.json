@@ -101,7 +101,6 @@
 			"watcherEnable": true,
 			"watcherIgnored": "./dist/*",
 			"watcherdepth": 99,
-			"merge": true,
 			"minifyCss": false,
 			"minifyJs": false,
 			"addVersion": false,
@@ -119,7 +118,6 @@
 			"minifyJs": false,
 			"addVersion": true,
 			"embedSize": 0,
-			"merge": false,
 			"allAnimate": false
 		}
 	},
