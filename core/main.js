@@ -337,8 +337,11 @@ _owo.handlePage = function (newPageFunction) {
       newPageFunction.view[viewName] = new View(routeList, viewName, newPageFunction['$el'])
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
-      var urlViewName = owo.state.urlVariable['view-' + viewName]
-      var activeRouteIndex = newPageFunction.view[viewName][urlViewName]._index || 0
+      var activeRouteIndex = 0
+      if (viewName) {
+        var urlViewName = owo.state.urlVariable['view-' + viewName]
+        activeRouteIndex = newPageFunction.view[viewName][urlViewName] ? newPageFunction.view[viewName][urlViewName]._index : 0
+      }
       // 激活对应路由
       newPageFunction.view[viewName].showIndex(activeRouteIndex)
       var activeView = newPageFunction.view[viewName][urlViewName] || newPageFunction.view[viewName]._list[0]
