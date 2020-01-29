@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Tue Jan 28 2020 13:32:07 GMT+0800 (GMT+08:00)
+// Wed Jan 29 2020 21:33:47 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -263,64 +263,27 @@ owo.query = function (str) {
   return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
 }
 
-function View (obj, entryDom) {
-  for (var viewName in obj) {
-    var routeList = obj[viewName]
-    this[viewName] = []
-    // 标识是否没有指定显示哪个路由
-    var activeRouteIndex = 0
-    // 从url中获取路由信息
-    var urlViewName = owo.state.urlVariable['view-' + viewName]
-    for (var routeInd in routeList) {
-      var routeItem = routeList[routeInd]
-      this[viewName][routeInd] = routeItem
-      this[viewName][routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
-      
-      console.log(this[viewName][routeInd])
-      // 错误处理
-      if (!this[viewName][routeInd].$el) {
-        console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
-        break
-      }
-      this[viewName][routeInd].$el.setAttribute('route-ind', routeInd)
-      // console.log(urlViewName, )
-      if (urlViewName && urlViewName == routeItem._name) {
-        activeRouteIndex = routeInd
-      }
+// 特殊类型
+function View(routeList, viewName, entryDom) {
+  this._list = []
+  for (var routeInd in routeList) {
+    var routeItem = routeList[routeInd]
+    this._list[routeInd] = routeItem
+    this._list[routeInd]._index = routeInd
+    this._list[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
+    // 错误处理
+    if (!this._list[routeInd].$el) {
+      console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
+      break
     }
-    // 激活对应路由
-    _owo.showViewIndex(this[viewName], activeRouteIndex)
-    _owo.handlePage(this[viewName][activeRouteIndex], this[viewName][activeRouteIndex].$el)
+    this._list[routeInd].$el.setAttribute('route-ind', routeInd)
+    this[routeItem._name] = this._list[routeInd]
   }
 }
 
-/* 运行页面所属的方法 */
-_owo.handlePage = function (newPageFunction, entryDom) {
-  /* 判断页面是否有自己的方法 */
-  if (!newPageFunction) return
-  // console.log(entryDom)
-  newPageFunction['$el'] = entryDom
-  // console.log(newPageFunction)
-  _owo.runCreated(newPageFunction)
-  // debugger
-  // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
-  for (var key in newPageFunction.template) {
-    var templateScript = newPageFunction.template[key]
-    
-    templateScript.$el = entryDom.querySelector('[template="' + key +'"]')
-    _owo.runCreated(templateScript)
-  }
-
-  owo.state.urlVariable = _owo.getQueryVariable()
-  // 判断页面中是否有路由
-  if (newPageFunction.view) {
-    newPageFunction.view = new View(newPageFunction.view, entryDom)
-  }
-}
-
-_owo.showViewIndex = function (routeList, ind) {
-  for (var routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
-    var element = routeList[routeIndex];
+View.prototype.showIndex = function (ind) {
+  for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
+    var element = this._list[routeIndex];
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
@@ -331,9 +294,9 @@ _owo.showViewIndex = function (routeList, ind) {
   }
 }
 
-_owo.showViewName = function (routeList, name) {
-  for (var routeIndex = 0; routeIndex < routeList.length; routeIndex++) {
-    var element = routeList[routeIndex];
+View.prototype.showName = function (name) {
+  for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
+    var element = this._list[routeIndex];
     if (element._name == name) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
@@ -341,6 +304,43 @@ _owo.showViewName = function (routeList, name) {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')
     }
+  }
+}
+
+/* 运行页面所属的方法 */
+_owo.handlePage = function (newPageFunction) {
+  /* 判断页面是否有自己的方法 */
+  if (!newPageFunction) return
+  // console.log(entryDom)
+  // console.log(newPageFunction)
+  _owo.runCreated(newPageFunction)
+  // debugger
+  // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
+  for (var key in newPageFunction.template) {
+    var templateScript = newPageFunction.template[key]
+    
+    templateScript.$el = newPageFunction['$el'].querySelector('[template="' + key +'"]')
+    _owo.runCreated(templateScript)
+  }
+
+  owo.state.urlVariable = _owo.getQueryVariable()
+  // 判断页面中是否有路由
+  if (newPageFunction.view) {
+    temp = []
+    for (var viewName in newPageFunction.view) {
+      var routeList = newPageFunction.view[viewName]
+      newPageFunction.view[viewName] = new View(routeList, viewName, newPageFunction['$el'])
+      // 标识是否没有指定显示哪个路由
+      // 从url中获取路由信息
+      var urlViewName = owo.state.urlVariable['view-' + viewName]
+      var activeRouteIndex = newPageFunction.view[viewName][urlViewName]._index || 0
+      // 激活对应路由
+      newPageFunction.view[viewName].showIndex(activeRouteIndex)
+      var activeView = newPageFunction.view[viewName][urlViewName] || newPageFunction.view[viewName]._list[0]
+      _owo.handlePage(activeView)
+      temp.push(newPageFunction.view[viewName])
+    }
+    newPageFunction.view._list = temp
   }
 }
 
@@ -401,14 +401,16 @@ _owo.ready = (function() {               //这个函数返回whenReady()函数
 _owo.showPage = function() {
   // 查找入口
   var entryDom = document.querySelector('[template]')
-  if (entryDom) {
-    owo.entry = entryDom.getAttribute('template')
-    owo.activePage = owo.entry
-    _owo.handlePage(window.owo.script[owo.activePage], entryDom)
-    _owo.handleEvent(window.owo.script[owo.activePage])
-  } else {
+  if (!entryDom) {
     console.error('找不到页面入口!')
+    return
   }
+  owo.entry = entryDom.getAttribute('template')
+  owo.activePage = owo.entry
+  var activeScript = owo.script[owo.activePage]
+  activeScript.$el = entryDom
+  _owo.handlePage(activeScript)
+  _owo.handleEvent(activeScript)
   // 路由列表
   var viewList = entryDom.querySelectorAll('[view]')
   // 获取url参数
@@ -418,9 +420,9 @@ _owo.showPage = function() {
     var viewName = viewItem.getAttribute('view')
     var viewValue = owo.state.urlVariable['view-' + viewName]
     if (viewValue) {
-      _owo.showViewName(viewItem, viewValue)
+      activeScript.view[viewName].showName(viewValue)
     } else {
-      _owo.showViewIndex(viewItem, 0)
+      activeScript.view[viewName].showIndex(0)
     }
   }
 }
@@ -540,6 +542,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   
   window.owo.activePage = newPage
   // 不可调换位置
-  _owo.handlePage(window.owo.script[newPage], newDom)
+  window.owo.script[newPage].$el = newDom
+  _owo.handlePage(window.owo.script[newPage])
   _owo.handleEvent(window.owo.script[newPage])
 }

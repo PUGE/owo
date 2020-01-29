@@ -44,7 +44,8 @@ _owo.showPage = function() {
     // 显示主页面
     entryDom.style.display = 'block'
     window.owo.activePage = page
-    _owo.handlePage(owo.script[page], entryDom)
+    owo.script[page].$el = entryDom
+    _owo.handlePage(owo.script[page])
     _owo.handleEvent(owo.script[page])
     // 处理插件
     var plugList = document.querySelectorAll('.owo-block')
@@ -52,7 +53,7 @@ _owo.showPage = function() {
       var plugEL = plugList[ind]
       var plugName = plugEL.getAttribute('template')
       owo.script[plugName].$el = plugEL
-      _owo.handlePage(owo.script[plugName], plugEL)
+      _owo.handlePage(owo.script[plugName])
       _owo.handleEvent(owo.script[plugName])
     }
     

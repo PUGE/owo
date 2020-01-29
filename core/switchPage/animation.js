@@ -119,12 +119,12 @@ function switchPage (oldUrlParam, newUrlParam) {
   }
   
   window.owo.activePage = newPage
-  _owo.handlePage(window.owo.script[newPage], newDom)
+  window.owo.script[newPage].$el = newDom
+  _owo.handlePage(window.owo.script[newPage])
   _owo.handleEvent(window.owo.script[newPage])
   
   // 显示路由
-  var viewList = newDom.querySelectorAll('[view]')
-  _owo.showViewIndex(viewList, 0)
+  if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
 }
 
 // 切换路由前的准备工作

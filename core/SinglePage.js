@@ -2,14 +2,16 @@
 _owo.showPage = function() {
   // 查找入口
   var entryDom = document.querySelector('[template]')
-  if (entryDom) {
-    owo.entry = entryDom.getAttribute('template')
-    owo.activePage = owo.entry
-    _owo.handlePage(window.owo.script[owo.activePage], entryDom)
-    _owo.handleEvent(window.owo.script[owo.activePage])
-  } else {
+  if (!entryDom) {
     console.error('找不到页面入口!')
+    return
   }
+  owo.entry = entryDom.getAttribute('template')
+  owo.activePage = owo.entry
+  var activeScript = owo.script[owo.activePage]
+  activeScript.$el = entryDom
+  _owo.handlePage(activeScript)
+  _owo.handleEvent(activeScript)
   // 路由列表
   var viewList = entryDom.querySelectorAll('[view]')
   // 获取url参数
@@ -19,9 +21,9 @@ _owo.showPage = function() {
     var viewName = viewItem.getAttribute('view')
     var viewValue = owo.state.urlVariable['view-' + viewName]
     if (viewValue) {
-      _owo.showViewName(viewItem, viewValue)
+      activeScript.view[viewName].showName(viewValue)
     } else {
-      _owo.showViewIndex(viewItem, 0)
+      activeScript.view[viewName].showIndex(0)
     }
   }
 }
