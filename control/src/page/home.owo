@@ -51,7 +51,7 @@
         owo.tool.emit('changeResource', res.resourceList)
         // 获取模式
         // console.log(res.config.mode)
-        _owo.handleEvent(this)
+        this.handleEvent()
       })
     },
     postData: function (url, data) {

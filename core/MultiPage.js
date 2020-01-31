@@ -7,6 +7,10 @@ _owo.getarg = function (url) { // 获取URL #后面内容
 
 // 页面资源加载完毕事件
 _owo.showPage = function() {
+  for (const key in owo.script) {
+    owo.script[key].$el = document.querySelector('.owo[template="' + key + '"]')
+    owo.script[key] = new Page(owo.script[key])
+  }
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
@@ -33,28 +37,25 @@ _owo.showPage = function() {
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
   if (page) {
-    var entryDom = document.querySelector('.owo[template="' + page + '"]')
-    if (!entryDom) {
+    if (!owo.script[page].$el) {
       console.error('入口文件设置错误,错误值为: ', page)
-      entryDom = document.querySelector('.owo')
-      page = entryDom.getAttribute('template')
+      page = owo.script[page].$el.getAttribute('template')
       window.location.replace('#' + page)
       return
     }
     // 显示主页面
-    entryDom.style.display = 'block'
+    owo.script[page].$el.style.display = 'block'
     window.owo.activePage = page
-    owo.script[page].$el = entryDom
-    _owo.handlePage(owo.script[page])
-    _owo.handleEvent(owo.script[page])
+    owo.script[page].init()
+    owo.script[page].handleEvent()
     // 处理插件
     var plugList = document.querySelectorAll('.owo-block')
     for (var ind = 0; ind < plugList.length; ind++) {
       var plugEL = plugList[ind]
       var plugName = plugEL.getAttribute('template')
       owo.script[plugName].$el = plugEL
-      _owo.handlePage(owo.script[plugName])
-      _owo.handleEvent(owo.script[plugName])
+      owo.script[plugName].init()
+      owo.script[plugName].handleEvent()
     }
     
   } else {

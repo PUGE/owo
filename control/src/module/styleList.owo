@@ -37,7 +37,7 @@ table.style-list
         }
         newHtml += `<tr><td><input type="text" placeholder="新增样式名称" class="nameInput"></input></td><td><input placeholder="新增样式路径" type="text" class="srcInput"></input></td><td width="70px" class="icon icon-box resource-check" o-tap="addNewResourceChange">&#xe614;</td><td class="tool icon" o-tap="add">&#xe600;</td></tr>`
         this.$el.innerHTML = newHtml
-        _owo.handleEvent(this)
+        this.handleEvent()
       }
     },
     resourceChange: function () {

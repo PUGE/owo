@@ -30,7 +30,7 @@ table.page-list
   module.exports = {
     broadcast: {
       changeData: function (value) {
-        _owo.handleEvent(this)
+        this.handleEvent()
       }
     },
     changeSrc: function () {

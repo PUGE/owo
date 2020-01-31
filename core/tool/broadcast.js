@@ -7,7 +7,7 @@ owo.tool.broadcast = function (key, value) {
         const element = obj[ind]
         // 查找是否有对应的方法
         if (element._receive && element._receive[key]) {
-          element._receive[key](value)
+          element._receive[key].apply(obj, [value])
         }
         if (element.template) sendMessage(element.template)
       }

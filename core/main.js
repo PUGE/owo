@@ -86,9 +86,10 @@ function shaheRun (code) {
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
-_owo.handleEvent = function (moudleScript) {
+function handleEvent (moudleScript) {
+  var moudleScript = moudleScript || this
   if (!moudleScript.$el) throw 'error'
-  var tempDom = moudleScript.$el
+  var tempDom = this.$el
   // 判断是否有o-for需要处理
   if (moudleScript['for'] && moudleScript['for'].length > 0) {
     // 处理o-for
@@ -199,6 +200,11 @@ _owo.handleEvent = function (moudleScript) {
         if (forValue) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
+          // 如果o-for不存在则隐藏dom
+          if (!forEle) {
+            childrenDom.style.display = 'none'
+            return
+          }
           if (!moudleScript['for']) moudleScript['for'] = []
           
           moudleScript['for'].push({
@@ -259,7 +265,7 @@ _owo.handleEvent = function (moudleScript) {
   // 递归处理子模板
   for (var key in moudleScript.template) {
     moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
-    _owo.handleEvent(moudleScript.template[key])
+    handleEvent(moudleScript.template[key])
   }
 }
 
@@ -281,6 +287,7 @@ function View(routeList, viewName, entryDom) {
       console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
       break
     }
+    this._list[routeInd] = new Page(this._list[routeInd])
     this._list[routeInd].$el.setAttribute('route-ind', routeInd)
     this[routeItem._name] = this._list[routeInd]
   }
@@ -312,46 +319,54 @@ View.prototype.showName = function (name) {
   }
 }
 
-/* 运行页面所属的方法 */
-_owo.handlePage = function (newPageFunction) {
-  /* 判断页面是否有自己的方法 */
-  if (!newPageFunction) return
+function init () {
   // console.log(entryDom)
-  // console.log(newPageFunction)
-  _owo.runCreated(newPageFunction)
-  // debugger
-  // 判断页面是否有下属模板,如果有运行所有模板的初始化方法
-  for (var key in newPageFunction.template) {
-    var templateScript = newPageFunction.template[key]
-    
-    templateScript.$el = newPageFunction['$el'].querySelector('[template="' + key +'"]')
+  // console.log(this)
+  _owo.runCreated(this)
+  for (var key in this.template) {
+    var templateScript = this.template[key]
     _owo.runCreated(templateScript)
   }
-
   owo.state.urlVariable = _owo.getQueryVariable()
+  
   // 判断页面中是否有路由
-  if (newPageFunction.view) {
+  if (this.view) {
     temp = []
-    for (var viewName in newPageFunction.view) {
-      var routeList = newPageFunction.view[viewName]
-      newPageFunction.view[viewName] = new View(routeList, viewName, newPageFunction['$el'])
+    for (var viewName in this.view) {
+      var routeList = this.view[viewName]
+      this.view[viewName] = new View(routeList, viewName, this['$el'])
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
       var activeRouteIndex = 0
       if (viewName) {
         var urlViewName = owo.state.urlVariable['view-' + viewName]
-        activeRouteIndex = newPageFunction.view[viewName][urlViewName] ? newPageFunction.view[viewName][urlViewName]._index : 0
+        activeRouteIndex = this.view[viewName][urlViewName] ? this.view[viewName][urlViewName]._index : 0
       }
       // 激活对应路由
-      newPageFunction.view[viewName].showIndex(activeRouteIndex)
-      var activeView = newPageFunction.view[viewName][urlViewName] || newPageFunction.view[viewName]._list[0]
-      _owo.handlePage(activeView)
-      temp.push(newPageFunction.view[viewName])
+      this.view[viewName].showIndex(activeRouteIndex)
+      var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
+      activeView.init()
+      temp.push(this.view[viewName])
     }
-    newPageFunction.view._list = temp
+    this.view._list = temp
   }
 }
 
+function Page(pageScript) {
+  for (const key in pageScript) {
+    this[key] = pageScript[key]
+  }
+  // 处理页面引用的模板
+  for (var key in pageScript.template) {
+    pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
+    pageScript.template[key] = new Page(pageScript.template[key])
+  }
+}
+
+View.prototype.init = init
+Page.prototype.init = init
+View.prototype.handleEvent = handleEvent
+Page.prototype.handleEvent = handleEvent
 // 获取URL中的参数
 _owo.getQueryVariable = function () {
   var query = window.location.search.substring(1);

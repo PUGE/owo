@@ -48,7 +48,7 @@ table.scrip-list(o-if="")
     },
     broadcast: {
       changeData: function (value) {
-        _owo.handleEvent(this)
+        this.handleEvent()
       }
     },
     changeValue: function (key) {

@@ -47,7 +47,7 @@
           bodyData += temp + `</tr>`
         })
         owo.query('.build-table')[0].innerHTML = titleData + bodyData
-        _owo.handleEvent(this)
+        this.handleEvent()
       }
     }
   }

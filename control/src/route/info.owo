@@ -19,7 +19,7 @@
   module.exports = {
     broadcast: {
       changeData: function (config) {
-        _owo.handleEvent(this)
+        this.handleEvent()
       }
     }
   }

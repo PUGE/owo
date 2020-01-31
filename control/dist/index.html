@@ -63,7 +63,7 @@ owo.script = {
         owo.tool.emit('changeResource', res.resourceList); // 获取模式
         // console.log(res.config.mode)
 
-        _owo.handleEvent(_this);
+        _this.handleEvent();
       });
     },
     "postData": function postData(url, data) {
@@ -105,7 +105,7 @@ owo.script = {
       "content": [{
         "broadcast": {
           "changeData": function changeData(config) {
-            _owo.handleEvent(this);
+            this.handleEvent();
           }
         },
         "prop": {
@@ -125,7 +125,8 @@ owo.script = {
           "headKeyValueList": {
             "broadcast": {
               "changeData": function changeData(value) {
-                _owo.handleEvent(this);
+                console.log(this);
+                this.handleEvent();
               }
             },
             "add": function add() {
@@ -167,8 +168,7 @@ owo.script = {
 
                 newHtml += "<tr><td><input type=\"text\" placeholder=\"\u65B0\u589E\u6837\u5F0F\u540D\u79F0\" class=\"nameInput\"></input></td><td><input placeholder=\"\u65B0\u589E\u6837\u5F0F\u8DEF\u5F84\" type=\"text\" class=\"srcInput\"></input></td><td width=\"70px\" class=\"icon icon-box resource-check\" o-tap=\"addNewResourceChange\">&#xe614;</td><td class=\"tool icon\" o-tap=\"add\">&#xe600;</td></tr>";
                 this.$el.innerHTML = newHtml;
-
-                _owo.handleEvent(this);
+                this.handleEvent();
               }
             },
             "resourceChange": function resourceChange() {
@@ -222,7 +222,7 @@ owo.script = {
             },
             "broadcast": {
               "changeData": function changeData(value) {
-                _owo.handleEvent(this);
+                this.handleEvent();
               }
             },
             "changeValue": function changeValue(key) {
@@ -274,7 +274,7 @@ owo.script = {
           "pageList": {
             "broadcast": {
               "changeData": function changeData(value) {
-                _owo.handleEvent(this);
+                this.handleEvent();
               }
             },
             "changeSrc": function changeSrc() {
@@ -423,8 +423,7 @@ owo.script = {
               bodyData += temp + "</tr>";
             });
             owo.query('.build-table')[0].innerHTML = titleData + bodyData;
-
-            _owo.handleEvent(this);
+            this.handleEvent();
           }
         },
         "prop": {
