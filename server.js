@@ -34,6 +34,7 @@ function Server (config, app, owo) {
       err: 0,
       config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
       log,
+      plugList: owo.plugList,
       resourceList: owo.resource.imageCache
     })
   })

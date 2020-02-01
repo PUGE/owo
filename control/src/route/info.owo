@@ -13,6 +13,8 @@
     .card-bar-item
       h3 页面大小
       p(style="color: skyblue;") 1.23Mb
+  ul.plug-list
+    li(o-for="owo.script.home.data.plugList") {value}
 </template>
 
 <script>

@@ -37,14 +37,15 @@
       contentItem: "info",
       config: {},
       logInfo: {},
-      needCreatFile: []
+      needCreatFile: [],
+      plugList: []
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
         this.data.originalConfig = JSON.stringify(res.config)
         this.data.config = res.config
         this.data.logInfo = res.log
-        
+        this.data.plugList = res.plugList
 
         owo.tool.emit('changeData', res.config)
         owo.tool.emit('changeLog', res.log)
