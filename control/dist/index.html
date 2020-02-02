@@ -1,473 +1,658 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <title>owo管理页面</title>
-    <!-- 页面的元信息 -->
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=1200, user-scalable=no"/>
-    <meta name="format-detection" content="telephone=no, email=no"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="white"/>
-    <meta name="renderer" content="webkit"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="filetype" content="1"/>
-    <meta name="publishedtype" content="1"/>
-    <meta name="pagetype" content="2"/>
-    <meta name="screen-orientation" content="landscape"/>
-    <meta name="x5-orientation" content="landscape"/>
-    <meta name="full-screen" content="yes"/>
-    <meta name="x5-fullscreen" content="true"/>
-    <meta name="browsermode" content="application"/>
-    <meta name="x5-page-mode" content="app"/>
-    
-      <!-- 页面主样式文件 -->
-      <link charset="utf-8"  rel="stylesheet" href="./static/css/owo.main.css">
-      
-    <!-- 附属css文件 -->
-    <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
-      
-  </head>
-  <body>
-    <!-- 页面区域 -->
-    <!-- 页面[home]-->
-    <div class="home owo" template="home"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><a class="menu-item" href="?view-content=info"><div class="icon"></div><div class="text">页面概况</div></a><a class="menu-item" href="?view-content=else"><div class="icon"></div><div class="text">页面管理</div></a><a class="menu-item" href="?view-content=build"><div class="icon"></div><div class="text">打包配置</div></a><a class="menu-item" href="?view-content=log"><div class="icon"></div><div class="text">日志管理</div></a><a class="menu-item" href="?view-content=resource"><div class="icon"></div><div class="text">资源管理</div></a></div><div class="router" view="content" o-if="this.data.config"><div class="info" route="info"><div class="card-bar" o-if="owo.script.home.data.config"><div class="card-bar-item"><h3>页面数量</h3><p o-value="owo.script.home.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-value="owo.script.home.data.logInfo.warningNum"></p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-value="owo.script.home.data.logInfo.errorNum"></p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div><ul class="plug-list"><li o-for="owo.script.home.data.plugList">{value}</li></ul></div><div class="page" route="else"><table class="key-value-list" o-if="owo.script.home.data.config" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>操作</th></tr><tr class="key-value-item" o-for="owo.script.home.data.config.headList"><td class="td">{value.name || value['http-equiv']}</td><td class="value"><input type="text" o-value="owo.script.home.data.config.headList[{key}].content"></td><td class="tool"><span class="icon"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="键名"></td><td><input class="contentInput" placeholder="键值" type="text"></td><td class="tool icon" o-tap="add"></td></tr></tbody></table><table class="style-list" template="styleList"><tbody><tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th>操作</th></tr><tr class="key-value-item" o-for="owo.script.home.data.config.scriptList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="resource icon {value.resource ? 'check' : ''}" ind="{key}" o-tap="resourceChange">{value.resource ? '' : ''}</td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="新增样式名称"></td><td><input class="srcInput" placeholder="新增样式路径" type="text"></td><td class="icon icon-box resource-check" width="70px" o-tap="addNewResourceChange"></td><td class="tool icon" o-tap="add"></td></tr></tbody></table><table class="scrip-list" o-if="" template="scriptList"><tbody><tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th width="70px">babel</th><th width="70px">异步加载</th><th>合并文件</th><th>操作</th></tr><tr o-for="owo.script.home.data.config.scriptList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="resource input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].resource"></td><td class="babel input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].babel"></td><td class="defer input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer"></td><td class="merge input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge"></td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="新增样式名称"></td><td><input class="srcInput" type="text" placeholder="新增样式路径"></td><td class="input-td"><input type="checkbox" o-value="this.data.resource"></td><td class="input-td"><input type="checkbox" o-value="this.data.babel"></td><td class="input-td"><input type="checkbox" o-value="this.data.defer"></td><td class="input-td"><input type="checkbox" o-value="this.data.merge"></td><td class="tool"><span class="icon" o-tap="add"></span></td></tr></tbody></table><table class="page-list" template="pageList"><tbody><tr><th>页面名</th><th>页面路径</th><th width="70px">类型</th><th>操作</th></tr><tr o-for="owo.script.home.data.config.pageList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="type"><select value="page"><option value="page">页面</option><option value="plug">插件</option></select></td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="页面名称" o-input="changeSrc"></td><td><input class="srcInput" placeholder="页面路径" type="text" disabled="disabled"></td><td class="icon icon-box resource-check" width="70px" o-tap="changeDataValue('resource')"><select class="type-select"><option value="page">页面</option><option value="plug">插件</option></select></td><td class="tool icon" o-tap="add"></td></tr></tbody></table></div><div class="build" o-if="owo.script.home.data.config" route="build"><table class="build-table"></table></div><div class="log" route="log"><ul></ul></div><div class="resource" route="resource"><ul></ul></div></div></div></div>
-    
-<!-- 框架script代码 --><!-- 框架script文件 -->
-<script src="./static/js/owo.main.js" type="text/javascript" charset="UTF-8"></script>
-<script>/*
+
+<head>
+  <title>owo管理页面</title>
+  <!-- 页面的元信息 -->
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=1200, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no, email=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="filetype" content="1" />
+  <meta name="publishedtype" content="1" />
+  <meta name="pagetype" content="2" />
+  <meta name="screen-orientation" content="landscape" />
+  <meta name="x5-orientation" content="landscape" />
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="browsermode" content="application" />
+  <meta name="x5-page-mode" content="app" />
+
+  <!-- 页面主样式文件 -->
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.main.kkz3z5uvgi.css">
+
+  <!-- 附属css文件 -->
+  <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
+
+</head>
+
+<body>
+  <!-- 页面区域 -->
+  <!-- 页面[home]-->
+  <div class="home owo" template="home">
+    <div class="title-bar">
+      <div class="save-button">
+        <div class="icon"></div>
+        <span o-tap="seveConfig">发送</span>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="menu">
+        <a class="menu-item" href="?view-content=info">
+          <div class="icon"></div>
+          <div class="text">页面概况</div>
+        </a>
+        <a class="menu-item" href="?view-content=else">
+          <div class="icon"></div>
+          <div class="text">页面管理</div>
+        </a>
+        <a class="menu-item" href="?view-content=build">
+          <div class="icon"></div>
+          <div class="text">打包配置</div>
+        </a>
+        <a class="menu-item" href="?view-content=log">
+          <div class="icon"></div>
+          <div class="text">日志管理</div>
+        </a>
+        <a class="menu-item" href="?view-content=resource">
+          <div class="icon"></div>
+          <div class="text">资源管理</div>
+        </a>
+      </div>
+      <div class="router" view="content" o-if="this.data.config">
+        <div class="info" route="info">
+          <div class="card-bar" o-if="owo.script.home.data.config">
+            <div class="card-bar-item">
+              <h3>页面数量</h3>
+              <p o-value="owo.script.home.data.config.pageList.length"></p>
+            </div>
+            <div class="card-bar-item">
+              <h3>编译警告</h3>
+              <p style="color: #c1c187;" o-value="owo.script.home.data.logInfo.warningNum"></p>
+            </div>
+            <div class="card-bar-item">
+              <h3> 编译报错</h3>
+              <p style="color: red;" o-value="owo.script.home.data.logInfo.errorNum"></p>
+            </div>
+            <div class="card-bar-item">
+              <h3>页面大小</h3>
+              <p style="color: skyblue;">1.23Mb</p>
+            </div>
+          </div>
+          <ul class="plug-list">
+            <li o-for="owo.script.home.data.plugList">{value}</li>
+          </ul>
+        </div>
+        <div class="page" route="else">
+          <table class="key-value-list" o-if="owo.script.home.data.config" template="headKeyValueList">
+            <tbody>
+              <tr>
+                <th>键名</th>
+                <th>键值</th>
+                <th>操作</th>
+              </tr>
+              <tr class="key-value-item" o-for="owo.script.home.data.config.headList">
+                <td class="td">{value.name || value['http-equiv']}</td>
+                <td class="value">
+                  <input type="text" o-value="owo.script.home.data.config.headList[{key}].content">
+                </td>
+                <td class="tool">
+                  <span class="icon"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="nameInput" type="text" placeholder="键名">
+                </td>
+                <td>
+                  <input class="contentInput" placeholder="键值" type="text">
+                </td>
+                <td class="tool icon" o-tap="add"></td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="style-list" template="styleList">
+            <tbody>
+              <tr>
+                <th>脚本名</th>
+                <th>脚本路径</th>
+                <th width="70px">资源处理</th>
+                <th>操作</th>
+              </tr>
+              <tr class="key-value-item" o-for="owo.script.home.data.config.scriptList">
+                <td class="name">{value.name}</td>
+                <td class="value">{value.src}</td>
+                <td class="resource icon {value.resource ? 'check' : ''}" ind="{key}" o-tap="resourceChange">{value.resource ? '' : ''}</td>
+                <td class="tool">
+                  <span class="icon" o-tap="delete({key})"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="nameInput" type="text" placeholder="新增样式名称">
+                </td>
+                <td>
+                  <input class="srcInput" placeholder="新增样式路径" type="text">
+                </td>
+                <td class="icon icon-box resource-check" width="70px" o-tap="addNewResourceChange"></td>
+                <td class="tool icon" o-tap="add"></td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="scrip-list" o-if="" template="scriptList">
+            <tbody>
+              <tr>
+                <th>脚本名</th>
+                <th>脚本路径</th>
+                <th width="70px">资源处理</th>
+                <th width="70px">babel</th>
+                <th width="70px">异步加载</th>
+                <th>合并文件</th>
+                <th>操作</th>
+              </tr>
+              <tr o-for="owo.script.home.data.config.scriptList">
+                <td class="name">{value.name}</td>
+                <td class="value">{value.src}</td>
+                <td class="resource input-td">
+                  <input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].resource">
+                </td>
+                <td class="babel input-td">
+                  <input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].babel">
+                </td>
+                <td class="defer input-td">
+                  <input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer">
+                </td>
+                <td class="merge input-td">
+                  <input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge">
+                </td>
+                <td class="tool">
+                  <span class="icon" o-tap="delete({key})"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="nameInput" type="text" placeholder="新增样式名称">
+                </td>
+                <td>
+                  <input class="srcInput" type="text" placeholder="新增样式路径">
+                </td>
+                <td class="input-td">
+                  <input type="checkbox" o-value="this.data.resource">
+                </td>
+                <td class="input-td">
+                  <input type="checkbox" o-value="this.data.babel">
+                </td>
+                <td class="input-td">
+                  <input type="checkbox" o-value="this.data.defer">
+                </td>
+                <td class="input-td">
+                  <input type="checkbox" o-value="this.data.merge">
+                </td>
+                <td class="tool">
+                  <span class="icon" o-tap="add"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="page-list" template="pageList">
+            <tbody>
+              <tr>
+                <th>页面名</th>
+                <th>页面路径</th>
+                <th width="70px">类型</th>
+                <th>操作</th>
+              </tr>
+              <tr o-for="owo.script.home.data.config.pageList">
+                <td class="name">{value.name}</td>
+                <td class="value">{value.src}</td>
+                <td class="type">
+                  <select value="page">
+                    <option value="page">页面</option>
+                    <option value="plug">插件</option>
+                  </select>
+                </td>
+                <td class="tool">
+                  <span class="icon" o-tap="delete({key})"></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input class="nameInput" type="text" placeholder="页面名称" o-input="changeSrc">
+                </td>
+                <td>
+                  <input class="srcInput" placeholder="页面路径" type="text" disabled="disabled">
+                </td>
+                <td class="icon icon-box resource-check" width="70px" o-tap="changeDataValue('resource')">
+                  <select class="type-select">
+                    <option value="page">页面</option>
+                    <option value="plug">插件</option>
+                  </select>
+                </td>
+                <td class="tool icon" o-tap="add"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="build" o-if="owo.script.home.data.config" route="build">
+          <table class="build-table"></table>
+        </div>
+        <div class="log" route="log">
+          <ul></ul>
+        </div>
+        <div class="resource" route="resource">
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 框架script代码 -->
+  <!-- 框架script文件 -->
+  <script src="./static/js/owo.main.kkz3z5uvgi.js" type="text/javascript" charset="UTF-8"></script>
+  <script>
+    /*
   存储每个页面的函数
   键名：页面名称
   键值：方法列表
 */
-owo.phoneEnter = "null";
-owo.script = {
-  "home": {
-    "data": {
-      "originalConfig": null,
-      "contentItem": "info",
-      "config": {},
-      "logInfo": {},
-      "needCreatFile": [],
-      "plugList": []
-    },
-    "show": function show() {
-      var _this = this;
+    owo.phoneEnter = "null";
+    owo.script = {
+      "home": {
+        "data": {
+          "originalConfig": null,
+          "contentItem": "info",
+          "config": {},
+          "logInfo": {},
+          "needCreatFile": [],
+          "plugList": []
+        },
+        "show": function show() {
+          var _this = this;
 
-      fetch('../getControl').then(function (response) {
-        return response.json();
-      }).then(function (res) {
-        _this.data.originalConfig = JSON.stringify(res.config);
-        _this.data.config = res.config;
-        _this.data.logInfo = res.log;
-        _this.data.plugList = res.plugList;
-        owo.tool.emit('changeData', res.config);
-        owo.tool.emit('changeLog', res.log);
-        owo.tool.emit('changeResource', res.resourceList); // 获取模式
-        // console.log(res.config.mode)
+          fetch('../getControl').then(function(response) {
+            return response.json();
+          }).then(function(res) {
+            _this.data.originalConfig = JSON.stringify(res.config);
+            _this.data.config = res.config;
+            _this.data.logInfo = res.log;
+            _this.data.plugList = res.plugList;
+            owo.tool.emit('changeData', res.config);
+            owo.tool.emit('changeLog', res.log);
+            owo.tool.emit('changeResource', res.resourceList); // 获取模式
+            // console.log(res.config.mode)
 
-        _this.handleEvent();
-      });
-    },
-    "postData": function postData(url, data) {
-      // Default options are marked with *
-      return fetch(url, {
-        body: JSON.stringify(data),
-        // must match 'Content-Type' header
-        cache: 'no-cache',
-        // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin',
-        // include, same-origin, *omit
-        headers: {
-          'user-agent': 'Mozilla/4.0 MDN Example',
-          'content-type': 'application/json'
+            _this.handleEvent();
+          });
         },
-        method: 'POST',
-        // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors',
-        // no-cors, cors, *same-origin
-        redirect: 'follow',
-        // manual, *follow, error
-        referrer: 'no-referrer' // *client, no-referrer
+        "postData": function postData(url, data) {
+          // Default options are marked with *
+          return fetch(url, {
+            body: JSON.stringify(data),
+            // must match 'Content-Type' header
+            cache: 'no-cache',
+            // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin',
+            // include, same-origin, *omit
+            headers: {
+              'user-agent': 'Mozilla/4.0 MDN Example',
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+            // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors',
+            // no-cors, cors, *same-origin
+            redirect: 'follow',
+            // manual, *follow, error
+            referrer: 'no-referrer' // *client, no-referrer
 
-      }).then(function (response) {
-        return response.json();
-      }); // parses response to JSON
-    },
-    "seveConfig": function seveConfig() {
-      console.log('发送数据:');
-      console.log(this.data.config);
-      this.postData('../setControl', {
-        config: this.data.config,
-        needCreatFile: this.data.needCreatFile
-      }).then(function (res) {
-        console.log(res);
-      });
-    },
-    "view": {
-      "content": [{
-        "broadcast": {
-          "changeData": function changeData(config) {
-            this.handleEvent();
-          }
+          }).then(function(response) {
+            return response.json();
+          }); // parses response to JSON
         },
-        "prop": {
-          "name": "info",
-          "src": "./src/route/info.owo"
+        "seveConfig": function seveConfig() {
+          console.log('发送数据:');
+          console.log(this.data.config);
+          this.postData('../setControl', {
+            config: this.data.config,
+            needCreatFile: this.data.needCreatFile
+          }).then(function(res) {
+            console.log(res);
+          });
         },
-        "_name": "info"
-      }, {
-        "prop": {
-          "name": "else",
-          "src": "./src/route/else.owo"
-        },
-        "_name": "else",
-        "template": {
-          "headKeyValueList": {
+        "view": {
+          "content": [{
             "broadcast": {
-              "changeData": function changeData(value) {
-                console.log(this);
+              "changeData": function changeData(config) {
                 this.handleEvent();
               }
             },
-            "add": function add() {
-              var name = this.$el.getElementsByClassName('nameInput')[0].value;
-              var content = this.$el.getElementsByClassName('contentInput')[0].value;
+            "_name": "info"
+          }, {
+            "_name": "else",
+            "template": {
+              "headKeyValueList": {
+                "broadcast": {
+                  "changeData": function changeData(value) {
+                    console.log(this);
+                    this.handleEvent();
+                  }
+                },
+                "add": function add() {
+                  var name = this.$el.getElementsByClassName('nameInput')[0].value;
+                  var content = this.$el.getElementsByClassName('contentInput')[0].value;
 
-              if (name && content) {
-                owo.script.home.data.config.headList.push({
-                  name: name,
-                  content: content
-                });
-              } else {
-                owo.tool.remind('名称和路径不能为空!');
+                  if (name && content) {
+                    owo.script.home.data.config.headList.push({
+                      name: name,
+                      content: content
+                    });
+                  } else {
+                    owo.tool.remind('名称和路径不能为空!');
+                  }
+
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                }
+              },
+              "styleList": {
+                "data": {
+                  "addNewNeedResource": false
+                },
+                "broadcast": {
+                  "changeData": function changeData(value) {
+                    var data = value.styleList;
+                    var newHtml = '<tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th>操作</th></tr>';
+
+                    for (var key in data) {
+                      if (data.hasOwnProperty(key)) {
+                        var element = data[key];
+                        newHtml += "<tr class=\"key-value-item\"><td class=\"name\">" + element.name + "</td><td class=\"value\">" + element.src + "</td><td class=\"resource icon" + (element.resource ? ' check' : '') + "\" ind=\"" + key + "\" o-tap=\"resourceChange\">" + (element.resource ? '&#xe661;' : '&#xe614;') + "</td><td class=\"tool\"><span class=\"icon\" o-tap=\"delete(" + key + ")\">&#xe645;</span></td></tr>";
+                      }
+                    }
+
+                    newHtml += "<tr><td><input type=\"text\" placeholder=\"\u65B0\u589E\u6837\u5F0F\u540D\u79F0\" class=\"nameInput\"></input></td><td><input placeholder=\"\u65B0\u589E\u6837\u5F0F\u8DEF\u5F84\" type=\"text\" class=\"srcInput\"></input></td><td width=\"70px\" class=\"icon icon-box resource-check\" o-tap=\"addNewResourceChange\">&#xe614;</td><td class=\"tool icon\" o-tap=\"add\">&#xe600;</td></tr>";
+                    this.$el.innerHTML = newHtml;
+                    this.handleEvent();
+                  }
+                },
+                "resourceChange": function resourceChange() {
+                  var target = this.$target;
+                  var ind = parseInt(target.getAttribute('ind'));
+                  owo.script.home.data.config.styleList[ind].resource = !target.classList.contains('check');
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                },
+                "addNewResourceChange": function addNewResourceChange() {
+                  var target = this.$target;
+                  this.data.addNewNeedResource = !this.data.addNewNeedResource;
+
+                  if (this.data.addNewNeedResource) {
+                    target.classList.add('check');
+                    target.innerHTML = '&#xe661;';
+                  } else {
+                    target.classList.remove('check');
+                    target.innerHTML = '&#xe614;';
+                  }
+                },
+                "add": function add() {
+                  var name = this.$el.getElementsByClassName('nameInput')[0].value;
+                  var src = this.$el.getElementsByClassName('srcInput')[0].value;
+
+                  if (name && src) {
+                    owo.script.home.data.config.styleList.push({
+                      name: name,
+                      src: src,
+                      resource: this.data.addNewNeedResource
+                    });
+                  }
+
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                },
+                "delete": function _delete(key) {
+                  owo.script.home.data.config.styleList.splice(key, 1);
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                }
+              },
+              "scriptList": {
+                "data": {
+                  "resource": false,
+                  "babel": false,
+                  "defer": false,
+                  "merge": false
+                },
+                "broadcast": {
+                  "changeData": function changeData(value) {
+                    this.handleEvent();
+                  }
+                },
+                "changeValue": function changeValue(key) {
+                  var target = this.$target;
+                  var ind = parseInt(target.getAttribute('ind'));
+                  owo.script.home.data.config.scriptList[ind][key] = !target.classList.contains('check');
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                },
+                "changeDataValue": function changeDataValue(dataItem) {
+                  var target = this.$target;
+                  this.data[dataItem] = !this.data[dataItem];
+
+                  if (this.data[dataItem]) {
+                    target.classList.add('check');
+                    target.innerHTML = '&#xe661;';
+                  } else {
+                    target.classList.remove('check');
+                    target.innerHTML = '&#xe614;';
+                  }
+                },
+                "add": function add() {
+                  var name = this.$el.getElementsByClassName('nameInput')[0].value;
+                  var src = this.$el.getElementsByClassName('srcInput')[0].value;
+
+                  if (name && src) {
+                    owo.script.home.data.config.scriptList.push({
+                      name: name,
+                      src: src,
+                      resource: this.data.resource,
+                      babel: this.data.babel,
+                      defer: this.data.defer
+                    });
+                  } else {
+                    owo.tool.remind('名称和路径不能为空!');
+                  }
+
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                },
+                "delete": function _delete(key) {
+                  owo.script.home.data.config.scriptList.splice(key, 1);
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                }
+              },
+              "pageList": {
+                "broadcast": {
+                  "changeData": function changeData(value) {
+                    this.handleEvent();
+                  }
+                },
+                "changeSrc": function changeSrc() {
+                  this.$el.getElementsByClassName('srcInput')[0].value = owo.script.home.data.config.root + "/page/" + this.$target.value + ".owo";
+                },
+                "add": function add() {
+                  var name = this.$el.getElementsByClassName('nameInput')[0].value;
+                  var src = this.$el.getElementsByClassName('srcInput')[0].value;
+
+                  if (name && src) {
+                    owo.script.home.data.config.pageList.push({
+                      name: name,
+                      src: src,
+                      type: this.$el.getElementsByClassName('type-select')[0].value
+                    });
+                    owo.script.home.data.needCreatFile.push({
+                      type: 'owo',
+                      src: src
+                    });
+                  } else {
+                    owo.tool.remind('名称和路径不能为空!');
+                  }
+
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                },
+                "delete": function _delete(key) {
+                  owo.script.home.data.config.pageList.splice(key, 1);
+                  owo.tool.emit('changeData', owo.script.home.data.config);
+                }
               }
-
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "prop": {
-              "_src": "./src/module/headKeyValueList.owo",
-              "_name": "headKeyValueList"
             }
-          },
-          "styleList": {
+          }, {
             "data": {
-              "addNewNeedResource": false
+              "configList": [{
+                "name": "debug模式",
+                "type": "checkbox",
+                "value": "debug"
+              }, {
+                "name": "外链提示",
+                "type": "checkbox",
+                "value": "alertLink"
+              }, {
+                "name": "基本目录",
+                "type": "text",
+                "value": "basePath"
+              }, {
+                "name": "包裹容器",
+                "type": "text",
+                "value": "container"
+              }, {
+                "name": "手机入口",
+                "type": "text",
+                "value": "phoneEnter"
+              }, {
+                "name": "项目目录",
+                "type": "text",
+                "value": "root"
+              }, {
+                "name": "输出目录",
+                "type": "text",
+                "value": "outFolder"
+              }, {
+                "name": "网页名称",
+                "type": "text",
+                "value": "title"
+              }, {
+                "name": "资源目录",
+                "type": "text",
+                "value": "resourceFolder"
+              }, {
+                "name": "开启服务",
+                "type": "checkbox",
+                "value": "server"
+              }, {
+                "name": "服务端口",
+                "type": "number",
+                "value": "serverPort"
+              }, {
+                "name": "自动刷新",
+                "type": "checkbox",
+                "value": "autoReload"
+              }, {
+                "name": "远程调试",
+                "type": "checkbox",
+                "value": "remoteDebug"
+              }, {
+                "name": "监视器",
+                "type": "checkbox",
+                "value": "watcherEnable"
+              }, {
+                "name": "忽略监视",
+                "type": "text",
+                "value": "watcherIgnored"
+              }, {
+                "name": "监视深度",
+                "type": "number",
+                "value": "watcherdepth"
+              }, {
+                "name": "压缩css",
+                "type": "checkbox",
+                "value": "minifyCss"
+              }, {
+                "name": "压缩js",
+                "type": "checkbox",
+                "value": "minifyJs"
+              }, {
+                "name": "添加版本号",
+                "type": "checkbox",
+                "value": "addVersion"
+              }, {
+                "name": "合并到html",
+                "type": "checkbox",
+                "value": "merge"
+              }, {
+                "name": "输出所有样式",
+                "type": "checkbox",
+                "value": "allAnimate"
+              }, {
+                "name": "强制首页开始",
+                "type": "checkbox",
+                "value": "startAtHome"
+              }]
             },
             "broadcast": {
-              "changeData": function changeData(value) {
-                var data = value.styleList;
-                var newHtml = '<tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th>操作</th></tr>';
+              "changeData": function changeData(config) {
+                var titleData = "<tr><th>\u914D\u7F6E\u540D\u79F0</th><th>\u901A\u7528\u914D\u7F6E</th>";
 
-                for (var key in data) {
-                  if (data.hasOwnProperty(key)) {
-                    var element = data[key];
-                    newHtml += "<tr class=\"key-value-item\"><td class=\"name\">" + element.name + "</td><td class=\"value\">" + element.src + "</td><td class=\"resource icon" + (element.resource ? ' check' : '') + "\" ind=\"" + key + "\" o-tap=\"resourceChange\">" + (element.resource ? '&#xe661;' : '&#xe614;') + "</td><td class=\"tool\"><span class=\"icon\" o-tap=\"delete(" + key + ")\">&#xe645;</span></td></tr>";
-                  }
+                for (var key in config.mode) {
+                  titleData += "<th>" + key + "</th>";
                 }
 
-                newHtml += "<tr><td><input type=\"text\" placeholder=\"\u65B0\u589E\u6837\u5F0F\u540D\u79F0\" class=\"nameInput\"></input></td><td><input placeholder=\"\u65B0\u589E\u6837\u5F0F\u8DEF\u5F84\" type=\"text\" class=\"srcInput\"></input></td><td width=\"70px\" class=\"icon icon-box resource-check\" o-tap=\"addNewResourceChange\">&#xe614;</td><td class=\"tool icon\" o-tap=\"add\">&#xe600;</td></tr>";
-                this.$el.innerHTML = newHtml;
+                titleData += "</tr>";
+                var bodyData = "";
+                this.data.configList.forEach(function(element) {
+                  var temp = "<tr><td>" + element.name + "</td><td><input type=\"" + element.type + "\" placeholder=\"\u672A\u8BBE\u7F6E\" o-value=\"owo.script.home.data.config." + element.value + "\"></td>";
+
+                  for (var _key in config.mode) {
+                    temp += "<td><input type=\"" + element.type + "\" placeholder=\"\u672A\u8BBE\u7F6E\" o-value=\"owo.script.home.data.config.mode." + _key + "." + element.value + "\"></td>";
+                  }
+
+                  bodyData += temp + "</tr>";
+                });
+                owo.query('.build-table')[0].innerHTML = titleData + bodyData;
                 this.handleEvent();
               }
             },
-            "resourceChange": function resourceChange() {
-              var target = this.$target;
-              var ind = parseInt(target.getAttribute('ind'));
-              owo.script.home.data.config.styleList[ind].resource = !target.classList.contains('check');
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "addNewResourceChange": function addNewResourceChange() {
-              var target = this.$target;
-              this.data.addNewNeedResource = !this.data.addNewNeedResource;
-
-              if (this.data.addNewNeedResource) {
-                target.classList.add('check');
-                target.innerHTML = '&#xe661;';
-              } else {
-                target.classList.remove('check');
-                target.innerHTML = '&#xe614;';
-              }
-            },
-            "add": function add() {
-              var name = this.$el.getElementsByClassName('nameInput')[0].value;
-              var src = this.$el.getElementsByClassName('srcInput')[0].value;
-
-              if (name && src) {
-                owo.script.home.data.config.styleList.push({
-                  name: name,
-                  src: src,
-                  resource: this.data.addNewNeedResource
-                });
-              }
-
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "delete": function _delete(key) {
-              owo.script.home.data.config.styleList.splice(key, 1);
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "prop": {
-              "_src": "./src/module/styleList.owo",
-              "_name": "styleList"
-            }
-          },
-          "scriptList": {
+            "_name": "build"
+          }, {
             "data": {
-              "resource": false,
-              "babel": false,
-              "defer": false,
-              "merge": false
+              "logInfo": []
             },
             "broadcast": {
-              "changeData": function changeData(value) {
-                this.handleEvent();
+              "changeLog": function changeLog(data) {
+                var logHtml = "";
+                data.logList.forEach(function(element) {
+                  logHtml += "<li class=\"" + element.type + "\">" + element.text + "</li>";
+                }); // console.log(data)
+
+                this.$el.getElementsByTagName('ul')[0].innerHTML = logHtml;
               }
             },
-            "changeValue": function changeValue(key) {
-              var target = this.$target;
-              var ind = parseInt(target.getAttribute('ind'));
-              owo.script.home.data.config.scriptList[ind][key] = !target.classList.contains('check');
-              owo.tool.emit('changeData', owo.script.home.data.config);
+            "_name": "log"
+          }, {
+            "data": {
+              "logInfo": []
             },
-            "changeDataValue": function changeDataValue(dataItem) {
-              var target = this.$target;
-              this.data[dataItem] = !this.data[dataItem];
-
-              if (this.data[dataItem]) {
-                target.classList.add('check');
-                target.innerHTML = '&#xe661;';
-              } else {
-                target.classList.remove('check');
-                target.innerHTML = '&#xe614;';
-              }
-            },
-            "add": function add() {
-              var name = this.$el.getElementsByClassName('nameInput')[0].value;
-              var src = this.$el.getElementsByClassName('srcInput')[0].value;
-
-              if (name && src) {
-                owo.script.home.data.config.scriptList.push({
-                  name: name,
-                  src: src,
-                  resource: this.data.resource,
-                  babel: this.data.babel,
-                  defer: this.data.defer
-                });
-              } else {
-                owo.tool.remind('名称和路径不能为空!');
-              }
-
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "delete": function _delete(key) {
-              owo.script.home.data.config.scriptList.splice(key, 1);
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "prop": {
-              "_src": "./src/module/scriptList.owo",
-              "_name": "scriptList"
-            }
-          },
-          "pageList": {
             "broadcast": {
-              "changeData": function changeData(value) {
-                this.handleEvent();
+              "changeResource": function changeResource(data) {
+                var resourceHtml = "";
+                data.forEach(function(element) {
+                  resourceHtml += "<li>" + element + "</li>";
+                }); // console.log(data)
+
+                this.$el.getElementsByTagName('ul')[0].innerHTML = resourceHtml;
               }
             },
-            "changeSrc": function changeSrc() {
-              this.$el.getElementsByClassName('srcInput')[0].value = owo.script.home.data.config.root + "/page/" + this.$target.value + ".owo";
-            },
-            "add": function add() {
-              var name = this.$el.getElementsByClassName('nameInput')[0].value;
-              var src = this.$el.getElementsByClassName('srcInput')[0].value;
-
-              if (name && src) {
-                owo.script.home.data.config.pageList.push({
-                  name: name,
-                  src: src,
-                  type: this.$el.getElementsByClassName('type-select')[0].value
-                });
-                owo.script.home.data.needCreatFile.push({
-                  type: 'owo',
-                  src: src
-                });
-              } else {
-                owo.tool.remind('名称和路径不能为空!');
-              }
-
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "delete": function _delete(key) {
-              owo.script.home.data.config.pageList.splice(key, 1);
-              owo.tool.emit('changeData', owo.script.home.data.config);
-            },
-            "prop": {
-              "_src": "./src/module/pageList.owo",
-              "_name": "pageList"
-            }
-          }
-        }
-      }, {
-        "data": {
-          "configList": [{
-            "name": "debug模式",
-            "type": "checkbox",
-            "value": "debug"
-          }, {
-            "name": "外链提示",
-            "type": "checkbox",
-            "value": "alertLink"
-          }, {
-            "name": "基本目录",
-            "type": "text",
-            "value": "basePath"
-          }, {
-            "name": "包裹容器",
-            "type": "text",
-            "value": "container"
-          }, {
-            "name": "手机入口",
-            "type": "text",
-            "value": "phoneEnter"
-          }, {
-            "name": "项目目录",
-            "type": "text",
-            "value": "root"
-          }, {
-            "name": "输出目录",
-            "type": "text",
-            "value": "outFolder"
-          }, {
-            "name": "网页名称",
-            "type": "text",
-            "value": "title"
-          }, {
-            "name": "资源目录",
-            "type": "text",
-            "value": "resourceFolder"
-          }, {
-            "name": "开启服务",
-            "type": "checkbox",
-            "value": "server"
-          }, {
-            "name": "服务端口",
-            "type": "number",
-            "value": "serverPort"
-          }, {
-            "name": "自动刷新",
-            "type": "checkbox",
-            "value": "autoReload"
-          }, {
-            "name": "远程调试",
-            "type": "checkbox",
-            "value": "remoteDebug"
-          }, {
-            "name": "监视器",
-            "type": "checkbox",
-            "value": "watcherEnable"
-          }, {
-            "name": "忽略监视",
-            "type": "text",
-            "value": "watcherIgnored"
-          }, {
-            "name": "监视深度",
-            "type": "number",
-            "value": "watcherdepth"
-          }, {
-            "name": "压缩css",
-            "type": "checkbox",
-            "value": "minifyCss"
-          }, {
-            "name": "压缩js",
-            "type": "checkbox",
-            "value": "minifyJs"
-          }, {
-            "name": "添加版本号",
-            "type": "checkbox",
-            "value": "addVersion"
-          }, {
-            "name": "合并到html",
-            "type": "checkbox",
-            "value": "merge"
-          }, {
-            "name": "输出所有样式",
-            "type": "checkbox",
-            "value": "allAnimate"
-          }, {
-            "name": "强制首页开始",
-            "type": "checkbox",
-            "value": "startAtHome"
+            "_name": "resource"
           }]
-        },
-        "broadcast": {
-          "changeData": function changeData(config) {
-            var titleData = "<tr><th>\u914D\u7F6E\u540D\u79F0</th><th>\u901A\u7528\u914D\u7F6E</th>";
+        }
+      }
+    };
+  </script>
+</body>
 
-            for (var key in config.mode) {
-              titleData += "<th>" + key + "</th>";
-            }
-
-            titleData += "</tr>";
-            var bodyData = "";
-            this.data.configList.forEach(function (element) {
-              var temp = "<tr><td>" + element.name + "</td><td><input type=\"" + element.type + "\" placeholder=\"\u672A\u8BBE\u7F6E\" o-value=\"owo.script.home.data.config." + element.value + "\"></td>";
-
-              for (var _key in config.mode) {
-                temp += "<td><input type=\"" + element.type + "\" placeholder=\"\u672A\u8BBE\u7F6E\" o-value=\"owo.script.home.data.config.mode." + _key + "." + element.value + "\"></td>";
-              }
-
-              bodyData += temp + "</tr>";
-            });
-            owo.query('.build-table')[0].innerHTML = titleData + bodyData;
-            this.handleEvent();
-          }
-        },
-        "prop": {
-          "name": "build",
-          "src": "./src/route/build.owo"
-        },
-        "_name": "build"
-      }, {
-        "data": {
-          "logInfo": []
-        },
-        "broadcast": {
-          "changeLog": function changeLog(data) {
-            var logHtml = "";
-            data.logList.forEach(function (element) {
-              logHtml += "<li class=\"" + element.type + "\">" + element.text + "</li>";
-            }); // console.log(data)
-
-            this.$el.getElementsByTagName('ul')[0].innerHTML = logHtml;
-          }
-        },
-        "prop": {
-          "name": "log",
-          "src": "./src/route/log.owo"
-        },
-        "_name": "log"
-      }, {
-        "data": {
-          "logInfo": []
-        },
-        "broadcast": {
-          "changeResource": function changeResource(data) {
-            var resourceHtml = "";
-            data.forEach(function (element) {
-              resourceHtml += "<li>" + element + "</li>";
-            }); // console.log(data)
-
-            this.$el.getElementsByTagName('ul')[0].innerHTML = resourceHtml;
-          }
-        },
-        "prop": {
-          "name": "resource",
-          "src": "./src/route/resource.owo"
-        },
-        "_name": "resource"
-      }]
-    }
-  }
-};</script>
-  </body>
 </html>
