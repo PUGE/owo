@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sat Feb 01 2020 23:01:05 GMT+0800 (GMT+08:00)
+// Sun Feb 02 2020 17:47:29 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -86,6 +86,28 @@ function shaheRun (code) {
     return undefined
   }
 }
+
+
+_owo._event_tap = function (tempDom, eventFor, callBack) {
+  // 变量
+  var startTime = 0
+  var isMove = false
+  tempDom.ontouchstart = function () {
+    startTime = Date.now();
+  }
+  tempDom.ontouchmove = function () {
+    isMove = true
+  }
+  tempDom.ontouchend = function (e) {
+    if (Date.now() - startTime < 300 && !isMove) {
+      callBack(e, eventFor)
+    }
+    // 清零
+    startTime = 0;
+    isMove = false
+  }
+}
+
 
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
@@ -185,7 +207,7 @@ function handleEvent (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      // 
+      
       // 第一次循环是为了处理o-for
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -230,7 +252,7 @@ function handleEvent (moudleScript) {
           break
         }
       }
-      // 
+      
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -268,6 +290,7 @@ function handleEvent (moudleScript) {
 owo.query = function (str) {
   return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
 }
+
 
 // 特殊类型
 function View(routeList, viewName, entryDom) {
@@ -314,6 +337,7 @@ View.prototype.showName = function (name) {
   }
 }
 
+
 function init () {
   // console.log(entryDom)
   // console.log(this)
@@ -345,6 +369,7 @@ function init () {
     }
     this.view._list = temp
   }
+  
 }
 
 function Page(pageScript) {
@@ -453,25 +478,6 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
-_owo._event_tap = function (tempDom, eventFor, callBack) {
-  // 变量
-  var startTime = 0
-  var isMove = false
-  tempDom.ontouchstart = function () {
-    startTime = Date.now();
-  }
-  tempDom.ontouchmove = function () {
-    isMove = true
-  }
-  tempDom.ontouchend = function (e) {
-    if (Date.now() - startTime < 300 && !isMove) {
-      callBack(e, eventFor)
-    }
-    // 清零
-    startTime = 0;
-    isMove = false
-  }
-}
 
 // 事件推送方法
 owo.tool.emit = function (eventName) {

@@ -14,16 +14,16 @@ _owo.showPage = function() {
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
   var pageArg = _owo.getarg(window.location.hash)
-  /* if="this.config.startAtHome"
+  /* if="this.config.startAtHome" */
   if (pageArg !== null) {
     window.location.href = ''
     return
   }
-  end */
-  /* if="this.config.phoneEnter"
+  /* end */
+  /* if="this.config.phoneEnter" */
   // 手机进入特制页
   if (_owo.isMobi) {owo.entry = owo.phoneEnter}
-  end */
+  /* end */
 
   // 计算$dom
   for(var page in owo.script) {
@@ -48,6 +48,22 @@ _owo.showPage = function() {
     window.owo.activePage = page
     owo.script[page].init()
     owo.script[page].handleEvent()
+    /* if="this.plugList.includes('route')" */
+    // 路由列表
+    var viewList = owo.script[owo.activePage].$el.querySelectorAll('[view]')
+    // 获取url参数
+    owo.state.urlVariable = _owo.getQueryVariable()
+    for (var index = 0; index < viewList.length; index++) {
+      var viewItem = viewList[index];
+      var viewName = viewItem.getAttribute('view')
+      var viewValue = owo.state.urlVariable['view-' + viewName]
+      if (viewValue) {
+        activeScript.view[viewName].showName(viewValue)
+      } else {
+        activeScript.view[viewName].showIndex(0)
+      }
+    }
+    /* end */
     // 处理插件
     var plugList = document.querySelectorAll('.owo-block')
     for (var ind = 0; ind < plugList.length; ind++) {
@@ -61,14 +77,14 @@ _owo.showPage = function() {
   } else {
     console.error('未设置程序入口!')
   }
-  /* if="this.config.pageList.find(function(element) {return element.isPlug;})"
+  /* if="this.config.pageList.find(function(element) {return element.isPlug;})" */
   for (var key in owo.script) {
     if (owo.script[key].type == 'block') {
       owo.script[key].$el = document.querySelector('.owo-block[template="' + key + '"]')
       _owo.runCreated(owo.script[key])
     }
   }
-  end */
+  /* end */
   // 设置当前页面为活跃页面
   owo.state.newUrlParam = _owo.getarg(document.URL)
 }

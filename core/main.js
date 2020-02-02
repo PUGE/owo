@@ -83,6 +83,28 @@ function shaheRun (code) {
   }
 }
 
+/* if="this.plugList.includes('tap')" */
+_owo._event_tap = function (tempDom, eventFor, callBack) {
+  // 变量
+  var startTime = 0
+  var isMove = false
+  tempDom.ontouchstart = function () {
+    startTime = Date.now();
+  }
+  tempDom.ontouchmove = function () {
+    isMove = true
+  }
+  tempDom.ontouchend = function (e) {
+    if (Date.now() - startTime < 300 && !isMove) {
+      callBack(e, eventFor)
+    }
+    // 清零
+    startTime = 0;
+    isMove = false
+  }
+}
+/* end */
+
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
@@ -116,7 +138,7 @@ function handleEvent (moudleScript) {
         if (new RegExp("^o-").test(attribute.name)) {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
-            /* if="this.htmlTemple.includes('o-tap')"
+            /* if="this.plugList.includes('tap')" */
             case 'tap': {
               // 待优化 可合并
               // 根据手机和PC做不同处理
@@ -128,8 +150,8 @@ function handleEvent (moudleScript) {
               } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
               break
             }
-            end */
-            /* if="this.htmlTemple.includes('o-show')"
+            /* end */
+            /* if="this.htmlTemple.includes('o-show')" */
             case 'show': {
               if (shaheRun.apply(moudleScript, [eventFor])) {
                 tempDom.style.display = ''
@@ -138,9 +160,9 @@ function handleEvent (moudleScript) {
               }
               break
             }
-            end */
+            /* end */
             
-            /* if="this.htmlTemple.includes('o-value')"
+            /* if="this.htmlTemple.includes('o-value')" */
             // 处理o-value
             case 'value': {
               var value = shaheRun.apply(moudleScript, [eventFor])
@@ -176,7 +198,7 @@ function handleEvent (moudleScript) {
               }
               break
             }
-            end */
+            /* end */
             default: {
               _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
             }
@@ -190,7 +212,7 @@ function handleEvent (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      // /* if="this.htmlTemple.includes('o-for')"
+      /* if="this.htmlTemple.includes('o-for')" */
       // 第一次循环是为了处理o-for
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -235,7 +257,7 @@ function handleEvent (moudleScript) {
           break
         }
       }
-      // end */
+      /* end */
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -274,6 +296,7 @@ owo.query = function (str) {
   return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
 }
 
+/* if="this.plugList.includes('route')" */
 // 特殊类型
 function View(routeList, viewName, entryDom) {
   this._list = []
@@ -318,6 +341,7 @@ View.prototype.showName = function (name) {
     }
   }
 }
+/* end */
 
 function init () {
   // console.log(entryDom)
@@ -328,7 +352,7 @@ function init () {
     _owo.runCreated(templateScript)
   }
   owo.state.urlVariable = _owo.getQueryVariable()
-  
+  /* if="this.plugList.includes('route')" */
   // 判断页面中是否有路由
   if (this.view) {
     temp = []
@@ -350,6 +374,7 @@ function init () {
     }
     this.view._list = temp
   }
+  /* end */
 }
 
 function Page(pageScript) {
