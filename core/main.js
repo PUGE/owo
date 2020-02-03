@@ -110,7 +110,7 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
 // 参数2: 当前正在处理的模块名称
 function handleEvent (moudleScript) {
   var moudleScript = moudleScript || this
-  if (!moudleScript.$el) throw 'error'
+  if (!moudleScript.$el) return
   var tempDom = this.$el
   // 判断是否有o-for需要处理
   if (moudleScript['for'] && moudleScript['for'].length > 0) {
@@ -351,8 +351,8 @@ function init () {
     var templateScript = this.template[key]
     _owo.runCreated(templateScript)
   }
-  owo.state.urlVariable = _owo.getQueryVariable()
   /* if="this.plugList.includes('route')" */
+  owo.state.urlVariable = _owo.getQueryVariable()
   // 判断页面中是否有路由
   if (this.view) {
     temp = []
