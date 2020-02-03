@@ -17,6 +17,7 @@ _owo.showPage = function() {
   var activeScript = owo.script[owo.activePage]
   activeScript.init()
   activeScript.handleEvent()
+  /* if="this.plugList.includes('route')" */
   // 路由列表
   var viewList = owo.script[owo.activePage].$el.querySelectorAll('[view]')
   // 获取url参数
@@ -31,6 +32,7 @@ _owo.showPage = function() {
       activeScript.view[viewName].showIndex(0)
     }
   }
+  /* end */
 }
 
 // 执行页面加载完毕方法

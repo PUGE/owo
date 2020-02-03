@@ -85,6 +85,28 @@ li {
 .info .card-bar .card-bar-item:last-child {
   border-right: none;
 }
+
+.info .card-box {
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  margin: 15px 0;
+}
+
+.info .card-box ul {
+  padding: 10px 20px;
+}
+
+.info .card-box .title {
+  line-height: 30px;
+  padding: 0 20px;
+  background-color: #ced6ec;
+}
+
+.info .plug-list li {
+  line-height: 40px;
+  font-size: 20px;
+}
 table {
   width: 100%;
 }

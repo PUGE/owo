@@ -388,10 +388,11 @@ function Page(pageScript) {
   }
 }
 
-View.prototype.init = init
 Page.prototype.init = init
-View.prototype.handleEvent = handleEvent
 Page.prototype.handleEvent = handleEvent
+/* if="this.plugList.includes('route')" */
+View.prototype.init = init
+View.prototype.handleEvent = handleEvent
 // 获取URL中的参数
 _owo.getQueryVariable = function () {
   var query = window.location.search.substring(1);
@@ -403,3 +404,4 @@ _owo.getQueryVariable = function () {
   }
   return temp;
 }
+/* end */

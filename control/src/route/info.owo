@@ -13,8 +13,10 @@
     .card-bar-item
       h3 页面大小
       p(style="color: skyblue;") 1.23Mb
-  ul.plug-list
-    li(o-for="owo.script.home.data.plugList") {value}
+  .plug-list.card-box
+    .title 使用到的插件
+    ul
+      li(o-for="owo.script.home.data.plugList") {value}
 </template>
 
 <script>
@@ -56,5 +58,22 @@
   .card-bar-item:last-child { 
     border-right: none;
   }
+}
+.card-box {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  margin: 15px 0;
+  ul {
+    padding: 10px 20px;
+  }
+  .title {
+    line-height: 30px;
+    padding: 0 20px;
+    background-color: #ced6ec;
+  }
+}
+.plug-list li {
+  line-height: 40px;
+  font-size: 20px;
 }
 </style>

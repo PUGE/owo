@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sun Feb 02 2020 23:26:14 GMT+0800 (GMT+08:00)
+// Mon Feb 03 2020 20:16:41 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -383,10 +383,11 @@ function Page(pageScript) {
   }
 }
 
-View.prototype.init = init
 Page.prototype.init = init
-View.prototype.handleEvent = handleEvent
 Page.prototype.handleEvent = handleEvent
+
+View.prototype.init = init
+View.prototype.handleEvent = handleEvent
 // 获取URL中的参数
 _owo.getQueryVariable = function () {
   var query = window.location.search.substring(1);
@@ -398,6 +399,7 @@ _owo.getQueryVariable = function () {
   }
   return temp;
 }
+
 /*
  * 传递函数给whenReady()
  * 当文档解析完毕且为操作准备就绪时，函数作为document的方法调用
@@ -459,6 +461,7 @@ _owo.showPage = function() {
   var activeScript = owo.script[owo.activePage]
   activeScript.init()
   activeScript.handleEvent()
+  
   // 路由列表
   var viewList = owo.script[owo.activePage].$el.querySelectorAll('[view]')
   // 获取url参数
@@ -473,6 +476,7 @@ _owo.showPage = function() {
       activeScript.view[viewName].showIndex(0)
     }
   }
+  
 }
 
 // 执行页面加载完毕方法
@@ -525,6 +529,23 @@ owo.tool.remind = function (text, time) {
 }
 
 
+
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
+    }
+  }
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
+}
 
 
 
