@@ -1,0 +1,30 @@
+<template lang="pug">
+ul.plug
+  li(o-for="this.data.plugList")
+    .name {value.name}
+    .info {value.info}
+
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      plugList: [
+        {
+          name: "IE兼容",
+          info: "使IE8支持getElementsByClassName，classList等方法",
+          file: "ie-support.js"
+        },
+        {
+          name: "设备检测",
+          info: "检测设备类型, 系统型号, 横竖屏",
+          file: "check.js"
+        }
+      ]
+    }
+  }
+</script>
+
+<style lang="less">
+
+</style>

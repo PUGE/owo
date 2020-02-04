@@ -13,6 +13,9 @@
       a.menu-item(href="?view-content=else")
         .icon &#xe730;
         .text 页面管理
+      a.menu-item(href="?view-content=plug")
+        .icon &#xe662;
+        .text 插件管理
       a.menu-item(href="?view-content=build")
         .icon &#xe662;
         .text 打包配置
@@ -25,6 +28,7 @@
     view.router(name="content" o-if="this.data.config")
       route(name="info" src="./src/route/info.owo")
       route(name="else" src="./src/route/else.owo")
+      route(name="plug" src="./src/route/plug.owo")
       route(name="build" src="./src/route/build.owo")
       route(name="log" src="./src/route/log.owo")
       route(name="resource" src="./src/route/resource.owo")

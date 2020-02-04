@@ -112,12 +112,13 @@ function handleEvent (moudleScript) {
   var moudleScript = moudleScript || this
   if (!moudleScript.$el) return
   var tempDom = this.$el
+   /* if="this.plugList.includes('for')" */
   // 判断是否有o-for需要处理
-  if (moudleScript['for'] && moudleScript['for'].length > 0) {
+  if (moudleScript['forList'] && moudleScript['forList'].length > 0) {
     // 处理o-for
-    for (var key in moudleScript['for']) {
-      var forItem = moudleScript['for'][key];
-      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
+    for (var key in moudleScript['forList']) {
+      var forItem = moudleScript['forList'][key];
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['forList'] + '"]')
       if (forDomList.length > 0) {
         forDomList[0].outerHTML = forItem.template
         for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
@@ -126,6 +127,7 @@ function handleEvent (moudleScript) {
       }
     }
   }
+  /* end */
   // 递归处理元素属性
   function recursion(tempDom) {
     if (tempDom.attributes) {
@@ -151,7 +153,7 @@ function handleEvent (moudleScript) {
               break
             }
             /* end */
-            /* if="this.htmlTemple.includes('o-show')" */
+            /* if="this.plugList.includes('show')" */
             case 'show': {
               if (shaheRun.apply(moudleScript, [eventFor])) {
                 tempDom.style.display = ''
@@ -162,7 +164,7 @@ function handleEvent (moudleScript) {
             }
             /* end */
             
-            /* if="this.htmlTemple.includes('o-value')" */
+            /* if="this.plugList.includes('value')" */
             // 处理o-value
             case 'value': {
               var value = shaheRun.apply(moudleScript, [eventFor])
@@ -212,7 +214,7 @@ function handleEvent (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
-      /* if="this.htmlTemple.includes('o-for')" */
+      /* if="this.plugList.includes('for')" */
       // 第一次循环是为了处理o-for
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
@@ -220,16 +222,16 @@ function handleEvent (moudleScript) {
         // 判断是否有o-for
         var forValue = childrenDom.getAttribute('o-for')
         if (forValue) {
+          
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
           // 如果o-for不存在则隐藏dom
           if (!forEle) {
-            childrenDom.style.display = 'none'
             return
           }
-          if (!moudleScript['for']) moudleScript['for'] = []
+          if (!moudleScript['forList']) moudleScript['forList'] = []
           
-          moudleScript['for'].push({
+          moudleScript['forList'].push({
             "for": forValue,
             "children": forEle.length,
             "template": childrenDom.outerHTML
@@ -322,6 +324,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
+      element.handleEvent()
     } else {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')
@@ -335,6 +338,7 @@ View.prototype.showName = function (name) {
     if (element._name == name) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
+      element.handleEvent()
     } else {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')

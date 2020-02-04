@@ -1,6 +1,6 @@
 <template lang="pug">
 .info
-  .card-bar(o-if="owo.script.home.data.config")
+  .card-bar(o-if="owo.script.home.data.config && owo.script.home.data.config.pageList")
     .card-bar-item
       h3 页面数量
       p(o-value="owo.script.home.data.config.pageList.length")
@@ -13,7 +13,7 @@
     .card-bar-item
       h3 页面大小
       p(style="color: skyblue;") 1.23Mb
-  .plug-list.card-box
+  .plug-list.card-box(o-if="owo.script.home.data.plugList.length > 0")
     .title 使用到的插件
     ul
       li(o-for="owo.script.home.data.plugList") {value}

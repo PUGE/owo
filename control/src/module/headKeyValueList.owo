@@ -22,7 +22,6 @@ table.key-value-list(o-if="owo.script.home.data.config")
   module.exports = {
     broadcast: {
       changeData: function (value) {
-        console.log(this)
         this.handleEvent()
       }
     },

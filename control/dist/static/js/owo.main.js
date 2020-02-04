@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Mon Feb 03 2020 20:31:13 GMT+0800 (GMT+08:00)
+// Tue Feb 04 2020 16:54:41 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -114,14 +114,15 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
 // 参数2: 当前正在处理的模块名称
 function handleEvent (moudleScript) {
   var moudleScript = moudleScript || this
-  if (!moudleScript.$el) throw 'error'
+  if (!moudleScript.$el) return
   var tempDom = this.$el
+   
   // 判断是否有o-for需要处理
-  if (moudleScript['for'] && moudleScript['for'].length > 0) {
+  if (moudleScript['forList'] && moudleScript['forList'].length > 0) {
     // 处理o-for
-    for (var key in moudleScript['for']) {
-      var forItem = moudleScript['for'][key];
-      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
+    for (var key in moudleScript['forList']) {
+      var forItem = moudleScript['forList'][key];
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['forList'] + '"]')
       if (forDomList.length > 0) {
         forDomList[0].outerHTML = forItem.template
         for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
@@ -130,6 +131,7 @@ function handleEvent (moudleScript) {
       }
     }
   }
+  
   // 递归处理元素属性
   function recursion(tempDom) {
     if (tempDom.attributes) {
@@ -215,16 +217,16 @@ function handleEvent (moudleScript) {
         // 判断是否有o-for
         var forValue = childrenDom.getAttribute('o-for')
         if (forValue) {
+          
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
           // 如果o-for不存在则隐藏dom
           if (!forEle) {
-            childrenDom.style.display = 'none'
             return
           }
-          if (!moudleScript['for']) moudleScript['for'] = []
+          if (!moudleScript['forList']) moudleScript['forList'] = []
           
-          moudleScript['for'].push({
+          moudleScript['forList'].push({
             "for": forValue,
             "children": forEle.length,
             "template": childrenDom.outerHTML
@@ -317,6 +319,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
+      element.handleEvent()
     } else {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')
@@ -330,6 +333,7 @@ View.prototype.showName = function (name) {
     if (element._name == name) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
+      element.handleEvent()
     } else {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')
@@ -346,8 +350,8 @@ function init () {
     var templateScript = this.template[key]
     _owo.runCreated(templateScript)
   }
-  owo.state.urlVariable = _owo.getQueryVariable()
   
+  owo.state.urlVariable = _owo.getQueryVariable()
   // 判断页面中是否有路由
   if (this.view) {
     temp = []
