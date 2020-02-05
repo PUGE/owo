@@ -120,7 +120,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   
   window.owo.activePage = newPage
   window.owo.script[newPage].$el = newDom
-  window.owo.script[newPage].init()
+  window.owo.script[newPage].owoPageInit()
   window.owo.script[newPage].handleEvent()
   
   // 显示路由

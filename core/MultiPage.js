@@ -46,7 +46,7 @@ _owo.showPage = function() {
     // 显示主页面
     owo.script[page].$el.style.display = 'block'
     window.owo.activePage = page
-    owo.script[page].init()
+    owo.script[page].owoPageInit()
     owo.script[page].handleEvent()
     /* if="this.plugList.includes('route')" */
     // 路由列表
@@ -70,7 +70,7 @@ _owo.showPage = function() {
       var plugEL = plugList[ind]
       var plugName = plugEL.getAttribute('template')
       owo.script[plugName].$el = plugEL
-      owo.script[plugName].init()
+      owo.script[plugName].owoPageInit()
       owo.script[plugName].handleEvent()
     }
     

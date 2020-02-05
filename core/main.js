@@ -347,7 +347,7 @@ View.prototype.showName = function (name) {
 }
 /* end */
 
-function init () {
+function owoPageInit () {
   // console.log(entryDom)
   // console.log(this)
   _owo.runCreated(this)
@@ -373,7 +373,7 @@ function init () {
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
       var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      activeView.init()
+      activeView.owoPageInit()
       temp.push(this.view[viewName])
     }
     this.view._list = temp
@@ -392,10 +392,10 @@ function Page(pageScript) {
   }
 }
 
-Page.prototype.init = init
+Page.prototype.owoPageInit = owoPageInit
 Page.prototype.handleEvent = handleEvent
 /* if="this.plugList.includes('route')" */
-View.prototype.init = init
+View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
 // 获取URL中的参数
 _owo.getQueryVariable = function () {

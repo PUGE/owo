@@ -15,7 +15,7 @@ _owo.showPage = function() {
   
   owo.activePage = owo.entry
   var activeScript = owo.script[owo.activePage]
-  activeScript.init()
+  activeScript.owoPageInit()
   activeScript.handleEvent()
   /* if="this.plugList.includes('route')" */
   // 路由列表
