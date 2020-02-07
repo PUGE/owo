@@ -114,11 +114,11 @@ function handleEvent (moudleScript) {
   var tempDom = this.$el
    /* if="this.plugList.includes('for')" */
   // 判断是否有o-for需要处理
-  if (moudleScript['forList'] && moudleScript['forList'].length > 0) {
+  if (moudleScript['forList']) {
     // 处理o-for
     for (var key in moudleScript['forList']) {
       var forItem = moudleScript['forList'][key];
-      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['forList'] + '"]')
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
       if (forDomList.length > 0) {
         forDomList[0].outerHTML = forItem.template
         for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {

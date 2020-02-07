@@ -118,11 +118,11 @@ function handleEvent (moudleScript) {
   var tempDom = this.$el
    
   // 判断是否有o-for需要处理
-  if (moudleScript['forList'] && moudleScript['forList'].length > 0) {
+  if (moudleScript['forList']) {
     // 处理o-for
     for (var key in moudleScript['forList']) {
       var forItem = moudleScript['forList'][key];
-      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['forList'] + '"]')
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
       if (forDomList.length > 0) {
         forDomList[0].outerHTML = forItem.template
         for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
@@ -220,15 +220,12 @@ function handleEvent (moudleScript) {
           
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
-          // 如果o-for不存在则隐藏dom
-          if (!forEle) {
-            return
-          }
-          if (!moudleScript['forList']) moudleScript['forList'] = []
+          // 判断值是否存在
+          if (!forEle) return
+          moudleScript['forList'] = []
           
           moudleScript['forList'].push({
             "for": forValue,
-            "children": forEle.length,
             "template": childrenDom.outerHTML
           })
 
