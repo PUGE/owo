@@ -408,4 +408,83 @@ _owo.getQueryVariable = function () {
   }
   return temp;
 }
+_owo.getViewChange = function () {
+  var activeScript = owo.script[owo.activePage]
+  // 路由列表
+  var viewList = activeScript.$el.querySelectorAll('[view]')
+  // 获取url参数
+  owo.state.urlVariable = _owo.getQueryVariable()
+  for (var index = 0; index < viewList.length; index++) {
+    var viewItem = viewList[index];
+    var viewName = viewItem.getAttribute('view')
+    var viewValue = owo.state.urlVariable['view-' + viewName]
+    if (viewValue) {
+      activeScript.view[viewName].showName(viewValue)
+    } else {
+      activeScript.view[viewName].showIndex(0)
+    }
+  }
+}
+/* end */
+
+owo.go = function (config) {
+  if (!config) return
+  // 待优化 paramString能否不要
+  var paramString = ''
+  var pageString = ''
+  if (config.page) {
+    if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
+    owo.script[config.page]._animation = {
+      "in": config.inAnimation,
+      "out": config.outAnimation,
+      "forward": true
+    }
+    // 如果有返回动画那么设置返回动画
+    if (backInAnimation && backOutAnimation) {
+      owo.script[owo.activePage]._animation = {
+        "in": config.backInAnimation,
+        "out": config.backOutAnimation,
+        "forward": false
+      }
+    }
+    pageString = '#' + config.page
+  }
+  if (config.route) {
+    var viewName = config.view || owo.script[owo.activePage].$el.querySelector('[view]').attributes['view'].value
+    paramString = '?view-' + viewName + '=' + config.route
+  }
+  // 判断是否支持history模式
+  if (window.history && window.history.pushState) {
+    if (config.noBack) {
+      window.history.replaceState({
+        url: window.location.href
+      }, '', paramString + pageString)
+    } else {
+      window.history.pushState({
+        url: window.location.href
+      }, '', paramString + pageString)
+    }
+    _owo.getViewChange()
+  } else {
+    if (config.noBack) {
+      location.replace(paramString + pageString)
+    } else {
+      window.location.href = paramString + pageString
+    }
+  }
+}
+
+/* if="this.plugList.includes('go')" */
+var toList = document.querySelectorAll('.owo-go')
+for (var index = 0; index < toList.length; index++) {
+  var element = toList[index]
+  element.onclick = function () {
+    owo.go({
+      page: this.attributes['page'] ? this.attributes['page'].value : null,
+      view: this.attributes['view'] ? this.attributes['view'].value : null,
+      route: this.attributes['route'] ? this.attributes['route'].value : null,
+      replace: this.attributes['replace'] ? true : false
+    })
+  }
+}
 /* end */

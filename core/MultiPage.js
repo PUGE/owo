@@ -49,20 +49,7 @@ _owo.showPage = function() {
     owo.script[page].owoPageInit()
     owo.script[page].handleEvent()
     /* if="this.plugList.includes('route')" */
-    // 路由列表
-    var viewList = owo.script[owo.activePage].$el.querySelectorAll('[view]')
-    // 获取url参数
-    owo.state.urlVariable = _owo.getQueryVariable()
-    for (var index = 0; index < viewList.length; index++) {
-      var viewItem = viewList[index];
-      var viewName = viewItem.getAttribute('view')
-      var viewValue = owo.state.urlVariable['view-' + viewName]
-      if (viewValue) {
-        activeScript.view[viewName].showName(viewValue)
-      } else {
-        activeScript.view[viewName].showIndex(0)
-      }
-    }
+    _owo.getViewChange()
     /* end */
     // 处理插件
     var plugList = document.querySelectorAll('.owo-block')
@@ -87,47 +74,6 @@ _owo.showPage = function() {
   /* end */
   // 设置当前页面为活跃页面
   owo.state.newUrlParam = _owo.getarg(document.URL)
-}
-
-/*
-  页面跳转方法
-  参数1: 需要跳转到页面名字
-  参数2: 离开页面动画
-  参数3: 进入页面动画
-*/
-owo.go = function (pageName, inAnimation, outAnimation, backInAnimation, backOutAnimation, noBack, param) {
-  if (!owo.script[pageName]) {
-    console.error("导航到不存在的页面: " + pageName)
-    return
-  }
-  owo.script[pageName]._animation = {
-    "in": inAnimation,
-    "out": outAnimation,
-    "forward": true
-  }
-  var paramString = ''
-  if (param && typeof param == 'object') {
-    paramString += '?'
-    // 生成URL参数
-    for (var paramKey in param) {
-      paramString += paramKey + '=' + param[paramKey] + '&'
-    }
-    // 去掉尾端的&
-    paramString = paramString.slice(0, -1)
-  }
-  // 如果有返回动画那么设置返回动画
-  if (backInAnimation && backOutAnimation) {
-    owo.script[owo.activePage]._animation = {
-      "in": backInAnimation,
-      "out": backOutAnimation,
-      "forward": false
-    }
-  }
-  if (noBack) {
-    location.replace(paramString + "#" + pageName)
-  } else {
-    window.location.href = paramString + "#" + pageName
-  }
 }
 
 // url发生改变事件

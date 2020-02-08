@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Tue Feb 04 2020 16:54:41 GMT+0800 (GMT+08:00)
+// Sat Feb 08 2020 15:33:12 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -220,12 +220,15 @@ function handleEvent (moudleScript) {
           
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
-          // 判断值是否存在
-          if (!forEle) return
-          moudleScript['forList'] = []
+          // 如果o-for不存在则隐藏dom
+          if (!forEle) {
+            return
+          }
+          if (!moudleScript['forList']) moudleScript['forList'] = []
           
           moudleScript['forList'].push({
             "for": forValue,
+            "children": forEle.length,
             "template": childrenDom.outerHTML
           })
 
@@ -339,7 +342,7 @@ View.prototype.showName = function (name) {
 }
 
 
-function init () {
+function owoPageInit () {
   // console.log(entryDom)
   // console.log(this)
   _owo.runCreated(this)
@@ -365,7 +368,7 @@ function init () {
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
       var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      activeView.init()
+      activeView.owoPageInit()
       temp.push(this.view[viewName])
     }
     this.view._list = temp
@@ -384,10 +387,10 @@ function Page(pageScript) {
   }
 }
 
-Page.prototype.init = init
+Page.prototype.owoPageInit = owoPageInit
 Page.prototype.handleEvent = handleEvent
 
-View.prototype.init = init
+View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
 // 获取URL中的参数
 _owo.getQueryVariable = function () {
@@ -399,6 +402,83 @@ _owo.getQueryVariable = function () {
     temp[pair[0]] = pair[1];
   }
   return temp;
+}
+_owo.getViewChange = function () {
+  var activeScript = owo.script[owo.activePage]
+  // 路由列表
+  var viewList = activeScript.$el.querySelectorAll('[view]')
+  // 获取url参数
+  owo.state.urlVariable = _owo.getQueryVariable()
+  for (var index = 0; index < viewList.length; index++) {
+    var viewItem = viewList[index];
+    var viewName = viewItem.getAttribute('view')
+    var viewValue = owo.state.urlVariable['view-' + viewName]
+    if (viewValue) {
+      activeScript.view[viewName].showName(viewValue)
+    } else {
+      activeScript.view[viewName].showIndex(0)
+    }
+  }
+}
+
+
+owo.go = function (config) {
+  if (!config) return
+  // 待优化 paramString能否不要
+  var paramString = ''
+  var pageString = ''
+  if (config.page) {
+    if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
+    owo.script[config.page]._animation = {
+      "in": config.inAnimation,
+      "out": config.outAnimation,
+      "forward": true
+    }
+    // 如果有返回动画那么设置返回动画
+    if (backInAnimation && backOutAnimation) {
+      owo.script[owo.activePage]._animation = {
+        "in": config.backInAnimation,
+        "out": config.backOutAnimation,
+        "forward": false
+      }
+    }
+    pageString = '#' + config.page
+  }
+  if (config.route) {
+    var viewName = config.view || owo.script[owo.activePage].$el.querySelector('[view]').attributes['view'].value
+    paramString = '?view-' + viewName + '=' + config.route
+  }
+  // 判断是否支持history模式
+  if (window.history && window.history.pushState) {
+    if (config.noBack) {
+      window.history.replaceState({
+        url: window.location.href
+      }, '', paramString + pageString)
+    } else {
+      window.history.pushState({
+        url: window.location.href
+      }, '', paramString + pageString)
+    }
+    _owo.getViewChange()
+  } else {
+    if (config.noBack) {
+      location.replace(paramString + pageString)
+    } else {
+      window.location.href = paramString + pageString
+    }
+  }
+}
+
+
+var toList = document.querySelectorAll('.owo-go')
+for (var index = 0; index < toList.length; index++) {
+  var element = toList[index]
+  element.onclick = function () {
+    owo.go({
+      page: this.attributes['page'] ? this.attributes['page'].value : null,
+      route: this.attributes['route'] ? this.attributes['route'].value : null,
+    })
+  }
 }
 
 /*
@@ -460,23 +540,10 @@ _owo.showPage = function() {
   
   owo.activePage = owo.entry
   var activeScript = owo.script[owo.activePage]
-  activeScript.init()
+  activeScript.owoPageInit()
   activeScript.handleEvent()
   
-  // 路由列表
-  var viewList = owo.script[owo.activePage].$el.querySelectorAll('[view]')
-  // 获取url参数
-  owo.state.urlVariable = _owo.getQueryVariable()
-  for (var index = 0; index < viewList.length; index++) {
-    var viewItem = viewList[index];
-    var viewName = viewItem.getAttribute('view')
-    var viewValue = owo.state.urlVariable['view-' + viewName]
-    if (viewValue) {
-      activeScript.view[viewName].showName(viewValue)
-    } else {
-      activeScript.view[viewName].showIndex(0)
-    }
-  }
+  _owo.getViewChange()
   
 }
 
@@ -577,6 +644,6 @@ function switchPage (oldUrlParam, newUrlParam) {
   window.owo.activePage = newPage
   // 不可调换位置
   window.owo.script[newPage].$el = newDom
-  window.owo.script[newPage].init()
+  window.owo.script[newPage].owoPageInit()
   window.owo.script[newPage].handleEvent()
 }

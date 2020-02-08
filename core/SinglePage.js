@@ -18,20 +18,7 @@ _owo.showPage = function() {
   activeScript.owoPageInit()
   activeScript.handleEvent()
   /* if="this.plugList.includes('route')" */
-  // 路由列表
-  var viewList = owo.script[owo.activePage].$el.querySelectorAll('[view]')
-  // 获取url参数
-  owo.state.urlVariable = _owo.getQueryVariable()
-  for (var index = 0; index < viewList.length; index++) {
-    var viewItem = viewList[index];
-    var viewName = viewItem.getAttribute('view')
-    var viewValue = owo.state.urlVariable['view-' + viewName]
-    if (viewValue) {
-      activeScript.view[viewName].showName(viewValue)
-    } else {
-      activeScript.view[viewName].showIndex(0)
-    }
-  }
+  _owo.getViewChange()
   /* end */
 }
 

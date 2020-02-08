@@ -52,11 +52,11 @@ table.page-list
       } else {
         owo.tool.remind('名称和路径不能为空!')
       }
-      owo.tool.emit('changeData', owo.script.home.data.config)
+      this.handleEvent()
     },
     delete: function (key) {
       owo.script.home.data.config.pageList.splice(key, 1)
-      owo.tool.emit('changeData', owo.script.home.data.config)
+      this.handleEvent()
     }
   }
 </script>
