@@ -466,6 +466,11 @@ table .icon {
   background-color: #444;
 }
 
+.menu-item.active {
+  background-color: #009fe9;
+  color: white;
+}
+
 .save-button {
   line-height: 50px;
   color: #bbb;

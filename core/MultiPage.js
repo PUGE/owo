@@ -77,7 +77,7 @@ _owo.showPage = function() {
 }
 
 // url发生改变事件
-_owo.hashchange = function (e) {
+_owo.hashchange = function () {
   // 这样处理而不是直接用event中的URL，是因为需要兼容IE
   owo.state.oldUrlParam = owo.state.newUrlParam;
   owo.state.newUrlParam = _owo.getarg(document.URL); 

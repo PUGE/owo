@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sat Feb 08 2020 15:33:12 GMT+0800 (GMT+08:00)
+// Sat Feb 08 2020 23:53:37 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -115,7 +115,7 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
 function handleEvent (moudleScript) {
   var moudleScript = moudleScript || this
   if (!moudleScript.$el) return
-  var tempDom = this.$el
+  var tempDom = moudleScript.$el
    
   // 判断是否有o-for需要处理
   if (moudleScript['forList']) {
@@ -320,11 +320,14 @@ View.prototype.showIndex = function (ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
       element.handleEvent()
+      this["_activeName"] = element._name
+      this["_activeIndex"] = ind
     } else {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')
     }
   }
+  owo.setActiveRouteClass()
 }
 
 View.prototype.showName = function (name) {
@@ -334,11 +337,14 @@ View.prototype.showName = function (name) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
       element.handleEvent()
+      this["_activeName"] = name
+      this["_activeIndex"] = element._index
     } else {
       element.$el.style.display = 'none'
       element.$el.removeAttribute('route-active')
     }
   }
+  owo.setActiveRouteClass()
 }
 
 
@@ -421,12 +427,39 @@ _owo.getViewChange = function () {
   }
 }
 
+owo.setActiveRouteClass = function () {
+  var activePageName = owo.activePage
+  var activeScript = owo.script[activePageName]
+  var activeViewName = activeScript.$el.querySelector('[view]').attributes['view'].value
+  var activeRouteName = activeScript.view[activeViewName]._activeName
+  var goList = activeScript.$el.querySelectorAll('.owo-go')
+  for (let index = 0; index < goList.length; index++) {
+    const element = goList[index];
+    if (element.attributes["page"] && element.attributes["page"].value !== '' && element.attributes["page"].value !== activePageName) {
+      element.classList.remove('active')
+      continue
+    }
+    if (element.attributes["view"] && element.attributes["view"].value !== '' && element.attributes["view"].value !== activeViewName) {
+      element.classList.remove('active')
+      continue
+    }
+    if (element.attributes["route"] && element.attributes["route"].value !== '' && element.attributes["route"].value !== activeRouteName) {
+      element.classList.remove('active')
+      continue
+    }
+    element.classList.add('active')
+  }
+}
+
 
 owo.go = function (config) {
   if (!config) return
   // 待优化 paramString能否不要
   var paramString = ''
   var pageString = ''
+  var activePageName = config.page || owo.activePage
+  var activeScript = owo.script[activePageName]
+  var activeViewName = config.view || activeScript.$el.querySelector('[view]').attributes['view'].value
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
     owo.script[config.page]._animation = {
@@ -445,8 +478,7 @@ owo.go = function (config) {
     pageString = '#' + config.page
   }
   if (config.route) {
-    var viewName = config.view || owo.script[owo.activePage].$el.querySelector('[view]').attributes['view'].value
-    paramString = '?view-' + viewName + '=' + config.route
+    paramString = '?view-' + activeViewName + '=' + config.route
   }
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
@@ -459,7 +491,9 @@ owo.go = function (config) {
         url: window.location.href
       }, '', paramString + pageString)
     }
-    _owo.getViewChange()
+
+    if (config.page) _owo.hashchange()
+    if (config.route) _owo.getViewChange()
   } else {
     if (config.noBack) {
       location.replace(paramString + pageString)
@@ -476,7 +510,9 @@ for (var index = 0; index < toList.length; index++) {
   element.onclick = function () {
     owo.go({
       page: this.attributes['page'] ? this.attributes['page'].value : null,
+      view: this.attributes['view'] ? this.attributes['view'].value : null,
       route: this.attributes['route'] ? this.attributes['route'].value : null,
+      replace: this.attributes['replace'] ? true : false
     })
   }
 }
@@ -542,9 +578,6 @@ _owo.showPage = function() {
   var activeScript = owo.script[owo.activePage]
   activeScript.owoPageInit()
   activeScript.handleEvent()
-  
-  _owo.getViewChange()
-  
 }
 
 // 执行页面加载完毕方法

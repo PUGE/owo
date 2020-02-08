@@ -17,9 +17,6 @@ _owo.showPage = function() {
   var activeScript = owo.script[owo.activePage]
   activeScript.owoPageInit()
   activeScript.handleEvent()
-  /* if="this.plugList.includes('route')" */
-  _owo.getViewChange()
-  /* end */
 }
 
 // 执行页面加载完毕方法
