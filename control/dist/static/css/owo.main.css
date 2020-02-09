@@ -243,7 +243,14 @@ table {
   font-size: 20px;
 }
 
-
+.plug li {
+  background-color: white;
+  padding: 5px 10px;
+  line-height: 25px;
+  margin-bottom: 15px;
+  -webkit-box-shadow: 2px 2px 3px #e4e0e0;
+          box-shadow: 2px 2px 3px #e4e0e0;
+}
 .build .card {
   width: 300px;
   height: 40px;

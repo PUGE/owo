@@ -26,5 +26,11 @@ ul.plug
 </script>
 
 <style lang="less">
-
+li {
+  background-color: white;
+  padding: 5px 10px;
+  line-height: 25px;
+  margin-bottom: 15px;
+  box-shadow: 2px 2px 3px #e4e0e0;
+}
 </style>

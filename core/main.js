@@ -105,14 +105,37 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
 }
 /* end */
 
+/* if="this.plugList.includes('if')" */
+_owo._event_if = function (tempDom, moudleScript) {
+  // o-if处理
+  var ifValue = tempDom.getAttribute('o-if')
+  if (ifValue) {
+    var temp = ifValue.replace(/ /g, '')
+    var show = shaheRun.apply(moudleScript, [temp])
+    if (!show) {
+      tempDom.style.display = 'none'
+      return false
+    } else {
+      tempDom.style.display = ''
+    }
+  }
+  return true
+}
+/* end */
+
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
 function handleEvent (moudleScript) {
+  
   var moudleScript = moudleScript || this
   if (!moudleScript.$el) return
   var tempDom = moudleScript.$el
-   /* if="this.plugList.includes('for')" */
+  /* if="this.plugList.includes('if')" */
+  if(!_owo._event_if(tempDom, moudleScript)) return
+  /* end */
+
+  /* if="this.plugList.includes('for')" */
   // 判断是否有o-for需要处理
   if (moudleScript['forList']) {
     // 处理o-for
@@ -264,18 +287,9 @@ function handleEvent (moudleScript) {
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例
         var childrenDom = tempDom.children[i]
-        // o-if处理
-        var ifValue = childrenDom.getAttribute('o-if')
-        if (ifValue) {
-          var temp = ifValue.replace(/ /g, '')
-          var show = shaheRun.apply(moudleScript, [temp])
-          if (!show) {
-            childrenDom.style.display = 'none'
-            return
-          } else {
-            childrenDom.style.display = ''
-          }
-        }
+        /* if="this.plugList.includes('if')" */
+        if(!_owo._event_if(childrenDom, moudleScript)) return
+        /* end */
         if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
           recursion(childrenDom)
         }
