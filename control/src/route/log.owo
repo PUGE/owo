@@ -5,9 +5,6 @@
 
 <script>
   module.exports = {
-    data: {
-      logInfo: []
-    },
     broadcast: {
       changeLog: function (data) {
         let logHtml = ``

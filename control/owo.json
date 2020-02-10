@@ -89,9 +89,7 @@
 		{
 			"name": "home",
 			"src": "./src/page/home.owo",
-			"type": "page",
-			"temple": "<plug name=\"home\" src=\"./src/page/home.owo\" type=\"page\"></plug>",
-			"hash": "924fe03c314a1066ee84ca4695196925"
+			"type": "page"
 		}
 	],
 	"mode": {

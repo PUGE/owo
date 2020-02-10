@@ -1,6 +1,7 @@
 <template lang="pug">
-.build(o-if="owo.script.home.data.config")
-  table.build-table
+.build
+  .table-box(o-if="owo.script.home.data.config")
+    table.build-table
 </template>
 
 <script>

@@ -471,6 +471,7 @@ owo.setActiveRouteClass = function () {
 }
 /* end */
 
+/* if="this.plugList.includes('route') || this.config.pageList.length > 1" */
 owo.go = function (config) {
   if (!config) return
   // 待优化 paramString能否不要
@@ -521,7 +522,7 @@ owo.go = function (config) {
     }
   }
 }
-
+/* end */
 /* if="this.plugList.includes('go')" */
 var toList = document.querySelectorAll('.owo-go')
 for (var index = 0; index < toList.length; index++) {
