@@ -2,11 +2,11 @@
 _owo.showPage = function() {
   for (const key in owo.script) {
     if (owo.script.hasOwnProperty(key)) {
-      owo.script[key].$el = document.querySelector('.owo[template="' + key + '"]')
+      owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
       owo.script[key] = new Page(owo.script[key])
     }
   }
-  owo.entry = document.querySelector('.owo[template]').getAttribute('template')
+  owo.entry = document.querySelector('.page[template]').getAttribute('template')
   // 查找入口
   if (!owo.script[owo.entry].$el) {
     console.error('找不到页面入口!')

@@ -9,7 +9,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
   // 查找页面跳转前的page页(dom节点)
   var oldDom = document.querySelector('[template=' + oldPage + ']')
-  var newDom = document.querySelector('.owo[template="' + newPage + '"]')
+  var newDom = document.querySelector('.page[template="' + newPage + '"]')
   
   if (!newDom) {
     console.error('页面不存在!')

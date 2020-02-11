@@ -8,7 +8,7 @@ _owo.getarg = function (url) { // 获取URL #后面内容
 // 页面资源加载完毕事件
 _owo.showPage = function() {
   for (const key in owo.script) {
-    owo.script[key].$el = document.querySelector('.owo[template="' + key + '"]')
+    owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
     owo.script[key] = new Page(owo.script[key])
   }
   owo.entry = document.querySelector('[template]').getAttribute('template')
@@ -27,7 +27,7 @@ _owo.showPage = function() {
 
   // 计算$dom
   for(var page in owo.script) {
-    var idList = document.querySelectorAll('.owo[template="' + page + '"] [id]')
+    var idList = document.querySelectorAll('.page[template="' + page + '"] [id]')
     owo.script[page].$dom = {}
     for (var ind = 0; ind < idList.length; ind++) {
       owo.script[page].$dom[idList[ind].getAttribute('id')] = idList[ind]

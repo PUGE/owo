@@ -309,7 +309,7 @@ function handleEvent (moudleScript) {
 
 // 快速选择器
 owo.query = function (str) {
-  return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
+  return document.querySelectorAll('.page[template=' + owo.activePage +'] ' + str)
 }
 
 /* if="this.plugList.includes('route')" */
