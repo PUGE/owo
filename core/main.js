@@ -481,6 +481,14 @@ owo.go = function (config) {
   var activePageName = config.page || owo.activePage
   var activeScript = owo.script[activePageName]
   var activeViewName = config.view ? activeScript.$el.querySelector('[view]').attributes['view'].value : null
+  // 处理动画缩写
+  if (config['ani']) {
+    const temp = config['ani'].split('/')
+    config.inAnimation = temp[0]
+    config.outAnimation = temp[1]
+    config.backInAnimation = temp[2]
+    config.backOutAnimation = temp[3]
+  }
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
     owo.script[config.page]._animation = {
@@ -529,20 +537,13 @@ var toList = document.querySelectorAll('.owo-go')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
   element.onclick = function () {
-    let goConfig = {
+    owo.go({
       page: this.attributes['page'] ? this.attributes['page'].value : null,
       view: this.attributes['view'] ? this.attributes['view'].value : null,
       route: this.attributes['route'] ? this.attributes['route'].value : null,
-      replace: this.attributes['replace'] ? true : false
-    }
-    if (this.attributes['ani']) {
-      const temp = this.attributes['ani'].value.split('/')
-      goConfig.inAnimation = temp[0]
-      goConfig.outAnimation = temp[1]
-      goConfig.backInAnimation = temp[2]
-      goConfig.backOutAnimation = temp[3]
-    }
-    owo.go(goConfig)
+      replace: this.attributes['replace'] ? true : false,
+      ani: this.attributes['ani'] ? this.attributes['ani'] : null,
+    })
   }
 }
 /* end */
