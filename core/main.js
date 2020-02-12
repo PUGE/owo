@@ -537,7 +537,6 @@ for (var index = 0; index < toList.length; index++) {
     }
     if (this.attributes['ani']) {
       const temp = this.attributes['ani'].value.split('/')
-      console.log(temp)
       goConfig.inAnimation = temp[0]
       goConfig.outAnimation = temp[1]
       goConfig.backInAnimation = temp[2]
