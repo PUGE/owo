@@ -273,9 +273,9 @@ function handleEvent (moudleScript) {
             // 获取模板插值
             var tempReg = new RegExp("(?<={).*?(?=})","g")
             while (varValue = tempReg.exec(tempCopy)) {
+              const forValue = new Function('value', 'key', 'return ' + varValue[0])
               // 默认变量
-              var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + key + ';\r\n '
-              tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
+              tempCopy = tempCopy.replace('{' + varValue + '}', forValue(value, key))
             }
             outHtml += tempCopy
           }
@@ -480,7 +480,8 @@ owo.go = function (config) {
   var pageString = ''
   var activePageName = config.page || owo.activePage
   var activeScript = owo.script[activePageName]
-  var activeViewName = config.view ? activeScript.$el.querySelector('[view]').attributes['view'].value : null
+  var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
+  
   // 处理动画缩写
   if (config['ani']) {
     const temp = config['ani'].split('/')

@@ -16,7 +16,7 @@ html {
   background-position: center top;
   background-size: cover;
 }
-body, html, .owo {
+body, html, .page {
   padding: 0;
   margin: 0;
   height: 100%;

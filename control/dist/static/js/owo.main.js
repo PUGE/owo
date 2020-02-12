@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Tue Feb 11 2020 14:08:25 GMT+0800 (GMT+08:00)
+// Wed Feb 12 2020 23:06:07 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -196,6 +196,7 @@ function handleEvent (moudleScript) {
                         shaheRun.apply(moudleScript, [eventFor + '=' + e.target.value])
                       }
                       break;
+                    case 'password':
                     case 'text':
                       if (value == undefined) value = ''
                       tempDom.value = value
@@ -267,9 +268,9 @@ function handleEvent (moudleScript) {
             // 获取模板插值
             var tempReg = new RegExp("(?<={).*?(?=})","g")
             while (varValue = tempReg.exec(tempCopy)) {
+              const forValue = new Function('value', 'key', 'return ' + varValue[0])
               // 默认变量
-              var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + key + ';\r\n '
-              tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
+              tempCopy = tempCopy.replace('{' + varValue + '}', forValue(value, key))
             }
             outHtml += tempCopy
           }
@@ -304,7 +305,7 @@ function handleEvent (moudleScript) {
 
 // 快速选择器
 owo.query = function (str) {
-  return document.querySelectorAll('.owo[template=' + owo.activePage +'] ' + str)
+  return document.querySelectorAll('.page[template=' + owo.activePage +'] ' + str)
 }
 
 
@@ -474,7 +475,16 @@ owo.go = function (config) {
   var pageString = ''
   var activePageName = config.page || owo.activePage
   var activeScript = owo.script[activePageName]
-  var activeViewName = config.view || activeScript.$el.querySelector('[view]').attributes['view'].value
+  var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
+  
+  // 处理动画缩写
+  if (config['ani']) {
+    const temp = config['ani'].split('/')
+    config.inAnimation = temp[0]
+    config.outAnimation = temp[1]
+    config.backInAnimation = temp[2]
+    config.backOutAnimation = temp[3]
+  }
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
     owo.script[config.page]._animation = {
@@ -483,7 +493,7 @@ owo.go = function (config) {
       "forward": true
     }
     // 如果有返回动画那么设置返回动画
-    if (backInAnimation && backOutAnimation) {
+    if (config.backInAnimation && config.backOutAnimation) {
       owo.script[owo.activePage]._animation = {
         "in": config.backInAnimation,
         "out": config.backOutAnimation,
@@ -528,14 +538,32 @@ for (var index = 0; index < toList.length; index++) {
       view: this.attributes['view'] ? this.attributes['view'].value : null,
       route: this.attributes['route'] ? this.attributes['route'].value : null,
       replace: this.attributes['replace'] ? true : false,
-      inanimation: this.attributes['inanimation'] ? this.attributes['inanimation'].value : null,
-      outanimation: this.attributes['outanimation'] ? this.attributes['outanimation'].value : null,
-      backinanimation: this.attributes['backinanimation'] ? this.attributes['backinanimation'].value : null,
-      backoutanimation: this.attributes['backoutanimation'] ? this.attributes['backoutanimation'].value : null,
+      ani: this.attributes['ani'] ? this.attributes['ani'] : null,
     })
   }
 }
 
+
+// 页面切换
+
+
+// 切换页面前的准备工作
+function switchPage (oldUrlParam, newUrlParam) {
+  var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
+  var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
+  // 查找页面跳转前的page页(dom节点)
+  var oldDom = document.querySelector('.page[template="' + oldPage + '"]')
+  var newDom = document.querySelector('.page[template="' + newPage + '"]')
+  
+  if (!newDom) {console.error('页面不存在!'); return}
+  
+  if (oldDom) {
+    // 隐藏掉旧的节点
+    oldDom.style.display = 'none'
+  }
+  // 查找页面跳转后的page
+  newDom.style.display = 'block'
+}
 /*
  * 传递函数给whenReady()
  * 当文档解析完毕且为操作准备就绪时，函数作为document的方法调用
@@ -582,11 +610,11 @@ _owo.ready = (function() {               //这个函数返回whenReady()函数
 _owo.showPage = function() {
   for (const key in owo.script) {
     if (owo.script.hasOwnProperty(key)) {
-      owo.script[key].$el = document.querySelector('.owo[template="' + key + '"]')
+      owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
       owo.script[key] = new Page(owo.script[key])
     }
   }
-  owo.entry = document.querySelector('.owo[template]').getAttribute('template')
+  owo.entry = document.querySelector('.page[template]').getAttribute('template')
   // 查找入口
   if (!owo.script[owo.entry].$el) {
     console.error('找不到页面入口!')
@@ -667,35 +695,3 @@ if ("WebSocket" in window) {
   console.error('浏览器不支持WebSocket')
 }
 
-
-
-
-
-
-
-function switchPage (oldUrlParam, newUrlParam) {
-  var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
-  var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
-  // 查找页面跳转前的page页(dom节点)
-  var oldDom = document.querySelector('[template=' + oldPage + ']')
-  var newDom = document.querySelector('.owo[template="' + newPage + '"]')
-  
-  if (!newDom) {
-    console.error('页面不存在!')
-    return
-  }
-
-  if (oldDom) {
-    // 隐藏掉旧的节点
-    oldDom.style.display = 'none'
-  }
-
-  newDom.style.display = 'block'
-  // 查找页面跳转后的page
-  
-  window.owo.activePage = newPage
-  // 不可调换位置
-  window.owo.script[newPage].$el = newDom
-  window.owo.script[newPage].owoPageInit()
-  window.owo.script[newPage].handleEvent()
-}
