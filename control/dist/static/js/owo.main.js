@@ -527,7 +527,11 @@ for (var index = 0; index < toList.length; index++) {
       page: this.attributes['page'] ? this.attributes['page'].value : null,
       view: this.attributes['view'] ? this.attributes['view'].value : null,
       route: this.attributes['route'] ? this.attributes['route'].value : null,
-      replace: this.attributes['replace'] ? true : false
+      replace: this.attributes['replace'] ? true : false,
+      inanimation: this.attributes['inanimation'] ? this.attributes['inanimation'].value : null,
+      outanimation: this.attributes['outanimation'] ? this.attributes['outanimation'].value : null,
+      backinanimation: this.attributes['backinanimation'] ? this.attributes['backinanimation'].value : null,
+      backoutanimation: this.attributes['backoutanimation'] ? this.attributes['backoutanimation'].value : null,
     })
   }
 }
