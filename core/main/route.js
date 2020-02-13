@@ -116,7 +116,6 @@ owo.go = function (config) {
   var pageString = ''
   var activePageName = config.page || owo.activePage
   var activeScript = owo.script[activePageName]
-  var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
   
   // 处理动画缩写
   if (config['ani']) {
@@ -144,7 +143,12 @@ owo.go = function (config) {
     pageString = '#' + config.page
   }
   if (config.route) {
-    paramString = '?view-' + activeViewName + '=' + config.route
+    if (activeScript.$el.querySelector('[view]')) {
+      var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
+      paramString = '?view-' + activeViewName + '=' + config.route
+    } else {
+      console.error('页面中找不到路由组件!')
+    }
   }
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
