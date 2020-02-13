@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Wed Feb 12 2020 23:06:07 GMT+0800 (GMT+08:00)
+// Thu Feb 13 2020 15:22:05 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -24,11 +24,6 @@ _owo.runCreated = function (pageFunction) {
     console.error(e)
   }
 }
-
-
-// 判断是否为手机
-_owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
-
 
 _owo._run = function (eventFor, event, newPageFunction) {
   // 复制eventFor防止污染
@@ -75,57 +70,6 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
     _owo._run(eventFor, event || this, moudleScript)
   }
 }
-
-// 沙盒运行
-function shaheRun (code) {
-  try {
-    return eval(code)
-  } catch (error) {
-    console.error(error)
-    console.log('执行代码: ' + code)
-    return undefined
-  }
-}
-
-
-_owo._event_tap = function (tempDom, eventFor, callBack) {
-  // 变量
-  var startTime = 0
-  var isMove = false
-  tempDom.ontouchstart = function () {
-    startTime = Date.now();
-  }
-  tempDom.ontouchmove = function () {
-    isMove = true
-  }
-  tempDom.ontouchend = function (e) {
-    if (Date.now() - startTime < 300 && !isMove) {
-      callBack(e, eventFor)
-    }
-    // 清零
-    startTime = 0;
-    isMove = false
-  }
-}
-
-
-
-_owo._event_if = function (tempDom, moudleScript) {
-  // o-if处理
-  var ifValue = tempDom.getAttribute('o-if')
-  if (ifValue) {
-    var temp = ifValue.replace(/ /g, '')
-    var show = shaheRun.apply(moudleScript, [temp])
-    if (!show) {
-      tempDom.style.display = 'none'
-      return false
-    } else {
-      tempDom.style.display = ''
-    }
-  }
-  return true
-}
-
 
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
@@ -303,6 +247,113 @@ function handleEvent (moudleScript) {
   }
 }
 
+function owoPageInit () {
+  // console.log(entryDom)
+  // console.log(this)
+  _owo.runCreated(this)
+  for (var key in this.template) {
+    var templateScript = this.template[key]
+    _owo.runCreated(templateScript)
+  }
+  
+  owo.state.urlVariable = _owo.getQueryVariable()
+  // 判断页面中是否有路由
+  if (this.view) {
+    temp = []
+    for (var viewName in this.view) {
+      var routeList = this.view[viewName]
+      this.view[viewName] = new View(routeList, viewName, this['$el'])
+      // 标识是否没有指定显示哪个路由
+      // 从url中获取路由信息
+      var activeRouteIndex = 0
+      if (viewName) {
+        var urlViewName = owo.state.urlVariable['view-' + viewName]
+        activeRouteIndex = this.view[viewName][urlViewName] ? this.view[viewName][urlViewName]._index : 0
+      }
+      // 激活对应路由
+      this.view[viewName].showIndex(activeRouteIndex)
+      var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
+      activeView.owoPageInit()
+      temp.push(this.view[viewName])
+    }
+    this.view._list = temp
+  }
+  
+}
+
+function Page(pageScript) {
+  for (const key in pageScript) {
+    this[key] = pageScript[key]
+  }
+  // 处理页面引用的模板
+  for (var key in pageScript.template) {
+    pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
+    pageScript.template[key] = new Page(pageScript.template[key])
+  }
+}
+
+Page.prototype.owoPageInit = owoPageInit
+Page.prototype.handleEvent = handleEvent
+// 页面切换
+
+
+// 切换页面前的准备工作
+function switchPage (oldUrlParam, newUrlParam) {
+  var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
+  var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
+  // 查找页面跳转前的page页(dom节点)
+  var oldDom = document.querySelector('.page[template="' + oldPage + '"]')
+  var newDom = document.querySelector('.page[template="' + newPage + '"]')
+  
+  if (!newDom) {console.error('页面不存在!'); return}
+  
+  if (oldDom) {
+    // 隐藏掉旧的节点
+    oldDom.style.display = 'none'
+  }
+  // 查找页面跳转后的page
+  newDom.style.display = 'block'
+}
+
+_owo._event_if = function (tempDom, moudleScript) {
+  // o-if处理
+  var ifValue = tempDom.getAttribute('o-if')
+  if (ifValue) {
+    var temp = ifValue.replace(/ /g, '')
+    var show = shaheRun.apply(moudleScript, [temp])
+    if (!show) {
+      tempDom.style.display = 'none'
+      return false
+    } else {
+      tempDom.style.display = ''
+    }
+  }
+  return true
+}
+
+
+_owo._event_tap = function (tempDom, eventFor, callBack) {
+  // 变量
+  var startTime = 0
+  var isMove = false
+  tempDom.ontouchstart = function () {
+    startTime = Date.now();
+  }
+  tempDom.ontouchmove = function () {
+    isMove = true
+  }
+  tempDom.ontouchend = function (e) {
+    if (Date.now() - startTime < 300 && !isMove) {
+      callBack(e, eventFor)
+    }
+    // 清零
+    startTime = 0;
+    isMove = false
+  }
+}
+
+// 判断是否为手机
+_owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
 // 快速选择器
 owo.query = function (str) {
   return document.querySelectorAll('.page[template=' + owo.activePage +'] ' + str)
@@ -361,56 +412,6 @@ View.prototype.showName = function (name) {
   }
   owo.setActiveRouteClass()
 }
-
-
-function owoPageInit () {
-  // console.log(entryDom)
-  // console.log(this)
-  _owo.runCreated(this)
-  for (var key in this.template) {
-    var templateScript = this.template[key]
-    _owo.runCreated(templateScript)
-  }
-  
-  owo.state.urlVariable = _owo.getQueryVariable()
-  // 判断页面中是否有路由
-  if (this.view) {
-    temp = []
-    for (var viewName in this.view) {
-      var routeList = this.view[viewName]
-      this.view[viewName] = new View(routeList, viewName, this['$el'])
-      // 标识是否没有指定显示哪个路由
-      // 从url中获取路由信息
-      var activeRouteIndex = 0
-      if (viewName) {
-        var urlViewName = owo.state.urlVariable['view-' + viewName]
-        activeRouteIndex = this.view[viewName][urlViewName] ? this.view[viewName][urlViewName]._index : 0
-      }
-      // 激活对应路由
-      this.view[viewName].showIndex(activeRouteIndex)
-      var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      activeView.owoPageInit()
-      temp.push(this.view[viewName])
-    }
-    this.view._list = temp
-  }
-  
-}
-
-function Page(pageScript) {
-  for (const key in pageScript) {
-    this[key] = pageScript[key]
-  }
-  // 处理页面引用的模板
-  for (var key in pageScript.template) {
-    pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
-    pageScript.template[key] = new Page(pageScript.template[key])
-  }
-}
-
-Page.prototype.owoPageInit = owoPageInit
-Page.prototype.handleEvent = handleEvent
-
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
 // 获取URL中的参数
@@ -543,27 +544,17 @@ for (var index = 0; index < toList.length; index++) {
   }
 }
 
-
-// 页面切换
-
-
-// 切换页面前的准备工作
-function switchPage (oldUrlParam, newUrlParam) {
-  var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
-  var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
-  // 查找页面跳转前的page页(dom节点)
-  var oldDom = document.querySelector('.page[template="' + oldPage + '"]')
-  var newDom = document.querySelector('.page[template="' + newPage + '"]')
-  
-  if (!newDom) {console.error('页面不存在!'); return}
-  
-  if (oldDom) {
-    // 隐藏掉旧的节点
-    oldDom.style.display = 'none'
+// 沙盒运行
+function shaheRun (code) {
+  try {
+    return eval(code)
+  } catch (error) {
+    console.error(error)
+    console.log('执行代码: ' + code)
+    return undefined
   }
-  // 查找页面跳转后的page
-  newDom.style.display = 'block'
 }
+
 /*
  * 传递函数给whenReady()
  * 当文档解析完毕且为操作准备就绪时，函数作为document的方法调用
