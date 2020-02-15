@@ -248,8 +248,21 @@ table {
   padding: 5px 10px;
   line-height: 25px;
   margin-bottom: 15px;
+  position: relative;
   -webkit-box-shadow: 2px 2px 3px #e4e0e0;
           box-shadow: 2px 2px 3px #e4e0e0;
+}
+
+.plug li .add {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 22px;
+  color: cadetblue;
+}
+
+.plug li .add:hover {
+  color: #009fe9;
 }
 .build .card {
   width: 300px;

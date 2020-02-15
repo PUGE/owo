@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Thu Feb 13 2020 15:22:05 GMT+0800 (GMT+08:00)
+// Sat Feb 15 2020 22:52:11 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -280,20 +280,6 @@ function owoPageInit () {
   }
   
 }
-
-function Page(pageScript) {
-  for (const key in pageScript) {
-    this[key] = pageScript[key]
-  }
-  // 处理页面引用的模板
-  for (var key in pageScript.template) {
-    pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
-    pageScript.template[key] = new Page(pageScript.template[key])
-  }
-}
-
-Page.prototype.owoPageInit = owoPageInit
-Page.prototype.handleEvent = handleEvent
 // 页面切换
 
 
@@ -352,8 +338,23 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
   }
 }
 
+
 // 判断是否为手机
 _owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
+function Page(pageScript) {
+  for (const key in pageScript) {
+    this[key] = pageScript[key]
+  }
+  
+  // 处理页面引用的模板
+  for (var key in pageScript.template) {
+    pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
+    pageScript.template[key] = new Page(pageScript.template[key])
+  }
+}
+
+Page.prototype.owoPageInit = owoPageInit
+Page.prototype.handleEvent = handleEvent
 // 快速选择器
 owo.query = function (str) {
   return document.querySelectorAll('.page[template=' + owo.activePage +'] ' + str)
@@ -476,7 +477,6 @@ owo.go = function (config) {
   var pageString = ''
   var activePageName = config.page || owo.activePage
   var activeScript = owo.script[activePageName]
-  var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
   
   // 处理动画缩写
   if (config['ani']) {
@@ -488,6 +488,7 @@ owo.go = function (config) {
   }
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
+    if (config.page == owo.activePage) return
     owo.script[config.page]._animation = {
       "in": config.inAnimation,
       "out": config.outAnimation,
@@ -504,7 +505,12 @@ owo.go = function (config) {
     pageString = '#' + config.page
   }
   if (config.route) {
-    paramString = '?view-' + activeViewName + '=' + config.route
+    if (activeScript.$el.querySelector('[view]')) {
+      var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
+      paramString = '?view-' + activeViewName + '=' + config.route
+    } else {
+      console.error('页面中找不到路由组件!')
+    }
   }
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
@@ -666,6 +672,70 @@ owo.tool.remind = function (text, time) {
     alertBox.style.top = '-40px'
   }, 6000)
 }
+/**
+ * 显示toast提示 不支持ie8
+ * @param  {number} text       显示的文字
+ * @param  {number} fontSize   字体大小
+ * @param  {number} time       显示时长
+ * @param  {number} container  显示容器
+ */
+
+owo.tool.toast = function (text, config) {
+  if (!config) config = {}
+  time = config.time || 2000
+  fontSize = config.fontSize || 14
+  container = config.container || document.body
+  if (window.owo.state.toastClock) {
+    clearTimeout(window.owo.state.toastClock)
+    hideToast()
+  }
+  var toast = document.createElement("div")
+  toast.setAttribute("id", "toast")
+  toast.setAttribute("class", "toast")
+  // 设置样式
+  toast.style.cssText = "position:fixed;z-index:999;background-color:rgba(0, 0, 0, 0.8);bottom:9%;border-radius:" + parseInt(fontSize / 3) + "px;left:50%;transform: translateX(-50%) translate3d(0, 0, 0);margin:0 auto;text-align:center;color:white;max-width:60%;padding:" + parseInt(fontSize / 2) + "px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:" + fontSize + 'px;'
+
+  toast.innerHTML = text
+  container.appendChild(toast)
+  function hideToast() {
+    document.getElementById('toast').outerHTML = ''
+    window.owo.state.toastClock = null
+  }
+  window.owo.state.toastClock = setTimeout(hideToast, time)
+}
+/**
+ * 发送post请求
+ * @param  {string} url       服务器地址
+ * @param  {string} data       发送的数据
+ * @param  {function} fn       回调函数
+ */
+
+owo.tool.post = function (url, data, fn) {
+  var xmlhttp = null
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest()
+  }
+  xmlhttp.open("POST", url, true)
+  xmlhttp.setRequestHeader("Content-Type", "application/json")     
+  xmlhttp.timeout = 4000
+  xmlhttp.onreadystatechange = function () { 
+    if (xmlhttp.readyState == 4) {
+      if (xmlhttp.status == 504 ) {
+        console.log("服务器请求超时..");
+        xmlhttp.abort();
+      } else if(xmlhttp.status == 200){
+        fn(xmlhttp.responseText);  
+      }
+      xmlhttp = null;
+    }
+  }
+  xmlhttp.ontimeout = function () {
+    console.log("客户端请求超时..");
+  }
+  if (typeof data != 'string') data = JSON.stringify(data)
+  xmlhttp.send(data);
+}
+
 
 
 

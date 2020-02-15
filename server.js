@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 // 配置输出插件
 const log = require('./lib/tool/log')
+const request = require('request')
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -50,6 +51,18 @@ function Server (config, app, owo) {
       // 重新加载配置
       res.send(JSON.stringify({err: 0, config: data.config, log}))
     })
+  })
+  app.post('/downloadFile', (req, res) => {
+    const data = req.body
+    const modulesPath = path.join(process.cwd(), 'owo_modules', data.file)
+    if (fs.existsSync(modulesPath)) {
+      res.send(JSON.stringify({err: 0}))
+    } else {
+      request(data.url, () => {
+        res.send(JSON.stringify({err: 0}))
+      }).pipe(fs.createWriteStream(modulesPath))
+    }
+    
   })
 }
 module.exports = Server

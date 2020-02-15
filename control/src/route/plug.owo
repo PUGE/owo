@@ -3,7 +3,7 @@ ul.plug
   li(o-for="this.data.plugList")
     .name {value.name}
     .info {value.info}
-
+    .icon.add(o-tap="addPlug({key})") &#xe600;
 </template>
 
 <script>
@@ -13,14 +13,48 @@ ul.plug
         {
           name: "IE兼容",
           info: "使IE8支持getElementsByClassName，classList等方法",
-          file: "ie-support.js"
+          file: "ie-support.js",
+          url: "https://cunchu.site/owo/plug/ie-support.js"
         },
         {
           name: "设备检测",
           info: "检测设备类型, 系统型号, 横竖屏",
-          file: "check.js"
+          file: "check.js",
+          url: "https://cunchu.site/owo/plug/check.js"
+        },
+        {
+          name: "智能缩放",
+          info: "根据人民网设计图尺寸750*1508自动将页面进行自适应缩放",
+          file: "autoScale.js",
+          url: "https://cunchu.site/owo/plug/autoScale.js"
         }
       ]
+    },
+    addPlug: function (ind) {
+      const plugConfig = this.data.plugList[parseInt(ind)]
+      let isAdd = false
+      owo.script.home.data.config.scriptList.forEach(element => {
+        if (element.src === `./owo_modules/${plugConfig.file}`) {
+          isAdd = true
+        }
+      })
+      if (isAdd) {
+        owo.tool.toast('你好像已经添加过这个了!')
+      } else {
+        owo.tool.post('../downloadFile', plugConfig, (res) => {
+          res = JSON.parse(res)
+          if (res.err === 0) {
+            owo.script.home.data.config.scriptList.push({
+              name: plugConfig.file,
+              src: `./owo_modules/${plugConfig.file}`,
+            })
+            // 去页面管理页面展示
+            setTimeout(() => {
+              owo.go({route: 'else'})
+            }, 800);
+          }
+        })
+      }
     }
   }
 </script>
@@ -31,6 +65,17 @@ li {
   padding: 5px 10px;
   line-height: 25px;
   margin-bottom: 15px;
+  position: relative;
   box-shadow: 2px 2px 3px #e4e0e0;
+  .add {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 22px;
+    color: cadetblue;
+  }
+  .add:hover {
+    color: #009fe9;
+  }
 }
 </style>

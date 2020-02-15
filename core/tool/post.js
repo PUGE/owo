@@ -11,7 +11,7 @@ owo.tool.post = function (url, data, fn) {
     xmlhttp = new XMLHttpRequest()
   }
   xmlhttp.open("POST", url, true)
-  xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")     
+  xmlhttp.setRequestHeader("Content-Type", "application/json")     
   xmlhttp.timeout = 4000
   xmlhttp.onreadystatechange = function () { 
     if (xmlhttp.readyState == 4) {
@@ -27,5 +27,6 @@ owo.tool.post = function (url, data, fn) {
   xmlhttp.ontimeout = function () {
     console.log("客户端请求超时..");
   }
+  if (typeof data != 'string') data = JSON.stringify(data)
   xmlhttp.send(data);
 }
