@@ -25,15 +25,6 @@ _owo.showPage = function() {
   if (_owo.isMobi) {owo.entry = owo.phoneEnter}
   /* end */
 
-  // 计算$dom
-  for(var page in owo.script) {
-    var idList = document.querySelectorAll('.page[template="' + page + '"] [id]')
-    owo.script[page].$dom = {}
-    for (var ind = 0; ind < idList.length; ind++) {
-      owo.script[page].$dom[idList[ind].getAttribute('id')] = idList[ind]
-    }
-  }
-
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
   if (page) {

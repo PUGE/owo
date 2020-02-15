@@ -127,6 +127,7 @@ owo.go = function (config) {
   }
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
+    if (config.page == owo.activePage) return
     owo.script[config.page]._animation = {
       "in": config.inAnimation,
       "out": config.outAnimation,
