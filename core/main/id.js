@@ -1,10 +1,9 @@
 /* if="this.plugList.includes('id')" */
 // 计算$dom
-for(var page in owo.script) {
-  var idList = document.querySelectorAll('.page[template="' + page + '"] [id]')
-  owo.id = {}
-  for (var ind = 0; ind < idList.length; ind++) {
-    owo.id[idList[ind].getAttribute('id')] = idList[ind]
-  }
+var idList = document.querySelectorAll('[id]')
+owo.id = {}
+for (var ind = 0; ind < idList.length; ind++) {
+  var item = idList[ind]
+  owo.id[item.getAttribute('id')] = item
 }
 /* end */
