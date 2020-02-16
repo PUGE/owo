@@ -7,22 +7,22 @@
   .content-box
     //- 左侧菜单
     .menu
-      go.menu-item(route="info")
+      .menu-item(go route="info")
         .icon &#xe659;
         .text 页面概况
-      go.menu-item(route="else")
+      .menu-item(go route="else")
         .icon &#xe730;
         .text 页面管理
-      go.menu-item(route="plug")
+      .menu-item(go route="plug")
         .icon &#xe662;
         .text 插件管理
-      go.menu-item(route="build")
+      .menu-item(go route="build")
         .icon &#xe662;
         .text 打包配置
-      go.menu-item(route="log")
+      .menu-item(go route="log")
         .icon &#xe601;
         .text 日志管理
-      go.menu-item(route="resource")
+      .menu-item(go route="resource")
         .icon &#xe7b0;
         .text 资源管理
     view.router(name="content" o-if="this.data.config")

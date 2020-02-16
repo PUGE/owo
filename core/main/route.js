@@ -88,7 +88,7 @@ owo.setActiveRouteClass = function () {
   var activeScript = owo.script[activePageName]
   var activeViewName = activeScript.$el.querySelector('[view]').attributes['view'].value
   var activeRouteName = activeScript.view[activeViewName]._activeName
-  var goList = activeScript.$el.querySelectorAll('.owo-go')
+  var goList = activeScript.$el.querySelectorAll('[go]')
   for (let index = 0; index < goList.length; index++) {
     const element = goList[index];
     if (element.attributes["page"] && element.attributes["page"].value !== '' && element.attributes["page"].value !== activePageName) {
@@ -175,7 +175,7 @@ owo.go = function (config) {
 }
 /* end */
 /* if="this.plugList.includes('go')" */
-var toList = document.querySelectorAll('.owo-go')
+var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
   element.onclick = function () {
