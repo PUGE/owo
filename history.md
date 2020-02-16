@@ -1,6 +1,9 @@
 
 ### 更新日志
 
+#### 2020年2月16日
+1. 增加owo.tool.stepTo
+
 #### 2020年2月15日
 1. owo.$dom 更改为owo.id
 2. 增加 special_data 功能 Page.data支持两种写法 函数式 和 对象式

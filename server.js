@@ -44,7 +44,7 @@ function Server (config, app, owo) {
     data.needCreatFile.forEach(element => {
       const filePath = path.join(runPath, element.src)
       if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, `<template lang="pug">.box</template><script>module.exports = {}</script><style lang="less"></style>`)
+        fs.writeFileSync(filePath, `<template lang="pug">\r\n.box\r\n</template>\r\n<script>\r\nmodule.exports = {\r\n}\r\n</script>\r\n<style lang="less">\r\n</style>`)
       }
     })
     fs.writeFile(path.join(runPath, 'owo.json'), JSON.stringify(data.config, null, '\t'), () => {

@@ -184,7 +184,8 @@ for (var index = 0; index < toList.length; index++) {
       view: this.attributes['view'] ? this.attributes['view'].value : null,
       route: this.attributes['route'] ? this.attributes['route'].value : null,
       replace: this.attributes['replace'] ? true : false,
-      ani: this.attributes['ani'] ? this.attributes['ani'] : null,
+      ani: this.attributes['ani'] ? this.attributes['ani'].value : null,
+      noBack: this.attributes['back'] ? false : true,
     })
   }
 }
