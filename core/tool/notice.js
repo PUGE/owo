@@ -1,4 +1,5 @@
-owo.tool.notice = function () {
+owo.tool.notice = function (text, config) {
+  config = config || {}
   var showTime = config.showTime || 2000
   var container = config.container || document.body
   var remind = document.createElement("div")

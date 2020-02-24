@@ -194,9 +194,7 @@ function handleEvent (moudleScript) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
           // 如果o-for不存在则隐藏dom
-          if (!forEle) {
-            return
-          }
+          if (!forEle || forEle.length == 0) return
           if (!moudleScript['forList']) moudleScript['forList'] = []
           
           moudleScript['forList'].push({
