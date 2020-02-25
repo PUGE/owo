@@ -70,11 +70,11 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
-function handleEvent (moudleScript) {
-  
+function handleEvent (moudleScript, enterDom) {
   var moudleScript = moudleScript || this
-  if (!moudleScript.$el) return
-  var tempDom = moudleScript.$el
+  var enterDom = enterDom || moudleScript.$el
+  if (!enterDom) return
+  var tempDom = enterDom
   /* if="this.plugList.includes('if')" */
   if(!_owo._event_if(tempDom, moudleScript)) return
   /* end */
@@ -217,7 +217,7 @@ function handleEvent (moudleScript) {
             while (varValue = tempReg.exec(tempCopy)) {
               const forValue = new Function('value', 'key', 'return ' + varValue[0])
               // 默认变量
-              tempCopy = tempCopy.replace('{' + varValue + '}', forValue(value, key))
+              tempCopy = tempCopy.replace('{' + varValue + '}', forValue.apply(moudleScript, [value, key]))
             }
             outHtml += tempCopy
           }
@@ -242,7 +242,7 @@ function handleEvent (moudleScript) {
       console.info(tempDom)
     }
   }
-  recursion(moudleScript.$el)
+  recursion(enterDom)
   // 递归处理子模板
   for (var key in moudleScript.template) {
     moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
@@ -259,9 +259,9 @@ function owoPageInit () {
     _owo.runCreated(templateScript)
   }
   /* if="this.plugList.includes('route')" */
-  owo.state.urlVariable = _owo.getQueryVariable()
   // 判断页面中是否有路由
   if (this.view) {
+    owo.state.urlVariable = _owo.getQueryVariable()
     temp = []
     for (var viewName in this.view) {
       var routeList = this.view[viewName]
@@ -276,8 +276,10 @@ function owoPageInit () {
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
       var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      activeView.owoPageInit()
-      temp.push(this.view[viewName])
+      if (activeView) {
+        activeView.owoPageInit()
+        temp.push(this.view[viewName])
+      }
     }
     this.view._list = temp
   }

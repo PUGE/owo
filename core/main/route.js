@@ -25,7 +25,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
-      element.handleEvent()
+      element.handleEvent(owo.script[owo.activePage], element.$el)
       this["_activeName"] = element._name
       this["_activeIndex"] = ind
     } else {
@@ -42,7 +42,7 @@ View.prototype.showName = function (name) {
     if (element._name == name) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
-      element.handleEvent()
+      element.handleEvent(owo.script[owo.activePage], element.$el)
       this["_activeName"] = name
       this["_activeIndex"] = element._index
     } else {
@@ -179,13 +179,16 @@ var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
   element.onclick = function () {
+    var target = this.attributes['go'].value.split('/')
     owo.go({
-      page: this.attributes['page'] ? this.attributes['page'].value : null,
-      view: this.attributes['view'] ? this.attributes['view'].value : null,
-      route: this.attributes['route'] ? this.attributes['route'].value : null,
-      replace: this.attributes['replace'] ? true : false,
-      ani: this.attributes['ani'] ? this.attributes['ani'].value : null,
-      noBack: this.attributes['back'] ? false : true,
+      page: target[0],
+      view: target[1],
+      route: target[2],
+      inAnimation: target[3],
+      outAnimation: target[4],
+      backInAnimation: target[5],
+      backOutAnimation: target[6],
+      noBack: target[7],
     })
   }
 }
