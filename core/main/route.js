@@ -3,6 +3,8 @@
 // 特殊类型
 function View(routeList, viewName, entryDom) {
   this._list = []
+  this._viewName = viewName
+  this.$el = entryDom.querySelector('[view="' + viewName +'"]')
   for (var routeInd in routeList) {
     var routeItem = routeList[routeInd]
     this._list[routeInd] = routeItem
@@ -33,7 +35,7 @@ View.prototype.showIndex = function (ind) {
       element.$el.removeAttribute('route-active')
     }
   }
-  owo.setActiveRouteClass()
+  owo.setActiveRouteClass(this)
 }
 
 View.prototype.showName = function (name) {
@@ -50,7 +52,7 @@ View.prototype.showName = function (name) {
       element.$el.removeAttribute('route-active')
     }
   }
-  owo.setActiveRouteClass()
+  owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
@@ -83,23 +85,20 @@ _owo.getViewChange = function () {
   }
 }
 
-owo.setActiveRouteClass = function () {
-  var activePageName = owo.activePage
-  var activeScript = owo.script[activePageName]
-  var activeViewName = activeScript.$el.querySelector('[view]').attributes['view'].value
-  var activeRouteName = activeScript.view[activeViewName]._activeName
-  var goList = activeScript.$el.querySelectorAll('[go]')
-  for (let index = 0; index < goList.length; index++) {
-    const element = goList[index];
-    if (element.attributes["page"] && element.attributes["page"].value !== '' && element.attributes["page"].value !== activePageName) {
+owo.setActiveRouteClass = function (viewInfo) {
+  var goList = owo.query('[go]')
+  for (var index = 0; index < goList.length; index++) {
+    var element = goList[index];
+    var goValue = element.getAttribute('go').split('/')
+    if (goValue[0] && goValue[0] !== owo.activePage) {
       element.classList.remove('active')
       continue
     }
-    if (element.attributes["view"] && element.attributes["view"].value !== '' && element.attributes["view"].value !== activeViewName) {
+    if (goValue[1] && goValue[1] !== viewInfo._viewName) {
       element.classList.remove('active')
       continue
     }
-    if (element.attributes["route"] && element.attributes["route"].value !== '' && element.attributes["route"].value !== activeRouteName) {
+    if (goValue[2] && goValue[2] !== viewInfo._activeName) {
       element.classList.remove('active')
       continue
     }

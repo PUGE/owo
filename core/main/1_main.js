@@ -285,3 +285,9 @@ function owoPageInit () {
   }
   /* end */
 }
+
+/* if="this.plugList.includes('route')" */
+window.addEventListener("popstate", function(e) { 
+  _owo.getViewChange()
+}, false);
+/* end */

@@ -39,9 +39,6 @@ _owo.showPage = function() {
     window.owo.activePage = page
     owo.script[page].owoPageInit()
     owo.script[page].handleEvent()
-    /* if="this.plugList.includes('route')" */
-    _owo.getViewChange()
-    /* end */
     // 处理插件
     var plugList = document.querySelectorAll('.owo-block')
     for (var ind = 0; ind < plugList.length; ind++) {
