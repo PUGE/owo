@@ -39,19 +39,20 @@ View.prototype.showIndex = function (ind) {
 }
 
 View.prototype.showName = function (name) {
-  for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
-    var element = this._list[routeIndex];
-    if (element._name == name) {
-      element.$el.style.display = 'block'
-      element.$el.setAttribute('route-active', 'true')
-      element.handleEvent(owo.script[owo.activePage], element.$el)
-      this["_activeName"] = name
-      this["_activeIndex"] = element._index
-    } else {
-      element.$el.style.display = 'none'
-      element.$el.removeAttribute('route-active')
-    }
+  var oldRoute = this[this._activeName]
+  var newRoute = this[name]
+  this["_activeName"] = newRoute._name
+  this["_activeIndex"] = newRoute._index
+  newRoute.handleEvent(owo.script[owo.activePage], newRoute.$el)
+  newRoute.$el.setAttribute('route-active', 'true')
+  oldRoute.$el.removeAttribute('route-active')
+  if (owo.state._animation) {
+    var animationValue = owo.state._animation
+    animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
+  } else {
+    animation(oldRoute.$el, newRoute.$el)
   }
+  
   owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
@@ -121,25 +122,17 @@ owo.go = function (config) {
     const temp = config['ani'].split('/')
     config.inAnimation = temp[0]
     config.outAnimation = temp[1]
-    config.backInAnimation = temp[2]
-    config.backOutAnimation = temp[3]
   }
-  if (config.page) {
-    if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
-    if (config.page == owo.activePage) return
-    owo.script[config.page]._animation = {
+  if (config.inAnimation && config.outAnimation) {
+    owo.state._animation = {
       "in": config.inAnimation,
       "out": config.outAnimation,
       "forward": true
     }
-    // 如果有返回动画那么设置返回动画
-    if (config.backInAnimation && config.backOutAnimation) {
-      owo.script[owo.activePage]._animation = {
-        "in": config.backInAnimation,
-        "out": config.backOutAnimation,
-        "forward": false
-      }
-    }
+  }
+  if (config.page) {
+    if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
+    if (config.page == owo.activePage) return
     pageString = '#' + config.page
   }
   if (config.route) {
@@ -185,9 +178,7 @@ for (var index = 0; index < toList.length; index++) {
       route: target[2],
       inAnimation: target[3],
       outAnimation: target[4],
-      backInAnimation: target[5],
-      backOutAnimation: target[6],
-      noBack: target[7],
+      noBack: target[5],
     })
   }
 }

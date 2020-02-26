@@ -1,6 +1,16 @@
 // 页面切换
 /* if="this.pageAnimationList.size > 0" */
 function animation (oldDom, newDom, animationIn, animationOut, forward) {
+  // 没有动画处理
+  if (!animationIn || !animationOut) {
+    if (oldDom) {
+      // 隐藏掉旧的节点
+      oldDom.style.display = 'none'
+    }
+    // 查找页面跳转后的page
+    newDom.style.display = 'block'
+    return
+  }
   // 动画延迟
   var delay = 0
   // 获取父元素
@@ -47,7 +57,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   // 旧DOM执行函数
   function oldDomFun (e) {
     // 排除非框架引起的结束事件
-    if (e.target.getAttribute('template')) {
+    if (e.target.getAttribute('template') || e.target.getAttribute('route')) {
       // 移除监听
       oldDom.removeEventListener('animationend', oldDomFun, false)
       // 延迟后再清除，防止动画还没完成
@@ -83,11 +93,13 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
       }
     }, delay);
   }
+  owo.state._animation = null
 }
 /* end */
 
 // 切换页面前的准备工作
 function switchPage (oldUrlParam, newUrlParam) {
+  
   var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
   var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
   // 查找页面跳转前的page页(dom节点)
@@ -97,14 +109,16 @@ function switchPage (oldUrlParam, newUrlParam) {
   if (!newDom) {console.error('页面不存在!'); return}
   /* if="this.pageAnimationList.size > 0" */
   // 判断是否有动画效果
-  if (!owo.script[newPage]._animation) owo.script[newPage]._animation = {}
+  if (!owo.state._animation) owo.state._animation = {}
   // 直接.in会在ie下报错
-  var animationIn = owo.script[newPage]._animation['in']
-  var animationOut = owo.script[newPage]._animation['out']
+  var animationIn = owo.state._animation['in']
+  var animationOut = owo.state._animation['out']
+  var forward = owo.state._animation['forward']
   // 全局跳转设置判断
   if (owo.state.go) {
     animationIn = animationIn || owo.state.go.inAnimation
     animationOut = animationOut || owo.state.go.outAnimation
+    forward = forward || owo.state.go.forward
   }
   
   setTimeout(() => {
@@ -117,7 +131,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
   }, 0)
   if (animationIn || animationOut) {
-    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'))
+    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
     return
   }
   /* end */
