@@ -27,7 +27,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
-      element.handleEvent(owo.script[owo.activePage], element.$el)
+      element.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
       this["_activeName"] = element._name
       this["_activeIndex"] = ind
     } else {
@@ -43,7 +43,7 @@ View.prototype.showName = function (name) {
   var newRoute = this[name]
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
-  newRoute.handleEvent(owo.script[owo.activePage], newRoute.$el)
+  newRoute.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
   newRoute.$el.setAttribute('route-active', 'true')
   oldRoute.$el.removeAttribute('route-active')
   if (owo.state._animation) {

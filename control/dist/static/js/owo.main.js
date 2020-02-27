@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sun Feb 16 2020 23:40:46 GMT+0800 (GMT+08:00)
+// Thu Feb 27 2020 23:59:45 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -74,11 +74,11 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
-function handleEvent (moudleScript) {
-  
+function handleEvent (moudleScript, enterDom) {
   var moudleScript = moudleScript || this
-  if (!moudleScript.$el) return
-  var tempDom = moudleScript.$el
+  var enterDom = enterDom || moudleScript.$el
+  if (!enterDom) return
+  var tempDom = enterDom
   
   if(!_owo._event_if(tempDom, moudleScript)) return
   
@@ -189,9 +189,7 @@ function handleEvent (moudleScript) {
           // console.log(new Function('a', 'b', 'return a + b'))
           var forEle = shaheRun.apply(moudleScript, [forValue])
           // 如果o-for不存在则隐藏dom
-          if (!forEle) {
-            return
-          }
+          if (!forEle || forEle.length == 0) return
           if (!moudleScript['forList']) moudleScript['forList'] = []
           
           moudleScript['forList'].push({
@@ -214,7 +212,7 @@ function handleEvent (moudleScript) {
             while (varValue = tempReg.exec(tempCopy)) {
               const forValue = new Function('value', 'key', 'return ' + varValue[0])
               // 默认变量
-              tempCopy = tempCopy.replace('{' + varValue + '}', forValue(value, key))
+              tempCopy = tempCopy.replace('{' + varValue + '}', forValue.apply(moudleScript, [value, key]))
             }
             outHtml += tempCopy
           }
@@ -239,7 +237,7 @@ function handleEvent (moudleScript) {
       console.info(tempDom)
     }
   }
-  recursion(moudleScript.$el)
+  recursion(enterDom)
   // 递归处理子模板
   for (var key in moudleScript.template) {
     moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
@@ -256,9 +254,9 @@ function owoPageInit () {
     _owo.runCreated(templateScript)
   }
   
-  owo.state.urlVariable = _owo.getQueryVariable()
   // 判断页面中是否有路由
   if (this.view) {
+    owo.state.urlVariable = _owo.getQueryVariable()
     temp = []
     for (var viewName in this.view) {
       var routeList = this.view[viewName]
@@ -273,16 +271,34 @@ function owoPageInit () {
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
       var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      activeView.owoPageInit()
-      temp.push(this.view[viewName])
+      if (activeView) {
+        activeView.owoPageInit()
+        temp.push(this.view[viewName])
+      }
     }
     this.view._list = temp
   }
   
 }
+
+
+window.addEventListener("popstate", function(e) { 
+  _owo.getViewChange()
+}, false);
+
 // 页面切换
 
 function animation (oldDom, newDom, animationIn, animationOut, forward) {
+  // 没有动画处理
+  if (!animationIn || !animationOut) {
+    if (oldDom) {
+      // 隐藏掉旧的节点
+      oldDom.style.display = 'none'
+    }
+    // 查找页面跳转后的page
+    newDom.style.display = 'block'
+    return
+  }
   // 动画延迟
   var delay = 0
   // 获取父元素
@@ -329,7 +345,7 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
   // 旧DOM执行函数
   function oldDomFun (e) {
     // 排除非框架引起的结束事件
-    if (e.target.getAttribute('template')) {
+    if (e.target.getAttribute('template') || e.target.getAttribute('route')) {
       // 移除监听
       oldDom.removeEventListener('animationend', oldDomFun, false)
       // 延迟后再清除，防止动画还没完成
@@ -365,11 +381,13 @@ function animation (oldDom, newDom, animationIn, animationOut, forward) {
       }
     }, delay);
   }
+  owo.state._animation = null
 }
 
 
 // 切换页面前的准备工作
 function switchPage (oldUrlParam, newUrlParam) {
+  
   var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
   var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
   // 查找页面跳转前的page页(dom节点)
@@ -377,31 +395,6 @@ function switchPage (oldUrlParam, newUrlParam) {
   var newDom = document.querySelector('.page[template="' + newPage + '"]')
   
   if (!newDom) {console.error('页面不存在!'); return}
-  
-  // 判断是否有动画效果
-  if (!owo.script[newPage]._animation) owo.script[newPage]._animation = {}
-  // 直接.in会在ie下报错
-  var animationIn = owo.script[newPage]._animation['in']
-  var animationOut = owo.script[newPage]._animation['out']
-  // 全局跳转设置判断
-  if (owo.state.go) {
-    animationIn = animationIn || owo.state.go.inAnimation
-    animationOut = animationOut || owo.state.go.outAnimation
-  }
-  
-  setTimeout(() => {
-    window.owo.activePage = newPage
-    window.owo.script[newPage].$el = newDom
-    window.owo.script[newPage].owoPageInit()
-    window.owo.script[newPage].handleEvent()
-    
-    // 显示路由
-    if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
-  }, 0)
-  if (animationIn || animationOut) {
-    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'))
-    return
-  }
   
   if (oldDom) {
     // 隐藏掉旧的节点
@@ -474,6 +467,8 @@ owo.query = function (str) {
 // 特殊类型
 function View(routeList, viewName, entryDom) {
   this._list = []
+  this._viewName = viewName
+  this.$el = entryDom.querySelector('[view="' + viewName +'"]')
   for (var routeInd in routeList) {
     var routeItem = routeList[routeInd]
     this._list[routeInd] = routeItem
@@ -496,7 +491,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
-      element.handleEvent()
+      element.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
       this["_activeName"] = element._name
       this["_activeIndex"] = ind
     } else {
@@ -504,24 +499,25 @@ View.prototype.showIndex = function (ind) {
       element.$el.removeAttribute('route-active')
     }
   }
-  owo.setActiveRouteClass()
+  owo.setActiveRouteClass(this)
 }
 
 View.prototype.showName = function (name) {
-  for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
-    var element = this._list[routeIndex];
-    if (element._name == name) {
-      element.$el.style.display = 'block'
-      element.$el.setAttribute('route-active', 'true')
-      element.handleEvent()
-      this["_activeName"] = name
-      this["_activeIndex"] = element._index
-    } else {
-      element.$el.style.display = 'none'
-      element.$el.removeAttribute('route-active')
-    }
+  var oldRoute = this[this._activeName]
+  var newRoute = this[name]
+  this["_activeName"] = newRoute._name
+  this["_activeIndex"] = newRoute._index
+  newRoute.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
+  newRoute.$el.setAttribute('route-active', 'true')
+  oldRoute.$el.removeAttribute('route-active')
+  if (owo.state._animation) {
+    var animationValue = owo.state._animation
+    animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
+  } else {
+    animation(oldRoute.$el, newRoute.$el)
   }
-  owo.setActiveRouteClass()
+  
+  owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
@@ -554,23 +550,20 @@ _owo.getViewChange = function () {
   }
 }
 
-owo.setActiveRouteClass = function () {
-  var activePageName = owo.activePage
-  var activeScript = owo.script[activePageName]
-  var activeViewName = activeScript.$el.querySelector('[view]').attributes['view'].value
-  var activeRouteName = activeScript.view[activeViewName]._activeName
-  var goList = activeScript.$el.querySelectorAll('[go]')
-  for (let index = 0; index < goList.length; index++) {
-    const element = goList[index];
-    if (element.attributes["page"] && element.attributes["page"].value !== '' && element.attributes["page"].value !== activePageName) {
+owo.setActiveRouteClass = function (viewInfo) {
+  var goList = owo.query('[go]')
+  for (var index = 0; index < goList.length; index++) {
+    var element = goList[index];
+    var goValue = element.getAttribute('go').split('/')
+    if (goValue[0] && goValue[0] !== owo.activePage) {
       element.classList.remove('active')
       continue
     }
-    if (element.attributes["view"] && element.attributes["view"].value !== '' && element.attributes["view"].value !== activeViewName) {
+    if (goValue[1] && goValue[1] !== viewInfo._viewName) {
       element.classList.remove('active')
       continue
     }
-    if (element.attributes["route"] && element.attributes["route"].value !== '' && element.attributes["route"].value !== activeRouteName) {
+    if (goValue[2] && goValue[2] !== viewInfo._activeName) {
       element.classList.remove('active')
       continue
     }
@@ -593,25 +586,17 @@ owo.go = function (config) {
     const temp = config['ani'].split('/')
     config.inAnimation = temp[0]
     config.outAnimation = temp[1]
-    config.backInAnimation = temp[2]
-    config.backOutAnimation = temp[3]
   }
-  if (config.page) {
-    if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
-    if (config.page == owo.activePage) return
-    owo.script[config.page]._animation = {
+  if (config.inAnimation && config.outAnimation) {
+    owo.state._animation = {
       "in": config.inAnimation,
       "out": config.outAnimation,
       "forward": true
     }
-    // 如果有返回动画那么设置返回动画
-    if (config.backInAnimation && config.backOutAnimation) {
-      owo.script[owo.activePage]._animation = {
-        "in": config.backInAnimation,
-        "out": config.backOutAnimation,
-        "forward": false
-      }
-    }
+  }
+  if (config.page) {
+    if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
+    if (config.page == owo.activePage) return
     pageString = '#' + config.page
   }
   if (config.route) {
@@ -650,13 +635,14 @@ var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
   element.onclick = function () {
+    var target = this.attributes['go'].value.split('/')
     owo.go({
-      page: this.attributes['page'] ? this.attributes['page'].value : null,
-      view: this.attributes['view'] ? this.attributes['view'].value : null,
-      route: this.attributes['route'] ? this.attributes['route'].value : null,
-      replace: this.attributes['replace'] ? true : false,
-      ani: this.attributes['ani'] ? this.attributes['ani'].value : null,
-      noBack: this.attributes['back'] ? false : true,
+      page: target[0],
+      view: target[1],
+      route: target[2],
+      inAnimation: target[3],
+      outAnimation: target[4],
+      noBack: target[5],
     })
   }
 }

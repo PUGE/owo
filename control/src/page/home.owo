@@ -7,31 +7,31 @@
   .content-box
     //- 左侧菜单
     .menu
-      .menu-item(go route="info")
+      .menu-item(go="//info")
         .icon &#xe659;
         .text 页面概况
-      .menu-item(go route="else")
+      .menu-item(go="//else")
         .icon &#xe730;
         .text 页面管理
-      .menu-item(go route="plug")
+      .menu-item(go="//plug")
         .icon &#xe662;
         .text 插件管理
-      .menu-item(go route="build")
+      .menu-item(go="//build")
         .icon &#xe662;
         .text 打包配置
-      .menu-item(go route="log")
+      .menu-item(go="//log")
         .icon &#xe601;
         .text 日志管理
-      .menu-item(go route="resource")
+      .menu-item(go="//resource")
         .icon &#xe7b0;
         .text 资源管理
     view.router(name="content" o-if="this.data.config")
-      route(name="info" src="./src/route/info.owo")
-      route(name="else" src="./src/route/else.owo")
-      route(name="plug" src="./src/route/plug.owo")
-      route(name="build" src="./src/route/build.owo")
-      route(name="log" src="./src/route/log.owo")
-      route(name="resource" src="./src/route/resource.owo")
+      .router-item(route="info" src="./src/route/info.owo")
+      .router-item(route="else" src="./src/route/else.owo")
+      .router-item(route="plug" src="./src/route/plug.owo")
+      .router-item(route="build" src="./src/route/build.owo")
+      .router-item(route="log" src="./src/route/log.owo")
+      .router-item(route="resource" src="./src/route/resource.owo")
 </template>
 
 <script>

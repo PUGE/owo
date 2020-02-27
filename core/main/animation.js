@@ -1,5 +1,5 @@
 // 页面切换
-/* if="this.pageAnimationList.size > 0" */
+/* if="this.pageAnimationList.size > 0 || this.plugList.includes('route')" */
 function animation (oldDom, newDom, animationIn, animationOut, forward) {
   // 没有动画处理
   if (!animationIn || !animationOut) {
