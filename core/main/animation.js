@@ -1,6 +1,6 @@
 // 页面切换
 /* if="this.pageAnimationList.size > 0 || this.plugList.includes('route')" */
-function animation (oldDom, newDom, animationIn, animationOut, forward) {
+_owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   // 没有动画处理
   if (!animationIn || !animationOut) {
     if (oldDom) {
@@ -131,7 +131,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
   }, 0)
   if (animationIn || animationOut) {
-    animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
+    _owo.animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
     return
   }
   /* end */

@@ -73,6 +73,10 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 function handleEvent (moudleScript, enterDom) {
   var moudleScript = moudleScript || this
   var enterDom = enterDom || moudleScript.$el
+  // 判断是否是继承父元素方法
+  if (moudleScript._inherit){
+    moudleScript = moudleScript._parent
+  }
   if (!enterDom) return
   var tempDom = enterDom
   /* if="this.plugList.includes('if')" */
@@ -104,7 +108,7 @@ function handleEvent (moudleScript, enterDom) {
         var eventFor = attribute.textContent || attribute.value
         eventFor = eventFor.replace(/ /g, '')
         // 判断是否为owo的事件
-        if (new RegExp("^o-").test(attribute.name)) {
+        if (attribute.name.slice(0, 2) == 'o-') {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
             /* if="this.plugList.includes('tap')" */
@@ -135,6 +139,10 @@ function handleEvent (moudleScript, enterDom) {
             // 处理o-value
             case 'value': {
               var value = shaheRun.apply(moudleScript, [eventFor])
+              function inputEventHandle (e) {
+                var eventFor = e.target.getAttribute('o-value')
+                shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
+              }
               switch (tempDom.tagName) {
                 case 'INPUT':
                   switch (tempDom.getAttribute('type')) {
@@ -149,15 +157,11 @@ function handleEvent (moudleScript, enterDom) {
                     case 'text':
                       if (value == undefined) value = ''
                       tempDom.value = value
-                      tempDom.oninput = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
-                      }
+                      tempDom.oninput = inputEventHandle
                       break;
                     case 'checkbox':
                       tempDom.checked = Boolean(value)
-                      tempDom.onclick = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
-                      }
+                      tempDom.onclick = inputEventHandle
                       break;
                     
                   }
@@ -213,12 +217,12 @@ function handleEvent (moudleScript, enterDom) {
             var value = forEle[key];
             var tempCopy = temp
             // 获取模板插值
-            var tempReg = new RegExp("(?<={).*?(?=})","g")
-            while (varValue = tempReg.exec(tempCopy)) {
-              const forValue = new Function('value', 'key', 'return ' + varValue[0])
+            var varList = _owo.cutStringArray(tempCopy, '{', '}')
+            varList.forEach(element => {
+              const forValue = new Function('value', 'key', 'return ' + element)
               // 默认变量
-              tempCopy = tempCopy.replace('{' + varValue + '}', forValue.apply(moudleScript, [value, key]))
-            }
+              tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
+            })
             outHtml += tempCopy
           }
           childrenDom.outerHTML = outHtml + ''
@@ -265,7 +269,7 @@ function owoPageInit () {
     temp = []
     for (var viewName in this.view) {
       var routeList = this.view[viewName]
-      this.view[viewName] = new View(routeList, viewName, this['$el'])
+      this.view[viewName] = new View(routeList, viewName, this['$el'], this)
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
       var activeRouteIndex = 0
@@ -291,3 +295,45 @@ window.addEventListener("popstate", function(e) {
   _owo.getViewChange()
 }, false);
 /* end */
+
+_owo.cutString = function (original, before, after, index) {
+  index = index || 0
+  if (typeof index === "number") {
+    const P = original.indexOf(before, index)
+    if (P > -1) {
+      if (after) {const f = original.indexOf(after, P + before.length)
+        // console.log(P, f)
+        // console.log(original.slice(P + before.toString().length, f))
+        return (f>-1)? original.slice(P + before.toString().length, f) : ''
+      } else {
+        return original.slice(P + before.toString().length);
+      }
+    } else {
+      return ''
+    }
+  } else {
+    console.error("owo [sizeTransition:" + index + "不是一个整数!]")
+  }
+}
+_owo.cutStringArray = function (original, before, after, index, inline) {
+  let aa=[], ab=0;
+  index = index || 0
+  
+  while(original.indexOf(before, index) > 0) {
+    const temp = this.cutString(original, before, after, index)
+    if (temp !== '') {
+      if (inline) {
+        if (temp.indexOf('\n') === -1) {
+          aa[ab] = temp
+          ab++
+        }
+      } else {
+        aa[ab] = temp
+        ab++
+      }
+    }
+    // console.log(before)
+    index = original.indexOf(before, index) + 1
+  }
+  return aa;
+},

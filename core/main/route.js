@@ -1,7 +1,7 @@
 
 /* if="this.plugList.includes('route')" */
 // 特殊类型
-function View(routeList, viewName, entryDom) {
+function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
   this._viewName = viewName
   this.$el = entryDom.querySelector('[view="' + viewName +'"]')
@@ -15,7 +15,7 @@ function View(routeList, viewName, entryDom) {
       console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
       break
     }
-    this._list[routeInd] = new Page(this._list[routeInd])
+    this._list[routeInd] = new Page(this._list[routeInd], pageScript)
     this._list[routeInd].$el.setAttribute('route-ind', routeInd)
     this[routeItem._name] = this._list[routeInd]
   }
@@ -27,7 +27,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
-      element.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
+      element.handleEvent()
       this["_activeName"] = element._name
       this["_activeIndex"] = ind
     } else {
@@ -43,7 +43,7 @@ View.prototype.showName = function (name) {
   var newRoute = this[name]
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
-  newRoute.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
+  newRoute.handleEvent()
   newRoute.$el.setAttribute('route-active', 'true')
   oldRoute.$el.removeAttribute('route-active')
   if (owo.state._animation) {

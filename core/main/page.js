@@ -1,4 +1,4 @@
-function Page(pageScript) {
+function Page(pageScript, parentScript) {
   for (const key in pageScript) {
     this[key] = pageScript[key]
   }
@@ -11,6 +11,9 @@ function Page(pageScript) {
   for (var key in pageScript.template) {
     pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
     pageScript.template[key] = new Page(pageScript.template[key])
+  }
+  if (parentScript) {
+    this._parent = parentScript
   }
 }
 
