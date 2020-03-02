@@ -3,6 +3,10 @@ body, html, .page, .page-box {
   margin: 0;
 }
 
+.page, .owo-block {
+  display: none;
+}
+
 .owo-animation {
   overflow: hidden;
   -webkit-backface-visibility: hidden;
