@@ -26,4 +26,4 @@ npm i -g @owo/owo
 ```
 
 ### 示例项目
-1. https://github.com/PUGE/show
+1. https://600.run
