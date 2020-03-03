@@ -48,9 +48,9 @@ View.prototype.showName = function (name) {
   oldRoute.$el.removeAttribute('route-active')
   if (owo.state._animation) {
     var animationValue = owo.state._animation
-    animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
+    _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
   } else {
-    animation(oldRoute.$el, newRoute.$el)
+    _owo.animation(oldRoute.$el, newRoute.$el)
   }
   
   owo.setActiveRouteClass(this)

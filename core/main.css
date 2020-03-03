@@ -3,7 +3,7 @@ body, html, .page, .page-box {
   margin: 0;
 }
 
-.page, .owo-block {
+.page {
   display: none;
 }
 

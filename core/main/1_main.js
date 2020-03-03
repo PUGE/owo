@@ -166,6 +166,10 @@ function handleEvent (moudleScript, enterDom) {
                     
                   }
                   break;
+                case 'SELECT':
+                  tempDom.querySelector('[value="' + value + '"]').setAttribute('selected', 'selected')
+                  tempDom.oninput = inputEventHandle
+                  break;
                 default:
                   tempDom.innerHTML = value
                   break;

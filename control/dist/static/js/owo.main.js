@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Thu Feb 27 2020 23:59:45 GMT+0800 (GMT+08:00)
+// Tue Mar 03 2020 18:31:45 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -77,6 +77,10 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
 function handleEvent (moudleScript, enterDom) {
   var moudleScript = moudleScript || this
   var enterDom = enterDom || moudleScript.$el
+  // 判断是否是继承父元素方法
+  if (moudleScript._inherit){
+    moudleScript = moudleScript._parent
+  }
   if (!enterDom) return
   var tempDom = enterDom
   
@@ -108,7 +112,7 @@ function handleEvent (moudleScript, enterDom) {
         var eventFor = attribute.textContent || attribute.value
         eventFor = eventFor.replace(/ /g, '')
         // 判断是否为owo的事件
-        if (new RegExp("^o-").test(attribute.name)) {
+        if (attribute.name.slice(0, 2) == 'o-') {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
             
@@ -130,6 +134,10 @@ function handleEvent (moudleScript, enterDom) {
             // 处理o-value
             case 'value': {
               var value = shaheRun.apply(moudleScript, [eventFor])
+              function inputEventHandle (e) {
+                var eventFor = e.target.getAttribute('o-value')
+                shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
+              }
               switch (tempDom.tagName) {
                 case 'INPUT':
                   switch (tempDom.getAttribute('type')) {
@@ -144,18 +152,19 @@ function handleEvent (moudleScript, enterDom) {
                     case 'text':
                       if (value == undefined) value = ''
                       tempDom.value = value
-                      tempDom.oninput = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
-                      }
+                      tempDom.oninput = inputEventHandle
                       break;
                     case 'checkbox':
                       tempDom.checked = Boolean(value)
-                      tempDom.onclick = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
-                      }
+                      tempDom.onclick = inputEventHandle
                       break;
                     
                   }
+                  break;
+                case 'SELECT':
+                  console.log(value)
+                  tempDom.querySelector('[value="' + value + '"]').setAttribute('selected', 'selected')
+                  tempDom.oninput = inputEventHandle
                   break;
                 default:
                   tempDom.innerHTML = value
@@ -208,12 +217,12 @@ function handleEvent (moudleScript, enterDom) {
             var value = forEle[key];
             var tempCopy = temp
             // 获取模板插值
-            var tempReg = new RegExp("(?<={).*?(?=})","g")
-            while (varValue = tempReg.exec(tempCopy)) {
-              const forValue = new Function('value', 'key', 'return ' + varValue[0])
+            var varList = _owo.cutStringArray(tempCopy, '{', '}')
+            varList.forEach(element => {
+              const forValue = new Function('value', 'key', 'return ' + element)
               // 默认变量
-              tempCopy = tempCopy.replace('{' + varValue + '}', forValue.apply(moudleScript, [value, key]))
-            }
+              tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
+            })
             outHtml += tempCopy
           }
           childrenDom.outerHTML = outHtml + ''
@@ -260,7 +269,7 @@ function owoPageInit () {
     temp = []
     for (var viewName in this.view) {
       var routeList = this.view[viewName]
-      this.view[viewName] = new View(routeList, viewName, this['$el'])
+      this.view[viewName] = new View(routeList, viewName, this['$el'], this)
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
       var activeRouteIndex = 0
@@ -286,9 +295,51 @@ window.addEventListener("popstate", function(e) {
   _owo.getViewChange()
 }, false);
 
+
+_owo.cutString = function (original, before, after, index) {
+  index = index || 0
+  if (typeof index === "number") {
+    const P = original.indexOf(before, index)
+    if (P > -1) {
+      if (after) {const f = original.indexOf(after, P + before.length)
+        // console.log(P, f)
+        // console.log(original.slice(P + before.toString().length, f))
+        return (f>-1)? original.slice(P + before.toString().length, f) : ''
+      } else {
+        return original.slice(P + before.toString().length);
+      }
+    } else {
+      return ''
+    }
+  } else {
+    console.error("owo [sizeTransition:" + index + "不是一个整数!]")
+  }
+}
+_owo.cutStringArray = function (original, before, after, index, inline) {
+  let aa=[], ab=0;
+  index = index || 0
+  
+  while(original.indexOf(before, index) > 0) {
+    const temp = this.cutString(original, before, after, index)
+    if (temp !== '') {
+      if (inline) {
+        if (temp.indexOf('\n') === -1) {
+          aa[ab] = temp
+          ab++
+        }
+      } else {
+        aa[ab] = temp
+        ab++
+      }
+    }
+    // console.log(before)
+    index = original.indexOf(before, index) + 1
+  }
+  return aa;
+},
 // 页面切换
 
-function animation (oldDom, newDom, animationIn, animationOut, forward) {
+_owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   // 没有动画处理
   if (!animationIn || !animationOut) {
     if (oldDom) {
@@ -444,7 +495,7 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
 
 // 判断是否为手机
 _owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
-function Page(pageScript) {
+function Page(pageScript, parentScript) {
   for (const key in pageScript) {
     this[key] = pageScript[key]
   }
@@ -453,6 +504,9 @@ function Page(pageScript) {
   for (var key in pageScript.template) {
     pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
     pageScript.template[key] = new Page(pageScript.template[key])
+  }
+  if (parentScript) {
+    this._parent = parentScript
   }
 }
 
@@ -465,7 +519,7 @@ owo.query = function (str) {
 
 
 // 特殊类型
-function View(routeList, viewName, entryDom) {
+function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
   this._viewName = viewName
   this.$el = entryDom.querySelector('[view="' + viewName +'"]')
@@ -479,7 +533,7 @@ function View(routeList, viewName, entryDom) {
       console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
       break
     }
-    this._list[routeInd] = new Page(this._list[routeInd])
+    this._list[routeInd] = new Page(this._list[routeInd], pageScript)
     this._list[routeInd].$el.setAttribute('route-ind', routeInd)
     this[routeItem._name] = this._list[routeInd]
   }
@@ -491,7 +545,7 @@ View.prototype.showIndex = function (ind) {
     if (routeIndex == ind) {
       element.$el.style.display = 'block'
       element.$el.setAttribute('route-active', 'true')
-      element.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
+      element.handleEvent()
       this["_activeName"] = element._name
       this["_activeIndex"] = ind
     } else {
@@ -507,14 +561,14 @@ View.prototype.showName = function (name) {
   var newRoute = this[name]
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
-  newRoute.handleEvent(element._inherit ? owo.script[owo.activePage] : undefined)
+  newRoute.handleEvent()
   newRoute.$el.setAttribute('route-active', 'true')
   oldRoute.$el.removeAttribute('route-active')
   if (owo.state._animation) {
     var animationValue = owo.state._animation
-    animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
+    _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
   } else {
-    animation(oldRoute.$el, newRoute.$el)
+    _owo.animation(oldRoute.$el, newRoute.$el)
   }
   
   owo.setActiveRouteClass(this)
@@ -654,6 +708,7 @@ function shaheRun (code) {
   } catch (error) {
     console.error(error)
     console.log('执行代码: ' + code)
+    console.log('运行环境: ', this)
     return undefined
   }
 }
@@ -700,30 +755,83 @@ _owo.ready = (function() {               //这个函数返回whenReady()函数
   }
 })()
 
-// 单页面-页面资源加载完毕事件
+
+_owo.getarg = function (url) { // 获取URL #后面内容
+  if (!url) return null
+  var arg = url.split("#");
+  return arg[1] ? arg[1].split('?')[0] : null
+}
+
+// 页面资源加载完毕事件
 _owo.showPage = function() {
   for (const key in owo.script) {
-    if (owo.script.hasOwnProperty(key)) {
-      owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
-      owo.script[key] = new Page(owo.script[key])
-    }
+    owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
+    owo.script[key] = new Page(owo.script[key])
   }
-  owo.entry = document.querySelector('.page[template]').getAttribute('template')
-  // 查找入口
-  if (!owo.script[owo.entry].$el) {
-    console.error('找不到页面入口!')
-    return
+  owo.entry = document.querySelector('[template]').getAttribute('template')
+  // 取出URL地址判断当前所在页面
+  var pageArg = _owo.getarg(window.location.hash)
+  
+  
+
+  // 从配置项中取出程序入口
+  var page = pageArg ? pageArg : owo.entry
+  if (page) {
+    if (!owo.script[page].$el) {
+      console.error('入口文件设置错误,错误值为: ', page)
+      page = owo.script[page].$el.getAttribute('template')
+      window.location.replace('#' + page)
+      return
+    }
+    // 显示主页面
+    owo.script[page].$el.style.display = 'block'
+    window.owo.activePage = page
+    owo.script[page].owoPageInit()
+    owo.script[page].handleEvent()
+    // 处理插件
+    var plugList = document.querySelectorAll('.owo-block')
+    for (var ind = 0; ind < plugList.length; ind++) {
+      var plugEL = plugList[ind]
+      var plugName = plugEL.getAttribute('template')
+      owo.script[plugName].$el = plugEL
+      owo.script[plugName].owoPageInit()
+      owo.script[plugName].handleEvent()
+      plugEL.style.display = ''
+    }
+    
+  } else {
+    console.error('未设置程序入口!')
   }
   
-  owo.activePage = owo.entry
-  var activeScript = owo.script[owo.activePage]
-  activeScript.owoPageInit()
-  activeScript.handleEvent()
+  // 设置当前页面为活跃页面
+  owo.state.newUrlParam = _owo.getarg(document.URL)
 }
+
+// url发生改变事件
+_owo.hashchange = function () {
+  // 这样处理而不是直接用event中的URL，是因为需要兼容IE
+  owo.state.oldUrlParam = owo.state.newUrlParam;
+  owo.state.newUrlParam = _owo.getarg(document.URL); 
+  // console.log(owo.state.oldUrlParam, owo.state.newUrlParam)
+  // 如果旧页面不存在则为默认页面
+  if (!owo.state.oldUrlParam) owo.state.oldUrlParam = owo.entry;
+  var newUrlParam = owo.state.newUrlParam;
+
+  // 如果没有跳转到任何页面则跳转到主页
+  if (newUrlParam === undefined) {
+    newUrlParam = owo.entry;
+  }
+
+  // 如果没有发生页面跳转则不需要进行操作
+  // 进行页面切换
+  switchPage(owo.state.oldUrlParam, newUrlParam);
+}
+
+// ios的QQ有BUG 无法触发onhashchange事件
+if(/iPhone\sOS.*QQ[^B]/.test(navigator.userAgent)) {window.onpopstate = _owo.hashchange;} else {window.onhashchange = _owo.hashchange;}
 
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
-
 
 // 事件推送方法
 owo.tool.emit = function (eventName) {

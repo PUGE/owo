@@ -47,7 +47,7 @@ _owo.showPage = function() {
       owo.script[plugName].$el = plugEL
       owo.script[plugName].owoPageInit()
       owo.script[plugName].handleEvent()
-      setTimeout(function() {plugEL.style.display = 'block'}, 100)
+      plugEL.style.display = ''
     }
     
   } else {

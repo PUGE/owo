@@ -9,7 +9,7 @@ table.page-list
     td.name {value.name}
     td.value {value.src}
     td.type
-      select(value="{value.type}")
+      select(o-value="owo.script.home.data.config.pageList[{key}].type")
         option(value="page") 页面
         option(value="block") 插件
     td.tool
@@ -19,7 +19,7 @@ table.page-list
       input.nameInput(type='text', placeholder='页面名称', o-input='changeSrc')
     td
       input.srcInput(placeholder='页面路径', type='text', disabled='disabled')
-    td.icon.icon-box.resource-check(width='70px', o-tap="changeDataValue('resource')")
+    td.icon.icon-box.resource-check(width='70px')
       select.type-select
         option(value='page') 页面
         option(value='block') 插件
