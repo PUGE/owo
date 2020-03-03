@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "7.8.4",
+    "@babel/parser": "^7.8.6",
     "@babel/preset-env": "7.8.4",
     "autoprefixer": "9.7.4",
     "body-parser": "^1.19.0",
