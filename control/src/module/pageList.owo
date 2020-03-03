@@ -27,6 +27,7 @@ table.page-list
 </template>
 
 <script>
+  console.log('sdsd')
   module.exports = {
     broadcast: {
       changeData: function (value) {
