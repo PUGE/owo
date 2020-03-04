@@ -1,5 +1,6 @@
 <template lang="pug">
 .home
+  plug(_name="topBar" _logo="http://www.people.com.cn/img/2016people/images/rmw_logo.png" _src="https://template.owo.ink/573040ed3cc6230f.owo")
   .title-bar
     .save-button
       .icon &#xea6f;

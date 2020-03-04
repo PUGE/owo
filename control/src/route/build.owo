@@ -10,6 +10,7 @@
       configList: [
         {name: "debug模式", type: "checkbox", value: "debug"},
         {name: "外链提示", type: "checkbox", value: "alertLink"},
+        {name: "外链处理", type: "checkbox", value: "handleLink"},
         {name: "基本目录", type: "text", value: "basePath"},
         {name: "包裹容器", type: "text", value: "container"},
         {name: "手机入口", type: "text", value: "phoneEnter"},

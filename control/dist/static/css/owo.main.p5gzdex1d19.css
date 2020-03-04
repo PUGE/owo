@@ -52,6 +52,39 @@ li {
   list-style: none;
 }
 
+.title-bar {
+  height: 40px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.title-bar .content {
+  width: 1000px;
+  height: 40px;
+  margin: auto;
+}
+
+.title-bar img {
+  margin: 5px 10px;
+  height: 30px;
+}
+
+.title-bar a {
+  float: left;
+  display: block;
+}
+
+.title-bar .link {
+  color: rgba(102, 102, 102, 1.00);
+  font-size: 14px;
+  margin: 0 10px;
+  line-height: 40px;
+}
+
+.title-bar a {
+  color: #333;
+  text-decoration: none;
+}
 .info .card-bar {
   display: -webkit-box;
   display: -ms-flexbox;
