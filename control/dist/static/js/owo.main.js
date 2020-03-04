@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Wed Mar 04 2020 14:49:00 GMT+0800 (GMT+08:00)
+// Wed Mar 04 2020 23:57:29 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -156,7 +156,10 @@ function handleEvent (moudleScript, enterDom) {
                       break;
                     case 'checkbox':
                       tempDom.checked = Boolean(value)
-                      tempDom.onclick = inputEventHandle
+                      tempDom.onclick = function (e) {
+                        var eventFor = e.target.getAttribute('o-value')
+                        shaheRun.apply(moudleScript, [eventFor + '=' + e.target.checked])
+                      }
                       break;
                     
                   }
@@ -491,14 +494,6 @@ _owo._event_tap = function (tempDom, eventFor, callBack) {
   }
 }
 
-
-// 计算$dom
-var idList = document.querySelectorAll('[id]')
-owo.id = {}
-for (var ind = 0; ind < idList.length; ind++) {
-  var item = idList[ind]
-  owo.id[item.getAttribute('id')] = item
-}
 
 // 判断是否为手机
 _owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
@@ -896,4 +891,21 @@ owo.tool.post = function (url, data, fn) {
 }
 
 
+
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
+    }
+  }
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
+}
 

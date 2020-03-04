@@ -111,13 +111,13 @@
 		"build": {
 			"debug": false,
 			"basePath": "./",
-			"alertLink": "on",
+			"alertLink": false,
 			"minifyCss": false,
 			"minifyJs": false,
 			"addVersion": true,
 			"embedSize": 0,
 			"allAnimate": false,
-			"handleLink": "on"
+			"handleLink": true
 		}
 	},
 	"basePath": "./"

@@ -161,7 +161,10 @@ function handleEvent (moudleScript, enterDom) {
                       break;
                     case 'checkbox':
                       tempDom.checked = Boolean(value)
-                      tempDom.onclick = inputEventHandle
+                      tempDom.onclick = function (e) {
+                        var eventFor = e.target.getAttribute('o-value')
+                        shaheRun.apply(moudleScript, [eventFor + '=' + e.target.checked])
+                      }
                       break;
                     
                   }
