@@ -22,6 +22,7 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 View.prototype.showIndex = function (ind) {
+  if (this._list.length - 1 < ind) {console.error('导航到不存在的页面: ' + ind);return;}
   for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
     var element = this._list[routeIndex];
     if (routeIndex == ind) {
@@ -41,6 +42,7 @@ View.prototype.showIndex = function (ind) {
 View.prototype.showName = function (name) {
   var oldRoute = this[this._activeName]
   var newRoute = this[name]
+  if (!newRoute) {console.error('导航到不存在的页面: ' + name);return;}
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
   newRoute.handleEvent()

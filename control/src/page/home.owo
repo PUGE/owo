@@ -14,7 +14,7 @@
         .icon &#xe730;
         .text 页面管理
       .menu-item(go="//plug")
-        .icon &#xe662;
+        .icon &#xe646;
         .text 插件管理
       .menu-item(go="//build")
         .icon &#xe662;
@@ -25,6 +25,9 @@
       .menu-item(go="//resource")
         .icon &#xe7b0;
         .text 资源管理
+      .menu-item(go="//animation")
+        .icon &#xe61d;
+        .text 动画管理
     view.router(name="content" o-if="this.data.config")
       .router-item(route="info" src="./src/route/info.owo")
       .router-item(route="else" src="./src/route/else.owo")

@@ -69,12 +69,12 @@ h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, bu
 
 @font-face {
   font-family: 'iconfont';  /* project id 1587659 */
-  src: url('//at.alicdn.com/t/font_1587659_zf3qnrgxvt.eot');
-  src: url('//at.alicdn.com/t/font_1587659_zf3qnrgxvt.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1587659_zf3qnrgxvt.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1587659_zf3qnrgxvt.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1587659_zf3qnrgxvt.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1587659_zf3qnrgxvt.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1587659_rh32pidhm6.eot');
+  src: url('//at.alicdn.com/t/font_1587659_rh32pidhm6.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1587659_rh32pidhm6.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1587659_rh32pidhm6.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1587659_rh32pidhm6.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1587659_rh32pidhm6.svg#iconfont') format('svg');
 }
 
 .icon {

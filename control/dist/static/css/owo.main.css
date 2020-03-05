@@ -353,6 +353,37 @@ table {
 .log .warning {
   background-color: orange;
 }
+.no-data {
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  position: relative;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  background-image: url('https://cunchu.site/owo/image/nodata.png');
+}
+
+.no-data span {
+  position: absolute;
+  top: 15%;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  color: #666666;
+  line-height: 40px;
+  height: 40px;
+}
+.resource {
+  width: 100%;
+  height: 100%;
+}
+
 .resource li {
   line-height: 25px;
   border-bottom: 1px solid #b2bac1;

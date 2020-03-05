@@ -242,7 +242,7 @@ function handleEvent (moudleScript, enterDom) {
         // 获取子节点实例
         var childrenDom = tempDom.children[i]
         /* if="this.plugList.includes('if')" */
-        if(!_owo._event_if(childrenDom, moudleScript)) return
+        if(!_owo._event_if(childrenDom, moudleScript)) continue
         /* end */
         if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
           recursion(childrenDom)

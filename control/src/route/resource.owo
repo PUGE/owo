@@ -1,27 +1,29 @@
 <template lang="pug">
 .resource
-  ul
+  plug(o-if="this.data.resInfo.length == 0" _name="noData" _src="./src/module/noData.owo")
+  ul(o-if="this.data.resInfo.length > 0")
+    li(o-for="this.data.resInfo") {value}
 </template>
 
 <script>
   module.exports = {
     data: {
-      logInfo: []
+      resInfo: []
     },
     broadcast: {
       changeResource: function (data) {
-        let resourceHtml = ``
-        data.forEach(element => {
-          resourceHtml += `<li>${element}</li>`
-        });
-        // console.log(data)
-        this.$el.getElementsByTagName('ul')[0].innerHTML = resourceHtml
+        this.data.resInfo = data
+        this.handleEvent()
       }
     }
   }
 </script>
 
 <style lang="less">
+.resource {
+  width: 100%;
+  height: 100%;
+}
 li {
   line-height: 25px;
   border-bottom: 1px solid #b2bac1;

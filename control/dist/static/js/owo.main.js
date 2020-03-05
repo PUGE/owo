@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Thu Mar 05 2020 14:53:07 GMT+0800 (GMT+08:00)
+// Fri Mar 06 2020 01:27:26 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -237,7 +237,7 @@ function handleEvent (moudleScript, enterDom) {
         // 获取子节点实例
         var childrenDom = tempDom.children[i]
         
-        if(!_owo._event_if(childrenDom, moudleScript)) return
+        if(!_owo._event_if(childrenDom, moudleScript)) continue
         
         if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
           recursion(childrenDom)
@@ -542,6 +542,7 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 View.prototype.showIndex = function (ind) {
+  if (this._list.length - 1 < ind) {console.error('导航到不存在的页面: ' + ind);return;}
   for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
     var element = this._list[routeIndex];
     if (routeIndex == ind) {
@@ -561,6 +562,7 @@ View.prototype.showIndex = function (ind) {
 View.prototype.showName = function (name) {
   var oldRoute = this[this._activeName]
   var newRoute = this[name]
+  if (!newRoute) {console.error('导航到不存在的页面: ' + name);return;}
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
   newRoute.handleEvent()
