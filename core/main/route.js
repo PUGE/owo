@@ -26,7 +26,7 @@ View.prototype.showIndex = function (ind) {
   for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
     var element = this._list[routeIndex];
     if (routeIndex == ind) {
-      element.$el.style.display = 'block'
+      element.$el.style.display = ''
       element.$el.setAttribute('route-active', 'true')
       element.handleEvent()
       this["_activeName"] = element._name

@@ -3,8 +3,12 @@ body, html, .page, .page-box {
   margin: 0;
 }
 
-.page {
+.page, .router-item {
   display: none;
+}
+
+[route-active] {
+  display: initial;
 }
 
 .owo-animation {

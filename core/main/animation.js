@@ -8,7 +8,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
       oldDom.style.display = 'none'
     }
     // 查找页面跳转后的page
-    newDom.style.display = 'block'
+    newDom.style.display = ''
     return
   }
   // 动画延迟
@@ -57,7 +57,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   // 旧DOM执行函数
   function oldDomFun (e) {
     // 排除非框架引起的结束事件
-    if (e.target.getAttribute('template') || e.target.getAttribute('route')) {
+    // if (e.target.getAttribute('template') || e.target.getAttribute('route')) {
       // 移除监听
       oldDom.removeEventListener('animationend', oldDomFun, false)
       // 延迟后再清除，防止动画还没完成
@@ -74,7 +74,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
           oldDom.classList.remove('o-page-' + value)
         }
       }, delay);
-    }
+    // }
   }
 
   // 新DOM执行函数

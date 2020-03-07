@@ -30,7 +30,7 @@
   <body>
     <!-- 页面区域 -->
     <!-- 页面[home]-->
-    <div class="home page" template="home" style="display: block;"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><div class="menu-item" go="//info"><div class="icon"></div><div class="text">页面概况</div></div><div class="menu-item" go="//else"><div class="icon"></div><div class="text">页面管理</div></div><div class="menu-item" go="//plug"><div class="icon"></div><div class="text">插件管理</div></div><div class="menu-item" go="//build"><div class="icon"></div><div class="text">打包配置</div></div><div class="menu-item" go="//log"><div class="icon"></div><div class="text">日志管理</div></div><div class="menu-item" go="//resource"><div class="icon"></div><div class="text">资源管理</div></div><div class="menu-item" go="//animation"><div class="icon"></div><div class="text">动画管理</div></div></div><div class="router" view="content" o-if="this.data.config"><div class="info router-item" route="info"><div class="card-bar" o-if="owo.script.home.data.config &amp;&amp; owo.script.home.data.config.pageList"><div class="card-bar-item"><h3>页面数量</h3><p o-value="owo.script.home.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-value="owo.script.home.data.logInfo.warningNum"></p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-value="owo.script.home.data.logInfo.errorNum"></p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div><div class="plug-list card-box" o-if="owo.script.home.data.plugList.length > 0"><div class="title">使用到的插件</div><ul><li o-for="owo.script.home.data.plugList">{value}</li></ul></div></div><div class="page router-item" route="else"><table class="key-value-list" o-if="owo.script.home.data.config" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>操作</th></tr><tr class="key-value-item" o-for="owo.script.home.data.config.headList"><td class="td">{value.name || value['http-equiv']}</td><td class="value"><input type="text" o-value="owo.script.home.data.config.headList[{key}].content"></td><td class="tool"><span class="icon"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="键名"></td><td><input class="contentInput" placeholder="键值" type="text"></td><td class="tool icon" o-tap="add"></td></tr></tbody></table><table class="style-list" template="styleList"><tbody><tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th>操作</th></tr><tr class="key-value-item" o-for="owo.script.home.data.config.scriptList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="resource icon {value.resource ? 'check' : ''}" ind="{key}" o-tap="resourceChange">{value.resource ? '' : ''}</td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="新增样式名称"></td><td><input class="srcInput" placeholder="新增样式路径" type="text"></td><td class="icon icon-box resource-check" width="70px" o-tap="addNewResourceChange"></td><td class="tool icon" o-tap="add"></td></tr></tbody></table><table class="scrip-list" o-if="" template="scriptList"><tbody><tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th width="70px">babel</th><th width="70px">异步加载</th><th>合并文件</th><th>操作</th></tr><tr o-for="owo.script.home.data.config.scriptList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="resource input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].resource"></td><td class="babel input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].babel"></td><td class="defer input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer"></td><td class="merge input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge"></td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="新增样式名称"></td><td><input class="srcInput" type="text" placeholder="新增样式路径"></td><td class="input-td"><input type="checkbox" o-value="this.data.resource"></td><td class="input-td"><input type="checkbox" o-value="this.data.babel"></td><td class="input-td"><input type="checkbox" o-value="this.data.defer"></td><td class="input-td"><input type="checkbox" o-value="this.data.merge"></td><td class="tool"><span class="icon" o-tap="add"></span></td></tr></tbody></table><table class="page-list" template="pageList"><tbody><tr><th>页面名</th><th>页面路径</th><th width="70px">类型</th><th>操作</th></tr><tr o-for="owo.script.home.data.config.pageList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="type"><select o-value="owo.script.home.data.config.pageList[{key}].type"><option value="page">页面</option><option value="block">插件</option></select></td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="页面名称" o-input="changeSrc"></td><td><input class="srcInput" placeholder="页面路径" type="text" disabled="disabled"></td><td class="icon icon-box resource-check" width="70px"><select class="type-select"><option value="page">页面</option><option value="block">插件</option></select></td><td class="tool icon" o-tap="add"></td></tr></tbody></table></div><ul class="plug router-item" route="plug"><li o-for="this.data.plugList"><div class="name">{value.name}</div><div class="info">{value.info}</div><div class="icon add" o-tap="addPlug({key})"></div></li></ul><div class="build router-item" route="build"><div class="table-box" o-if="owo.script.home.data.config"><table class="build-table"></table></div></div><div class="log router-item" route="log"><ul></ul></div><div class="resource router-item" route="resource"><div class="no-data" o-if="this.data.resInfo.length == 0"><span>暂无数据</span></div><ul o-if="this.data.resInfo.length > 0"><li o-for="this.data.resInfo">{value}</li></ul></div></div></div></div>
+    <div class="home page" template="home" style="display: block;"><div class="title-bar"><div class="save-button"><div class="icon"></div><span o-tap="seveConfig">发送</span></div></div><div class="content-box"><div class="menu"><div class="menu-item" go="//info"><div class="icon"></div><div class="text">页面概况</div></div><div class="menu-item" go="//else"><div class="icon"></div><div class="text">页面管理</div></div><div class="menu-item" go="//plug"><div class="icon"></div><div class="text">插件管理</div></div><div class="menu-item" go="//build"><div class="icon"></div><div class="text">打包配置</div></div><div class="menu-item" go="//log"><div class="icon"></div><div class="text">日志管理</div></div><div class="menu-item" go="//resource"><div class="icon"></div><div class="text">资源管理</div></div><div class="menu-item" go="//animation"><div class="icon"></div><div class="text">动画管理</div></div></div><div class="router" view="content" o-if="this.data.config"><div class="info router-item" route="info"><div class="card-bar" o-if="owo.script.home.data.config &amp;&amp; owo.script.home.data.config.pageList"><div class="card-bar-item"><h3>页面数量</h3><p o-value="owo.script.home.data.config.pageList.length"></p></div><div class="card-bar-item"><h3>编译警告</h3><p style="color: #c1c187;" o-value="owo.script.home.data.logInfo.warningNum"></p></div><div class="card-bar-item"><h3> 编译报错</h3><p style="color: red;" o-value="owo.script.home.data.logInfo.errorNum"></p></div><div class="card-bar-item"><h3>页面大小</h3><p style="color: skyblue;">1.23Mb</p></div></div><div class="plug-list card-box" o-if="owo.script.home.data.plugList.length > 0"><div class="title">使用到的插件</div><ul><li o-for="owo.script.home.data.plugList">{value}</li></ul></div></div><div class="page router-item" route="else"><table class="key-value-list" o-if="owo.script.home.data.config" template="headKeyValueList"><tbody><tr><th>键名</th><th>键值</th><th>操作</th></tr><tr class="key-value-item" o-for="owo.script.home.data.config.headList"><td class="td">{value.name || value['http-equiv']}</td><td class="value"><input type="text" o-value="owo.script.home.data.config.headList[{key}].content"></td><td class="tool"><span class="icon"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="键名"></td><td><input class="contentInput" placeholder="键值" type="text"></td><td class="tool icon" o-tap="add"></td></tr></tbody></table><table class="style-list" template="styleList"><tbody><tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th>操作</th></tr><tr class="key-value-item" o-for="owo.script.home.data.config.scriptList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="resource icon {value.resource ? 'check' : ''}" ind="{key}" o-tap="resourceChange">{value.resource ? '' : ''}</td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="新增样式名称"></td><td><input class="srcInput" placeholder="新增样式路径" type="text"></td><td class="icon icon-box resource-check" width="70px" o-tap="addNewResourceChange"></td><td class="tool icon" o-tap="add"></td></tr></tbody></table><table class="scrip-list" o-if="" template="scriptList"><tbody><tr><th>脚本名</th><th>脚本路径</th><th width="70px">资源处理</th><th width="70px">babel</th><th width="70px">异步加载</th><th>合并文件</th><th>操作</th></tr><tr o-for="owo.script.home.data.config.scriptList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="resource input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].resource"></td><td class="babel input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].babel"></td><td class="defer input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer"></td><td class="merge input-td"><input type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge"></td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="新增样式名称"></td><td><input class="srcInput" type="text" placeholder="新增样式路径"></td><td class="input-td"><input type="checkbox" o-value="this.data.resource"></td><td class="input-td"><input type="checkbox" o-value="this.data.babel"></td><td class="input-td"><input type="checkbox" o-value="this.data.defer"></td><td class="input-td"><input type="checkbox" o-value="this.data.merge"></td><td class="tool"><span class="icon" o-tap="add"></span></td></tr></tbody></table><table class="page-list" template="pageList"><tbody><tr><th>页面名</th><th>页面路径</th><th width="70px">类型</th><th>操作</th></tr><tr o-for="owo.script.home.data.config.pageList"><td class="name">{value.name}</td><td class="value">{value.src}</td><td class="type"><select o-value="owo.script.home.data.config.pageList[{key}].type"><option value="page">页面</option><option value="block">插件</option></select></td><td class="tool"><span class="icon" o-tap="delete({key})"></span></td></tr><tr><td><input class="nameInput" type="text" placeholder="页面名称" o-input="changeSrc"></td><td><input class="srcInput" placeholder="页面路径" type="text" disabled="disabled"></td><td class="icon icon-box resource-check" width="70px"><select class="type-select"><option value="page">页面</option><option value="block">插件</option></select></td><td class="tool icon" o-tap="add"></td></tr></tbody></table></div><ul class="plug router-item" route="plug"><li o-for="this.data.plugList"><div class="name">{value.name}</div><div class="info">{value.info}</div><div class="icon add" o-tap="addPlug({key})"></div></li></ul><div class="build router-item" route="build"><div class="table-box" o-if="owo.script.home.data.config"><table class="build-table"></table></div></div><div class="log router-item" route="log"><ul></ul></div><div class="resource router-item" route="resource"><div class="no-data" o-if="this.data.resInfo.length == 0"><span>暂无数据</span></div><ul o-if="this.data.resInfo.length > 0"><li o-for="this.data.resInfo">{value}</li></ul></div><div class="ani-box router-item" route="animation"><div class="ani-bar"><select><option value="">选择页面</option><option value="next" o-for="owo.script.home.data.config.pageList">{value.name}</option></select><select><option value="next">离开效果</option><option value="back">进入效果</option></select><ul class="ani-select-list"><li o-for="this.data.pageAni" o-tap="showAni('{value.in}', '{value.out}')">{value.name}</li></ul></div><div class="show-box"><div class="show"><div class="show-1 active"></div><div class="show-2 no-active"></div></div></div></div></div></div></div>
     
 
 <!-- 框架script文件 -->
@@ -425,9 +425,13 @@ owo.script = {
             "type": "checkbox",
             "value": "merge"
           }, {
-            "name": "输出所有样式",
+            "name": "输出所有动画",
             "type": "checkbox",
             "value": "allAnimate"
+          }, {
+            "name": "输出所有翻页特效",
+            "type": "checkbox",
+            "value": "allAnimation"
           }, {
             "name": "强制首页开始",
             "type": "checkbox",
@@ -491,6 +495,262 @@ owo.script = {
         },
         "_name": "resource",
         "template": {}
+      }, {
+        "data": {
+          "pageAni": [{
+            "name": "向左移出",
+            "in": "moveToLeft",
+            "out": "moveFromRight"
+          }, {
+            "name": "向右移出",
+            "in": "moveToRight",
+            "out": "moveFromLeft"
+          }, {
+            "name": "向上移出",
+            "in": "moveToTop",
+            "out": "moveFromBottom"
+          }, {
+            "name": "向下移出",
+            "in": "moveToBottom",
+            "out": "moveFromTop"
+          }, {
+            "name": "淡出/向左移入",
+            "in": "fade",
+            "out": "moveFromRight"
+          }, {
+            "name": "淡出/向右淡入",
+            "in": "fade",
+            "out": "moveFromLeft"
+          }, {
+            "name": "淡出/向上淡入",
+            "in": "fade",
+            "out": "moveFromBottom"
+          }, {
+            "name": "淡出/向下淡入",
+            "in": "fade",
+            "out": "moveFromTop"
+          }, {
+            "name": "向左淡入",
+            "in": "moveToLeftFade",
+            "out": "moveFromRightFade"
+          }, {
+            "name": "向右淡入",
+            "in": "moveToRightFade",
+            "out": "moveFromLeftFade"
+          }, {
+            "name": "向上淡入",
+            "in": "moveToTopFade",
+            "out": "moveFromBottomFade"
+          }, {
+            "name": "向下淡入",
+            "in": "moveToBottomFade",
+            "out": "moveFromTopFade"
+          }, {
+            "name": "向后缩放/向左移入",
+            "in": "scaleDown",
+            "out": "moveFromRight"
+          }, {
+            "name": "向后缩放/向右移入",
+            "in": "scaleDown",
+            "out": "moveFromLeft"
+          }, {
+            "name": "向后缩放/向上移入",
+            "in": "scaleDown",
+            "out": "moveFromBottom"
+          }, {
+            "name": "向后缩放/向下移入",
+            "in": "scaleDown",
+            "out": "moveFromTop"
+          }, {
+            "name": "向后缩放/向前淡入",
+            "in": "scaleDown",
+            "out": "scaleUpDown"
+          }, {
+            "name": "向后缩放/向前淡入",
+            "in": "scaleDown",
+            "out": "scaleUp"
+          }, {
+            "name": "向左移出/向前淡入",
+            "in": "moveToLeft",
+            "out": "scaleUp"
+          }, {
+            "name": "向左移出/向前淡入",
+            "in": "moveToRight",
+            "out": "scaleUp"
+          }, {
+            "name": "向上移出/向前淡入",
+            "in": "moveToTop",
+            "out": "scaleUp"
+          }, {
+            "name": "向上移出/向前淡入",
+            "in": "moveToBottom",
+            "out": "scaleUp"
+          }, {
+            "name": "向后移出/向前移入",
+            "in": "scaleDownCenter",
+            "out": "scaleUpCenter&&delay400"
+          }, {
+            "name": "向后移出/向前移入",
+            "in": "scaleDownCenter",
+            "out": "scaleUpCenter&&delay400"
+          }, {
+            "name": "左侧吸附/向左移入",
+            "in": "rotateRightSideFirst",
+            "out": "moveFromRight&&delay200"
+          }, {
+            "name": "左侧吸附/向左移入",
+            "in": "rotateLeftSideFirst",
+            "out": "moveFromLeft&&delay200"
+          }, {
+            "name": "下侧吸附/向下移入",
+            "in": "rotateTopSideFirst",
+            "out": "moveFromTop&&delay200"
+          }, {
+            "name": "下侧吸附/向下移入",
+            "in": "rotateBottomSideFirst",
+            "out": "moveFromBottom&&delay200"
+          }, {
+            "name": "向右翻转/向左翻转",
+            "in": "flipOutRight",
+            "out": "flipInLeft&&delay500"
+          }, {
+            "name": "向右翻转/向左翻转",
+            "in": "flipOutLeft",
+            "out": "flipInRight&&delay500"
+          }, {
+            "name": "向下翻转/向向翻转",
+            "in": "flipOutTop",
+            "out": "flipInBottom&&delay500"
+          }, {
+            "name": "向下翻转/向向翻转",
+            "in": "flipOutBottom",
+            "out": "flipInTop&&delay500"
+          }, {
+            "name": "向后螺旋/向前螺旋",
+            "in": "rotateOutNewspaper",
+            "out": "rotateInNewspaper&&delay500"
+          }, {
+            "name": "向后螺旋/向前螺旋",
+            "in": "rotateOutNewspaper",
+            "out": "rotateInNewspaper&&delay500"
+          }, {
+            "name": "向下掉落/向前移入",
+            "in": "rotateFall",
+            "out": "scaleUp"
+          }, {
+            "name": "向下掉落/向前移入",
+            "in": "rotateFall",
+            "out": "scaleUp"
+          }, {
+            "name": "向左推出/向左移入",
+            "in": "rotatePushLeft",
+            "out": "moveFromRight&&ontop"
+          }, {
+            "name": "向左推出/向左移入",
+            "in": "rotatePushRight",
+            "out": "moveFromLeft&&ontop"
+          }, {
+            "name": "向上推出/向上移入",
+            "in": "rotatePushTop",
+            "out": "moveFromBottom&&ontop"
+          }, {
+            "name": "向上推出/向上移入",
+            "in": "rotatePushBottom",
+            "out": "moveFromTop&&ontop"
+          }, {
+            "name": "向左推出/向左推入",
+            "in": "rotatePushLeft",
+            "out": "rotatePullRight&&ontop"
+          }, {
+            "name": "向左推出/向左推入",
+            "in": "rotatePushRight",
+            "out": "rotatePullLeft&&ontop"
+          }, {
+            "name": "向上推出/向上推入",
+            "in": "rotatePushTop",
+            "out": "rotatePullBottom&&ontop"
+          }, {
+            "name": "向上推出/向上推入",
+            "in": "rotatePushBottom",
+            "out": "rotatePullTop&&ontop"
+          }, {
+            "name": "向左转动/向左转动",
+            "in": "rotateRoomLeftOut&&ontop",
+            "out": "rotateRoomLeftIn"
+          }, {
+            "name": "向左转动/向左转动",
+            "in": "rotateRoomRightOut&&ontop",
+            "out": "rotateRoomRightIn"
+          }, {
+            "name": "向上转动/向上转动",
+            "in": "rotateRoomTopOut&&ontop",
+            "out": "rotateRoomTopIn"
+          }, {
+            "name": "向上转动/向上转动",
+            "in": "rotateRoomBottomOut&&ontop",
+            "out": "rotateRoomBottomIn"
+          }, {
+            "name": "向右扭转/向右扭转",
+            "in": "rotateCubeLeftOut",
+            "out": "rotateCubeLeftIn"
+          }, {
+            "name": "向右扭转/向右扭转",
+            "in": "rotateCubeRightOut",
+            "out": "rotateCubeRightIn"
+          }, {
+            "name": "向上扭转/向上扭转",
+            "in": "rotateCubeTopOut",
+            "out": "rotateCubeTopIn"
+          }, {
+            "name": "向上扭转/向上扭转",
+            "in": "rotateCubeBottomOut",
+            "out": "rotateCubeBottomIn"
+          }, {
+            "name": "向左飞出/向左飞入",
+            "in": "rotateCarouselLeftOut&&ontop",
+            "out": "rotateCarouselLeftIn"
+          }, {
+            "name": "向左飞出/向左飞入",
+            "in": "rotateCarouselRightOut&&ontop",
+            "out": "rotateCarouselRightIn"
+          }, {
+            "name": "向上飞出/向左飞入",
+            "in": "rotateCarouselTopOut&&ontop",
+            "out": "rotateCarouselTopIn"
+          }, {
+            "name": "向上飞出/向左飞入",
+            "in": "rotateCarouselBottomOut&&ontop",
+            "out": "rotateCarouselBottomIn"
+          }, {
+            "name": "向左翻转/向左翻转",
+            "in": "rotateSidesOut&&ontop",
+            "out": "rotateSidesIn&&delay200"
+          }, {
+            "name": "向左翻转/向左翻转",
+            "in": "rotateSidesOut&&ontop",
+            "out": "rotateSidesIn&&delay200"
+          }],
+          "isPlaying": false
+        },
+        "showAni": function showAni(inAni, outAni) {
+          var _this2 = this;
+
+          console.log('sd');
+          if (this.data.isPlaying) return;
+          this.data.isPlaying = true;
+
+          _owo.animation(this.$el.querySelector('.show .active'), this.$el.querySelector('.show .no-active'), inAni.split('&&'), outAni.split('&&'));
+
+          setTimeout(function () {
+            _this2.$el.querySelector('.show .show-1').style.display = '';
+            _this2.$el.querySelector('.show .show-2').style.display = '';
+            _this2.data.isPlaying = false;
+          }, 2000);
+        },
+        "prop": {
+          "route": "animation"
+        },
+        "_name": "animation"
       }]
     }
   }

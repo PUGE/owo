@@ -35,7 +35,7 @@ _owo.showPage = function() {
       return
     }
     // 显示主页面
-    owo.script[page].$el.style.display = 'block'
+    owo.script[page].$el.style.display = ''
     window.owo.activePage = page
     owo.script[page].owoPageInit()
     owo.script[page].handleEvent()

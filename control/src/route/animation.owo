@@ -1,0 +1,385 @@
+<template lang="pug">
+.ani-box
+  .ani-bar
+    select
+      option(value="") 选择页面
+      option(value="next" o-for="owo.script.home.data.config.pageList") {value.name}
+    select
+      option(value="next") 离开效果
+      option(value="back") 进入效果
+    ul.ani-select-list
+      li(o-for="this.data.pageAni" o-tap="showAni('{value.in}', '{value.out}')") {value.name}
+  .show-box
+    .show
+      .show-1.active
+      .show-2.no-active
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      pageAni: [
+        {
+          "name": "向左移出", 
+          "in": "moveToLeft", 
+          "out": "moveFromRight"
+        }, 
+        {
+          "name": "向右移出", 
+          "in": "moveToRight", 
+          "out": "moveFromLeft"
+        }, 
+        {
+          "name": "向上移出", 
+          "in": "moveToTop", 
+          "out": "moveFromBottom"
+        }, 
+        {
+          "name": "向下移出", 
+          "in": "moveToBottom", 
+          "out": "moveFromTop"
+        }, 
+        {
+          "name": "淡出/向左移入", 
+          "in": "fade", 
+          "out": "moveFromRight"
+        }, 
+        {
+          "name": "淡出/向右淡入", 
+          "in": "fade", 
+          "out": "moveFromLeft"
+        }, 
+        {
+          "name": "淡出/向上淡入", 
+          "in": "fade", 
+          "out": "moveFromBottom"
+        }, 
+        {
+          "name": "淡出/向下淡入", 
+          "in": "fade", 
+          "out": "moveFromTop"
+        }, 
+        {
+          "name": "向左淡入", 
+          "in": "moveToLeftFade", 
+          "out": "moveFromRightFade"
+        }, 
+        {
+          "name": "向右淡入", 
+          "in": "moveToRightFade", 
+          "out": "moveFromLeftFade"
+        }, 
+        {
+          "name": "向上淡入", 
+          "in": "moveToTopFade", 
+          "out": "moveFromBottomFade"
+        }, 
+        {
+          "name": "向下淡入", 
+          "in": "moveToBottomFade", 
+          "out": "moveFromTopFade"
+        }, 
+        {
+          "name": "向后缩放/向左移入", 
+          "in": "scaleDown", 
+          "out": "moveFromRight"
+        }, 
+        {
+          "name": "向后缩放/向右移入", 
+          "in": "scaleDown", 
+          "out": "moveFromLeft"
+        }, 
+        {
+          "name": "向后缩放/向上移入", 
+          "in": "scaleDown", 
+          "out": "moveFromBottom"
+        }, 
+        {
+          "name": "向后缩放/向下移入", 
+          "in": "scaleDown", 
+          "out": "moveFromTop"
+        }, 
+        {
+          "name": "向后缩放/向前淡入", 
+          "in": "scaleDown", 
+          "out": "scaleUpDown"
+        }, 
+        {
+          "name": "向后缩放/向前淡入", 
+          "in": "scaleDown", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向左移出/向前淡入", 
+          "in": "moveToLeft", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向左移出/向前淡入", 
+          "in": "moveToRight", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向上移出/向前淡入", 
+          "in": "moveToTop", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向上移出/向前淡入", 
+          "in": "moveToBottom", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向后移出/向前移入", 
+          "in": "scaleDownCenter", 
+          "out": "scaleUpCenter&&delay400"
+        }, 
+        {
+          "name": "向后移出/向前移入", 
+          "in": "scaleDownCenter", 
+          "out": "scaleUpCenter&&delay400"
+        }, 
+        {
+          "name": "左侧吸附/向左移入", 
+          "in": "rotateRightSideFirst", 
+          "out": "moveFromRight&&delay200"
+        }, 
+        {
+          "name": "左侧吸附/向左移入", 
+          "in": "rotateLeftSideFirst", 
+          "out": "moveFromLeft&&delay200"
+        }, 
+        {
+          "name": "下侧吸附/向下移入", 
+          "in": "rotateTopSideFirst", 
+          "out": "moveFromTop&&delay200"
+        }, 
+        {
+          "name": "下侧吸附/向下移入", 
+          "in": "rotateBottomSideFirst", 
+          "out": "moveFromBottom&&delay200"
+        }, 
+        {
+          "name": "向右翻转/向左翻转", 
+          "in": "flipOutRight", 
+          "out": "flipInLeft&&delay500"
+        }, 
+        {
+          "name": "向右翻转/向左翻转", 
+          "in": "flipOutLeft", 
+          "out": "flipInRight&&delay500"
+        }, 
+        {
+          "name": "向下翻转/向向翻转", 
+          "in": "flipOutTop", 
+          "out": "flipInBottom&&delay500"
+        }, 
+        {
+          "name": "向下翻转/向向翻转", 
+          "in": "flipOutBottom", 
+          "out": "flipInTop&&delay500"
+        }, 
+        {
+          "name": "向后螺旋/向前螺旋", 
+          "in": "rotateOutNewspaper", 
+          "out": "rotateInNewspaper&&delay500"
+        }, 
+        {
+          "name": "向后螺旋/向前螺旋", 
+          "in": "rotateOutNewspaper", 
+          "out": "rotateInNewspaper&&delay500"
+        }, 
+        {
+          "name": "向下掉落/向前移入", 
+          "in": "rotateFall", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向下掉落/向前移入", 
+          "in": "rotateFall", 
+          "out": "scaleUp"
+        }, 
+        {
+          "name": "向左推出/向左移入", 
+          "in": "rotatePushLeft", 
+          "out": "moveFromRight&&ontop"
+        }, 
+        {
+          "name": "向左推出/向左移入", 
+          "in": "rotatePushRight", 
+          "out": "moveFromLeft&&ontop"
+        }, 
+        {
+          "name": "向上推出/向上移入", 
+          "in": "rotatePushTop", 
+          "out": "moveFromBottom&&ontop"
+        }, 
+        {
+          "name": "向上推出/向上移入", 
+          "in": "rotatePushBottom", 
+          "out": "moveFromTop&&ontop"
+        }, 
+        {
+          "name": "向左推出/向左推入", 
+          "in": "rotatePushLeft", 
+          "out": "rotatePullRight&&ontop"
+        }, 
+        {
+          "name": "向左推出/向左推入", 
+          "in": "rotatePushRight", 
+          "out": "rotatePullLeft&&ontop"
+        }, 
+        {
+          "name": "向上推出/向上推入", 
+          "in": "rotatePushTop", 
+          "out": "rotatePullBottom&&ontop"
+        }, 
+        {
+          "name": "向上推出/向上推入", 
+          "in": "rotatePushBottom", 
+          "out": "rotatePullTop&&ontop"
+        }, 
+        {
+          "name": "向左转动/向左转动", 
+          "in": "rotateRoomLeftOut&&ontop", 
+          "out": "rotateRoomLeftIn"
+        }, 
+        {
+          "name": "向左转动/向左转动", 
+          "in": "rotateRoomRightOut&&ontop", 
+          "out": "rotateRoomRightIn"
+        }, 
+        {
+          "name": "向上转动/向上转动", 
+          "in": "rotateRoomTopOut&&ontop", 
+          "out": "rotateRoomTopIn"
+        }, 
+        {
+          "name": "向上转动/向上转动", 
+          "in": "rotateRoomBottomOut&&ontop", 
+          "out": "rotateRoomBottomIn"
+        }, 
+        {
+          "name": "向右扭转/向右扭转", 
+          "in": "rotateCubeLeftOut", 
+          "out": "rotateCubeLeftIn"
+        }, 
+        {
+          "name": "向右扭转/向右扭转", 
+          "in": "rotateCubeRightOut", 
+          "out": "rotateCubeRightIn"
+        }, 
+        {
+          "name": "向上扭转/向上扭转", 
+          "in": "rotateCubeTopOut", 
+          "out": "rotateCubeTopIn"
+        }, 
+        {
+          "name": "向上扭转/向上扭转", 
+          "in": "rotateCubeBottomOut", 
+          "out": "rotateCubeBottomIn"
+        }, 
+        {
+          "name": "向左飞出/向左飞入", 
+          "in": "rotateCarouselLeftOut&&ontop", 
+          "out": "rotateCarouselLeftIn"
+        }, 
+        {
+          "name": "向左飞出/向左飞入", 
+          "in": "rotateCarouselRightOut&&ontop", 
+          "out": "rotateCarouselRightIn"
+        }, 
+        {
+          "name": "向上飞出/向左飞入", 
+          "in": "rotateCarouselTopOut&&ontop", 
+          "out": "rotateCarouselTopIn"
+        }, 
+        {
+          "name": "向上飞出/向左飞入", 
+          "in": "rotateCarouselBottomOut&&ontop", 
+          "out": "rotateCarouselBottomIn"
+        }, 
+        {
+          "name": "向左翻转/向左翻转", 
+          "in": "rotateSidesOut&&ontop", 
+          "out": "rotateSidesIn&&delay200"
+        }, 
+        {
+          "name": "向左翻转/向左翻转", 
+          "in": "rotateSidesOut&&ontop", 
+          "out": "rotateSidesIn&&delay200"
+        }
+      ],
+      isPlaying: false
+    },
+    showAni: function (inAni, outAni) {
+      console.log('sd')
+      if (this.data.isPlaying) return
+      this.data.isPlaying = true
+      _owo.animation(this.$el.querySelector('.show .active'), this.$el.querySelector('.show .no-active'), inAni.split('&&'), outAni.split('&&'))
+      setTimeout(() => {
+        this.$el.querySelector('.show .show-1').style.display = ''
+        this.$el.querySelector('.show .show-2').style.display = ''
+        this.data.isPlaying = false
+      }, 2000)
+    }
+  }
+</script>
+
+<style lang="less">
+.ani-box {
+  display: flex;
+}
+.ani-bar {
+  width: 200px;
+  background-color: gainsboro;
+}
+select {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  line-height: 34px;
+  height: 34px;
+  border-bottom: 1px solid #ccc;
+}
+.show-box {
+  height: 100%;
+  width: calc(100% - 200px);
+  position: relative;
+  .show {
+    border: 1px solid #ccc;
+    width: 375px;
+    height: 667px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    overflow: hidden;
+  }
+  .show-1 {
+    background-color: mistyrose;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .show-2 {
+    background-color: #009fe9;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .no-active {
+    display: none;
+  }
+}
+.ani-select-list {
+  height: calc(100% - 70px);
+  overflow: auto;
+  li {
+    line-height: 30px;
+  }
+}
+</style>

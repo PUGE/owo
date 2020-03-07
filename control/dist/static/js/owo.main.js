@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Fri Mar 06 2020 01:27:26 GMT+0800 (GMT+08:00)
+// Sat Mar 07 2020 20:35:00 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -71,6 +71,111 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
   }
 }
 
+// 处理dom的owo事件
+_owo.addEvent = function (tempDom, moudleScript) {
+  if (tempDom.attributes) {
+    for (var ind = 0; ind < tempDom.attributes.length; ind++) {
+      var attribute = tempDom.attributes[ind]
+      // ie不支持startsWith
+      var eventFor = attribute.textContent || attribute.value
+      eventFor = eventFor.replace(/ /g, '')
+      // 判断是否为owo的事件
+      if (attribute.name.slice(0, 2) == 'o-') {
+        var eventName = attribute.name.slice(2)
+        switch (eventName) {
+          
+          case 'tap': {
+            // 待优化 可合并
+            // 根据手机和PC做不同处理
+            if (_owo.isMobi) {
+              if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
+              _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
+                _owo._run(eventFor, event || this, moudleScript)
+              })
+            } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
+            break
+          }
+          
+          
+          
+          
+          // 处理o-value
+          case 'value': {
+            var value = shaheRun.apply(moudleScript, [eventFor])
+            function inputEventHandle (e) {
+              var eventFor = e.target.getAttribute('o-value')
+              shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
+            }
+            switch (tempDom.tagName) {
+              case 'INPUT':
+                switch (tempDom.getAttribute('type')) {
+                  case 'number':
+                    if (value == undefined) value = ''
+                    tempDom.value = value
+                    tempDom.oninput = function (e) {
+                      shaheRun.apply(moudleScript, [eventFor + '=' + e.target.value])
+                    }
+                    break;
+                  case 'password':
+                  case 'text':
+                    if (value == undefined) value = ''
+                    tempDom.value = value
+                    tempDom.oninput = inputEventHandle
+                    break;
+                  case 'checkbox':
+                    tempDom.checked = Boolean(value)
+                    tempDom.onclick = function (e) {
+                      var eventFor = e.target.getAttribute('o-value')
+                      shaheRun.apply(moudleScript, [eventFor + '=' + e.target.checked])
+                    }
+                    break;
+                  
+                }
+                break;
+              case 'SELECT':
+                tempDom.querySelector('[value="' + value + '"]').setAttribute('selected', 'selected')
+                tempDom.oninput = inputEventHandle
+                break;
+              default:
+                tempDom.innerHTML = value
+                break;
+            }
+            break
+          }
+          
+          default: {
+            _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
+          }
+        }
+      } else if (attribute.name == 'view') {
+        viewName = eventFor
+      } else if (attribute.name == 'route') {
+        routeName = eventFor
+      }
+    }
+  }
+}
+
+_owo.recursion = function (tempDom, callBack) {
+  if (!callBack || callBack(tempDom)) {
+    return
+  }
+  // 判断是否有子节点需要处理
+  if (tempDom.children) {
+    // 递归处理所有子Dom结点
+    for (var i = 0; i < tempDom.children.length; i++) {
+      // 获取子节点实例
+      var childrenDom = tempDom.children[i]
+      if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
+        _owo.recursion(childrenDom, callBack)
+      }
+    }
+  } else {
+    console.info('元素不存在子节点!')
+    console.info(tempDom)
+  }
+}
+
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
@@ -86,169 +191,55 @@ function handleEvent (moudleScript, enterDom) {
   
   if(!_owo._event_if(tempDom, moudleScript)) return
   
-
   
-  // 判断是否有o-for需要处理
-  if (moudleScript['forList']) {
-    // 处理o-for
-    for (var key in moudleScript['forList']) {
-      var forItem = moudleScript['forList'][key];
-      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
-      if (forDomList.length > 0) {
-        forDomList[0].outerHTML = forItem.template
-        for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
-          forDomList[domIndex].remove()
-        }
-      }
-    }
-  }
-  
-  // 递归处理元素属性
-  function recursion(tempDom) {
-    if (tempDom.attributes) {
-      for (var ind = 0; ind < tempDom.attributes.length; ind++) {
-        var attribute = tempDom.attributes[ind]
-        // ie不支持startsWith
-        var eventFor = attribute.textContent || attribute.value
-        eventFor = eventFor.replace(/ /g, '')
-        // 判断是否为owo的事件
-        if (attribute.name.slice(0, 2) == 'o-') {
-          var eventName = attribute.name.slice(2)
-          switch (eventName) {
-            
-            case 'tap': {
-              // 待优化 可合并
-              // 根据手机和PC做不同处理
-              if (_owo.isMobi) {
-                if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-                _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
-                  _owo._run(eventFor, event || this, moudleScript)
-                })
-              } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
-              break
-            }
-            
-            
-            
-            
-            // 处理o-value
-            case 'value': {
-              var value = shaheRun.apply(moudleScript, [eventFor])
-              function inputEventHandle (e) {
-                var eventFor = e.target.getAttribute('o-value')
-                shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
-              }
-              switch (tempDom.tagName) {
-                case 'INPUT':
-                  switch (tempDom.getAttribute('type')) {
-                    case 'number':
-                      if (value == undefined) value = ''
-                      tempDom.value = value
-                      tempDom.oninput = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '=' + e.target.value])
-                      }
-                      break;
-                    case 'password':
-                    case 'text':
-                      if (value == undefined) value = ''
-                      tempDom.value = value
-                      tempDom.oninput = inputEventHandle
-                      break;
-                    case 'checkbox':
-                      tempDom.checked = Boolean(value)
-                      tempDom.onclick = function (e) {
-                        var eventFor = e.target.getAttribute('o-value')
-                        shaheRun.apply(moudleScript, [eventFor + '=' + e.target.checked])
-                      }
-                      break;
-                    
-                  }
-                  break;
-                case 'SELECT':
-                  tempDom.querySelector('[value="' + value + '"]').setAttribute('selected', 'selected')
-                  tempDom.oninput = inputEventHandle
-                  break;
-                default:
-                  tempDom.innerHTML = value
-                  break;
-              }
-              break
-            }
-            
-            default: {
-              _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
-            }
-          }
-        } else if (attribute.name == 'view') {
-          viewName = eventFor
-        } else if (attribute.name == 'route') {
-          routeName = eventFor
-        }
-      }
-    }
-    // 判断是否有子节点需要处理
-    if (tempDom.children) {
+  // 先处理o-for
+  _owo.recursion(tempDom, function (tempDom) {
+    /* if="this.plugList.includes('if')" */
+    if(!_owo._event_if(tempDom, moudleScript)) return true
+    
+    var forValue = tempDom.getAttribute('o-for')
+    if (forValue) {
+      // console.log(new Function('a', 'b', 'return a + b'))
+      var forEle = shaheRun.apply(moudleScript, [forValue])
+      // 如果o-for不存在则隐藏dom
+      if (!forEle || forEle.length == 0) return
+      if (!moudleScript['forList']) moudleScript['forList'] = []
       
-      // 第一次循环是为了处理o-for
-      for (var i = 0; i < tempDom.children.length; i++) {
-        // 获取子节点实例
-        var childrenDom = tempDom.children[i]
-        // 判断是否有o-for
-        var forValue = childrenDom.getAttribute('o-for')
-        if (forValue) {
-          
-          // console.log(new Function('a', 'b', 'return a + b'))
-          var forEle = shaheRun.apply(moudleScript, [forValue])
-          // 如果o-for不存在则隐藏dom
-          if (!forEle || forEle.length == 0) return
-          if (!moudleScript['forList']) moudleScript['forList'] = []
-          
-          moudleScript['forList'].push({
-            "for": forValue,
-            "children": forEle.length,
-            "template": childrenDom.outerHTML
-          })
+      moudleScript['forList'].push({
+        "for": forValue,
+        "children": forEle.length,
+        "template": tempDom.outerHTML
+      })
 
-          childrenDom.removeAttribute("o-for")
-          var tempNode = childrenDom.cloneNode(true)
-          var outHtml = ''
-          
-          for (var key in forEle) {
-            tempNode.setAttribute('o-temp-for', forValue)
-            var temp = tempNode.outerHTML
-            var value = forEle[key];
-            var tempCopy = temp
-            // 获取模板插值
-            var varList = _owo.cutStringArray(tempCopy, '{', '}')
-            varList.forEach(element => {
-              const forValue = new Function('value', 'key', 'return ' + element)
-              // 默认变量
-              tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
-            })
-            outHtml += tempCopy
-          }
-          childrenDom.outerHTML = outHtml + ''
-          break
-        }
-      }
+      tempDom.removeAttribute("o-for")
+      var tempNode = tempDom.cloneNode(true)
+      var outHtml = ''
       
-      // 递归处理所有子Dom结点
-      for (var i = 0; i < tempDom.children.length; i++) {
-        // 获取子节点实例
-        var childrenDom = tempDom.children[i]
-        
-        if(!_owo._event_if(childrenDom, moudleScript)) continue
-        
-        if (!childrenDom.hasAttribute('template') && !childrenDom.hasAttribute('view')) {
-          recursion(childrenDom)
-        }
+      for (var key in forEle) {
+        tempNode.setAttribute('o-temp-for', forValue)
+        var temp = tempNode.outerHTML
+        var value = forEle[key];
+        var tempCopy = temp
+        // 获取模板插值
+        var varList = _owo.cutStringArray(tempCopy, '{', '}')
+        varList.forEach(element => {
+          const forValue = new Function('value', 'key', 'return ' + element)
+          // 默认变量
+          tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
+        })
+        outHtml += tempCopy
       }
-    } else {
-      console.info('元素不存在子节点!')
-      console.info(tempDom)
+      tempDom.outerHTML = outHtml + ''
     }
-  }
-  recursion(enterDom)
+  })
+  /* end */
+  _owo.recursion(tempDom, function (childrenDom) {
+    if (childrenDom.hasAttribute('o-for')) return true
+    
+    if(!_owo._event_if(childrenDom, moudleScript)) return true
+    
+    _owo.addEvent(childrenDom, moudleScript)
+  })
   // 递归处理子模板
   for (var key in moudleScript.template) {
     moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
@@ -349,7 +340,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
       oldDom.style.display = 'none'
     }
     // 查找页面跳转后的page
-    newDom.style.display = 'block'
+    newDom.style.display = ''
     return
   }
   // 动画延迟
@@ -398,7 +389,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   // 旧DOM执行函数
   function oldDomFun (e) {
     // 排除非框架引起的结束事件
-    if (e.target.getAttribute('template') || e.target.getAttribute('route')) {
+    // if (e.target.getAttribute('template') || e.target.getAttribute('route')) {
       // 移除监听
       oldDom.removeEventListener('animationend', oldDomFun, false)
       // 延迟后再清除，防止动画还没完成
@@ -415,7 +406,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
           oldDom.classList.remove('o-page-' + value)
         }
       }, delay);
-    }
+    // }
   }
 
   // 新DOM执行函数
@@ -546,7 +537,7 @@ View.prototype.showIndex = function (ind) {
   for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
     var element = this._list[routeIndex];
     if (routeIndex == ind) {
-      element.$el.style.display = 'block'
+      element.$el.style.display = ''
       element.$el.setAttribute('route-active', 'true')
       element.handleEvent()
       this["_activeName"] = element._name

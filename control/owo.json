@@ -120,5 +120,7 @@
 			"handleLink": true
 		}
 	},
-	"basePath": "./"
+	"basePath": "./",
+	"allAnimate": false,
+	"allAnimation": true
 }
