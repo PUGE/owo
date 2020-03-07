@@ -122,5 +122,9 @@
 	},
 	"basePath": "./",
 	"allAnimate": false,
-	"allAnimation": true
+	"allAnimation": true,
+	"globalAni": {
+		"in": "scaleDownCenter",
+		"out": "scaleUpCenter&&delay400"
+	}
 }

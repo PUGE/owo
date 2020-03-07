@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sat Mar 07 2020 20:35:00 GMT+0800 (GMT+08:00)
+// Sun Mar 08 2020 00:17:45 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -133,7 +133,9 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 }
                 break;
               case 'SELECT':
-                tempDom.querySelector('[value="' + value + '"]').setAttribute('selected', 'selected')
+                var activeOpt = tempDom.querySelector('[value="' + value + '"]')
+                if (!activeOpt) {console.error('找不到应该活跃的选项: ' + value); return;}
+                activeOpt.setAttribute('selected', 'selected')
                 tempDom.oninput = inputEventHandle
                 break;
               default:
@@ -635,6 +637,11 @@ owo.go = function (config) {
     const temp = config['ani'].split('/')
     config.inAnimation = temp[0]
     config.outAnimation = temp[1]
+  }
+  // 待优化 不需要这段代码的情况不打包这段代码
+  if (owo.globalAni) {
+    if (owo.globalAni.in) config.inAnimation = config.inAnimation || owo.globalAni.in
+    if (owo.globalAni.out) config.outAnimation = config.outAnimation || owo.globalAni.out
   }
   if (config.inAnimation && config.outAnimation) {
     owo.state._animation = {

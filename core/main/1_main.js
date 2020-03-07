@@ -129,7 +129,9 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 }
                 break;
               case 'SELECT':
-                tempDom.querySelector('[value="' + value + '"]').setAttribute('selected', 'selected')
+                var activeOpt = tempDom.querySelector('[value="' + value + '"]')
+                if (!activeOpt) {console.error('找不到应该活跃的选项: ' + value); return;}
+                activeOpt.setAttribute('selected', 'selected')
                 tempDom.oninput = inputEventHandle
                 break;
               default:

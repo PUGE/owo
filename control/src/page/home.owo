@@ -43,7 +43,7 @@
     data: {
       originalConfig: null,
       contentItem: "info",
-      config: {},
+      config: null,
       logInfo: {},
       needCreatFile: [],
       plugList: []

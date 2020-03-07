@@ -125,6 +125,11 @@ owo.go = function (config) {
     config.inAnimation = temp[0]
     config.outAnimation = temp[1]
   }
+  // 待优化 不需要这段代码的情况不打包这段代码
+  if (owo.globalAni) {
+    if (owo.globalAni.in) config.inAnimation = config.inAnimation || owo.globalAni.in
+    if (owo.globalAni.out) config.outAnimation = config.outAnimation || owo.globalAni.out
+  }
   if (config.inAnimation && config.outAnimation) {
     owo.state._animation = {
       "in": config.inAnimation,
