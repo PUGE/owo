@@ -1,5 +1,5 @@
 <template lang="pug">
-table.scrip-list(o-if="")
+table.scrip-list
   tr
     th 脚本名
     th 脚本路径

@@ -23,7 +23,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   
   oldDom.style.position = 'absolute'
 
-  newDom.style.display = 'block'
+  newDom.style.display = ''
   newDom.style.position = 'absolute'
   // 给即将生效的页面加上“未来”标识
   if (forward) {
@@ -140,5 +140,5 @@ function switchPage (oldUrlParam, newUrlParam) {
     oldDom.style.display = 'none'
   }
   // 查找页面跳转后的page
-  newDom.style.display = 'block'
+  newDom.style.display = ''
 }

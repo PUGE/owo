@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sun Mar 08 2020 00:17:45 GMT+0800 (GMT+08:00)
+// Sun Mar 08 2020 15:48:33 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -357,7 +357,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   
   oldDom.style.position = 'absolute'
 
-  newDom.style.display = 'block'
+  newDom.style.display = ''
   newDom.style.position = 'absolute'
   // 给即将生效的页面加上“未来”标识
   if (forward) {
@@ -447,7 +447,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     oldDom.style.display = 'none'
   }
   // 查找页面跳转后的page
-  newDom.style.display = 'block'
+  newDom.style.display = ''
 }
 
 _owo._event_if = function (tempDom, moudleScript) {
@@ -539,14 +539,12 @@ View.prototype.showIndex = function (ind) {
   for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
     var element = this._list[routeIndex];
     if (routeIndex == ind) {
-      element.$el.style.display = ''
       element.$el.setAttribute('route-active', 'true')
       element.handleEvent()
       this["_activeName"] = element._name
       this["_activeIndex"] = ind
     } else {
-      element.$el.style.display = 'none'
-      element.$el.removeAttribute('route-active')
+      element.$el.setAttribute('route-active', 'false')
     }
   }
   owo.setActiveRouteClass(this)
@@ -639,9 +637,15 @@ owo.go = function (config) {
     config.outAnimation = temp[1]
   }
   // 待优化 不需要这段代码的情况不打包这段代码
-  if (owo.globalAni) {
-    if (owo.globalAni.in) config.inAnimation = config.inAnimation || owo.globalAni.in
-    if (owo.globalAni.out) config.outAnimation = config.outAnimation || owo.globalAni.out
+  if (!config.inAnimation && !config.outAnimation) {
+    if (owo.globalAni) {
+      if (owo.globalAni.in) config.inAnimation =  owo.globalAni.in
+      if (owo.globalAni.out) config.outAnimation = owo.globalAni.out
+    }
+    if (owo.pageAni && owo.pageAni[activePageName]) {
+      if (owo.pageAni[activePageName].in) config.inAnimation = owo.pageAni[activePageName].in
+      if (owo.pageAni[activePageName].out) config.outAnimation = owo.pageAni[activePageName].out
+    }
   }
   if (config.inAnimation && config.outAnimation) {
     owo.state._animation = {

@@ -1,15 +1,15 @@
 <template lang="pug">
 .ani-box(o-if="owo.script.home.data.config")
   .ani-bar
-    select(o-value="this.data.selectPage")
-      option(value="0") 选择页面
-      option(value="{key}" o-for="owo.script.home.data.config.pageList") {value.name}
+    select(o-value="this.data.selectPage" o-change="getAniSett()")
+      option(value="global") 全局动画
+      option(value="{value.name}" o-for="owo.script.home.data.config.pageList") {value.name}
     select(o-value="this.data.selectaniType")
       option(value="next") 离开效果
       option(value="back") 进入效果
     ul.ani-select-list
-      li(o-tap="showAni('', '')") 无动画
-      li(o-for="this.data.pageAni" o-tap="showAni('{value.in}', '{value.out}')") {value.name}
+      li.no-ani(o-tap="showAni('', '')") 无动画
+      li(o-for="this.data.pageAni" in="{value.in}" out="{value.out}" o-tap="showAni('{value.in}', '{value.out}')") {value.name}
   .show-box
     .show
       .show-1.active
@@ -19,7 +19,7 @@
 <script>
   module.exports = {
     data: {
-      selectPage: 0,
+      selectPage: 'global',
       selectaniType: "next",
       pageAni: [
         {
@@ -317,23 +317,60 @@
     },
     showAni: function (inAni, outAni) {
       if (this.data.isPlaying) return
-      this.data.isPlaying = true
-      _owo.animation(this.$el.querySelector('.show .active'), this.$el.querySelector('.show .no-active'), inAni.split('&&'), outAni.split('&&'))
-      setTimeout(() => {
-        this.$el.querySelector('.show .show-1').style.display = ''
-        this.$el.querySelector('.show .show-2').style.display = ''
-        this.data.isPlaying = false
-      }, 2000)
-      if (this.data.selectPage) {
-        const activePage = owo.script.home.data.config
-        if (!activePage.globalAni) activePage.globalAni = {}
-        activePage.globalAni.in = inAni
-        activePage.globalAni.out = outAni
+      // 判断是全局还是页面动画
+      if (inAni && inAni) {
+        this.data.isPlaying = true
+        _owo.animation(this.$el.querySelector('.show .active'), this.$el.querySelector('.show .no-active'), inAni.split('&&'), outAni.split('&&'))
+        setTimeout(() => {
+          this.$el.querySelector('.show .show-1').style.display = ''
+          this.$el.querySelector('.show .show-2').style.display = ''
+          this.data.isPlaying = false
+        }, 2000)
+        if (this.data.selectPage === 'global') {
+          const activePage = owo.script.home.data.config
+          if (!activePage.globalAni) activePage.globalAni = {}
+          activePage.globalAni.in = inAni
+          activePage.globalAni.out = outAni
+        } else {
+          const activePage = owo.script.home.data.config
+          if (!activePage.pageAni) activePage.pageAni = {}
+          if (!activePage.pageAni[this.data.selectPage]) activePage.pageAni[this.data.selectPage] = {}
+          activePage.pageAni[this.data.selectPage].in = inAni
+          activePage.pageAni[this.data.selectPage].out = outAni
+          console.log(activePage)
+        }
+      } else {
+        if (this.data.selectPage === 'global') delete owo.script.home.data.config.globalAni
+        else delete owo.script.home.data.config.pageAni[this.data.selectPage]
+      }
+      
+      // 活跃当前项目
+      this.clearActive()
+      this.$target.classList.add('active')
+    },
+    clearActive: function () {
+      const activeItem = owo.query('.ani-select-list .active')[0]
+      if (activeItem) activeItem.classList.remove('active')
+    },
+    loadActive: function (inAni, out) {
+      const activeItem = owo.query(`li[in="${inAni}"][out="${out}"]`)[0]
+      if (activeItem) activeItem.classList.add('active')
+    },
+    getAniSett: function () {
+      this.clearActive()
+      const selectPage = this.data.selectPage
+      if (this.data.selectPage === 'global') {
+        if (owo.globalAni && owo.globalAni.in && owo.globalAni.out) this.loadActive(owo.globalAni.in, owo.globalAni.out)
+        else owo.query('.no-ani')[0].classList.add('active')
+      } else {
+        if (owo.pageAni[selectPage] && owo.pageAni[selectPage].in && owo.pageAni[selectPage].out) this.loadActive(owo.pageAni[selectPage].in, owo.pageAni[selectPage].out)
+        else owo.query('.no-ani')[0].classList.add('active')
       }
     },
     broadcast: {
       changeData: function (config) {
         this.handleEvent()
+        this.getAniSett()
       }
     }
   }
@@ -384,17 +421,18 @@ select {
     height: 100%;
     position: absolute;
   }
-  .no-active {
-    display: none;
-  }
 }
 .ani-select-list {
   height: calc(100% - 70px);
   overflow: auto;
   li {
     line-height: 30px;
-    margin: 0 5px;
+    padding: 0 5px;
     cursor: pointer;
+  }
+  .active {
+    background-color: #009fe9;
+    color: white;
   }
 }
 </style>

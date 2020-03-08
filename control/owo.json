@@ -123,8 +123,5 @@
 	"basePath": "./",
 	"allAnimate": false,
 	"allAnimation": true,
-	"globalAni": {
-		"in": "scaleDownCenter",
-		"out": "scaleUpCenter&&delay400"
-	}
+	"pageAni": {}
 }

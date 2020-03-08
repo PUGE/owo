@@ -1,5 +1,5 @@
 <template lang="pug">
-.page
+.page(o-if="owo.script.home.data.config")
   plug(_src="./src/module/headKeyValueList.owo" _name="headKeyValueList")
   plug(_src="./src/module/styleList.owo" _name="styleList")
   plug(_src="./src/module/scriptList.owo" _name="scriptList")
@@ -8,7 +8,11 @@
 
 <script>
   module.exports = {
-    
+    broadcast: {
+      changeData: function (config) {
+        this.handleEvent()
+      }
+    }
   }
 </script>
 
