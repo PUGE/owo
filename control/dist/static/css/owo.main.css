@@ -481,6 +481,10 @@ table {
   background-color: #009fe9;
   color: white;
 }
+
+.ani-box .no-active {
+  z-index: -1;
+}
 .content-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -496,15 +500,19 @@ table {
 
 .content-box .router {
   height: calc(100% - 40px);
-  overflow: auto;
+  overflow: hidden;
   width: calc(100% - 220px);
   padding: 20px;
   background-color: #f2f2f2;
+  position: relative;
 }
 
 .content-box .router-item {
   height: 100%;
   overflow: auto;
+  position: absolute;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
 }
 
 .content-box a {

@@ -1,10 +1,8 @@
 // 单页面-页面资源加载完毕事件
 _owo.showPage = function() {
-  for (const key in owo.script) {
-    if (owo.script.hasOwnProperty(key)) {
-      owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
-      owo.script[key] = new Page(owo.script[key])
-    }
+  for (var key in owo.script) {
+    owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
+    owo.script[key] = new Page(owo.script[key])
   }
   owo.entry = document.querySelector('.page[template]').getAttribute('template')
   // 查找入口

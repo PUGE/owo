@@ -123,5 +123,11 @@
 	"basePath": "./",
 	"allAnimate": false,
 	"allAnimation": true,
-	"pageAni": {}
+	"pageAni": {},
+	"globalAni": {
+		"in": "moveToTop",
+		"out": "moveFromBottom",
+		"backIn": "moveToBottom",
+		"backOut": "moveFromTop"
+	}
 }

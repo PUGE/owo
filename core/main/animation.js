@@ -11,6 +11,8 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
     newDom.style.display = ''
     return
   }
+  if (typeof animationIn == 'string') animationIn = animationIn.split('&&')
+  if (typeof animationOut == 'string') animationOut = animationOut.split('&&')
   // 动画延迟
   var delay = 0
   // 获取父元素

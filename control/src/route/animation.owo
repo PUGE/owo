@@ -4,7 +4,7 @@
     select(o-value="this.data.selectPage" o-change="getAniSett()")
       option(value="global") 全局动画
       option(value="{value.name}" o-for="owo.script.home.data.config.pageList") {value.name}
-    select(o-value="this.data.selectaniType")
+    select(o-value="this.data.selectaniType" o-change="getAniSett()")
       option(value="next") 离开效果
       option(value="back") 进入效果
     ul.ani-select-list
@@ -103,92 +103,82 @@
           "out": "moveFromTop"
         }, 
         {
-          "name": "向后缩放/向前淡入", 
-          "in": "scaleDown", 
-          "out": "scaleUpDown"
-        }, 
-        {
-          "name": "向后缩放/向前淡入", 
+          "name": "向后淡出/向前淡入", 
           "in": "scaleDown", 
           "out": "scaleUp"
         }, 
         {
-          "name": "向左移出/向前淡入", 
+          "name": "向左移出/向前缩放", 
           "in": "moveToLeft", 
           "out": "scaleUp"
         }, 
         {
-          "name": "向左移出/向前淡入", 
+          "name": "向右移出/向前缩放", 
           "in": "moveToRight", 
           "out": "scaleUp"
         }, 
         {
-          "name": "向上移出/向前淡入", 
+          "name": "向上移出/向前缩放", 
           "in": "moveToTop", 
           "out": "scaleUp"
         }, 
         {
-          "name": "向上移出/向前淡入", 
+          "name": "向下移出/向前缩放", 
           "in": "moveToBottom", 
           "out": "scaleUp"
         }, 
         {
-          "name": "向后移出/向前移入", 
+          "name": "向后移出后向前移入", 
           "in": "scaleDownCenter", 
           "out": "scaleUpCenter&&delay400"
-        }, 
+        },
         {
-          "name": "向后移出/向前移入", 
-          "in": "scaleDownCenter", 
-          "out": "scaleUpCenter&&delay400"
-        }, 
-        {
-          "name": "左侧吸附/向左移入", 
+          "name": "左侧吸附缩放后向右移入", 
           "in": "rotateRightSideFirst", 
           "out": "moveFromRight&&delay200"
         }, 
         {
-          "name": "左侧吸附/向左移入", 
+          "name": "右侧吸附缩放后向左移入", 
           "in": "rotateLeftSideFirst", 
           "out": "moveFromLeft&&delay200"
         }, 
         {
-          "name": "下侧吸附/向下移入", 
+          "name": "底部吸附缩放后向下移入", 
           "in": "rotateTopSideFirst", 
           "out": "moveFromTop&&delay200"
         }, 
         {
-          "name": "下侧吸附/向下移入", 
+          "name": "顶部吸附缩放后向上移入", 
           "in": "rotateBottomSideFirst", 
           "out": "moveFromBottom&&delay200"
         }, 
         {
-          "name": "向右翻转/向左翻转", 
+          "name": "向右翻转", 
           "in": "flipOutRight", 
           "out": "flipInLeft&&delay500"
         }, 
         {
-          "name": "向右翻转/向左翻转", 
+          "name": "向左翻转", 
           "in": "flipOutLeft", 
           "out": "flipInRight&&delay500"
         }, 
         {
-          "name": "向下翻转/向向翻转", 
+          "name": "向下翻转", 
           "in": "flipOutTop", 
           "out": "flipInBottom&&delay500"
         }, 
         {
-          "name": "向下翻转/向向翻转", 
+          "name": "向上翻转", 
           "in": "flipOutBottom", 
           "out": "flipInTop&&delay500"
         }, 
         {
-          "name": "向后螺旋/向前螺旋", 
+          "name": "向右螺旋缩放", 
           "in": "rotateOutNewspaper", 
           "out": "rotateInNewspaper&&delay500"
         }, 
         {
-          "name": "向后螺旋/向前螺旋", 
+          "name": "向左螺旋缩放", 
           "in": "rotateOutNewspaper", 
           "out": "rotateInNewspaper&&delay500"
         }, 
@@ -196,89 +186,64 @@
           "name": "向下掉落/向前移入", 
           "in": "rotateFall", 
           "out": "scaleUp"
-        }, 
-        {
-          "name": "向下掉落/向前移入", 
-          "in": "rotateFall", 
-          "out": "scaleUp"
-        }, 
+        },
         {
           "name": "向左推出/向左移入", 
           "in": "rotatePushLeft", 
-          "out": "moveFromRight&&ontop"
+          "out": "moveFromRight&&ontop&&delay200"
         }, 
         {
-          "name": "向左推出/向左移入", 
+          "name": "向右推出/向右移入", 
           "in": "rotatePushRight", 
-          "out": "moveFromLeft&&ontop"
+          "out": "moveFromLeft&&ontop&&delay200"
         }, 
         {
           "name": "向上推出/向上移入", 
           "in": "rotatePushTop", 
-          "out": "moveFromBottom&&ontop"
+          "out": "moveFromBottom&&ontop&&delay200"
         }, 
         {
-          "name": "向上推出/向上移入", 
+          "name": "向下推出/向下移入", 
           "in": "rotatePushBottom", 
-          "out": "moveFromTop&&ontop"
+          "out": "moveFromTop&&ontop&&delay200"
         }, 
         {
           "name": "向左推出/向左推入", 
           "in": "rotatePushLeft", 
-          "out": "rotatePullRight&&ontop"
+          "out": "rotatePullRight&&ontop&&delay500"
         }, 
         {
-          "name": "向左推出/向左推入", 
+          "name": "向右推出/向右推入", 
           "in": "rotatePushRight", 
-          "out": "rotatePullLeft&&ontop"
+          "out": "rotatePullLeft&&ontop&&delay500"
         }, 
         {
           "name": "向上推出/向上推入", 
           "in": "rotatePushTop", 
-          "out": "rotatePullBottom&&ontop"
+          "out": "rotatePullBottom&&ontop&&delay500"
         }, 
         {
-          "name": "向上推出/向上推入", 
+          "name": "向下推出/向下推入", 
           "in": "rotatePushBottom", 
-          "out": "rotatePullTop&&ontop"
+          "out": "rotatePullTop&&ontop&&delay500"
         }, 
         {
-          "name": "向左转动/向左转动", 
-          "in": "rotateRoomLeftOut&&ontop", 
-          "out": "rotateRoomLeftIn"
-        }, 
-        {
-          "name": "向左转动/向左转动", 
-          "in": "rotateRoomRightOut&&ontop", 
-          "out": "rotateRoomRightIn"
-        }, 
-        {
-          "name": "向上转动/向上转动", 
-          "in": "rotateRoomTopOut&&ontop", 
-          "out": "rotateRoomTopIn"
-        }, 
-        {
-          "name": "向上转动/向上转动", 
-          "in": "rotateRoomBottomOut&&ontop", 
-          "out": "rotateRoomBottomIn"
-        }, 
-        {
-          "name": "向右扭转/向右扭转", 
+          "name": "向右扭转", 
           "in": "rotateCubeLeftOut", 
           "out": "rotateCubeLeftIn"
         }, 
         {
-          "name": "向右扭转/向右扭转", 
+          "name": "向左扭转", 
           "in": "rotateCubeRightOut", 
           "out": "rotateCubeRightIn"
         }, 
         {
-          "name": "向上扭转/向上扭转", 
+          "name": "向上扭转", 
           "in": "rotateCubeTopOut", 
           "out": "rotateCubeTopIn"
         }, 
         {
-          "name": "向上扭转/向上扭转", 
+          "name": "向下扭转", 
           "in": "rotateCubeBottomOut", 
           "out": "rotateCubeBottomIn"
         }, 
@@ -288,30 +253,25 @@
           "out": "rotateCarouselLeftIn"
         }, 
         {
-          "name": "向左飞出/向左飞入", 
+          "name": "向右飞出/向右飞入", 
           "in": "rotateCarouselRightOut&&ontop", 
           "out": "rotateCarouselRightIn"
         }, 
         {
-          "name": "向上飞出/向左飞入", 
+          "name": "向上飞出/向上飞入", 
           "in": "rotateCarouselTopOut&&ontop", 
           "out": "rotateCarouselTopIn"
         }, 
         {
-          "name": "向上飞出/向左飞入", 
+          "name": "向下飞出/向下飞入", 
           "in": "rotateCarouselBottomOut&&ontop", 
           "out": "rotateCarouselBottomIn"
         }, 
         {
-          "name": "向左翻转/向左翻转", 
+          "name": "向左后退/向左进入", 
           "in": "rotateSidesOut&&ontop", 
           "out": "rotateSidesIn&&delay200"
-        }, 
-        {
-          "name": "向左翻转/向左翻转", 
-          "in": "rotateSidesOut&&ontop", 
-          "out": "rotateSidesIn&&delay200"
-        }
+        },
       ],
       isPlaying: false
     },
@@ -329,15 +289,25 @@
         if (this.data.selectPage === 'global') {
           const activePage = owo.script.home.data.config
           if (!activePage.globalAni) activePage.globalAni = {}
-          activePage.globalAni.in = inAni
-          activePage.globalAni.out = outAni
+          if (this.data.selectaniType === 'next') {
+            activePage.globalAni.in = inAni
+            activePage.globalAni.out = outAni
+          } else if (this.data.selectaniType === 'back') {
+            activePage.globalAni.backIn = inAni
+            activePage.globalAni.backOut = outAni
+          }
+          
         } else {
           const activePage = owo.script.home.data.config
           if (!activePage.pageAni) activePage.pageAni = {}
           if (!activePage.pageAni[this.data.selectPage]) activePage.pageAni[this.data.selectPage] = {}
-          activePage.pageAni[this.data.selectPage].in = inAni
-          activePage.pageAni[this.data.selectPage].out = outAni
-          console.log(activePage)
+          if (this.data.selectaniType === 'next') {
+            activePage.pageAni[this.data.selectPage].in = inAni
+            activePage.pageAni[this.data.selectPage].out = outAni
+          } else if (this.data.selectaniType === 'back') {
+            activePage.pageAni[this.data.selectPage].backIn = inAni
+            activePage.pageAni[this.data.selectPage].backOut = outAni
+          }
         }
       } else {
         if (this.data.selectPage === 'global') delete owo.script.home.data.config.globalAni
@@ -360,11 +330,19 @@
       this.clearActive()
       const selectPage = this.data.selectPage
       if (this.data.selectPage === 'global') {
-        if (owo.globalAni && owo.globalAni.in && owo.globalAni.out) this.loadActive(owo.globalAni.in, owo.globalAni.out)
+        const inAni = this.data.selectaniType === 'next' ? owo.globalAni.in : owo.globalAni.backIn
+        const outAni = this.data.selectaniType === 'next' ? owo.globalAni.out : owo.globalAni.backOut
+        if (owo.globalAni && owo.globalAni.in && owo.globalAni.out) this.loadActive(inAni, outAni)
         else owo.query('.no-ani')[0].classList.add('active')
       } else {
-        if (owo.pageAni[selectPage] && owo.pageAni[selectPage].in && owo.pageAni[selectPage].out) this.loadActive(owo.pageAni[selectPage].in, owo.pageAni[selectPage].out)
-        else owo.query('.no-ani')[0].classList.add('active')
+        if (!owo.pageAni) owo.pageAni = {}
+        const inAni = this.data.selectaniType === 'next' ? owo.globalAni.in : owo.globalAni.backIn
+        const outAni = this.data.selectaniType === 'next' ? owo.globalAni.out : owo.globalAni.backOut
+        if (owo.pageAni[selectPage] && owo.pageAni[selectPage].in && owo.pageAni[selectPage].out) {
+          const inAni = this.data.selectaniType === 'next' ? owo.pageAni[selectPage].in : owo.pageAni[selectPage].backIn
+          const outAni = this.data.selectaniType === 'next' ? owo.pageAni[selectPage].out : owo.pageAni[selectPage].backOut
+          this.loadActive(inAni, outAni)
+        } else owo.query('.no-ani')[0].classList.add('active')
       }
     },
     broadcast: {
@@ -434,5 +412,8 @@ select {
     background-color: #009fe9;
     color: white;
   }
+}
+.no-active {
+  z-index: -1;
 }
 </style>

@@ -105,14 +105,18 @@
   }
   .router {
     height: calc(100% - 40px);
-    overflow: auto;
+    overflow: hidden;
     width: calc(100% - 220px);
     padding: 20px;
     background-color: #f2f2f2;
+    position: relative;
   }
   .router-item {
     height: 100%;
     overflow: auto;
+    position: absolute;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
   }
   a {
     display: flex;

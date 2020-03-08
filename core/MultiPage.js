@@ -7,9 +7,11 @@ _owo.getarg = function (url) { // 获取URL #后面内容
 
 // 页面资源加载完毕事件
 _owo.showPage = function() {
-  for (const key in owo.script) {
+  var _index = 0
+  for (var key in owo.script) {
     owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
     owo.script[key] = new Page(owo.script[key])
+    owo.script[key]._index = _index++
   }
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面

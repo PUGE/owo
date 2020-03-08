@@ -5,11 +5,13 @@ function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
   this._viewName = viewName
   this.$el = entryDom.querySelector('[view="' + viewName +'"]')
-  for (var routeInd in routeList) {
+  for (let routeInd = 0; routeInd < routeList.length; routeInd++) {
     var routeItem = routeList[routeInd]
     this._list[routeInd] = routeItem
     this._list[routeInd]._index = routeInd
     this._list[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
+    // 默认隐藏route
+    this._list[routeInd].$el.setAttribute('route-active', 'false')
     // 错误处理
     if (!this._list[routeInd].$el) {
       console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
@@ -23,17 +25,14 @@ function View(routeList, viewName, entryDom, pageScript) {
 
 View.prototype.showIndex = function (ind) {
   if (this._list.length - 1 < ind) {console.error('导航到不存在的页面: ' + ind);return;}
-  for (var routeIndex = 0; routeIndex < this._list.length; routeIndex++) {
-    var element = this._list[routeIndex];
-    if (routeIndex == ind) {
-      element.$el.setAttribute('route-active', 'true')
-      element.handleEvent()
-      this["_activeName"] = element._name
-      this["_activeIndex"] = ind
-    } else {
-      element.$el.setAttribute('route-active', 'false')
-    }
+  if (this._activeIndex) {
+    this._list[this._activeIndex].$el.setAttribute('route-active', 'false')
   }
+  var element = this._list[ind]
+  element.$el.setAttribute('route-active', 'true')
+  element.handleEvent()
+  this["_activeName"] = element._name
+  this["_activeIndex"] = ind
   owo.setActiveRouteClass(this)
 }
 
@@ -41,14 +40,16 @@ View.prototype.showName = function (name) {
   var oldRoute = this[this._activeName]
   var newRoute = this[name]
   if (!newRoute) {console.error('导航到不存在的页面: ' + name);return;}
+  // 根据index
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
   newRoute.handleEvent()
   newRoute.$el.setAttribute('route-active', 'true')
   oldRoute.$el.removeAttribute('route-active')
-  if (owo.state._animation) {
-    var animationValue = owo.state._animation
-    _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in.split('&&'), animationValue.out.split('&&'))
+  if (owo.state._animation || owo.globalAni) {
+    var animationValue = owo.state._animation || owo.globalAni
+    if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
+    else _owo.animation(oldRoute.$el, newRoute.$el, animationValue.backIn, animationValue.backOut)
   } else {
     _owo.animation(oldRoute.$el, newRoute.$el)
   }
@@ -154,6 +155,7 @@ owo.go = function (config) {
       console.error('页面中找不到路由组件!')
     }
   }
+  owo.state._animation = null
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
     if (config.noBack) {
