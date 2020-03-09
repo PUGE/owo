@@ -174,6 +174,7 @@ _owo.recursion = function (tempDom, callBack) {
   }
 }
 
+
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
@@ -194,7 +195,7 @@ function handleEvent (moudleScript, enterDom) {
   _owo.recursion(tempDom, function (tempDom) {
     /* if="this.plugList.includes('if')" */
     if(!_owo._event_if(tempDom, moudleScript)) return true
-    /* end */
+    /* end="this.plugList.includes('if')" */
     var forValue = tempDom.getAttribute('o-for')
     if (forValue) {
       // console.log(new Function('a', 'b', 'return a + b'))
