@@ -21,11 +21,11 @@ _owo.showPage = function() {
     window.location.href = ''
     return
   }
-  /* end */
+  /* end="this.config.startAtHome" */
   /* if="this.config.phoneEnter" */
   // 手机进入特制页
   if (_owo.isMobi) {owo.entry = owo.phoneEnter}
-  /* end */
+  /* end="this.config.phoneEnter" */
 
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
@@ -62,7 +62,7 @@ _owo.showPage = function() {
       _owo.runCreated(owo.script[key])
     }
   }
-  /* end */
+  /* end="this.config.pageList.find(function(element) {return element.isPlug;})" */
   // 设置当前页面为活跃页面
   owo.state.newUrlParam = _owo.getarg(document.URL)
 }

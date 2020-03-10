@@ -13,27 +13,38 @@ ul.plug
         {
           name: "IE兼容",
           info: "使IE8支持getElementsByClassName，classList等方法",
-          file: "ie-support.js",
+          file: "ie-support",
+          type: 'script',
           url: "https://cunchu.site/owo/plug/ie-support.js"
         },
         {
           name: "设备检测",
           info: "检测设备类型, 系统型号, 横竖屏",
-          file: "check.js",
+          file: "check",
+          type: 'script',
           url: "https://cunchu.site/owo/plug/check.js"
         },
         {
           name: "智能缩放",
           info: "根据人民网设计图尺寸750*1508自动将页面进行自适应缩放",
-          file: "autoScale.js",
+          file: "autoScale",
+          type: 'script',
           url: "https://cunchu.site/owo/plug/autoScale.js"
-        }
+        },
+        {
+          name: "样式清除",
+          info: "清除浏览器的默认样式",
+          file: "clear",
+          type: 'style',
+          url: "https://cunchu.site/owo/plug/clear.css"
+        },
       ]
     },
     addPlug: function (ind) {
       const plugConfig = this.data.plugList[parseInt(ind)]
       let isAdd = false
-      owo.script.home.data.config.scriptList.forEach(element => {
+      const pointObject = plugConfig.type === 'script' ? owo.script.home.data.config.scriptList : owo.script.home.data.config.styleList
+      pointObject.forEach(element => {
         if (element.src === `./owo_modules/${plugConfig.file}`) {
           isAdd = true
         }
@@ -44,13 +55,16 @@ ul.plug
         owo.tool.post('../downloadFile', plugConfig, (res) => {
           res = JSON.parse(res)
           if (res.err === 0) {
-            owo.script.home.data.config.scriptList.push({
+            pointObject.push({
               name: plugConfig.file,
               src: `./owo_modules/${plugConfig.file}`,
             })
             // 去页面管理页面展示
             setTimeout(() => {
               owo.go({route: 'else'})
+              if (plugConfig.type !== 'script') {
+                owo.tool.emit('styleListChange', owo.script.home.data.config)
+              }
             }, 800);
           }
         })

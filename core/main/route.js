@@ -107,12 +107,11 @@ owo.setActiveRouteClass = function (viewInfo) {
     element.classList.add('active')
   }
 }
-/* end */
+/* end="this.plugList.includes('route')" */
 
-/* if="this.plugList.includes('route') || this.config.pageList.length > 1" */
+/* if="this.plugList.includes('route') || this.plugList.includes('go') || this.config.pageList.length > 1" */
 owo.go = function (config) {
   if (!config) return
-  // 待优化 paramString能否不要
   var paramString = ''
   var pageString = ''
   var activePageName = config.page || owo.activePage
@@ -178,7 +177,7 @@ owo.go = function (config) {
     }
   }
 }
-/* end */
+/* end="this.plugList.includes('route') || this.plugList.includes('go') || this.config.pageList.length > 1" */
 /* if="this.plugList.includes('go')" */
 var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
@@ -195,4 +194,4 @@ for (var index = 0; index < toList.length; index++) {
     })
   }
 }
-/* end */
+/* end="this.plugList.includes('go')" */

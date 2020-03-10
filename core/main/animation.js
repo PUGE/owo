@@ -97,7 +97,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   }
   owo.state._animation = null
 }
-/* end */
+/* end="this.pageAnimationList.size > 0 || this.plugList.includes('route')" */
 
 // 切换页面前的准备工作
 function switchPage (oldUrlParam, newUrlParam) {
@@ -136,7 +136,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     _owo.animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
     return
   }
-  /* end */
+  /* end="this.pageAnimationList.size > 0" */
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'

@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sun Mar 08 2020 20:30:45 GMT+0800 (GMT+08:00)
+// Tue Mar 10 2020 14:30:43 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -66,8 +66,30 @@ _owo._run = function (eventFor, event, newPageFunction) {
 }
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
-  tempDom['on' + eventName] = function(event) {
-    _owo._run(eventFor, event || this, moudleScript)
+  switch (eventName) {
+    case 'tap':
+      // 变量
+      var startTime = 0
+      var isMove = false
+      tempDom.ontouchstart = function () {
+        startTime = Date.now();
+      }
+      tempDom.ontouchmove = function () {
+        isMove = true
+      }
+      tempDom.ontouchend = function (event) {
+        if (Date.now() - startTime < 300 && !isMove) {_owo._run(eventFor, event || this, moudleScript)}
+        // 清零
+        startTime = 0;
+        isMove = false
+      }
+      break;
+  
+    default:
+      tempDom['on' + eventName] = function(event) {
+        _owo._run(eventFor, event || this, moudleScript)
+      }
+      break;
   }
 }
 
@@ -83,22 +105,12 @@ _owo.addEvent = function (tempDom, moudleScript) {
       if (attribute.name.slice(0, 2) == 'o-') {
         var eventName = attribute.name.slice(2)
         switch (eventName) {
-          
           case 'tap': {
-            // 待优化 可合并
             // 根据手机和PC做不同处理
-            if (_owo.isMobi) {
-              if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-              _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
-                _owo._run(eventFor, event || this, moudleScript)
-              })
-            } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
+            if (_owo.isMobi) _owo.bindEvent('tap', eventFor, tempDom, moudleScript)
+            else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
             break
           }
-          
-          
-          
-          
           // 处理o-value
           case 'value': {
             var value = shaheRun.apply(moudleScript, [eventFor])
@@ -178,6 +190,7 @@ _owo.recursion = function (tempDom, callBack) {
   }
 }
 
+
 /* owo事件处理 */
 // 参数1: 当前正在处理的dom节点
 // 参数2: 当前正在处理的模块名称
@@ -191,12 +204,28 @@ function handleEvent (moudleScript, enterDom) {
   if (!enterDom) return
   var tempDom = enterDom
   
+  // sdsddddddd
   if(!_owo._event_if(tempDom, moudleScript)) return
   
   
+  
+  if (moudleScript['forList']) {
+    // 处理o-for
+    for (var key in moudleScript['forList']) {
+      var forItem = moudleScript['forList'][key];
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
+      if (forDomList.length > 0) {
+        forDomList[0].outerHTML = forItem.template
+        for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
+          forDomList[domIndex].remove()
+        }
+      }
+    }
+  }
   // 先处理o-for
   _owo.recursion(tempDom, function (tempDom) {
-    /* if="this.plugList.includes('if')" */
+    
+    // dd
     if(!_owo._event_if(tempDom, moudleScript)) return true
     
     var forValue = tempDom.getAttribute('o-for')
@@ -234,10 +263,11 @@ function handleEvent (moudleScript, enterDom) {
       tempDom.outerHTML = outHtml + ''
     }
   })
-  /* end */
+  
   _owo.recursion(tempDom, function (childrenDom) {
     if (childrenDom.hasAttribute('o-for')) return true
     
+    // 22222
     if(!_owo._event_if(childrenDom, moudleScript)) return true
     
     _owo.addEvent(childrenDom, moudleScript)
@@ -452,6 +482,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   newDom.style.display = ''
 }
 
+
 _owo._event_if = function (tempDom, moudleScript) {
   // o-if处理
   var ifValue = tempDom.getAttribute('o-if')
@@ -466,27 +497,6 @@ _owo._event_if = function (tempDom, moudleScript) {
     }
   }
   return true
-}
-
-
-_owo._event_tap = function (tempDom, eventFor, callBack) {
-  // 变量
-  var startTime = 0
-  var isMove = false
-  tempDom.ontouchstart = function () {
-    startTime = Date.now();
-  }
-  tempDom.ontouchmove = function () {
-    isMove = true
-  }
-  tempDom.ontouchend = function (e) {
-    if (Date.now() - startTime < 300 && !isMove) {
-      callBack(e, eventFor)
-    }
-    // 清零
-    startTime = 0;
-    isMove = false
-  }
 }
 
 
@@ -627,7 +637,6 @@ owo.setActiveRouteClass = function (viewInfo) {
 
 owo.go = function (config) {
   if (!config) return
-  // 待优化 paramString能否不要
   var paramString = ''
   var pageString = ''
   var activePageName = config.page || owo.activePage

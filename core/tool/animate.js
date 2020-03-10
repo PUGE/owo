@@ -9,10 +9,8 @@ owo.tool.animate = function (name, dom, delay) {
   if (delay) {
     dom.style.animationDelay = delay + 'ms'
   }
-  // 待优化可以单独提出绑定方法
   dom.addEventListener('animationend', animateEnd)
   function animateEnd () {
-    // 待优化 感觉不需要这样
     dom.classList.remove(name)
     dom.classList.remove('owo-animated')
     if (delay) {

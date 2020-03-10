@@ -1,3 +1,4 @@
+
 /* if="this.plugList.includes('if')" */
 _owo._event_if = function (tempDom, moudleScript) {
   // o-if处理
@@ -14,4 +15,4 @@ _owo._event_if = function (tempDom, moudleScript) {
   }
   return true
 }
-/* end */
+/* end="this.plugList.includes('if')" */

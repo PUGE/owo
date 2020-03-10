@@ -3,10 +3,6 @@ body, html, .page, .page-box {
   margin: 0;
 }
 
-.page[template] {
-  display: none;
-}
-
 .router-item[route-active="false"] {
   display: none;
 }

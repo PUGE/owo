@@ -6,7 +6,7 @@ function Page(pageScript, parentScript) {
   if (typeof this.data === 'function') {
     this.data = this.data()
   }
-  /* end */
+  /* end="this.plugList.includes('special_data')" */
   // 处理页面引用的模板
   for (var key in pageScript.template) {
     pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')

@@ -62,8 +62,30 @@ _owo._run = function (eventFor, event, newPageFunction) {
 }
 
 _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
-  tempDom['on' + eventName] = function(event) {
-    _owo._run(eventFor, event || this, moudleScript)
+  switch (eventName) {
+    case 'tap':
+      // 变量
+      var startTime = 0
+      var isMove = false
+      tempDom.ontouchstart = function () {
+        startTime = Date.now();
+      }
+      tempDom.ontouchmove = function () {
+        isMove = true
+      }
+      tempDom.ontouchend = function (event) {
+        if (Date.now() - startTime < 300 && !isMove) {_owo._run(eventFor, event || this, moudleScript)}
+        // 清零
+        startTime = 0;
+        isMove = false
+      }
+      break;
+  
+    default:
+      tempDom['on' + eventName] = function(event) {
+        _owo._run(eventFor, event || this, moudleScript)
+      }
+      break;
   }
 }
 
@@ -79,22 +101,12 @@ _owo.addEvent = function (tempDom, moudleScript) {
       if (attribute.name.slice(0, 2) == 'o-') {
         var eventName = attribute.name.slice(2)
         switch (eventName) {
-          
           case 'tap': {
-            // 待优化 可合并
             // 根据手机和PC做不同处理
-            if (_owo.isMobi) {
-              if (!_owo._event_tap) {console.error('找不到_event_tap方法！'); break;}
-              _owo._event_tap(tempDom, eventFor, function (event, eventFor) {
-                _owo._run(eventFor, event || this, moudleScript)
-              })
-            } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
+            if (_owo.isMobi) _owo.bindEvent('tap', eventFor, tempDom, moudleScript)
+            else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
             break
           }
-          
-          
-          
-          
           // 处理o-value
           case 'value': {
             var value = shaheRun.apply(moudleScript, [eventFor])
@@ -188,12 +200,28 @@ function handleEvent (moudleScript, enterDom) {
   if (!enterDom) return
   var tempDom = enterDom
   /* if="this.plugList.includes('if')" */
+  // sdsddddddd
   if(!_owo._event_if(tempDom, moudleScript)) return
-  /* end */
+  /* end="this.plugList.includes('if')" */
+  
   /* if="this.plugList.includes('for')" */
+  if (moudleScript['forList']) {
+    // 处理o-for
+    for (var key in moudleScript['forList']) {
+      var forItem = moudleScript['forList'][key];
+      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
+      if (forDomList.length > 0) {
+        forDomList[0].outerHTML = forItem.template
+        for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
+          forDomList[domIndex].remove()
+        }
+      }
+    }
+  }
   // 先处理o-for
   _owo.recursion(tempDom, function (tempDom) {
     /* if="this.plugList.includes('if')" */
+    // dd
     if(!_owo._event_if(tempDom, moudleScript)) return true
     /* end="this.plugList.includes('if')" */
     var forValue = tempDom.getAttribute('o-for')
@@ -231,12 +259,13 @@ function handleEvent (moudleScript, enterDom) {
       tempDom.outerHTML = outHtml + ''
     }
   })
-  /* end */
+  /* end="this.plugList.includes('for')" */
   _owo.recursion(tempDom, function (childrenDom) {
     if (childrenDom.hasAttribute('o-for')) return true
     /* if="this.plugList.includes('if')" */
+    // 22222
     if(!_owo._event_if(childrenDom, moudleScript)) return true
-    /* end */
+    /* end="this.plugList.includes('if')" */
     _owo.addEvent(childrenDom, moudleScript)
   })
   // 递归处理子模板
@@ -279,14 +308,14 @@ function owoPageInit () {
     }
     this.view._list = temp
   }
-  /* end */
+  /* end="this.plugList.includes('route')" */
 }
 
 /* if="this.plugList.includes('route')" */
 window.addEventListener("popstate", function(e) { 
   _owo.getViewChange()
 }, false);
-/* end */
+/* end="this.plugList.includes('route')" */
 
 _owo.cutString = function (original, before, after, index) {
   index = index || 0
