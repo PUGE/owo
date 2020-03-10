@@ -36,6 +36,8 @@ function Server (config, app, owo) {
       config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
       log,
       plugList: owo.plugList,
+      animateList: Array.from(owo.animateList),
+      pageAnimationList: Array.from(owo.pageAnimationList),
       resourceList: owo.resource.imageCache
     })
   })

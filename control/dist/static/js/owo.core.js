@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Tue Mar 10 2020 14:30:43 GMT+0800 (GMT+08:00)
+// Wed Mar 11 2020 00:17:33 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -474,6 +474,33 @@ function switchPage (oldUrlParam, newUrlParam) {
   
   if (!newDom) {console.error('页面不存在!'); return}
   
+  // 判断是否有动画效果
+  if (!owo.state._animation) owo.state._animation = {}
+  // 直接.in会在ie下报错
+  var animationIn = owo.state._animation['in']
+  var animationOut = owo.state._animation['out']
+  var forward = owo.state._animation['forward']
+  // 全局跳转设置判断
+  if (owo.state.go) {
+    animationIn = animationIn || owo.state.go.inAnimation
+    animationOut = animationOut || owo.state.go.outAnimation
+    forward = forward || owo.state.go.forward
+  }
+  
+  setTimeout(() => {
+    window.owo.activePage = newPage
+    window.owo.script[newPage].$el = newDom
+    window.owo.script[newPage].owoPageInit()
+    window.owo.script[newPage].handleEvent()
+    
+    // 显示路由
+    if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
+  }, 0)
+  if (animationIn || animationOut) {
+    _owo.animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
+    return
+  }
+  
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'
@@ -558,7 +585,7 @@ View.prototype.showIndex = function (ind) {
   element.handleEvent()
   this["_activeName"] = element._name
   this["_activeIndex"] = ind
-  owo.setActiveRouteClass(this)
+  _owo.setActiveRouteClass(this)
 }
 
 View.prototype.showName = function (name) {
@@ -579,7 +606,7 @@ View.prototype.showName = function (name) {
     _owo.animation(oldRoute.$el, newRoute.$el)
   }
   
-  owo.setActiveRouteClass(this)
+  _owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
@@ -612,7 +639,7 @@ _owo.getViewChange = function () {
   }
 }
 
-owo.setActiveRouteClass = function (viewInfo) {
+_owo.setActiveRouteClass = function (viewInfo) {
   var goList = owo.query('[go]')
   for (var index = 0; index < goList.length; index++) {
     var element = goList[index];
@@ -631,6 +658,8 @@ owo.setActiveRouteClass = function (viewInfo) {
     }
     element.classList.add('active')
   }
+  owo.activeView = viewInfo._viewName
+  owo.activeRoute = viewInfo._activeName
 }
 
 
@@ -668,17 +697,21 @@ owo.go = function (config) {
   }
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
-    if (config.page == owo.activePage) return
-    pageString = '#' + config.page
+    if (config.page != owo.activePage) pageString = '#' + config.page
   }
   if (config.route) {
     if (activeScript.$el.querySelector('[view]')) {
+      
       var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
-      paramString = '?view-' + activeViewName + '=' + config.route
+      if ((activeViewName !== owo.activeView) || (config.route !== owo.activeRoute)) {
+        paramString = '?view-' + activeViewName + '=' + config.route
+      }
     } else {
       console.error('页面中找不到路由组件!')
     }
   }
+  // 防止在同一个页面刷新
+  if (!paramString && !pageString) return
   owo.state._animation = null
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {

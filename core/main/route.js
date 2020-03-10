@@ -33,7 +33,7 @@ View.prototype.showIndex = function (ind) {
   element.handleEvent()
   this["_activeName"] = element._name
   this["_activeIndex"] = ind
-  owo.setActiveRouteClass(this)
+  _owo.setActiveRouteClass(this)
 }
 
 View.prototype.showName = function (name) {
@@ -54,7 +54,7 @@ View.prototype.showName = function (name) {
     _owo.animation(oldRoute.$el, newRoute.$el)
   }
   
-  owo.setActiveRouteClass(this)
+  _owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
@@ -87,7 +87,7 @@ _owo.getViewChange = function () {
   }
 }
 
-owo.setActiveRouteClass = function (viewInfo) {
+_owo.setActiveRouteClass = function (viewInfo) {
   var goList = owo.query('[go]')
   for (var index = 0; index < goList.length; index++) {
     var element = goList[index];
@@ -106,6 +106,8 @@ owo.setActiveRouteClass = function (viewInfo) {
     }
     element.classList.add('active')
   }
+  owo.activeView = viewInfo._viewName
+  owo.activeRoute = viewInfo._activeName
 }
 /* end="this.plugList.includes('route')" */
 
@@ -143,17 +145,21 @@ owo.go = function (config) {
   }
   if (config.page) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
-    if (config.page == owo.activePage) return
-    pageString = '#' + config.page
+    if (config.page != owo.activePage) pageString = '#' + config.page
   }
   if (config.route) {
     if (activeScript.$el.querySelector('[view]')) {
+      
       var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
-      paramString = '?view-' + activeViewName + '=' + config.route
+      if ((activeViewName !== owo.activeView) || (config.route !== owo.activeRoute)) {
+        paramString = '?view-' + activeViewName + '=' + config.route
+      }
     } else {
       console.error('页面中找不到路由组件!')
     }
   }
+  // 防止在同一个页面刷新
+  if (!paramString && !pageString) return
   owo.state._animation = null
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
