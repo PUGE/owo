@@ -2,12 +2,12 @@
 table.scrip-list
   tr
     th 脚本名
-    th 脚本路径
+    th(width="270px") 脚本路径
     th(width="70px") 资源处理
     th(width="70px") babel
     th(width="70px") 异步加载
-    th 合并文件
-    th 操作
+    th(width="70px") 合并文件
+    th(width="70px") 操作
   tr(o-for="owo.script.home.data.config.scriptList")
     td.name {value.name}
     td.value {value.src}

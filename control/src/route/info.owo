@@ -1,6 +1,6 @@
 <template lang="pug">
-.info
-  .card-bar(o-if="owo.script.home.data.config && owo.script.home.data.config.pageList")
+.info(o-if="owo.script.home.data.config")
+  .card-bar(o-if="owo.script.home.data.config.pageList")
     .card-bar-item
       h3 页面数量
       p(o-value="owo.script.home.data.config.pageList.length")

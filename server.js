@@ -4,6 +4,7 @@ const path = require('path')
 // 配置输出插件
 const log = require('./lib/tool/log')
 const request = require('request')
+const Storage = require('./lib/storage')
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -38,7 +39,7 @@ function Server (config, app, owo) {
       plugList: owo.plugList,
       animateList: Array.from(owo.animateList),
       pageAnimationList: Array.from(owo.pageAnimationList),
-      resourceList: owo.resource.imageCache
+      storage: Storage
     })
   })
   app.post('/setControl', (req, res) => {

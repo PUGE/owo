@@ -2,7 +2,7 @@
 .resource
   plug(o-if="this.data.resInfo.length == 0" _name="noData" _src="./src/module/noData.owo")
   ul(o-if="this.data.resInfo.length > 0")
-    li(o-for="this.data.resInfo") {value}
+    li(o-for="this.data.resInfo") {value.sourcePath} - {value.byteLength / 1024}kb
 </template>
 
 <script>

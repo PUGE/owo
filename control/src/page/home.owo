@@ -56,9 +56,11 @@
         this.data.plugList = res.plugList
         this.data.animateList = res.animateList
         this.data.pageAnimationList = res.pageAnimationList
-        owo.tool.emit('changeData', res.config)
-        owo.tool.emit('changeLog', res.log)
-        owo.tool.emit('changeResource', res.resourceList)
+        setTimeout(() => {
+          owo.tool.emit('changeData', res.config)
+          owo.tool.emit('changeLog', res.log)
+          owo.tool.emit('changeResource', res.storage.resource)
+        }, 0);
         // 获取模式
         // console.log(res.config.mode)
         this.handleEvent()

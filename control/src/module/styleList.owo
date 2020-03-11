@@ -3,7 +3,7 @@ table.style-list
   tr
     th 脚本名
     th 脚本路径
-    th(width='70px') 资源处理
+    th(width="70px") 资源处理
     th 操作
   tr.key-value-item(o-for="owo.script.home.data.config.styleList")
     td.name {value.name}
