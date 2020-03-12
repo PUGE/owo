@@ -408,6 +408,36 @@ background-color: gainsboro;
 background-color: red;
 color: white;
 }
+
+.resource .title {
+background-color: skyblue;
+height: 30px;
+line-height: 30px;
+padding: 0 5px;
+color: white;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-pack: justify;
+-ms-flex-pack: justify;
+justify-content: space-between;
+}
+
+.resource select {
+border: none;
+background-color: skyblue;
+color: white;
+height: 26px;
+}
+
+.resource .resource-data {
+height: 100%;
+}
+
+.resource .resource-data ul {
+height: calc(100% - 30px);
+overflow: auto;
+}
 .ani-box {
 display: -webkit-box;
 display: -ms-flexbox;

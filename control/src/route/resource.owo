@@ -1,18 +1,33 @@
 <template lang="pug">
 .resource
   plug(o-if="this.data.resInfo.length == 0" _name="noData" _src="./src/module/noData.owo")
-  ul(o-if="this.data.resInfo.length > 0")
-    li(o-for="this.data.resInfo") {value.sourcePath} - {value.byteLength / 1024}kb
+  .resource-data(o-if="this.data.resInfo.length > 0")
+    .title
+      .left#picNumber
+      .right
+        select(o-value="this.data.sortType" o-change="broadcast.changeResource")
+          option(value="decrement") 从大到小排序
+          option(value="increase") 从小到大排序
+    ul
+      li(o-for="this.data.resInfo") {value.sourcePath} - 图片大小: {(value.byteLength / 1024).toFixed(2)}kb
 </template>
 
 <script>
   module.exports = {
     data: {
-      resInfo: []
+      picNumber: 0,
+      resInfo: [],
+      sortType: 'decrement'
     },
     broadcast: {
-      changeResource: function (data) {
-        this.data.resInfo = data
+      changeResource: function () {
+        this.data.resInfo = owo.script["home"].data.storage.resource
+        if (this.data.sortType === 'decrement') {
+          this.data.resInfo.sort((a,b) => b.byteLength - a.byteLength)
+        } else {
+          this.data.resInfo.sort((a,b) => a.byteLength - b.byteLength)
+        }
+        owo.id.picNumber.innerText = `处理图片数量: ${this.data.resInfo.length}`
         this.handleEvent()
       }
     }
@@ -42,5 +57,28 @@ li {
 .error {
   background-color: red;
   color: white;
+}
+.title {
+  display: flex;
+  background-color: skyblue;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 5px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+select {
+  border: none;
+  background-color: skyblue;
+  color: white;
+  height: 26px;
+}
+.resource-data {
+  height: 100%;
+  ul {
+    height: calc(100% - 30px);
+    overflow: auto;
+  }
 }
 </style>

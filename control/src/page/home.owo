@@ -46,7 +46,8 @@
       config: null,
       logInfo: {},
       needCreatFile: [],
-      plugList: []
+      plugList: [],
+      storage: null
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
@@ -56,6 +57,7 @@
         this.data.plugList = res.plugList
         this.data.animateList = res.animateList
         this.data.pageAnimationList = res.pageAnimationList
+        this.data.storage = res.storage
         setTimeout(() => {
           owo.tool.emit('changeData', res.config)
           owo.tool.emit('changeLog', res.log)

@@ -22,7 +22,7 @@
   <meta name="x5-page-mode" content="app" />
 
   <!-- 页面主样式文件 -->
-  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.cpy4rpczto9.css">
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.l2wbrg3ly7e.css">
 
   <!-- 附属css文件 -->
   <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
@@ -278,9 +278,20 @@
           <div class="no-data" o-if="this.data.resInfo.length == 0">
             <span>暂无数据</span>
           </div>
-          <ul o-if="this.data.resInfo.length > 0">
-            <li o-for="this.data.resInfo">{value.sourcePath} - {value.byteLength / 1024}</li>
-          </ul>
+          <div class="resource-data" o-if="this.data.resInfo.length > 0">
+            <div class="title">
+              <div class="left" id="picNumber"></div>
+              <div class="right">
+                <select o-value="this.data.sortType" o-change="broadcast.changeResource">
+                  <option value="decrement">从大到小排序</option>
+                  <option value="increase">从小到大排序</option>
+                </select>
+              </div>
+            </div>
+            <ul>
+              <li o-for="this.data.resInfo">{value.sourcePath} - 图片大小: {(value.byteLength / 1024).toFixed(2)}kb</li>
+            </ul>
+          </div>
         </div>
         <div class="ani-box router-item" o-if="owo.script.home.data.config" route="animation">
           <div class="ani-bar">
@@ -310,7 +321,7 @@
 
 
   <!-- 框架script文件 -->
-  <script src="./static/js/owo.core.cpy4rpczto9.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/owo.core.l2wbrg3ly7e.js" type="text/javascript" charset="UTF-8"></script>
   <script>
     // 模块 pageList 的script代码
     console.log('sdsd');
@@ -322,7 +333,8 @@
           "config": null,
           "logInfo": {},
           "needCreatFile": [],
-          "plugList": []
+          "plugList": [],
+          "storage": null
         },
         "show": function show() {
           var _this = this;
@@ -336,6 +348,7 @@
             _this.data.plugList = res.plugList;
             _this.data.animateList = res.animateList;
             _this.data.pageAnimationList = res.pageAnimationList;
+            _this.data.storage = res.storage;
             setTimeout(function() {
               owo.tool.emit('changeData', res.config);
               owo.tool.emit('changeLog', res.log);
@@ -775,11 +788,25 @@
             "_name": "log"
           }, {
             "data": {
-              "resInfo": []
+              "picNumber": 0,
+              "resInfo": [],
+              "sortType": "decrement"
             },
             "broadcast": {
-              "changeResource": function changeResource(data) {
-                this.data.resInfo = data;
+              "changeResource": function changeResource() {
+                this.data.resInfo = owo.script["home"].data.storage.resource;
+
+                if (this.data.sortType === 'decrement') {
+                  this.data.resInfo.sort(function(a, b) {
+                    return b.byteLength - a.byteLength;
+                  });
+                } else {
+                  this.data.resInfo.sort(function(a, b) {
+                    return a.byteLength - b.byteLength;
+                  });
+                }
+
+                owo.id.picNumber.innerText = "\u5904\u7406\u56FE\u7247\u6570\u91CF: " + this.data.resInfo.length;
                 this.handleEvent();
               }
             },

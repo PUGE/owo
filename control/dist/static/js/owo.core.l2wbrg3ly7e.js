@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Wed Mar 11 2020 23:43:35 GMT+0800 (GMT+08:00)
+// Thu Mar 12 2020 15:38:05 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -23,6 +23,22 @@ _owo.runCreated = function (pageFunction) {
   } catch (e) {
     console.error(e)
   }
+}
+
+_owo.getFuncformObj = function (pageFunction, pathStr) {
+  if (!pageFunction) {
+    return false
+  }
+  var pointFunc = pageFunction
+  var pathList = pathStr.split('.')
+  for (var ind = 0; ind < pathList.length; ind++) {
+    var path = pathList[ind];
+    if (pointFunc[path]) pointFunc = pointFunc[path]
+    else {
+      return false
+    }
+  }
+  return pointFunc
 }
 
 _owo._run = function (eventFor, event, newPageFunction) {
@@ -55,11 +71,12 @@ _owo._run = function (eventFor, event, newPageFunction) {
   eventForCopy = eventFor.replace(/\([\d\D]*\)/, '')
   // console.log(newPageFunction, eventForCopy)
   // 如果有方法,则运行它
-  if (newPageFunction && newPageFunction[eventForCopy]) {
+  newPageFunctionTemp = _owo.getFuncformObj(newPageFunction, eventForCopy)
+  if (newPageFunctionTemp) {
     // 绑定window.owo对象
     newPageFunction.$event = event
     newPageFunction.$target = event.target
-    newPageFunction[eventForCopy].apply(newPageFunction, parameterArr)
+    newPageFunctionTemp.apply(newPageFunction, parameterArr)
   } else {
     shaheRun.apply(newPageFunction, [eventFor])
   }
@@ -86,9 +103,10 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
       break;
   
     default:
-      tempDom['on' + eventName] = function(event) {
+      // 待优化 是否会出现重复绑定现象?
+      tempDom.addEventListener(eventName, function(event) {
         _owo._run(eventFor, event || this, moudleScript)
-      }
+      }, false)
       break;
   }
 }
@@ -105,6 +123,8 @@ _owo.addEvent = function (tempDom, moudleScript) {
       if (attribute.name.slice(0, 2) == 'o-') {
         var eventName = attribute.name.slice(2)
         switch (eventName) {
+          case 'if':
+            break
           case 'tap': {
             // 根据手机和PC做不同处理
             if (_owo.isMobi) _owo.bindEvent('tap', eventFor, tempDom, moudleScript)
@@ -156,7 +176,6 @@ _owo.addEvent = function (tempDom, moudleScript) {
             }
             break
           }
-          
           default: {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
@@ -213,7 +232,7 @@ function handleEvent (moudleScript, enterDom) {
     // 处理o-for
     for (var key in moudleScript['forList']) {
       var forItem = moudleScript['forList'][key];
-      var forDomList = tempDom.querySelectorAll('[o-temp-for="' + forItem['for'] + '"]')
+      var forDomList = tempDom.querySelectorAll('[otemp-for="' + forItem['for'] + '"]')
       if (forDomList.length > 0) {
         forDomList[0].outerHTML = forItem.template
         for (var domIndex = 1; domIndex < forDomList.length; domIndex++) {
@@ -247,7 +266,7 @@ function handleEvent (moudleScript, enterDom) {
       var outHtml = ''
       
       for (var key in forEle) {
-        tempNode.setAttribute('o-temp-for', forValue)
+        tempNode.setAttribute('otemp-for', forValue)
         var temp = tempNode.outerHTML
         var value = forEle[key];
         var tempCopy = temp
@@ -526,6 +545,14 @@ _owo._event_if = function (tempDom, moudleScript) {
   return true
 }
 
+
+// 计算$dom
+var idList = document.querySelectorAll('[id]')
+owo.id = {}
+for (var ind = 0; ind < idList.length; ind++) {
+  var item = idList[ind]
+  owo.id[item.getAttribute('id')] = item
+}
 
 // 判断是否为手机
 _owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
