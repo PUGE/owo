@@ -22,7 +22,7 @@
   <meta name="x5-page-mode" content="app" />
 
   <!-- 页面主样式文件 -->
-  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.l2wbrg3ly7e.css">
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.wn3lsoqltw.css">
 
   <!-- 附属css文件 -->
   <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
@@ -52,6 +52,10 @@
         <div class="menu-item" go="//plug">
           <div class="icon"></div>
           <div class="text">插件管理</div>
+        </div>
+        <div class="menu-item" go="//func">
+          <div class="icon"></div>
+          <div class="text">脚本管理</div>
         </div>
         <div class="menu-item" go="//build">
           <div class="icon"></div>
@@ -106,6 +110,12 @@
             <div class="title">使用到的切换效果</div>
             <ul>
               <li o-for="owo.script.home.data.pageAnimationList">{value}</li>
+            </ul>
+          </div>
+          <div class="plug-list card-box" o-if="owo.script.home.data.toolList.length > 0">
+            <div class="title">使用到的方法</div>
+            <ul>
+              <li o-for="owo.script.home.data.toolList">{value}</li>
             </ul>
           </div>
         </div>
@@ -321,7 +331,7 @@
 
 
   <!-- 框架script文件 -->
-  <script src="./static/js/owo.core.l2wbrg3ly7e.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/owo.core.wn3lsoqltw.js" type="text/javascript" charset="UTF-8"></script>
   <script>
     // 模块 pageList 的script代码
     console.log('sdsd');
@@ -334,7 +344,8 @@
           "logInfo": {},
           "needCreatFile": [],
           "plugList": [],
-          "storage": null
+          "storage": null,
+          "toolList": []
         },
         "show": function show() {
           var _this = this;
@@ -349,6 +360,7 @@
             _this.data.animateList = res.animateList;
             _this.data.pageAnimationList = res.pageAnimationList;
             _this.data.storage = res.storage;
+            _this.data.toolList = res.toolList;
             setTimeout(function() {
               owo.tool.emit('changeData', res.config);
               owo.tool.emit('changeLog', res.log);

@@ -25,6 +25,10 @@
     .title 使用到的切换效果
     ul
       li(o-for="owo.script.home.data.pageAnimationList") {value}
+  .plug-list.card-box(o-if="owo.script.home.data.toolList.length > 0")
+    .title 使用到的方法
+    ul
+      li(o-for="owo.script.home.data.toolList") {value}
 </template>
 
 <script>

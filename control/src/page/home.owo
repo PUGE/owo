@@ -16,6 +16,9 @@
       .menu-item(go="//plug")
         .icon &#xe646;
         .text 插件管理
+      .menu-item(go="//func")
+        .icon &#xe607;
+        .text 脚本管理
       .menu-item(go="//build")
         .icon &#xe662;
         .text 打包配置
@@ -47,7 +50,8 @@
       logInfo: {},
       needCreatFile: [],
       plugList: [],
-      storage: null
+      storage: null,
+      toolList: []
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
@@ -58,6 +62,7 @@
         this.data.animateList = res.animateList
         this.data.pageAnimationList = res.pageAnimationList
         this.data.storage = res.storage
+        this.data.toolList = res.toolList
         setTimeout(() => {
           owo.tool.emit('changeData', res.config)
           owo.tool.emit('changeLog', res.log)
