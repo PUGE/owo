@@ -76,6 +76,26 @@
 			"src": "./src/main.js",
 			"resource": true,
 			"merge": true
+		},
+		{
+			"name": "remind",
+			"src": "./owo_modules/remind",
+			"afterbody": true
+		},
+		{
+			"name": "toast",
+			"src": "./owo_modules/toast",
+			"afterbody": true
+		},
+		{
+			"name": "emit",
+			"src": "./owo_modules/emit",
+			"afterbody": true
+		},
+		{
+			"name": "post",
+			"src": "./owo_modules/post",
+			"afterbody": true
 		}
 	],
 	"styleList": [

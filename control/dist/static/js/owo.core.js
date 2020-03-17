@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Thu Mar 12 2020 16:13:38 GMT+0800 (GMT+08:00)
+// Tue Mar 17 2020 21:59:18 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -857,113 +857,20 @@ _owo.showPage = function() {
 _owo.ready(_owo.showPage)
 
 
-// 事件推送方法
-owo.tool.emit = function (eventName) {
-  var argumentsList = []
-  for (var ind = 1; ind < arguments.length; ind++) {
-    argumentsList.push(arguments[ind])
-  }
-  function recursion(obj) {
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        var page = obj[key];
-        if (page.broadcast && page.broadcast[eventName]) {
-          if (!page.$el) page.$el = document.querySelector('[template="' + key + '"]')
-          page.broadcast[eventName].apply(page, argumentsList)
-        }
-        // 判断是否有组件
-        if (page.template) {
-          recursion(page.template)
-        }
-        if (page.view) {
-          for (var viewKey in page.view) {
-            var template = page.view[viewKey];
-            recursion(template)
-          }
-        }
-      }
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
     }
   }
-
-  recursion(owo.script)
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
 }
-owo.tool.remind = function (text, time) {
-  if (!text) return
-  time = time || 6000
-  var alertBox = document.createElement('div')
-  alertBox.style.cssText = 'position: fixed;top: -40px;transition: top 1s;background-color: red;width: 100%;z-index: 9;text-align: center;line-height: 40px;color: white;font-size: 16px;'
-  alertBox.innerHTML = text
-  document.body.insertBefore(alertBox, document.body.lastChild)
-  setTimeout(function () {
-    alertBox.style.top = '0px'
-  }, 0)
-  setTimeout(function () {
-    alertBox.style.top = '-40px'
-  }, 6000)
-}
-/**
- * 显示toast提示 不支持ie8
- * @param  {number} text       显示的文字
- * @param  {number} fontSize   字体大小
- * @param  {number} time       显示时长
- * @param  {number} container  显示容器
- */
-
-owo.tool.toast = function (text, config) {
-  if (!config) config = {}
-  time = config.time || 2000
-  fontSize = config.fontSize || 14
-  container = config.container || document.body
-  if (window.owo.state.toastClock) {
-    clearTimeout(window.owo.state.toastClock)
-    hideToast()
-  }
-  var toast = document.createElement("div")
-  toast.setAttribute("id", "toast")
-  toast.setAttribute("class", "toast")
-  // 设置样式
-  toast.style.cssText = "position:fixed;z-index:999;background-color:rgba(0, 0, 0, 0.8);bottom:9%;border-radius:" + parseInt(fontSize / 3) + "px;left:50%;transform: translateX(-50%) translate3d(0, 0, 0);margin:0 auto;text-align:center;color:white;max-width:60%;padding:" + parseInt(fontSize / 2) + "px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:" + fontSize + 'px;'
-
-  toast.innerHTML = text
-  container.appendChild(toast)
-  function hideToast() {
-    document.getElementById('toast').outerHTML = ''
-    window.owo.state.toastClock = null
-  }
-  window.owo.state.toastClock = setTimeout(hideToast, time)
-}
-/**
- * 发送post请求
- * @param  {string} url       服务器地址
- * @param  {string} data       发送的数据
- * @param  {function} fn       回调函数
- */
-
-owo.tool.post = function (url, data, fn) {
-  var xmlhttp = null
-  if (window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest()
-  }
-  xmlhttp.open("POST", url, true)
-  xmlhttp.setRequestHeader("Content-Type", "application/json")     
-  xmlhttp.timeout = 4000
-  xmlhttp.onreadystatechange = function () { 
-    if (xmlhttp.readyState == 4) {
-      if (xmlhttp.status == 504 ) {
-        console.log("服务器请求超时..");
-        xmlhttp.abort();
-      } else if(xmlhttp.status == 200){
-        fn(xmlhttp.responseText);  
-      }
-      xmlhttp = null;
-    }
-  }
-  xmlhttp.ontimeout = function () {
-    console.log("客户端请求超时..");
-  }
-  if (typeof data != 'string') data = JSON.stringify(data)
-  xmlhttp.send(data);
-}
-
-
 

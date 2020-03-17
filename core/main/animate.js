@@ -1,9 +1,10 @@
+/* if="this.animateList.size > 0 || this.plugList.includes('animate')" */
 /**
  * 赋予节点动画效果
  * @param  {string} name 动画效果名称
  * @param  {dom} dom 节点
  */
-owo.tool.animate = function (name, dom, delay) {
+owo.animate = function (name, dom, delay) {
   dom.classList.add(name)
   dom.classList.add('owo-animated')
   if (delay) {
@@ -18,3 +19,4 @@ owo.tool.animate = function (name, dom, delay) {
     }
   }
 }
+/* end="this.animateList.size > 0 || this.plugList.includes('animate')" */

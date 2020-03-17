@@ -10,5 +10,5 @@ owo.tool.remind = function (text, time) {
   }, 0)
   setTimeout(function () {
     alertBox.style.top = '-40px'
-  }, 6000)
+  }, time)
 }

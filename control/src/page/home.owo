@@ -35,6 +35,7 @@
       .router-item(route="info" src="./src/route/info.owo")
       .router-item(route="else" src="./src/route/else.owo")
       .router-item(route="plug" src="./src/route/plug.owo")
+      .router-item(route="func" src="./src/route/func.owo")
       .router-item(route="build" src="./src/route/build.owo")
       .router-item(route="log" src="./src/route/log.owo")
       .router-item(route="resource" src="./src/route/resource.owo")
@@ -50,8 +51,7 @@
       logInfo: {},
       needCreatFile: [],
       plugList: [],
-      storage: null,
-      toolList: []
+      storage: null
     },
     show: function () {
       fetch('../getControl').then(response => response.json()).then(res => {
@@ -62,7 +62,6 @@
         this.data.animateList = res.animateList
         this.data.pageAnimationList = res.pageAnimationList
         this.data.storage = res.storage
-        this.data.toolList = res.toolList
         setTimeout(() => {
           owo.tool.emit('changeData', res.config)
           owo.tool.emit('changeLog', res.log)
