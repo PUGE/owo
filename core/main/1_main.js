@@ -172,6 +172,16 @@ _owo.addEvent = function (tempDom, moudleScript) {
             }
             break
           }
+          /* if="this.plugList.includes('active')" */
+          case 'active': {
+            var value = shaheRun.apply(moudleScript, [eventFor])
+            if (Boolean(value)) {
+              tempDom.classList.add('active')
+            } else {
+              tempDom.classList.remove('active')
+            }
+          }
+          /* end="this.plugList.includes('active')" */
           default: {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }

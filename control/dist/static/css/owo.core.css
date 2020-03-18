@@ -285,14 +285,29 @@ table {
   line-height: 35px;
   text-align: center;
   color: white;
+  font-weight: bold;
 }
 
 .func .type-list .item {
   height: 35px;
   line-height: 35px;
-  margin: 0 10px;
   cursor: pointer;
+}
+
+.func .type-list .item span {
+  display: block;
+  margin: 0 10px;
   border-bottom: 1px solid #efe7e7;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+
+.func .type-list .active {
+  background-color: #009fe9;
+  color: white;
 }
 
 .func ul {

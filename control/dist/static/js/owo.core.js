@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Wed Mar 18 2020 13:54:19 GMT+0800 (GMT+08:00)
+// Wed Mar 18 2020 14:37:54 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -176,6 +176,16 @@ _owo.addEvent = function (tempDom, moudleScript) {
             }
             break
           }
+          
+          case 'active': {
+            var value = shaheRun.apply(moudleScript, [eventFor])
+            if (Boolean(value)) {
+              tempDom.classList.add('active')
+            } else {
+              tempDom.classList.remove('active')
+            }
+          }
+          
           default: {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
@@ -381,6 +391,7 @@ _owo.cutStringArray = function (original, before, after, index, inline) {
   }
   return aa;
 },
+
 
 // 页面切换
 

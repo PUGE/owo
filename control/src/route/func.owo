@@ -2,8 +2,10 @@
 .func
   .type-list
     .title 脚本分类
-    .item(o-tap="changeGroup()") 全部分类
-    .item(o-for="this.data.typeList" o-tap="changeGroup('{value}')") {value}
+    .item(o-tap="changeGroup()" o-active="this.data.activeType == ''")
+      span 全部分类
+    .item(o-for="this.data.typeList" o-tap="changeGroup('{value}')" o-active="this.data.activeType == '{value}'")
+      span {value}
   ul
     li(o-for="this.data.showList")
       .name {value.name}
@@ -15,6 +17,7 @@
 <script>
   module.exports = {
     data: {
+      activeType: '',
       typeList: [],
       plugList: [
         {
@@ -185,8 +188,10 @@
           }
         })
         this.data.showList = newList
+        this.data.activeType = type
       } else {
         this.data.showList = this.data.plugList
+        this.data.activeType = ''
       }
       this.handleEvent()
     }
@@ -206,13 +211,23 @@
     line-height: 35px;
     text-align: center;
     color: white;
+    font-weight: bold;
   }
   .item {
     height: 35px;
     line-height: 35px;
-    margin: 0 10px;
     cursor: pointer;
-    border-bottom: 1px solid #efe7e7;
+    span {
+      display: block;
+      margin: 0 10px;
+      border-bottom: 1px solid #efe7e7;
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+  .active {
+    background-color: #009fe9;
+    color: white;
   }
 }
 ul {
