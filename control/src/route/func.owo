@@ -1,21 +1,28 @@
 <template lang="pug">
-ul.func
-  li(o-for="this.data.plugList")
-    .name {value.name}
-    .info {value.info}
-    .info {value.use}
-    .icon.add(o-tap="addPlug({key})") &#xe600;
+.func
+  .type-list
+    .title 脚本分类
+    .item(o-tap="changeGroup()") 全部分类
+    .item(o-for="this.data.typeList" o-tap="changeGroup('{value}')") {value}
+  ul
+    li(o-for="this.data.showList")
+      .name {value.name}
+      .info {value.info}
+      .info {value.use}
+      .icon.add(o-tap="addPlug({key})") &#xe600;
 </template>
 
 <script>
   module.exports = {
     data: {
+      typeList: [],
       plugList: [
         {
           name: "toast",
           info: "网页下方出现提示信息",
           file: "toast.js",
-          use: "tool.toast(显示的文字, 配置项)",
+          group: '提示框',
+          use: "owo.tool.toast(显示的文字, 配置项)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/toast.js"
         },
@@ -23,23 +30,17 @@ ul.func
           name: "emit",
           info: "向各个组件发送消息",
           file: "emit.js",
-          use: "tool.emit(消息接收名称, 参数...)",
+          group: '系统组件',
+          use: "owo.tool.emit(消息接收名称, 参数...)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/emit.js"
-        },
-        {
-          name: "animate",
-          info: "给DOM添加动画效果",
-          file: "animate.js",
-          use: "tool.animate(动画名, DOM元素, 延迟(毫秒))",
-          type: 'script',
-          url: "https://cunchu.site/owo/tool/animate.js"
         },
         {
           name: "fadeChangeImage",
           info: "渐变更改图片地址",
           file: "fadeChangeImage.js",
-          use: "tool.fadeChangeImage(DOM元素, 新图片地址, 持续时间(毫秒))",
+          group: '样式效果',
+          use: "owo.tool.fadeChangeImage(DOM元素, 新图片地址, 持续时间(毫秒))",
           type: 'script',
           url: "https://cunchu.site/owo/tool/fadeChangeImage.js"
         },
@@ -47,7 +48,8 @@ ul.func
           name: "get",
           info: "get请求数据",
           file: "get.js",
-          use: "tool.get(请求地址, 回调函数)",
+          group: '常用功能',
+          use: "owo.tool.get(请求地址, 回调函数)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/get.js"
         },
@@ -55,7 +57,8 @@ ul.func
           name: "post",
           info: "post请求数据",
           file: "post.js",
-          use: "tool.post(请求地址, 回调函数)",
+          group: '常用功能',
+          use: "owo.tool.post(请求地址, 回调函数)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/post.js"
         },
@@ -63,7 +66,8 @@ ul.func
           name: "getQueryString",
           info: "获取URL参数中字段的值",
           file: "getQueryString.js",
-          use: "tool.getQueryString(参数名称, 返回参数值)",
+          group: '常用功能',
+          use: "owo.tool.getQueryString(参数名称, 返回参数值)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/getQueryString.js"
         },
@@ -71,7 +75,8 @@ ul.func
           name: "heart",
           info: "点击屏幕出现红心",
           file: "heart.js",
-          use: "tool.heart(DOM节点, 回调函数)",
+          group: '样式效果',
+          use: "owo.tool.heart(DOM节点, 回调函数)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/heart.js"
         },
@@ -79,7 +84,8 @@ ul.func
           name: "notice",
           info: "右下角出现提示信息",
           file: "notice.js",
-          use: "tool.notice(文本内容, 配置项)",
+          group: '提示框',
+          use: "owo.tool.notice(文本内容, 配置项)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/notice.js"
         },
@@ -87,15 +93,17 @@ ul.func
           name: "randomNum",
           info: "生成随机数",
           file: "randomNum.js",
-          use: "tool.randomNum(最小数字, 最大数字)",
+          group: '常用功能',
+          use: "owo.tool.randomNum(最小数字, 最大数字)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/randomNum.js"
         },
         {
           name: "smoothChange",
-          info: "右下角出现提示信息",
+          info: "平滑改动某值",
           file: "smoothChange.js",
-          use: "tool.smoothChange(初始数值, 结束数值, 持续次数, 步长, 回调函数)",
+          group: '常用功能',
+          use: "owo.tool.smoothChange(初始数值, 结束数值, 持续次数, 步长, 回调函数)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/smoothChange.js"
         },
@@ -103,7 +111,8 @@ ul.func
           name: "touch",
           info: "触摸滑动检测插件",
           file: "touch.js",
-          use: "tool.touch(配置项)",
+          group: '常用功能',
+          use: "owo.tool.touch(配置项)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/touch.js"
         },
@@ -111,7 +120,8 @@ ul.func
           name: "typing",
           info: "打字机特效",
           file: "typing.js",
-          use: "tool.typing(Dom节点, 文本, 时间, 回调函数, 从第几位开始)",
+          group: '样式效果',
+          use: "owo.tool.typing(Dom节点, 文本, 时间, 回调函数, 从第几位开始)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/typing.js"
         },
@@ -119,11 +129,22 @@ ul.func
           name: "remind",
           info: "右下角出现提示信息",
           file: "remind.js",
-          use: "tool.remind(显示文字, 持续时长(毫秒))",
+          group: '提示框',
+          use: "owo.tool.remind(显示文字, 持续时长(毫秒))",
           type: 'script',
           url: "https://cunchu.site/owo/tool/remind.js"
         },
-      ]
+      ],
+      showList: []
+    },
+    created: function () {
+      this.data.plugList.forEach(element => {
+        if (!this.data.typeList.includes(element.group)) {
+          this.data.typeList.push(element.group)
+        }
+      })
+      this.data.showList = this.data.plugList
+      this.handleEvent()
     },
     addPlug: function (ind) {
       const plugConfig = this.data.plugList[parseInt(ind)]
@@ -154,11 +175,52 @@ ul.func
           }
         })
       }
+    },
+    changeGroup: function (type) {
+      if (type) {
+        let newList = []
+        this.data.plugList.forEach(element => {
+          if (element.group === type) {
+            newList.push(element)
+          }
+        })
+        this.data.showList = newList
+      } else {
+        this.data.showList = this.data.plugList
+      }
+      this.handleEvent()
     }
   }
 </script>
 
 <style lang="less">
+.func {
+  display: flex;
+}
+.type-list {
+  width: 200px;
+  background-color: white;
+  margin-right: 10px;
+  .title {
+    background-color: mediumspringgreen;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+  }
+  .item {
+    height: 35px;
+    line-height: 35px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #efe7e7;
+  }
+}
+ul {
+  height: 100%;
+  overflow: auto;
+  width: calc(100% - 220px);
+  padding-right: 10px;
+}
 li {
   background-color: white;
   padding: 5px 10px;

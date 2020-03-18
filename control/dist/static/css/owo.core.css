@@ -268,6 +268,40 @@ table {
 .plug li .add:hover {
   color: #009fe9;
 }
+.func {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.func .type-list {
+  width: 200px;
+  background-color: white;
+  margin-right: 10px;
+}
+
+.func .type-list .title {
+  background-color: mediumspringgreen;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+}
+
+.func .type-list .item {
+  height: 35px;
+  line-height: 35px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #efe7e7;
+}
+
+.func ul {
+  height: 100%;
+  overflow: auto;
+  width: calc(100% - 220px);
+  padding-right: 10px;
+}
+
 .func li {
   background-color: white;
   padding: 5px 10px;

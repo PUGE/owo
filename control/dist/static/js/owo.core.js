@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Tue Mar 17 2020 21:59:18 GMT+0800 (GMT+08:00)
+// Wed Mar 18 2020 13:54:19 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -381,6 +381,7 @@ _owo.cutStringArray = function (original, before, after, index, inline) {
   }
   return aa;
 },
+
 // 页面切换
 
 _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
