@@ -150,7 +150,7 @@
       this.handleEvent()
     },
     addPlug: function (ind) {
-      const plugConfig = this.data.plugList[parseInt(ind)]
+      const plugConfig = this.data.showList[parseInt(ind)]
       let isAdd = false
       const pointObject = plugConfig.type === 'script' ? owo.script.home.data.config.scriptList : owo.script.home.data.config.styleList
       pointObject.forEach(element => {

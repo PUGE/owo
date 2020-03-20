@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Wed Mar 18 2020 14:37:54 GMT+0800 (GMT+08:00)
+// Fri Mar 20 2020 12:16:58 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -390,7 +390,7 @@ _owo.cutStringArray = function (original, before, after, index, inline) {
     index = original.indexOf(before, index) + 1
   }
   return aa;
-},
+}
 
 
 // 页面切换
@@ -494,51 +494,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
 }
 
 
-// 切换页面前的准备工作
-function switchPage (oldUrlParam, newUrlParam) {
-  
-  var oldPage = oldUrlParam ? oldUrlParam.split('&')[0] : owo.entry
-  var newPage = newUrlParam ? newUrlParam.split('&')[0] : owo.entry
-  // 查找页面跳转前的page页(dom节点)
-  var oldDom = document.querySelector('.page[template="' + oldPage + '"]')
-  var newDom = document.querySelector('.page[template="' + newPage + '"]')
-  
-  if (!newDom) {console.error('页面不存在!'); return}
-  
-  // 判断是否有动画效果
-  if (!owo.state._animation) owo.state._animation = {}
-  // 直接.in会在ie下报错
-  var animationIn = owo.state._animation['in']
-  var animationOut = owo.state._animation['out']
-  var forward = owo.state._animation['forward']
-  // 全局跳转设置判断
-  if (owo.state.go) {
-    animationIn = animationIn || owo.state.go.inAnimation
-    animationOut = animationOut || owo.state.go.outAnimation
-    forward = forward || owo.state.go.forward
-  }
-  
-  setTimeout(() => {
-    window.owo.activePage = newPage
-    window.owo.script[newPage].$el = newDom
-    window.owo.script[newPage].owoPageInit()
-    window.owo.script[newPage].handleEvent()
-    
-    // 显示路由
-    if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
-  }, 0)
-  if (animationIn || animationOut) {
-    _owo.animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
-    return
-  }
-  
-  if (oldDom) {
-    // 隐藏掉旧的节点
-    oldDom.style.display = 'none'
-  }
-  // 查找页面跳转后的page
-  newDom.style.display = ''
-}
+
 
 
 _owo._event_if = function (tempDom, moudleScript) {
