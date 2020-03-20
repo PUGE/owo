@@ -99,10 +99,14 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
       break;
   
     default:
-      // 待优化 是否会出现重复绑定现象?
-      tempDom.addEventListener(eventName, function(event) {
-        _owo._run(eventFor, event || this, moudleScript)
-      }, false)
+      // 防止重复绑定
+      if (tempDom['owo_bind_' + eventName] !== eventFor) {
+        tempDom['owo_bind_' + eventName] = eventFor
+      
+        tempDom.addEventListener(eventName, function(event) {
+          _owo._run(eventFor, event || this, moudleScript)
+        }, false)
+      }
       break;
   }
 }
