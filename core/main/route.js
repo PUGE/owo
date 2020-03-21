@@ -30,6 +30,7 @@ View.prototype.showIndex = function (ind) {
   }
   var element = this._list[ind]
   element.$el.setAttribute('route-active', 'true')
+  element.owoPageInit()
   element.handleEvent()
   this["_activeName"] = element._name
   this["_activeIndex"] = ind
@@ -43,6 +44,7 @@ View.prototype.showName = function (name) {
   // 根据index
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
+  newRoute.owoPageInit()
   newRoute.handleEvent()
   newRoute.$el.setAttribute('route-active', 'true')
   oldRoute.$el.removeAttribute('route-active')

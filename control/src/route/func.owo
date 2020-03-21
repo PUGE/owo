@@ -130,7 +130,7 @@
         },
         {
           name: "remind",
-          info: "右下角出现提示信息",
+          info: "上方出现提示条幅",
           file: "remind.js",
           group: '提示框',
           use: "owo.tool.remind(显示文字, 持续时长(毫秒))",
@@ -141,6 +141,7 @@
       showList: []
     },
     created: function () {
+      console.log('asdssssss')
       this.data.plugList.forEach(element => {
         if (!this.data.typeList.includes(element.group)) {
           this.data.typeList.push(element.group)

@@ -326,18 +326,13 @@ function owoPageInit () {
       this.view[viewName] = new View(routeList, viewName, this['$el'], this)
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
-      var activeRouteIndex = 0
-      if (viewName) {
-        var urlViewName = owo.state.urlVariable['view-' + viewName]
-        activeRouteIndex = this.view[viewName][urlViewName] ? this.view[viewName][urlViewName]._index : 0
-      }
+      var urlViewName = owo.state.urlVariable['view-' + viewName]
+      var activeRouteIndex = this.view[viewName][urlViewName]._index || 0
+
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
-      var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      if (activeView) {
-        activeView.owoPageInit()
-        temp.push(this.view[viewName])
-      }
+      var activeView = this.view[viewName]._list[activeRouteIndex]
+      temp.push(this.view[viewName])
     }
     this.view._list = temp
   }

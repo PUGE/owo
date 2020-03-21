@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Fri Mar 20 2020 12:16:58 GMT+0800 (GMT+08:00)
+// Sat Mar 21 2020 16:49:23 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -103,10 +103,14 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
       break;
   
     default:
-      // 待优化 是否会出现重复绑定现象?
-      tempDom.addEventListener(eventName, function(event) {
-        _owo._run(eventFor, event || this, moudleScript)
-      }, false)
+      // 防止重复绑定
+      if (tempDom['owo_bind_' + eventName] !== eventFor) {
+        tempDom['owo_bind_' + eventName] = eventFor
+      
+        tempDom.addEventListener(eventName, function(event) {
+          _owo._run(eventFor, event || this, moudleScript)
+        }, false)
+      }
       break;
   }
 }
@@ -326,18 +330,13 @@ function owoPageInit () {
       this.view[viewName] = new View(routeList, viewName, this['$el'], this)
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
-      var activeRouteIndex = 0
-      if (viewName) {
-        var urlViewName = owo.state.urlVariable['view-' + viewName]
-        activeRouteIndex = this.view[viewName][urlViewName] ? this.view[viewName][urlViewName]._index : 0
-      }
+      var urlViewName = owo.state.urlVariable['view-' + viewName]
+      var activeRouteIndex = this.view[viewName][urlViewName]._index || 0
+
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
-      var activeView = this.view[viewName][urlViewName] || this.view[viewName]._list[0]
-      if (activeView) {
-        activeView.owoPageInit()
-        temp.push(this.view[viewName])
-      }
+      var activeView = this.view[viewName]._list[activeRouteIndex]
+      temp.push(this.view[viewName])
     }
     this.view._list = temp
   }
@@ -577,6 +576,7 @@ View.prototype.showIndex = function (ind) {
   }
   var element = this._list[ind]
   element.$el.setAttribute('route-active', 'true')
+  element.owoPageInit()
   element.handleEvent()
   this["_activeName"] = element._name
   this["_activeIndex"] = ind
@@ -590,6 +590,7 @@ View.prototype.showName = function (name) {
   // 根据index
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
+  newRoute.owoPageInit()
   newRoute.handleEvent()
   newRoute.$el.setAttribute('route-active', 'true')
   oldRoute.$el.removeAttribute('route-active')
@@ -824,21 +825,4 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
-
-
-// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
-if ("WebSocket" in window) {
-  // 打开一个 web socket
-  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
-  window._owo.ws.onmessage = function (evt) { 
-    if (evt.data == 'reload') {
-      location.reload()
-    }
-  }
-  window._owo.ws.onclose = function() { 
-    console.info('与服务器断开连接')
-  }
-} else {
-  console.error('浏览器不支持WebSocket')
-}
 
