@@ -5,8 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const Tool = require('./lib/tool/tool')
 const Server = require('./server.js')
-// 文件变动检测
-const chokidar = require('chokidar')
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -98,35 +96,32 @@ if (config.watcherEnable) {
   const ignoredPath = config.watcherIgnored ? config.watcherIgnored : config.outFolder + '/*'
   log.debug('忽略检测文件夹:' + ignoredPath)
   log.debug('检测深度:' + config.watcherdepth)
+
   // 文件变动检测
-  const watcher = chokidar.watch(watcherFolder, {
-    // 忽略目录
-    ignored: ignoredPath,
-    persistent: true,
-    awaitWriteFinish: {
-      stabilityThreshold: 100,
-      pollInterval: 100
-    },
-    // 检测深度
-    depth: config.watcherdepth
-  })
-  // 添加默认监控
-  watcher.add('owo.json')
-  watcher.add('owo_modules')
-  watcher.on('change', changePath => {
-    startPackTime = new Date().getTime()
-    log.clear()
-    log.info(`file change: ${changePath}`)
-    // 判断是否为配置文件变更
-    if (changePath === 'owo.json') {
-      console.log('配置文件被改变!')
-      pack = new owo(getConfig(), owoCallBack)
-      pack.pack()
-    } else {
-      // 重新打包
-      pack.pack(changePath)
-    }
-  })
+  let isPacking = false
+  function rePack(type, fileName) {
+    if (isPacking) return
+    isPacking = true
+    setTimeout(() => {
+      startPackTime = new Date().getTime()
+      log.clear()
+      log.info(`file change: ${fileName}`)
+      // 判断是否为配置文件变更
+      if (fileName === 'owo.json') {
+        console.log('配置文件被改变!')
+        pack = new owo(getConfig(), owoCallBack)
+        pack.pack()
+      } else {
+        // 重新打包
+        pack.pack(fileName)
+      }
+      isPacking = false
+    }, 100)
+  }
+  // 监控工程文件夹
+  fs.watch(path.join(runPath, 'owo.json'), {recursive: false}, rePack)
+  fs.watch(path.join(runPath, 'owo_modules'), {recursive: false}, rePack)
+  fs.watch(watcherFolder, {recursive: true}, rePack)
 }
 // 判断是否启用静态文件服务
 if (config.server) {

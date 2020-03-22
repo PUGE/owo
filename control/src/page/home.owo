@@ -3,7 +3,7 @@
   .title-bar
     .save-button
       .icon &#xea6f;
-      span(o-tap="seveConfig") 发送
+      span(o-tap="seveConfig") 发送2
   .content-box
     //- 左侧菜单
     .menu

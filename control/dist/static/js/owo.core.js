@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sat Mar 21 2020 16:49:23 GMT+0800 (GMT+08:00)
+// Sun Mar 22 2020 23:57:00 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -331,7 +331,8 @@ function owoPageInit () {
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
       var urlViewName = owo.state.urlVariable['view-' + viewName]
-      var activeRouteIndex = this.view[viewName][urlViewName]._index || 0
+      // 判断url中是否有路由信息，如果没有显示第一个路由
+      var activeRouteIndex = urlViewName ? this.view[viewName][urlViewName]._index : 0
 
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
@@ -825,4 +826,21 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
+
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
+    }
+  }
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
+}
 

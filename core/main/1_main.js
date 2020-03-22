@@ -327,7 +327,8 @@ function owoPageInit () {
       // 标识是否没有指定显示哪个路由
       // 从url中获取路由信息
       var urlViewName = owo.state.urlVariable['view-' + viewName]
-      var activeRouteIndex = this.view[viewName][urlViewName]._index || 0
+      // 判断url中是否有路由信息，如果没有显示第一个路由
+      var activeRouteIndex = urlViewName ? this.view[viewName][urlViewName]._index : 0
 
       // 激活对应路由
       this.view[viewName].showIndex(activeRouteIndex)
