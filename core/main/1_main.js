@@ -303,7 +303,7 @@ function handleEvent (moudleScript, enterDom) {
   })
   // 递归处理子模板
   for (var key in moudleScript.template) {
-    moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
+    moudleScript.template[key].$el = tempDom.querySelector('[template="' + key + '"]')
     handleEvent(moudleScript.template[key])
   }
 }

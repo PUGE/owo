@@ -1,6 +1,6 @@
 {
   "name": "@owo/owo",
-  "version": "1.2.52",
+  "version": "1.2.53",
   "description": "",
   "main": "./lib",
   "scripts": {
@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "7.8.6",
-    "@babel/parser": "7.8.6",
-    "@babel/preset-env": "7.8.6",
-    "autoprefixer": "9.7.4",
+    "@babel/core": "7.9.0",
+    "@babel/parser": "7.9.4",
+    "@babel/preset-env": "7.9.0",
+    "autoprefixer": "9.7.5",
     "body-parser": "^1.19.0",
     "css": "^2.2.4",
     "cssnano": "^4.1.10",
@@ -26,9 +26,8 @@
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "8.0.0",
     "js-beautify": "1.10.3",
-    "jsdom": "16.2.0",
+    "jsdom": "16.2.1",
     "less": "3.11.1",
-    "node-sass": "4.13.1",
     "postcss": "7.0.27",
     "pug": "^2.0.4",
     "urllib-sync": "^1.1.4"
