@@ -96,9 +96,6 @@ let wsServe = null
 if (config.watcherEnable) {
   log.debug('开启变动检测!')
   const watcherFolder = path.join(runPath, config.root)
-  const ignoredPath = config.watcherIgnored ? config.watcherIgnored : config.outFolder + '/*'
-  log.debug('忽略检测文件夹:' + ignoredPath)
-  log.debug('检测深度:' + config.watcherdepth)
 
   // 文件变动检测
   let isPacking = false

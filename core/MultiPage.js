@@ -97,6 +97,17 @@ function switchPage (oldUrlParam, newUrlParam) {
   var newDom = document.querySelector('.page[template="' + newPage + '"]')
   
   if (!newDom) {console.error('页面不存在!'); return}
+
+  setTimeout(() => {
+    window.owo.activePage = newPage
+    window.owo.script[newPage].$el = newDom
+    window.owo.script[newPage].owoPageInit()
+    window.owo.script[newPage].handleEvent()
+    
+    // 显示路由
+    if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
+  }, 0)
+
   /* if="this.pageAnimationList.size > 0" */
   // 判断是否有动画效果
   if (!owo.state._animation) owo.state._animation = {}
@@ -104,6 +115,18 @@ function switchPage (oldUrlParam, newUrlParam) {
   var animationIn = owo.state._animation['in']
   var animationOut = owo.state._animation['out']
   var forward = owo.state._animation['forward']
+  // 待优化 不需要这段代码的情况不打包这段代码
+  var isForward = window.owo.script[newPage]._index > window.owo.script[oldPage]._index
+  if (!animationIn && !animationOut) {
+    if (owo.globalAni) {
+      if (owo.globalAni.in) animationIn =  isForward ? owo.globalAni.in : owo.globalAni.backIn
+      if (owo.globalAni.out) animationOut = isForward ? owo.globalAni.out : owo.globalAni.backOut
+    }
+    if (owo.pageAni && owo.pageAni[owo.activePage]) {
+      if (owo.pageAni[owo.activePage].in) animationIn = isForward ? owo.pageAni[owo.activePage].in : owo.pageAni[owo.activePage].backIn
+      if (owo.pageAni[owo.activePage].out) animationOut = isForward ? owo.pageAni[owo.activePage].out : owo.pageAni[owo.activePage].backOut
+    }
+  }
   // 全局跳转设置判断
   if (owo.state.go) {
     animationIn = animationIn || owo.state.go.inAnimation
@@ -116,15 +139,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     return
   }
   /* end="this.pageAnimationList.size > 0" */
-  setTimeout(() => {
-    window.owo.activePage = newPage
-    window.owo.script[newPage].$el = newDom
-    window.owo.script[newPage].owoPageInit()
-    window.owo.script[newPage].handleEvent()
-    
-    // 显示路由
-    if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
-  }, 0)
+  
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'

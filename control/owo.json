@@ -118,7 +118,6 @@
 			"debug": true,
 			"watcherEnable": true,
 			"watcherIgnored": "./dist/*",
-			"watcherdepth": 99,
 			"minifyCss": false,
 			"minifyJs": false,
 			"addVersion": false,
