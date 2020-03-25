@@ -122,9 +122,45 @@ if (config.watcherEnable) {
     }, 100)
   }
   // 监控工程文件夹
-  fs.watch(path.join(runPath, 'owo.json'), {recursive: false}, rePack)
-  fs.watch(path.join(runPath, 'owo_modules'), {recursive: false}, rePack)
-  fs.watch(watcherFolder, {recursive: true}, rePack)
+  fs.watch(path.join(runPath, 'owo.json'), {recursive: false}, (type, fileName) => {
+    if (isPacking) return
+    isPacking = true
+    setTimeout(() => {
+      startPackTime = new Date().getTime()
+      log.clear()
+      console.log('配置文件被改变!')
+      pack = new owo(getConfig(), owoCallBack)
+      pack.pack()
+      isPacking = false
+    }, 100)
+  })
+  fs.watch(path.join(runPath, 'owo_modules'), {recursive: false}, (type, fileName) => {
+    
+    if (isPacking) return
+    isPacking = true
+    setTimeout(() => {
+      fileName = path.join(runPath, 'owo_modules', fileName)
+      startPackTime = new Date().getTime()
+      log.clear()
+      log.info(`file change: ${fileName}`)
+      // 重新打包
+      pack.pack(fileName)
+      isPacking = false
+    }, 100);
+  })
+  fs.watch(watcherFolder, {recursive: true}, (type, fileName) => {
+    if (isPacking) return
+    isPacking = true
+    setTimeout(() => {
+      fileName = path.join(watcherFolder, fileName)
+      startPackTime = new Date().getTime()
+      log.clear()
+      log.info(`file change: ${fileName}`)
+      // 重新打包
+      pack.pack(fileName)
+      isPacking = false
+    }, 100);
+  })
 }
 // 判断是否启用静态文件服务
 if (config.server) {

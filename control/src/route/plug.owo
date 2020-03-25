@@ -13,28 +13,28 @@ ul.plug
         {
           name: "IE兼容",
           info: "使IE8支持getElementsByClassName，classList等方法",
-          file: "ie-support",
+          file: "ie-support.js",
           type: 'script',
           url: "https://cunchu.site/owo/plug/ie-support.js"
         },
         {
           name: "设备检测",
           info: "检测设备类型, 系统型号, 横竖屏",
-          file: "check",
+          file: "check.js",
           type: 'script',
           url: "https://cunchu.site/owo/plug/check.js"
         },
         {
           name: "智能缩放",
           info: "根据人民网设计图尺寸750*1508自动将页面进行自适应缩放",
-          file: "autoScale",
+          file: "autoScale.js",
           type: 'script',
           url: "https://cunchu.site/owo/plug/autoScale.js"
         },
         {
           name: "样式清除",
           info: "清除浏览器的默认样式",
-          file: "clear",
+          file: "clear.css",
           type: 'style',
           url: "https://cunchu.site/owo/plug/clear.css"
         },

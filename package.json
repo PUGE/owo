@@ -1,6 +1,6 @@
 {
   "name": "@owo/owo",
-  "version": "1.2.53",
+  "version": "1.2.54",
   "description": "",
   "main": "./lib",
   "scripts": {
@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/core": "7.9.0",
     "@babel/parser": "7.9.4",
+    "@babel/plugin-proposal-numeric-separator": "^7.8.3",
     "@babel/preset-env": "7.9.0",
     "autoprefixer": "9.7.5",
     "body-parser": "^1.19.0",
