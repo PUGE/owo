@@ -2,11 +2,11 @@ function Page(pageScript, parentScript) {
   for (const key in pageScript) {
     this[key] = pageScript[key]
   }
-  /* if="this.plugList.includes('special_data')" */
+  /* if="this.plugList.has('special_data')" */
   if (typeof this.data === 'function') {
     this.data = this.data()
   }
-  /* end="this.plugList.includes('special_data')" */
+  /* end="this.plugList.has('special_data')" */
   // 处理页面引用的模板
   for (var key in pageScript.template) {
     pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')

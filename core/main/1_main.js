@@ -176,7 +176,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
             }
             break
           }
-          /* if="this.plugList.includes('active')" */
+          /* if="this.plugList.has('active')" */
           case 'active': {
             var value = shaheRun.apply(moudleScript, [eventFor])
             if (Boolean(value)) {
@@ -185,7 +185,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
               tempDom.classList.remove('active')
             }
           }
-          /* end="this.plugList.includes('active')" */
+          /* end="this.plugList.has('active')" */
           default: {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
@@ -232,12 +232,12 @@ function handleEvent (moudleScript, enterDom) {
   }
   if (!enterDom) return
   var tempDom = enterDom
-  /* if="this.plugList.includes('if')" */
+  /* if="this.plugList.has('if')" */
   // sdsddddddd
   if(!_owo._event_if(tempDom, moudleScript)) return
-  /* end="this.plugList.includes('if')" */
+  /* end="this.plugList.has('if')" */
   
-  /* if="this.plugList.includes('for')" */
+  /* if="this.plugList.has('for')" */
   if (moudleScript['forList']) {
     // 处理o-for
     for (var key in moudleScript['forList']) {
@@ -253,10 +253,10 @@ function handleEvent (moudleScript, enterDom) {
   }
   // 先处理o-for
   _owo.recursion(tempDom, function (tempDom) {
-    /* if="this.plugList.includes('if')" */
+    /* if="this.plugList.has('if')" */
     // dd
     if(!_owo._event_if(tempDom, moudleScript)) return true
-    /* end="this.plugList.includes('if')" */
+    /* end="this.plugList.has('if')" */
     var forValue = tempDom.getAttribute('o-for')
     if (forValue) {
       // console.log(new Function('a', 'b', 'return a + b'))
@@ -292,13 +292,13 @@ function handleEvent (moudleScript, enterDom) {
       tempDom.outerHTML = outHtml + ''
     }
   })
-  /* end="this.plugList.includes('for')" */
+  /* end="this.plugList.has('for')" */
   _owo.recursion(tempDom, function (childrenDom) {
     if (childrenDom.hasAttribute('o-for')) return true
-    /* if="this.plugList.includes('if')" */
+    /* if="this.plugList.has('if')" */
     // 22222
     if(!_owo._event_if(childrenDom, moudleScript)) return true
-    /* end="this.plugList.includes('if')" */
+    /* end="this.plugList.has('if')" */
     _owo.addEvent(childrenDom, moudleScript)
   })
   // 递归处理子模板
@@ -316,7 +316,7 @@ function owoPageInit () {
     var templateScript = this.template[key]
     _owo.runCreated(templateScript)
   }
-  /* if="this.plugList.includes('route')" */
+  /* if="this.plugList.has('route')" */
   // 判断页面中是否有路由
   if (this.view) {
     owo.state.urlVariable = _owo.getQueryVariable()
@@ -337,14 +337,14 @@ function owoPageInit () {
     }
     this.view._list = temp
   }
-  /* end="this.plugList.includes('route')" */
+  /* end="this.plugList.has('route')" */
 }
 
-/* if="this.plugList.includes('route')" */
+/* if="this.plugList.has('route')" */
 window.addEventListener("popstate", function(e) { 
   _owo.getViewChange()
 }, false);
-/* end="this.plugList.includes('route')" */
+/* end="this.plugList.has('route')" */
 
 _owo.cutString = function (original, before, after, index) {
   index = index || 0

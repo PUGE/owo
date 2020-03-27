@@ -1,5 +1,5 @@
 
-/* if="this.plugList.includes('route')" */
+/* if="this.plugList.has('route')" */
 // 特殊类型
 function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
@@ -111,9 +111,9 @@ _owo.setActiveRouteClass = function (viewInfo) {
   owo.activeView = viewInfo._viewName
   owo.activeRoute = viewInfo._activeName
 }
-/* end="this.plugList.includes('route')" */
+/* end="this.plugList.has('route')" */
 
-/* if="this.plugList.includes('route') || this.plugList.includes('go') || this.config.pageList.length > 1" */
+/* if="this.plugList.has('route') || this.plugList.has('go') || this.config.pageList.length > 1" */
 owo.go = function (config) {
   if (!config) return
   var paramString = ''
@@ -185,8 +185,8 @@ owo.go = function (config) {
     }
   }
 }
-/* end="this.plugList.includes('route') || this.plugList.includes('go') || this.config.pageList.length > 1" */
-/* if="this.plugList.includes('go')" */
+/* end="this.plugList.has('route') || this.plugList.has('go') || this.config.pageList.length > 1" */
+/* if="this.plugList.has('go')" */
 var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
@@ -202,4 +202,4 @@ for (var index = 0; index < toList.length; index++) {
     })
   }
 }
-/* end="this.plugList.includes('go')" */
+/* end="this.plugList.has('go')" */

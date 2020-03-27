@@ -1,5 +1,5 @@
 
-/* if="this.plugList.includes('if')" */
+/* if="this.plugList.has('if')" */
 _owo._event_if = function (tempDom, moudleScript) {
   // o-if处理
   var ifValue = tempDom.getAttribute('o-if')
@@ -15,4 +15,4 @@ _owo._event_if = function (tempDom, moudleScript) {
   }
   return true
 }
-/* end="this.plugList.includes('if')" */
+/* end="this.plugList.has('if')" */

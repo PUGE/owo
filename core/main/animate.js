@@ -1,4 +1,4 @@
-/* if="this.animateList.size > 0 || this.plugList.includes('animate')" */
+/* if="this.animateList.size > 0 || this.plugList.has('animate')" */
 /**
  * 赋予节点动画效果
  * @param  {string} name 动画效果名称
@@ -19,4 +19,4 @@ owo.animate = function (name, dom, delay) {
     }
   }
 }
-/* end="this.animateList.size > 0 || this.plugList.includes('animate')" */
+/* end="this.animateList.size > 0 || this.plugList.has('animate')" */

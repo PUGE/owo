@@ -1,5 +1,5 @@
 // 页面切换
-/* if="this.pageAnimationList.size > 0 || this.plugList.includes('route')" */
+/* if="this.pageAnimationList.size > 0 || this.plugList.has('route')" */
 _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   // 没有动画处理
   if (!animationIn || !animationOut) {
@@ -25,8 +25,8 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   
   oldDom.style.position = 'absolute'
 
-  newDom.style.display = ''
   newDom.style.position = 'absolute'
+  newDom.style.display = ''
   // 给即将生效的页面加上“未来”标识
   if (forward) {
     newDom.classList.add('owo-animation-forward')
@@ -97,5 +97,5 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   }
   owo.state._animation = null
 }
-/* end="this.pageAnimationList.size > 0 || this.plugList.includes('route')" */
+/* end="this.pageAnimationList.size > 0 || this.plugList.has('route')" */
 
