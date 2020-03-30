@@ -1,6 +1,6 @@
 
 console.log('ss')
-// Sun Mar 22 2020 23:57:00 GMT+0800 (GMT+08:00)
+// Mon Mar 30 2020 23:47:17 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -307,7 +307,7 @@ function handleEvent (moudleScript, enterDom) {
   })
   // 递归处理子模板
   for (var key in moudleScript.template) {
-    moudleScript.template[key].$el = tempDom.querySelector('[template=' + key + ']')
+    moudleScript.template[key].$el = tempDom.querySelector('[template="' + key + '"]')
     handleEvent(moudleScript.template[key])
   }
 }
@@ -420,8 +420,8 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   
   oldDom.style.position = 'absolute'
 
-  newDom.style.display = ''
   newDom.style.position = 'absolute'
+  newDom.style.display = ''
   // 给即将生效的页面加上“未来”标识
   if (forward) {
     newDom.classList.add('owo-animation-forward')
@@ -826,21 +826,4 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
-
-
-// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
-if ("WebSocket" in window) {
-  // 打开一个 web socket
-  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
-  window._owo.ws.onmessage = function (evt) { 
-    if (evt.data == 'reload') {
-      location.reload()
-    }
-  }
-  window._owo.ws.onclose = function() { 
-    console.info('与服务器断开连接')
-  }
-} else {
-  console.error('浏览器不支持WebSocket')
-}
 

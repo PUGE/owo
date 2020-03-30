@@ -273,7 +273,8 @@
           "out": "rotateSidesIn&&delay200"
         },
       ],
-      isPlaying: false
+      isPlaying: false,
+      configCopy: null
     },
     showAni: function (inAni, outAni) {
       if (this.data.isPlaying) return
@@ -323,30 +324,35 @@
       if (activeItem) activeItem.classList.remove('active')
     },
     loadActive: function (inAni, out) {
-      const activeItem = owo.query(`li[in="${inAni}"][out="${out}"]`)[0]
-      if (activeItem) activeItem.classList.add('active')
+      // console.log(`活跃项目: ${inAni} ${out}`)
+      if (inAni && out) {
+        const activeItem = owo.query(`li[in="${inAni}"][out="${out}"]`)[0]
+        if (activeItem) activeItem.classList.add('active')
+      } else {
+        owo.query('.no-ani')[0].classList.add('active')
+      }
     },
     getAniSett: function () {
       this.clearActive()
       const selectPage = this.data.selectPage
-      if (this.data.selectPage === 'global') {
-        const inAni = this.data.selectaniType === 'next' ? owo.globalAni.in : owo.globalAni.backIn
-        const outAni = this.data.selectaniType === 'next' ? owo.globalAni.out : owo.globalAni.backOut
-        if (owo.globalAni && owo.globalAni.in && owo.globalAni.out) this.loadActive(inAni, outAni)
+      if (selectPage === 'global') {
+        const inAni = this.data.selectaniType === 'next' ? this.data.configCopy.globalAni.in : this.data.configCopy.globalAni.backIn
+        const outAni = this.data.selectaniType === 'next' ? this.data.configCopy.globalAni.out : this.data.configCopy.globalAni.backOut
+        if (this.data.configCopy.globalAni && this.data.configCopy.globalAni.in && this.data.configCopy.globalAni.out) this.loadActive(inAni, outAni)
         else owo.query('.no-ani')[0].classList.add('active')
       } else {
-        if (!owo.pageAni) owo.pageAni = {}
-        const inAni = this.data.selectaniType === 'next' ? owo.globalAni.in : owo.globalAni.backIn
-        const outAni = this.data.selectaniType === 'next' ? owo.globalAni.out : owo.globalAni.backOut
-        if (owo.pageAni[selectPage] && owo.pageAni[selectPage].in && owo.pageAni[selectPage].out) {
-          const inAni = this.data.selectaniType === 'next' ? owo.pageAni[selectPage].in : owo.pageAni[selectPage].backIn
-          const outAni = this.data.selectaniType === 'next' ? owo.pageAni[selectPage].out : owo.pageAni[selectPage].backOut
+        if (!this.data.configCopy.pageAni) this.data.configCopy.pageAni = {}
+        if (this.data.configCopy.pageAni[selectPage] && this.data.configCopy.pageAni[selectPage].in && this.data.configCopy.pageAni[selectPage].out) {
+          const inAni = this.data.selectaniType === 'next' ? this.data.configCopy.pageAni[selectPage].in : this.data.configCopy.pageAni[selectPage].backIn
+          const outAni = this.data.selectaniType === 'next' ? this.data.configCopy.pageAni[selectPage].out : this.data.configCopy.pageAni[selectPage].backOut
           this.loadActive(inAni, outAni)
         } else owo.query('.no-ani')[0].classList.add('active')
       }
     },
     broadcast: {
       changeData: function (config) {
+        console.log(config)
+        this.data.configCopy = config
         this.handleEvent()
         this.getAniSett()
       }
