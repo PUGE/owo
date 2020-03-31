@@ -97,7 +97,7 @@
           info: "生成随机数",
           file: "randomNum.js",
           group: '常用功能',
-          use: "owo.tool.randomNum(最小数字, 最大数字)",
+          use: "randomNum(最小数字, 最大数字) randomGet(数组, 从数组中取出几项)",
           type: 'script',
           url: "https://cunchu.site/owo/tool/randomNum.js"
         },
@@ -167,6 +167,7 @@
           if (res.err === 0) {
             pointObject.push({
               name: plugConfig.file,
+              afterbody: true,
               src: `./owo_modules/${plugConfig.file}`,
             })
             // 去页面管理页面展示

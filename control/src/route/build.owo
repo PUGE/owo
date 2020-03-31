@@ -23,7 +23,6 @@
         {name: "自动刷新", type: "checkbox", value: "autoReload"},
         {name: "远程调试", type: "checkbox", value: "remoteDebug"},
         {name: "监视器", type: "checkbox", value: "watcherEnable"},
-        {name: "忽略监视", type: "text", value: "watcherIgnored"},
         {name: "压缩css", type: "checkbox", value: "minifyCss"},
         {name: "压缩js", type: "checkbox", value: "minifyJs"},
         {name: "添加版本号", type: "checkbox", value: "addVersion"},

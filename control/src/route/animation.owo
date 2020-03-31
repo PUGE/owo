@@ -326,32 +326,33 @@
     loadActive: function (inAni, out) {
       // console.log(`活跃项目: ${inAni} ${out}`)
       if (inAni && out) {
-        const activeItem = owo.query(`li[in="${inAni}"][out="${out}"]`)[0]
+        const activeItem = this.query(`li[in="${inAni}"][out="${out}"]`)
         if (activeItem) activeItem.classList.add('active')
       } else {
-        owo.query('.no-ani')[0].classList.add('active')
+        this.query('.no-ani').classList.add('active')
       }
     },
     getAniSett: function () {
+      
       this.clearActive()
       const selectPage = this.data.selectPage
       if (selectPage === 'global') {
+        
         const inAni = this.data.selectaniType === 'next' ? this.data.configCopy.globalAni.in : this.data.configCopy.globalAni.backIn
         const outAni = this.data.selectaniType === 'next' ? this.data.configCopy.globalAni.out : this.data.configCopy.globalAni.backOut
         if (this.data.configCopy.globalAni && this.data.configCopy.globalAni.in && this.data.configCopy.globalAni.out) this.loadActive(inAni, outAni)
-        else owo.query('.no-ani')[0].classList.add('active')
+        else this.query('.no-ani').classList.add('active')
       } else {
         if (!this.data.configCopy.pageAni) this.data.configCopy.pageAni = {}
         if (this.data.configCopy.pageAni[selectPage] && this.data.configCopy.pageAni[selectPage].in && this.data.configCopy.pageAni[selectPage].out) {
           const inAni = this.data.selectaniType === 'next' ? this.data.configCopy.pageAni[selectPage].in : this.data.configCopy.pageAni[selectPage].backIn
           const outAni = this.data.selectaniType === 'next' ? this.data.configCopy.pageAni[selectPage].out : this.data.configCopy.pageAni[selectPage].backOut
           this.loadActive(inAni, outAni)
-        } else owo.query('.no-ani')[0].classList.add('active')
+        } else this.query('.no-ani').classList.add('active')
       }
     },
     broadcast: {
       changeData: function (config) {
-        console.log(config)
         this.data.configCopy = config
         this.handleEvent()
         this.getAniSett()
