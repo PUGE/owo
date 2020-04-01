@@ -1,5 +1,5 @@
 /* Curl Top Left */
-.owo-hover-curl-top-left {
+[o-hover="curl-top-left"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-curl-top-left:before {
+[o-hover="curl-top-left"]:before {
   pointer-events: none;
   position: absolute;
   content: '';
@@ -27,7 +27,7 @@
   -webkit-transition-property: width, height;
   transition-property: width, height;
 }
-.owo-hover-curl-top-left:hover:before, .owo-hover-curl-top-left:focus:before, .owo-hover-curl-top-left:active:before {
+[o-hover="curl-top-left:hover"]:before, [o-hover="curl-top-left:focus"]:before, [o-hover="curl-top-left:active"]:before {
   width: 25px;
   height: 25px;
 }

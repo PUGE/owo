@@ -1,5 +1,5 @@
 /* Underline From Center */
-.owo-hover-underline-from-center {
+[o-hover="underline-from-center"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-underline-from-center:before {
+[o-hover="underline-from-center"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -24,7 +24,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-underline-from-center:hover:before, .owo-hover-underline-from-center:focus:before, .owo-hover-underline-from-center:active:before {
+[o-hover="underline-from-center:hover"]:before, [o-hover="underline-from-center:focus"]:before, [o-hover="underline-from-center:active"]:before {
   left: 0;
   right: 0;
 }

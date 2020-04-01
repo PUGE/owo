@@ -1,5 +1,5 @@
 /* Shutter In Horizontal */
-.owo-hover-shutter-in-horizontal {
+[o-hover="shutter-in-horizontal"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -12,7 +12,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-shutter-in-horizontal:before {
+[o-hover="shutter-in-horizontal"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -32,10 +32,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-shutter-in-horizontal:hover, .owo-hover-shutter-in-horizontal:focus, .owo-hover-shutter-in-horizontal:active {
+[o-hover="shutter-in-horizontal"]:hover, [o-hover="shutter-in-horizontal"]:focus, [o-hover="shutter-in-horizontal"]:active {
   color: white;
 }
-.owo-hover-shutter-in-horizontal:hover:before, .owo-hover-shutter-in-horizontal:focus:before, .owo-hover-shutter-in-horizontal:active:before {
+[o-hover="shutter-in-horizontal:hover"]:before, [o-hover="shutter-in-horizontal:focus"]:before, [o-hover="shutter-in-horizontal:active"]:before {
   -webkit-transform: scaleX(0);
   transform: scaleX(0);
 }

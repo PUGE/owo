@@ -1,5 +1,5 @@
 /* Shadow */
-.owo-hover-shadow {
+[o-hover="shadow"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,6 +10,6 @@
   -webkit-transition-property: box-shadow;
   transition-property: box-shadow;
 }
-.owo-hover-shadow:hover, .owo-hover-shadow:focus, .owo-hover-shadow:active {
+[o-hover="shadow"]:hover, [o-hover="shadow"]:focus, [o-hover="shadow"]:active {
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
 }

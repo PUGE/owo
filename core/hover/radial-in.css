@@ -1,5 +1,5 @@
 /* Radial In */
-.owo-hover-radial-in {
+[o-hover="radial-in"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -13,7 +13,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-radial-in:before {
+[o-hover="radial-in"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -32,10 +32,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-radial-in:hover, .owo-hover-radial-in:focus, .owo-hover-radial-in:active {
+[o-hover="radial-in"]:hover, [o-hover="radial-in"]:focus, [o-hover="radial-in"]:active {
   color: white;
 }
-.owo-hover-radial-in:hover:before, .owo-hover-radial-in:focus:before, .owo-hover-radial-in:active:before {
+[o-hover="radial-in:hover"]:before, [o-hover="radial-in:focus"]:before, [o-hover="radial-in:active"]:before {
   -webkit-transform: scale(0);
   transform: scale(0);
 }

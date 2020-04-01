@@ -1,5 +1,5 @@
 /* Bounce To Bottom */
-.owo-hover-bounce-to-bottom {
+[o-hover="bounce-to-bottom"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
-.owo-hover-bounce-to-bottom:before {
+[o-hover="bounce-to-bottom"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,10 +31,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-bounce-to-bottom:hover, .owo-hover-bounce-to-bottom:focus, .owo-hover-bounce-to-bottom:active {
+[o-hover="bounce-to-bottom"]:hover, [o-hover="bounce-to-bottom"]:focus, [o-hover="bounce-to-bottom"]:active {
   color: white;
 }
-.owo-hover-bounce-to-bottom:hover:before, .owo-hover-bounce-to-bottom:focus:before, .owo-hover-bounce-to-bottom:active:before {
+[o-hover="bounce-to-bottom:hover"]:before, [o-hover="bounce-to-bottom:focus"]:before, [o-hover="bounce-to-bottom:active"]:before {
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
   -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);

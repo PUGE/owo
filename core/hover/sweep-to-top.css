@@ -1,5 +1,5 @@
 /* Sweep To Top */
-.owo-hover-sweep-to-top {
+[o-hover="sweep-to-top"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-sweep-to-top:before {
+[o-hover="sweep-to-top"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,10 +31,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-sweep-to-top:hover, .owo-hover-sweep-to-top:focus, .owo-hover-sweep-to-top:active {
+[o-hover="sweep-to-top"]:hover, [o-hover="sweep-to-top"]:focus, [o-hover="sweep-to-top"]:active {
   color: white;
 }
-.owo-hover-sweep-to-top:hover:before, .owo-hover-sweep-to-top:focus:before, .owo-hover-sweep-to-top:active:before {
+[o-hover="sweep-to-top:hover"]:before, [o-hover="sweep-to-top:focus"]:before, [o-hover="sweep-to-top:active"]:before {
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
 }

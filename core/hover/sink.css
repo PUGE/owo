@@ -1,5 +1,5 @@
 /* Sink */
-.owo-hover-sink {
+[o-hover="sink"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -12,7 +12,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-sink:hover, .owo-hover-sink:focus, .owo-hover-sink:active {
+[o-hover="sink"]:hover, [o-hover="sink"]:focus, [o-hover="sink"]:active {
   -webkit-transform: translateY(8px);
   transform: translateY(8px);
 }

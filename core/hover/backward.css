@@ -1,5 +1,5 @@
 /* Backward */
-.owo-hover-backward {
+[o-hover="backward"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-backward:hover, .owo-hover-backward:focus, .owo-hover-backward:active {
+[o-hover="backward"]:hover, [o-hover="backward"]:focus, [o-hover="backward"]:active {
   -webkit-transform: translateX(-8px);
   transform: translateX(-8px);
 }

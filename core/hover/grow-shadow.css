@@ -1,5 +1,5 @@
 /* Grow Shadow */
-.owo-hover-grow-shadow {
+[o-hover="grow-shadow"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
 }
-.owo-hover-grow-shadow:hover, .owo-hover-grow-shadow:focus, .owo-hover-grow-shadow:active {
+[o-hover="grow-shadow"]:hover, [o-hover="grow-shadow"]:focus, [o-hover="grow-shadow"]:active {
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);

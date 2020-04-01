@@ -1,5 +1,5 @@
 /* Border Fade */
-.owo-hover-border-fade {
+[o-hover="border-fade"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -12,13 +12,13 @@
   box-shadow: inset 0 0 0 4px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0);
   /* Hack to improve aliasing on mobile/tablet devices */
 }
-.owo-hover-border-fade:hover, .owo-hover-border-fade:focus, .owo-hover-border-fade:active {
+[o-hover="border-fade"]:hover, [o-hover="border-fade"]:focus, [o-hover="border-fade"]:active {
   box-shadow: inset 0 0 0 4px #2098D1, 0 0 1px rgba(0, 0, 0, 0);
   /* Hack to improve aliasing on mobile/tablet devices */
 }
 
 /* Hollow */
-.owo-hover-hollow {
+[o-hover="hollow"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -31,6 +31,6 @@
   box-shadow: inset 0 0 0 4px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0);
   /* Hack to improve aliasing on mobile/tablet devices */
 }
-.owo-hover-hollow:hover, .owo-hover-hollow:focus, .owo-hover-hollow:active {
+[o-hover="hollow"]:hover, [o-hover="hollow"]:focus, [o-hover="hollow"]:active {
   background: none;
 }

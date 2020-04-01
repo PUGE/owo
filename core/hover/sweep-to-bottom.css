@@ -1,5 +1,5 @@
 /* Sweep To Bottom */
-.owo-hover-sweep-to-bottom {
+[o-hover="sweep-to-bottom"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-sweep-to-bottom:before {
+[o-hover="sweep-to-bottom"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,10 +31,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-sweep-to-bottom:hover, .owo-hover-sweep-to-bottom:focus, .owo-hover-sweep-to-bottom:active {
+[o-hover="sweep-to-bottom"]:hover, [o-hover="sweep-to-bottom"]:focus, [o-hover="sweep-to-bottom"]:active {
   color: white;
 }
-.owo-hover-sweep-to-bottom:hover:before, .owo-hover-sweep-to-bottom:focus:before, .owo-hover-sweep-to-bottom:active:before {
+[o-hover="sweep-to-bottom:hover"]:before, [o-hover="sweep-to-bottom:focus"]:before, [o-hover="sweep-to-bottom:active"]:before {
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
 }

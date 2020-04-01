@@ -1,5 +1,5 @@
 /* Float */
-.owo-hover-float {
+[o-hover="float"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -12,7 +12,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-float:hover, .owo-hover-float:focus, .owo-hover-float:active {
+[o-hover="float"]:hover, [o-hover="float"]:focus, [o-hover="float"]:active {
   -webkit-transform: translateY(-8px);
   transform: translateY(-8px);
 }

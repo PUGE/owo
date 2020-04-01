@@ -11,14 +11,14 @@
     transform: scale(1.1);
   }
 }
-.owo-hover-pulse-grow {
+[o-hover="pulse-grow"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-pulse-grow:hover, .owo-hover-pulse-grow:focus, .owo-hover-pulse-grow:active {
+[o-hover="pulse-grow"]:hover, [o-hover="pulse-grow"]:focus, [o-hover="pulse-grow"]:active {
   -webkit-animation-name: owo-hover-pulse-grow;
   animation-name: owo-hover-pulse-grow;
   -webkit-animation-duration: 0.3s;

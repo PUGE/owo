@@ -1,5 +1,5 @@
 /* Bounce Out */
-.owo-hover-bounce-out {
+[o-hover="bounce-out"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
-.owo-hover-bounce-out:hover, .owo-hover-bounce-out:focus, .owo-hover-bounce-out:active {
+[o-hover="bounce-out"]:hover, [o-hover="bounce-out"]:focus, [o-hover="bounce-out"]:active {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
   -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);

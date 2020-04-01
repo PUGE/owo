@@ -9,7 +9,7 @@
     background-color: rgba(32, 152, 209, 0.75);
   }
 }
-.owo-hover-back-pulse {
+[o-hover="back-pulse"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -21,7 +21,7 @@
   -webkit-transition-property: color, background-color;
   transition-property: color, background-color;
 }
-.owo-hover-back-pulse:hover, .owo-hover-back-pulse:focus, .owo-hover-back-pulse:active {
+[o-hover="back-pulse"]:hover, [o-hover="back-pulse"]:focus, [o-hover="back-pulse"]:active {
   -webkit-animation-name: owo-hover-back-pulse;
   animation-name: owo-hover-back-pulse;
   -webkit-animation-duration: 1s;

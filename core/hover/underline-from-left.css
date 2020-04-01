@@ -1,5 +1,5 @@
 /* Underline From Left */
-.owo-hover-underline-from-left {
+[o-hover="underline-from-left"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-underline-from-left:before {
+[o-hover="underline-from-left"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -24,6 +24,6 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-underline-from-left:hover:before, .owo-hover-underline-from-left:focus:before, .owo-hover-underline-from-left:active:before {
+[o-hover="underline-from-left:hover"]:before, [o-hover="underline-from-left:focus"]:before, [o-hover="underline-from-left:active"]:before {
   right: 0;
 }

@@ -1,5 +1,5 @@
 /* Overline From Center */
-.owo-hover-overline-from-center {
+[o-hover="overline-from-center"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-overline-from-center:before {
+[o-hover="overline-from-center"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -24,7 +24,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-overline-from-center:hover:before, .owo-hover-overline-from-center:focus:before, .owo-hover-overline-from-center:active:before {
+[o-hover="overline-from-center:hover"]:before, [o-hover="overline-from-center:focus"]:before, [o-hover="overline-from-center:active"]:before {
   left: 0;
   right: 0;
 }

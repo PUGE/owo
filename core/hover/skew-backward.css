@@ -1,5 +1,5 @@
 /* Skew Backward */
-.owo-hover-skew-backward {
+[o-hover="skew-backward"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -12,7 +12,7 @@
   -webkit-transform-origin: 0 100%;
   transform-origin: 0 100%;
 }
-.owo-hover-skew-backward:hover, .owo-hover-skew-backward:focus, .owo-hover-skew-backward:active {
+[o-hover="skew-backward"]:hover, [o-hover="skew-backward"]:focus, [o-hover="skew-backward"]:active {
   -webkit-transform: skew(10deg);
   transform: skew(10deg);
 }

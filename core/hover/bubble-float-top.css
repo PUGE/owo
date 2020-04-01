@@ -1,5 +1,5 @@
 /* Bubble Float Top */
-.owo-hover-bubble-float-top {
+[o-hover="bubble-float-top"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-bubble-float-top:before {
+[o-hover="bubble-float-top"]:before {
   position: absolute;
   z-index: -1;
   content: '';
@@ -25,11 +25,11 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-bubble-float-top:hover, .owo-hover-bubble-float-top:focus, .owo-hover-bubble-float-top:active {
+[o-hover="bubble-float-top"]:hover, [o-hover="bubble-float-top"]:focus, [o-hover="bubble-float-top"]:active {
   -webkit-transform: translateY(10px);
   transform: translateY(10px);
 }
-.owo-hover-bubble-float-top:hover:before, .owo-hover-bubble-float-top:focus:before, .owo-hover-bubble-float-top:active:before {
+[o-hover="bubble-float-top:hover"]:before, [o-hover="bubble-float-top:focus"]:before, [o-hover="bubble-float-top:active"]:before {
   -webkit-transform: translateY(-10px);
   transform: translateY(-10px);
 }

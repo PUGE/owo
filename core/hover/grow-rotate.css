@@ -1,5 +1,5 @@
 /* Grow Rotate */
-.owo-hover-grow-rotate {
+[o-hover="grow-rotate"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-grow-rotate:hover, .owo-hover-grow-rotate:focus, .owo-hover-grow-rotate:active {
+[o-hover="grow-rotate"]:hover, [o-hover="grow-rotate"]:focus, [o-hover="grow-rotate"]:active {
   -webkit-transform: scale(1.1) rotate(4deg);
   transform: scale(1.1) rotate(4deg);
 }

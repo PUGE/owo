@@ -1,5 +1,5 @@
 /* Bounce To Left */
-.owo-hover-bounce-to-left {
+[o-hover="bounce-to-left"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
-.owo-hover-bounce-to-left:before {
+[o-hover="bounce-to-left"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,10 +31,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-bounce-to-left:hover, .owo-hover-bounce-to-left:focus, .owo-hover-bounce-to-left:active {
+[o-hover="bounce-to-left"]:hover, [o-hover="bounce-to-left"]:focus, [o-hover="bounce-to-left"]:active {
   color: white;
 }
-.owo-hover-bounce-to-left:hover:before, .owo-hover-bounce-to-left:focus:before, .owo-hover-bounce-to-left:active:before {
+[o-hover="bounce-to-left:hover"]:before, [o-hover="bounce-to-left:focus"]:before, [o-hover="bounce-to-left:active"]:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
   -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);

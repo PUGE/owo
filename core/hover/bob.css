@@ -39,14 +39,14 @@
     transform: translateY(-8px);
   }
 }
-.owo-hover-bob {
+[o-hover="bob"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-bob:hover, .owo-hover-bob:focus, .owo-hover-bob:active {
+[o-hover="bob"]:hover, [o-hover="bob"]:focus, [o-hover="bob"]:active {
   -webkit-animation-name: owo-hover-bob-float, owo-hover-bob;
   animation-name: owo-hover-bob-float, owo-hover-bob;
   -webkit-animation-duration: .3s, 1.5s;

@@ -1,5 +1,5 @@
 /* Sweep To Left */
-.owo-hover-sweep-to-left {
+[o-hover="sweep-to-left"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-sweep-to-left:before {
+[o-hover="sweep-to-left"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,10 +31,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-sweep-to-left:hover, .owo-hover-sweep-to-left:focus, .owo-hover-sweep-to-left:active {
+[o-hover="sweep-to-left"]:hover, [o-hover="sweep-to-left"]:focus, [o-hover="sweep-to-left"]:active {
   color: white;
 }
-.owo-hover-sweep-to-left:hover:before, .owo-hover-sweep-to-left:focus:before, .owo-hover-sweep-to-left:active:before {
+[o-hover="sweep-to-left:hover"]:before, [o-hover="sweep-to-left:focus"]:before, [o-hover="sweep-to-left:active"]:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }

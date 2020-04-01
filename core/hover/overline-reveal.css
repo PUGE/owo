@@ -1,5 +1,5 @@
 /* Overline Reveal */
-.owo-hover-overline-reveal {
+[o-hover="overline-reveal"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-overline-reveal:before {
+[o-hover="overline-reveal"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -26,7 +26,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-overline-reveal:hover:before, .owo-hover-overline-reveal:focus:before, .owo-hover-overline-reveal:active:before {
+[o-hover="overline-reveal:hover"]:before, [o-hover="overline-reveal:focus"]:before, [o-hover="overline-reveal:active"]:before {
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }

@@ -1,5 +1,5 @@
 /* Shadow Radial */
-.owo-hover-shadow-radial {
+[o-hover="shadow-radial"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-shadow-radial:before, .owo-hover-shadow-radial:after {
+[o-hover="shadow-radial"]:before, [o-hover="shadow-radial"]:after {
   pointer-events: none;
   position: absolute;
   content: '';
@@ -22,16 +22,16 @@
   -webkit-transition-property: opacity;
   transition-property: opacity;
 }
-.owo-hover-shadow-radial:before {
+[o-hover="shadow-radial"]:before {
   bottom: 100%;
   background: -webkit-radial-gradient(50% 150%, ellipse, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%);
   background: radial-gradient(ellipse at 50% 150%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%);
 }
-.owo-hover-shadow-radial:after {
+[o-hover="shadow-radial"]:after {
   top: 100%;
   background: -webkit-radial-gradient(50% -50%, ellipse, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%);
   background: radial-gradient(ellipse at 50% -50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%);
 }
-.owo-hover-shadow-radial:hover:before, .owo-hover-shadow-radial:focus:before, .owo-hover-shadow-radial:active:before, .owo-hover-shadow-radial:hover:after, .owo-hover-shadow-radial:focus:after, .owo-hover-shadow-radial:active:after {
+[o-hover="shadow-radial:hover"]:before, [o-hover="shadow-radial:focus"]:before, [o-hover="shadow-radial:active"]:before, [o-hover="shadow-radial:hover"]:after, [o-hover="shadow-radial:focus"]:after, [o-hover="shadow-radial:active"]:after {
   opacity: 1;
 }

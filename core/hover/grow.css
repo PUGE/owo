@@ -1,4 +1,4 @@
-.owo-hover-grow {
+[o-hover="grow"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -9,7 +9,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-grow:hover, .owo-hover-grow:focus, .owo-hover-grow:active {
+[o-hover="grow"]:hover, [o-hover="grow"]:focus, [o-hover="grow"]:active {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }

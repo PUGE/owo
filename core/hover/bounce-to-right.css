@@ -1,5 +1,5 @@
 /* Bounce To Right */
-.owo-hover-bounce-to-right {
+[o-hover="bounce-to-right"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
-.owo-hover-bounce-to-right:before {
+[o-hover="bounce-to-right"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -31,10 +31,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-bounce-to-right:hover, .owo-hover-bounce-to-right:focus, .owo-hover-bounce-to-right:active {
+[o-hover="bounce-to-right"]:hover, [o-hover="bounce-to-right"]:focus, [o-hover="bounce-to-right"]:active {
   color: white;
 }
-.owo-hover-bounce-to-right:hover:before, .owo-hover-bounce-to-right:focus:before, .owo-hover-bounce-to-right:active:before {
+[o-hover="bounce-to-right:hover"]:before, [o-hover="bounce-to-right:focus"]:before, [o-hover="bounce-to-right:active"]:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
   -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);

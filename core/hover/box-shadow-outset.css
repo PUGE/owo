@@ -1,5 +1,5 @@
 /* Box Shadow Outset */
-.owo-hover-box-shadow-outset {
+[o-hover="box-shadow-outset"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,6 +10,6 @@
   -webkit-transition-property: box-shadow;
   transition-property: box-shadow;
 }
-.owo-hover-box-shadow-outset:hover, .owo-hover-box-shadow-outset:focus, .owo-hover-box-shadow-outset:active {
+[o-hover="box-shadow-outset"]:hover, [o-hover="box-shadow-outset"]:focus, [o-hover="box-shadow-outset"]:active {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
 }

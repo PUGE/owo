@@ -11,14 +11,14 @@
     transform: scale(0.9);
   }
 }
-.owo-hover-pulse-shrink {
+[o-hover="pulse-shrink"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-pulse-shrink:hover, .owo-hover-pulse-shrink:focus, .owo-hover-pulse-shrink:active {
+[o-hover="pulse-shrink"]:hover, [o-hover="pulse-shrink"]:focus, [o-hover="pulse-shrink"]:active {
   -webkit-animation-name: owo-hover-pulse-shrink;
   animation-name: owo-hover-pulse-shrink;
   -webkit-animation-duration: 0.3s;

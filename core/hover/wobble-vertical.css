@@ -51,14 +51,14 @@
     transform: translateY(0);
   }
 }
-.owo-hover-wobble-vertical {
+[o-hover="wobble-vertical"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-wobble-vertical:hover, .owo-hover-wobble-vertical:focus, .owo-hover-wobble-vertical:active {
+[o-hover="wobble-vertical"]:hover, [o-hover="wobble-vertical"]:focus, [o-hover="wobble-vertical"]:active {
   -webkit-animation-name: owo-hover-wobble-vertical;
   animation-name: owo-hover-wobble-vertical;
   -webkit-animation-duration: 1s;

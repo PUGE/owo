@@ -1,5 +1,5 @@
 /* Bubble Float Right */
-.owo-hover-bubble-float-right {
+[o-hover="bubble-float-right"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-bubble-float-right:before {
+[o-hover="bubble-float-right"]:before {
   position: absolute;
   z-index: -1;
   top: calc(50% - 10px);
@@ -25,11 +25,11 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-bubble-float-right:hover, .owo-hover-bubble-float-right:focus, .owo-hover-bubble-float-right:active {
+[o-hover="bubble-float-right"]:hover, [o-hover="bubble-float-right"]:focus, [o-hover="bubble-float-right"]:active {
   -webkit-transform: translateX(-10px);
   transform: translateX(-10px);
 }
-.owo-hover-bubble-float-right:hover:before, .owo-hover-bubble-float-right:focus:before, .owo-hover-bubble-float-right:active:before {
+[o-hover="bubble-float-right:hover"]:before, [o-hover="bubble-float-right:focus"]:before, [o-hover="bubble-float-right:active"]:before {
   -webkit-transform: translateX(10px);
   transform: translateX(10px);
 }

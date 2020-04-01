@@ -1,5 +1,5 @@
 /* Forward */
-.owo-hover-forward {
+[o-hover="forward"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-forward:hover, .owo-hover-forward:focus, .owo-hover-forward:active {
+[o-hover="forward"]:hover, [o-hover="forward"]:focus, [o-hover="forward"]:active {
   -webkit-transform: translateX(8px);
   transform: translateX(8px);
 }

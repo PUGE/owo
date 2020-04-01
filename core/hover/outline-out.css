@@ -1,5 +1,5 @@
 /* Outline Out */
-.owo-hover-outline-out {
+[o-hover="outline-out"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-outline-out:before {
+[o-hover="outline-out"]:before {
   content: '';
   position: absolute;
   border: #e1e1e1 solid 4px;
@@ -20,7 +20,7 @@
   -webkit-transition-property: top, right, bottom, left;
   transition-property: top, right, bottom, left;
 }
-.owo-hover-outline-out:hover:before, .owo-hover-outline-out:focus:before, .owo-hover-outline-out:active:before {
+[o-hover="outline-out:hover"]:before, [o-hover="outline-out:focus"]:before, [o-hover="outline-out:active"]:before {
   top: -8px;
   right: -8px;
   bottom: -8px;

@@ -1,5 +1,5 @@
 /* Fade */
-.owo-hover-fade {
+[o-hover="fade"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-property: color, background-color;
   transition-property: color, background-color;
 }
-.owo-hover-fade:hover, .owo-hover-fade:focus, .owo-hover-fade:active {
+[o-hover="fade"]:hover, [o-hover="fade"]:focus, [o-hover="fade"]:active {
   background-color: #2098D1;
   color: white;
 }

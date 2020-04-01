@@ -39,14 +39,14 @@
     transform: translateY(8px);
   }
 }
-.owo-hover-hang {
+[o-hover="hang"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-hang:hover, .owo-hover-hang:focus, .owo-hover-hang:active {
+[o-hover="hang"]:hover, [o-hover="hang"]:focus, [o-hover="hang"]:active {
   -webkit-animation-name: owo-hover-hang-sink, owo-hover-hang;
   animation-name: owo-hover-hang-sink, owo-hover-hang;
   -webkit-animation-duration: .3s, 1.5s;

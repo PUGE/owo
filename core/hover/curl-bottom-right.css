@@ -1,5 +1,5 @@
 /* Curl Bottom Right */
-.owo-hover-curl-bottom-right {
+[o-hover="curl-bottom-right"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-curl-bottom-right:before {
+[o-hover="curl-bottom-right"]:before {
   pointer-events: none;
   position: absolute;
   content: '';
@@ -24,7 +24,7 @@
   -webkit-transition-property: width, height;
   transition-property: width, height;
 }
-.owo-hover-curl-bottom-right:hover:before, .owo-hover-curl-bottom-right:focus:before, .owo-hover-curl-bottom-right:active:before {
+[o-hover="curl-bottom-right:hover"]:before, [o-hover="curl-bottom-right:focus"]:before, [o-hover="curl-bottom-right:active"]:before {
   width: 25px;
   height: 25px;
 }

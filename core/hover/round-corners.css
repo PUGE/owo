@@ -1,5 +1,5 @@
 /* Round Corners */
-.owo-hover-round-corners {
+[o-hover="round-corners"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,6 +10,6 @@
   -webkit-transition-property: border-radius;
   transition-property: border-radius;
 }
-.owo-hover-round-corners:hover, .owo-hover-round-corners:focus, .owo-hover-round-corners:active {
+[o-hover="round-corners"]:hover, [o-hover="round-corners"]:focus, [o-hover="round-corners"]:active {
   border-radius: 1em;
 }

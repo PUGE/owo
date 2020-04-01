@@ -51,14 +51,14 @@
     transform: skew(0);
   }
 }
-.owo-hover-wobble-skew {
+[o-hover="wobble-skew"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-wobble-skew:hover, .owo-hover-wobble-skew:focus, .owo-hover-wobble-skew:active {
+[o-hover="wobble-skew"]:hover, [o-hover="wobble-skew"]:focus, [o-hover="wobble-skew"]:active {
   -webkit-animation-name: owo-hover-wobble-skew;
   animation-name: owo-hover-wobble-skew;
   -webkit-animation-duration: 1s;

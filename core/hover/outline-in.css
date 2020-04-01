@@ -1,5 +1,5 @@
 /* Outline In */
-.owo-hover-outline-in {
+[o-hover="outline-in"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-outline-in:before {
+[o-hover="outline-in"]:before {
   pointer-events: none;
   content: '';
   position: absolute;
@@ -22,7 +22,7 @@
   -webkit-transition-property: top, right, bottom, left;
   transition-property: top, right, bottom, left;
 }
-.owo-hover-outline-in:hover:before, .owo-hover-outline-in:focus:before, .owo-hover-outline-in:active:before {
+[o-hover="outline-in:hover"]:before, [o-hover="outline-in:focus"]:before, [o-hover="outline-in:active"]:before {
   top: -8px;
   right: -8px;
   bottom: -8px;

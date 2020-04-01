@@ -1,5 +1,5 @@
 /* Bubble Left */
-.owo-hover-bubble-left {
+[o-hover="bubble-left"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-bubble-left:before {
+[o-hover="bubble-left"]:before {
   pointer-events: none;
   position: absolute;
   z-index: -1;
@@ -22,7 +22,7 @@
   border-width: 10px 10px 10px 0;
   border-color: transparent #e1e1e1 transparent transparent;
 }
-.owo-hover-bubble-left:hover:before, .owo-hover-bubble-left:focus:before, .owo-hover-bubble-left:active:before {
+[o-hover="bubble-left:hover"]:before, [o-hover="bubble-left:focus"]:before, [o-hover="bubble-left:active"]:before {
   -webkit-transform: translateX(-10px);
   transform: translateX(-10px);
 }

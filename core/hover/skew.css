@@ -1,5 +1,5 @@
 /* Skew */
-.owo-hover-skew {
+[o-hover="skew"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-skew:hover, .owo-hover-skew:focus, .owo-hover-skew:active {
+[o-hover="skew"]:hover, [o-hover="skew"]:focus, [o-hover="skew"]:active {
   -webkit-transform: skew(-10deg);
   transform: skew(-10deg);
 }

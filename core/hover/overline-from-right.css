@@ -1,5 +1,5 @@
 /* Overline From Right */
-.owo-hover-overline-from-right {
+[o-hover="overline-from-right"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-overline-from-right:before {
+[o-hover="overline-from-right"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -24,6 +24,6 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-overline-from-right:hover:before, .owo-hover-overline-from-right:focus:before, .owo-hover-overline-from-right:active:before {
+[o-hover="overline-from-right:hover"]:before, [o-hover="overline-from-right:focus"]:before, [o-hover="overline-from-right:active"]:before {
   left: 0;
 }

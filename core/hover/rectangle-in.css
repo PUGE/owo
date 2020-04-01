@@ -1,5 +1,5 @@
 /* Rectangle In */
-.owo-hover-rectangle-in {
+[o-hover="rectangle-in"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -12,7 +12,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-rectangle-in:before {
+[o-hover="rectangle-in"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -30,10 +30,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-rectangle-in:hover, .owo-hover-rectangle-in:focus, .owo-hover-rectangle-in:active {
+[o-hover="rectangle-in"]:hover, [o-hover="rectangle-in"]:focus, [o-hover="rectangle-in"]:active {
   color: white;
 }
-.owo-hover-rectangle-in:hover:before, .owo-hover-rectangle-in:focus:before, .owo-hover-rectangle-in:active:before {
+[o-hover="rectangle-in:hover"]:before, [o-hover="rectangle-in:focus"]:before, [o-hover="rectangle-in:active"]:before {
   -webkit-transform: scale(0);
   transform: scale(0);
 }

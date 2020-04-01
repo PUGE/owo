@@ -1,5 +1,5 @@
 /* Underline Reveal */
-.owo-hover-underline-reveal {
+[o-hover="underline-reveal"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-underline-reveal:before {
+[o-hover="underline-reveal"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -26,7 +26,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-underline-reveal:hover:before, .owo-hover-underline-reveal:focus:before, .owo-hover-underline-reveal:active:before {
+[o-hover="underline-reveal:hover"]:before, [o-hover="underline-reveal:focus"]:before, [o-hover="underline-reveal:active"]:before {
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }

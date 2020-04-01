@@ -1,5 +1,5 @@
 /* Trim */
-.owo-hover-trim {
+[o-hover="trim"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-trim:before {
+[o-hover="trim"]:before {
   content: '';
   position: absolute;
   border: white solid 4px;
@@ -21,6 +21,6 @@
   -webkit-transition-property: opacity;
   transition-property: opacity;
 }
-.owo-hover-trim:hover:before, .owo-hover-trim:focus:before, .owo-hover-trim:active:before {
+[o-hover="trim:hover"]:before, [o-hover="trim:focus"]:before, [o-hover="trim:active"]:before {
   opacity: 1;
 }

@@ -17,7 +17,7 @@
     opacity: 0;
   }
 }
-.owo-hover-ripple-out {
+[o-hover="ripple-out"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -25,7 +25,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-ripple-out:before {
+[o-hover="ripple-out"]:before {
   content: '';
   position: absolute;
   border: #e1e1e1 solid 6px;
@@ -36,7 +36,7 @@
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
 }
-.owo-hover-ripple-out:hover:before, .owo-hover-ripple-out:focus:before, .owo-hover-ripple-out:active:before {
+[o-hover="ripple-out:hover"]:before, [o-hover="ripple-out:focus"]:before, [o-hover="ripple-out:active"]:before {
   -webkit-animation-name: owo-hover-ripple-out;
   animation-name: owo-hover-ripple-out;
 }

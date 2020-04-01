@@ -19,14 +19,14 @@
     transform: scale(0.9);
   }
 }
-.owo-hover-pulse {
+[o-hover="pulse"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-pulse:hover, .owo-hover-pulse:focus, .owo-hover-pulse:active {
+[o-hover="pulse"]:hover, [o-hover="pulse"]:focus, [o-hover="pulse"]:active {
   -webkit-animation-name: owo-hover-pulse;
   animation-name: owo-hover-pulse;
   -webkit-animation-duration: 1s;

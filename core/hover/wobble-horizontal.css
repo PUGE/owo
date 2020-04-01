@@ -52,14 +52,14 @@
     transform: translateX(0);
   }
 }
-.owo-hover-wobble-horizontal {
+[o-hover="wobble-horizontal"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.owo-hover-wobble-horizontal:hover, .owo-hover-wobble-horizontal:focus, .owo-hover-wobble-horizontal:active {
+[o-hover="wobble-horizontal"]:hover, [o-hover="wobble-horizontal"]:focus, [o-hover="wobble-horizontal"]:active {
   -webkit-animation-name: owo-hover-wobble-horizontal;
   animation-name: owo-hover-wobble-horizontal;
   -webkit-animation-duration: 1s;

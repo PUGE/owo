@@ -1,5 +1,5 @@
 /* Radial Out */
-.owo-hover-radial-out {
+[o-hover="radial-out"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -13,7 +13,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.owo-hover-radial-out:before {
+[o-hover="radial-out"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -32,10 +32,10 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-radial-out:hover, .owo-hover-radial-out:focus, .owo-hover-radial-out:active {
+[o-hover="radial-out"]:hover, [o-hover="radial-out"]:focus, [o-hover="radial-out"]:active {
   color: white;
 }
-.owo-hover-radial-out:hover:before, .owo-hover-radial-out:focus:before, .owo-hover-radial-out:active:before {
+[o-hover="radial-out:hover"]:before, [o-hover="radial-out:focus"]:before, [o-hover="radial-out:active"]:before {
   -webkit-transform: scale(2);
   transform: scale(2);
 }

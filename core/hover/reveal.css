@@ -1,5 +1,5 @@
 /* Reveal */
-.owo-hover-reveal {
+[o-hover="reveal"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
 }
-.owo-hover-reveal:before {
+[o-hover="reveal"]:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -26,7 +26,7 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.owo-hover-reveal:hover:before, .owo-hover-reveal:focus:before, .owo-hover-reveal:active:before {
+[o-hover="reveal:hover"]:before, [o-hover="reveal:focus"]:before, [o-hover="reveal:active"]:before {
   -webkit-transform: translateY(0);
   transform: translateY(0);
   border-width: 4px;

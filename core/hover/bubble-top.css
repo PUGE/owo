@@ -1,5 +1,5 @@
 /* Bubble Top */
-.owo-hover-bubble-top {
+[o-hover="bubble-top"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -7,7 +7,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
 }
-.owo-hover-bubble-top:before {
+[o-hover="bubble-top"]:before {
   pointer-events: none;
   position: absolute;
   z-index: -1;
@@ -22,7 +22,7 @@
   border-width: 0 10px 10px 10px;
   border-color: transparent transparent #e1e1e1 transparent;
 }
-.owo-hover-bubble-top:hover:before, .owo-hover-bubble-top:focus:before, .owo-hover-bubble-top:active:before {
+[o-hover="bubble-top:hover"]:before, [o-hover="bubble-top:focus"]:before, [o-hover="bubble-top:active"]:before {
   -webkit-transform: translateY(-10px);
   transform: translateY(-10px);
 }

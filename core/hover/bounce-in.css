@@ -1,5 +1,5 @@
 /* Bounce In */
-.owo-hover-bounce-in {
+[o-hover="bounce-in"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -8,7 +8,7 @@
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
-.owo-hover-bounce-in:hover, .owo-hover-bounce-in:focus, .owo-hover-bounce-in:active {
+[o-hover="bounce-in"]:hover, [o-hover="bounce-in"]:focus, [o-hover="bounce-in"]:active {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
   -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);

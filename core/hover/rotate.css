@@ -1,5 +1,5 @@
 /* Rotate */
-.owo-hover-rotate {
+[o-hover="rotate"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-rotate:hover, .owo-hover-rotate:focus, .owo-hover-rotate:active {
+[o-hover="rotate"]:hover, [o-hover="rotate"]:focus, [o-hover="rotate"]:active {
   -webkit-transform: rotate(4deg);
   transform: rotate(4deg);
 }

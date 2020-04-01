@@ -1,5 +1,5 @@
 /* Float Shadow */
-.owo-hover-float-shadow {
+[o-hover="float-shadow"] {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -11,7 +11,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.owo-hover-float-shadow:before {
+[o-hover="float-shadow"]:before {
   pointer-events: none;
   position: absolute;
   z-index: -1;
@@ -29,12 +29,12 @@
   -webkit-transition-property: transform, opacity;
   transition-property: transform, opacity;
 }
-.owo-hover-float-shadow:hover, .owo-hover-float-shadow:focus, .owo-hover-float-shadow:active {
+[o-hover="float-shadow"]:hover, [o-hover="float-shadow"]:focus, [o-hover="float-shadow"]:active {
   -webkit-transform: translateY(-5px);
   transform: translateY(-5px);
   /* move the element up by 5px */
 }
-.owo-hover-float-shadow:hover:before, .owo-hover-float-shadow:focus:before, .owo-hover-float-shadow:active:before {
+[o-hover="float-shadow:hover"]:before, [o-hover="float-shadow:focus"]:before, [o-hover="float-shadow:active"]:before {
   opacity: 1;
   -webkit-transform: translateY(5px);
   transform: translateY(5px);
