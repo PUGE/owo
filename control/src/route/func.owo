@@ -166,7 +166,7 @@
           res = JSON.parse(res)
           if (res.err === 0) {
             pointObject.push({
-              name: plugConfig.file,
+              name: plugConfig.name,
               afterbody: true,
               src: `./owo_modules/${plugConfig.file}`,
             })
