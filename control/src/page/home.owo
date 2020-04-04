@@ -31,6 +31,9 @@
       .menu-item(go="//animation")
         .icon &#xe61d;
         .text 动画管理
+      .menu-item(go="//code")
+        .icon &#xe60b;
+        .text 原始数据
     view.router(name="content" o-if="this.data.config")
       .router-item(route="info" src="./src/route/info.owo")
       .router-item(route="else" src="./src/route/else.owo")
@@ -40,6 +43,7 @@
       .router-item(route="log" src="./src/route/log.owo")
       .router-item(route="resource" src="./src/route/resource.owo")
       .router-item(route="animation" src="./src/route/animation.owo")
+      .router-item(route="code" src="./src/route/code.owo")
 </template>
 
 <script>

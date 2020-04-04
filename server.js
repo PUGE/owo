@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 // 配置输出插件
 const log = require('./lib/tool/log')
+const Tool = require('./lib/tool/tool')
 const request = require('request')
 const Storage = require('./lib/storage')
 
@@ -39,6 +40,12 @@ function Server (config, app, owo) {
       plugList: owo.plugList,
       animateList: Array.from(owo.animateList),
       pageAnimationList: Array.from(owo.pageAnimationList),
+      storage: Storage
+    })
+  })
+  app.get('/getStorage', function (req, res) {
+    res.send({
+      err: 0,
       storage: Storage
     })
   })

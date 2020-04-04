@@ -1,0 +1,21 @@
+<template lang="pug">
+.code#codePanel
+</template>
+
+
+<style lang="less">
+
+</style>
+
+<script>
+  module.exports = {
+    show: function () {
+      fetch('../getStorage').then(response => response.json()).then(res => {
+        if (res.err === 0) {
+          console.log(res)
+          owo.id.codePanel.innerHTML = JSON.stringify(res.storage)
+        }
+      })
+    }
+  }
+</script>
