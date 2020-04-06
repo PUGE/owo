@@ -55,14 +55,6 @@ _owo.showPage = function() {
   } else {
     console.error('未设置程序入口!')
   }
-  /* if="this.config.pageList.find(function(element) {return element.isPlug;})" */
-  for (var key in owo.script) {
-    if (owo.script[key].type == 'block') {
-      owo.script[key].$el = document.querySelector('.owo-block[template="' + key + '"]')
-      _owo.runCreated(owo.script[key])
-    }
-  }
-  /* end="this.config.pageList.find(function(element) {return element.isPlug;})" */
   // 设置当前页面为活跃页面
   owo.state.newUrlParam = _owo.getarg(document.URL)
 }

@@ -145,11 +145,15 @@ if (config.watcherEnable) {
       isPacking = false
     }, 100);
   })
+
+  const outPutPath = path.join(runPath, config.outFolder)
   fs.watch(watcherFolder, {recursive: true}, (type, fileName) => {
     if (isPacking) return
     isPacking = true
     setTimeout(() => {
+      // 忽略掉输出目录
       fileName = path.join(watcherFolder, fileName)
+      if (fileName.startsWith(outPutPath)) return
       startPackTime = new Date().getTime()
       log.clear()
       log.info(`file change: ${fileName}`)
