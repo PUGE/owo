@@ -11,28 +11,28 @@ ul.plug
     data: {
       plugList: [
         {
-          name: "IE兼容",
+          name: "ie-support",
           info: "使IE8支持getElementsByClassName，classList等方法",
           file: "ie-support.js",
           type: 'script',
           url: "https://cunchu.site/owo/plug/ie-support.js"
         },
         {
-          name: "设备检测",
+          name: "check",
           info: "检测设备类型, 系统型号, 横竖屏",
           file: "check.js",
           type: 'script',
           url: "https://cunchu.site/owo/plug/check.js"
         },
         {
-          name: "智能缩放",
+          name: "autoScale",
           info: "根据人民网设计图尺寸750*1508自动将页面进行自适应缩放",
           file: "autoScale.js",
           type: 'script',
           url: "https://cunchu.site/owo/plug/autoScale.js"
         },
         {
-          name: "样式清除",
+          name: "clear",
           info: "清除浏览器的默认样式",
           file: "clear.css",
           type: 'style',
@@ -52,11 +52,12 @@ ul.plug
       if (isAdd) {
         owo.tool.toast('你好像已经添加过这个了!')
       } else {
+        console.log(plugConfig)
         owo.tool.post('../downloadFile', plugConfig, (res) => {
           res = JSON.parse(res)
           if (res.err === 0) {
             pointObject.push({
-              name: plugConfig.file,
+              name: plugConfig.name,
               src: `./owo_modules/${plugConfig.file}`,
             })
             // 去页面管理页面展示

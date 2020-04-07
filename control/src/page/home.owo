@@ -67,7 +67,9 @@
         this.data.pageAnimationList = res.pageAnimationList
         this.data.storage = res.storage
         setTimeout(() => {
+          console.log(res)
           owo.tool.emit('changeData', res.config)
+          console.log('----------------------------------')
           owo.tool.emit('changeLog', res.log)
           owo.tool.emit('changeResource', res.storage.resource)
         }, 0);

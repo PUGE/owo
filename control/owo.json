@@ -135,7 +135,7 @@
 			"addVersion": true,
 			"embedSize": 0,
 			"allAnimate": false,
-			"handleLink": true
+			"handleLink": false
 		}
 	},
 	"basePath": "./",

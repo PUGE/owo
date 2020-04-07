@@ -64,6 +64,7 @@ function Server (config, app, owo) {
   })
   app.post('/downloadFile', (req, res) => {
     const data = req.body
+    console.log(data.url)
     const modulesPath = path.join(process.cwd(), 'owo_modules', data.file)
     if (fs.existsSync(modulesPath)) {
       res.send(JSON.stringify({err: 0}))
