@@ -37,7 +37,7 @@ ul.plug
           file: "clear.css",
           type: 'style',
           url: "https://cunchu.site/owo/plug/clear.css"
-        },
+        }
       ]
     },
     addPlug: function (ind) {
@@ -50,24 +50,13 @@ ul.plug
         }
       })
       if (isAdd) {
-        owo.tool.toast('你好像已经添加过这个了!')
+        owo.tool.notice('你好像已经添加过这个了!')
       } else {
-        console.log(plugConfig)
-        owo.tool.post('../downloadFile', plugConfig, (res) => {
-          res = JSON.parse(res)
-          if (res.err === 0) {
-            pointObject.push({
-              name: plugConfig.name,
-              src: `./owo_modules/${plugConfig.file}`,
-            })
-            // 去页面管理页面展示
-            setTimeout(() => {
-              owo.go({route: 'else'})
-              if (plugConfig.type !== 'script') {
-                owo.tool.emit('styleListChange', owo.script.home.data.config)
-              }
-            }, 800);
-          }
+        owo.tool.notice(`脚本 [${plugConfig.name}] 添加成功!`)
+        owo.script.home.data.needDownloadFile.push(plugConfig)
+        pointObject.push({
+          name: plugConfig.name,
+          src: `./owo_modules/${plugConfig.file}`,
         })
       }
     }

@@ -79,23 +79,28 @@
 		},
 		{
 			"name": "remind",
-			"src": "./owo_modules/remind",
+			"src": "./owo_modules/remind.js",
 			"afterbody": true
 		},
 		{
 			"name": "toast",
-			"src": "./owo_modules/toast",
+			"src": "./owo_modules/toast.js",
 			"afterbody": true
 		},
 		{
 			"name": "emit",
-			"src": "./owo_modules/emit",
+			"src": "./owo_modules/emit.js",
 			"afterbody": true
 		},
 		{
 			"name": "post",
-			"src": "./owo_modules/post",
+			"src": "./owo_modules/post.js",
 			"afterbody": true
+		},
+		{
+			"name": "notice",
+			"afterbody": true,
+			"src": "./owo_modules/notice.js"
 		}
 	],
 	"styleList": [

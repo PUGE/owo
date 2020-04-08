@@ -48,6 +48,7 @@ table.page-list
         })
         owo.script.home.data.needCreatFile.push({
           type: 'owo',
+          name,
           src
         })
       } else {

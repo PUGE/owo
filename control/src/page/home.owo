@@ -54,6 +54,7 @@
       config: null,
       logInfo: {},
       needCreatFile: [],
+      needDownloadFile: [],
       plugList: [],
       storage: null
     },
@@ -101,6 +102,7 @@
       this.postData('../setControl', {
         config: this.data.config,
         needCreatFile: this.data.needCreatFile,
+        needDownloadFile: this.data.needDownloadFile
       }).then((res) => {
         console.log(res)
       })

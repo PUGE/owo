@@ -51,10 +51,27 @@ function Server (config, app, owo) {
   })
   app.post('/setControl', (req, res) => {
     const data = req.body
+    // 创建文件
     data.needCreatFile.forEach(element => {
       const filePath = path.join(runPath, element.src)
+      // 判断不存在才创建
       if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, `<template lang="pug">\r\n.box\r\n</template>\r\n<script>\r\nmodule.exports = {\r\n}\r\n</script>\r\n<style lang="less">\r\n</style>`)
+        console.log(`创建文件: ${filePath}`)
+        fs.writeFileSync(filePath, `<template lang="pug">\r\n.${element.name}\r\n    \r\n</template>\r\n<script>\r\nmodule.exports = {\r\n}\r\n</script>\r\n<style lang="less">\r\n</style>`)
+      }
+    })
+    // 下载文件
+    data.needDownloadFile.forEach(element => {
+      const filePath = path.join(process.cwd(), 'owo_modules', element.file)
+      // 判断不存在才创建
+      if (!fs.existsSync(filePath)) {
+        console.log(`下载文件: ${element.url}`)
+        const startTime = Date.now()
+        request(element.url, () => {
+          console.log(`${element.file}下载用时: ${Date.now() - startTime}毫秒`)
+        }).pipe(fs.createWriteStream(filePath))
+      } else {
+        console.log(`忽略下载已存在文件: ${element.file}`)
       }
     })
     fs.writeFile(path.join(runPath, 'owo.json'), JSON.stringify(data.config, null, '\t'), () => {
@@ -64,7 +81,6 @@ function Server (config, app, owo) {
   })
   app.post('/downloadFile', (req, res) => {
     const data = req.body
-    console.log(data.url)
     const modulesPath = path.join(process.cwd(), 'owo_modules', data.file)
     if (fs.existsSync(modulesPath)) {
       res.send(JSON.stringify({err: 0}))

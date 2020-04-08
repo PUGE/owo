@@ -2,20 +2,56 @@
 .code#codePanel
 </template>
 
-
-<style lang="less">
-
-</style>
-
 <script>
   module.exports = {
     show: function () {
       fetch('../getStorage').then(response => response.json()).then(res => {
         if (res.err === 0) {
-          console.log(res)
-          owo.id.codePanel.innerHTML = JSON.stringify(res.storage)
+          let newHtml = '<ul>'
+          function creat(obj, prefix, index) {
+            for (const key in obj) {
+              const value = obj[key]
+              const type = typeof value
+              console.log(type)
+              switch (type) {
+                case 'object':
+                  newHtml += `<li class="ele-${index}">${prefix}${key}</li>`
+                  creat(value, prefix + '&emsp;', index + 1)
+                  break;
+              
+                default:
+                  newHtml += `<li class="ele-${index}">${prefix}${key}: ${value}</li>`
+                  break;
+              }
+              
+            }
+          }
+          creat(res.storage, '', 0)
+          newHtml += '</ul>'
+          console.log(newHtml)
+          owo.id.codePanel.innerHTML = newHtml
         }
       })
     }
   }
 </script>
+
+<style lang="less">
+ul {
+  line-height: 25px;
+  font-size: 16px;
+  li {
+    padding-left: 10px;
+  }
+}
+.ele-0 {
+  background-color: #009fe9;
+  color: white;
+}
+.ele-1 {
+  background-color: powderblue;
+}
+.ele-2 {
+  background-color: white;
+}
+</style>
