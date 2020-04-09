@@ -75,7 +75,7 @@
 			"name": "main",
 			"src": "./src/main.js",
 			"resource": true,
-			"merge": true
+			"merge": "html"
 		},
 		{
 			"name": "remind",

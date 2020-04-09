@@ -7,7 +7,7 @@ table.scrip-list
     th(style="width: 160px;") babel
     th 异步加载
     th 后部加载
-    th 合并文件
+    th 合并配置
     th 操作
   tr(o-for="owo.script.home.data.config.scriptList")
     td.name {value.name}
@@ -21,7 +21,10 @@ table.scrip-list
     td.input-td
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].afterbody")
     td.merge.input-td
-      input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].merge")
+      select(o-value="owo.script.home.data.config.scriptList[{key}].merge")
+        option(value="") 外部引用
+        option(value="html") 合并到HTML中
+        option(value="core") 合并到核心文件中
     td.tool
       span.icon(o-tap="delete({key})") &#xe645;
   tr

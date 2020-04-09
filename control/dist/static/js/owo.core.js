@@ -1,6 +1,6 @@
 
 console.log('ss1')
-// Wed Apr 08 2020 23:25:30 GMT+0800 (GMT+08:00)
+// Thu Apr 09 2020 13:05:39 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -140,6 +140,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
             var value = shaheRun.apply(moudleScript, [eventFor])
             function inputEventHandle (e) {
               var eventFor = e.target.getAttribute('o-value')
+              console.log(e.target.value)
               shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
             }
             switch (tempDom.tagName) {
@@ -169,10 +170,14 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 }
                 break;
               case 'SELECT':
+                if (value == null || value == undefined) value = ''
                 var activeOpt = tempDom.querySelector('[value="' + value + '"]')
-                if (!activeOpt) {console.error('找不到应该活跃的选项: ' + value); return;}
-                activeOpt.setAttribute('selected', 'selected')
-                tempDom.oninput = inputEventHandle
+                if (activeOpt) {
+                  activeOpt.setAttribute('selected', 'selected')
+                } else {
+                  console.error('找不到应该活跃的选项: ' + value);
+                }
+                tempDom.onchange = inputEventHandle
                 break;
               default:
                 tempDom.innerHTML = value
