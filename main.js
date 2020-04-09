@@ -153,7 +153,10 @@ if (config.watcherEnable) {
     setTimeout(() => {
       // 忽略掉输出目录
       fileName = path.join(watcherFolder, fileName)
-      if (fileName.startsWith(outPutPath)) return
+      if (fileName.startsWith(outPutPath)) {
+        isPacking = false
+        return
+      }
       startPackTime = new Date().getTime()
       log.clear()
       log.info(`file change: ${fileName}`)
