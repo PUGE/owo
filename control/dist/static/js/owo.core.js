@@ -1,6 +1,4 @@
-
-console.log('ss1')
-// Thu Apr 09 2020 13:05:39 GMT+0800 (GMT+08:00)
+// Thu Apr 09 2020 14:08:43 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -140,7 +138,6 @@ _owo.addEvent = function (tempDom, moudleScript) {
             var value = shaheRun.apply(moudleScript, [eventFor])
             function inputEventHandle (e) {
               var eventFor = e.target.getAttribute('o-value')
-              console.log(e.target.value)
               shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
             }
             switch (tempDom.tagName) {
