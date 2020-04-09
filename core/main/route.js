@@ -5,7 +5,7 @@ function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
   this._viewName = viewName
   this.$el = entryDom.querySelector('[view="' + viewName +'"]')
-  for (let routeInd = 0; routeInd < routeList.length; routeInd++) {
+  for (var routeInd = 0; routeInd < routeList.length; routeInd++) {
     var routeItem = routeList[routeInd]
     this._list[routeInd] = routeItem
     this._list[routeInd]._index = routeInd
@@ -123,7 +123,7 @@ owo.go = function (config) {
   
   // 处理动画缩写
   if (config['ani']) {
-    const temp = config['ani'].split('/')
+    var temp = config['ani'].split('/')
     config.inAnimation = temp[0]
     config.outAnimation = temp[1]
   }

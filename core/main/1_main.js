@@ -1,5 +1,14 @@
 /* 方法合集 */
-var _owo = {}
+var _owo = {
+  // 支持IE的事件绑定
+  addEventListener: function (dom, name, func) {
+    if (window.addEventListener) {    
+      dom.addEventListener(name, func, false);      
+    } else if (dom.attachEvent) {
+      dom.attachEvent(name, func);
+    }
+  }
+}
 
 /* 运行页面初始化方法 */
 _owo.runCreated = function (pageFunction) {
@@ -102,10 +111,9 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
       // 防止重复绑定
       if (tempDom['owo_bind_' + eventName] !== eventFor) {
         tempDom['owo_bind_' + eventName] = eventFor
-      
-        tempDom.addEventListener(eventName, function(event) {
+        _owo.addEventListener(tempDom, eventName, function(event) {
           _owo._run(eventFor, event || this, moudleScript)
-        }, false)
+        })
       }
       break;
   }
@@ -215,9 +223,9 @@ window.addEventListener("popstate", function(e) {
 _owo.cutString = function (original, before, after, index) {
   index = index || 0
   if (typeof index === "number") {
-    const P = original.indexOf(before, index)
+    var P = original.indexOf(before, index)
     if (P > -1) {
-      if (after) {const f = original.indexOf(after, P + before.length)
+      if (after) {var f = original.indexOf(after, P + before.length)
         // console.log(P, f)
         // console.log(original.slice(P + before.toString().length, f))
         return (f>-1)? original.slice(P + before.toString().length, f) : ''
@@ -232,11 +240,11 @@ _owo.cutString = function (original, before, after, index) {
   }
 }
 _owo.cutStringArray = function (original, before, after, index, inline) {
-  let aa=[], ab=0;
+  var aa=[], ab=0;
   index = index || 0
   
   while(original.indexOf(before, index) > 0) {
-    const temp = this.cutString(original, before, after, index)
+    var temp = this.cutString(original, before, after, index)
     if (temp !== '') {
       if (inline) {
         if (temp.indexOf('\n') === -1) {

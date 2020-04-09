@@ -1,5 +1,5 @@
 function Page(pageScript, parentScript) {
-  for (const key in pageScript) {
+  for (var key in pageScript) {
     this[key] = pageScript[key]
   }
   /* if="this.plugList.has('special_data')" */
@@ -132,7 +132,7 @@ function handleEvent (moudleScript, enterDom) {
         // 获取模板插值
         var varList = _owo.cutStringArray(tempCopy, '{', '}')
         varList.forEach(element => {
-          const forValue = new Function('value', 'key', 'return ' + element)
+          var forValue = new Function('value', 'key', 'return ' + element)
           // 默认变量
           tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
         })
