@@ -47,6 +47,24 @@ function owoPageInit () {
     this.view._list = temp
   }
   /* end="this.plugList.has('route')" */
+
+  /* if="this.plugList.has('showList')" */
+  if (!this.showList) this.showList = {}
+  var showListEL = this.$el.querySelectorAll('[showList]')
+  for (const key in showListEL) {
+    if (showListEL.hasOwnProperty(key)) {
+      var element = showListEL[key]
+      var name = element.getAttribute('showList')
+      this.showList[name] = {
+        name: name,
+        activeIndex: 0
+      }
+      // 显示第一条
+      element.children[0].style.display = 'block'
+    }
+  }
+  
+  /* end="this.plugList.has('showList')" */
 }
 
 _owo.recursion = function (tempDom, callBack) {
