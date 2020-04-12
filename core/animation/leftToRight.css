@@ -1,4 +1,4 @@
-.owo-animation-leftToRight {
+[o-animation="leftToRight"] {
   -webkit-animation: leftToRight 2s linear infinite;
   -moz-animation: leftToRight 2s linear infinite;
   -ms-animation: leftToRight 2s linear infinite;

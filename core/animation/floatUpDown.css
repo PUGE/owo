@@ -1,5 +1,5 @@
 
-.owo-animation-floatUpDown {
+[o-animation="floatUpDown"] {
   -webkit-animation: floatUpDown 3s linear infinite;
   -moz-animation: floatUpDown 3s linear infinite;
   -ms-animation: floatUpDown 3s linear infinite;

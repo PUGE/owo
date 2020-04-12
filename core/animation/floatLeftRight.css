@@ -1,5 +1,5 @@
 
-.owo-animation-floatLeftRight {
+[o-animation="floatLeftRight"] {
   -webkit-animation: floatLeftRight 3s linear infinite;
   -moz-animation: floatLeftRight 3s linear infinite;
   -ms-animation: floatLeftRight 3s linear infinite;

@@ -1,4 +1,4 @@
-.owo-animation-bottomToTopHide {
+[o-animation="bottomToTopHide"] {
   -webkit-animation: bottomToTopHide 1.5s linear infinite;
   -moz-animation: bottomToTopHide 1.5s linear infinite;
   -ms-animation: bottomToTopHide 1.5s linear infinite;

@@ -1,4 +1,4 @@
-.owo-animation-shrink {
+[o-animation="shrink"] {
   -webkit-animation: shrink 1s linear alternate infinite;
   animation: shrink 1s linear alternate infinite;
 }

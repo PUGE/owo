@@ -1,7 +1,16 @@
-// Thu Apr 09 2020 14:08:43 GMT+0800 (GMT+08:00)
+// Sun Apr 12 2020 21:35:10 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
-var _owo = {}
+var _owo = {
+  // 支持IE的事件绑定
+  addEventListener: function (dom, name, func) {
+    if (window.addEventListener) {    
+      dom.addEventListener(name, func, false);      
+    } else if (dom.attachEvent) {
+      dom.attachEvent(name, func);
+    }
+  }
+}
 
 /* 运行页面初始化方法 */
 _owo.runCreated = function (pageFunction) {
@@ -104,10 +113,9 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
       // 防止重复绑定
       if (tempDom['owo_bind_' + eventName] !== eventFor) {
         tempDom['owo_bind_' + eventName] = eventFor
-      
-        tempDom.addEventListener(eventName, function(event) {
+        _owo.addEventListener(tempDom, eventName, function(event) {
           _owo._run(eventFor, event || this, moudleScript)
-        }, false)
+        })
       }
       break;
   }
@@ -217,9 +225,9 @@ window.addEventListener("popstate", function(e) {
 _owo.cutString = function (original, before, after, index) {
   index = index || 0
   if (typeof index === "number") {
-    const P = original.indexOf(before, index)
+    var P = original.indexOf(before, index)
     if (P > -1) {
-      if (after) {const f = original.indexOf(after, P + before.length)
+      if (after) {var f = original.indexOf(after, P + before.length)
         // console.log(P, f)
         // console.log(original.slice(P + before.toString().length, f))
         return (f>-1)? original.slice(P + before.toString().length, f) : ''
@@ -234,11 +242,11 @@ _owo.cutString = function (original, before, after, index) {
   }
 }
 _owo.cutStringArray = function (original, before, after, index, inline) {
-  let aa=[], ab=0;
+  var aa=[], ab=0;
   index = index || 0
   
   while(original.indexOf(before, index) > 0) {
-    const temp = this.cutString(original, before, after, index)
+    var temp = this.cutString(original, before, after, index)
     if (temp !== '') {
       if (inline) {
         if (temp.indexOf('\n') === -1) {
@@ -255,7 +263,6 @@ _owo.cutStringArray = function (original, before, after, index, inline) {
   }
   return aa;
 }
-
 
 // 页面切换
 
@@ -389,7 +396,7 @@ for (var ind = 0; ind < idList.length; ind++) {
 // 判断是否为手机
 _owo.isMobi = navigator.userAgent.toLowerCase().match(/(ipod|ipad|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i) != null
 function Page(pageScript, parentScript) {
-  for (const key in pageScript) {
+  for (var key in pageScript) {
     this[key] = pageScript[key]
   }
   
@@ -518,7 +525,7 @@ function handleEvent (moudleScript, enterDom) {
         // 获取模板插值
         var varList = _owo.cutStringArray(tempCopy, '{', '}')
         varList.forEach(element => {
-          const forValue = new Function('value', 'key', 'return ' + element)
+          var forValue = new Function('value', 'key', 'return ' + element)
           // 默认变量
           tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
         })
@@ -562,7 +569,7 @@ function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
   this._viewName = viewName
   this.$el = entryDom.querySelector('[view="' + viewName +'"]')
-  for (let routeInd = 0; routeInd < routeList.length; routeInd++) {
+  for (var routeInd = 0; routeInd < routeList.length; routeInd++) {
     var routeItem = routeList[routeInd]
     this._list[routeInd] = routeItem
     this._list[routeInd]._index = routeInd
@@ -680,7 +687,7 @@ owo.go = function (config) {
   
   // 处理动画缩写
   if (config['ani']) {
-    const temp = config['ani'].split('/')
+    var temp = config['ani'].split('/')
     config.inAnimation = temp[0]
     config.outAnimation = temp[1]
   }
@@ -849,21 +856,4 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
-
-
-// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
-if ("WebSocket" in window) {
-  // 打开一个 web socket
-  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
-  window._owo.ws.onmessage = function (evt) { 
-    if (evt.data == 'reload') {
-      location.reload()
-    }
-  }
-  window._owo.ws.onclose = function() { 
-    console.info('与服务器断开连接')
-  }
-} else {
-  console.error('浏览器不支持WebSocket')
-}
 
