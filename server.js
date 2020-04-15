@@ -33,14 +33,24 @@ function Server (config, app, owo) {
     })
   }
   app.get('/getControl', function (req, res) {
+    // 将存储中的Set转换为正常数组
+    let storage = {}
+    for (const key in Storage) {
+      if (Storage.hasOwnProperty(key)) {
+        const element = Storage[key];
+        // 判断是否为Set
+        if (element.constructor === Set) {
+          storage[key] = Array.from(element)
+        } else {
+          storage[key] = element
+        }
+      }
+    }
     res.send({
       err: 0,
       config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
       log,
-      plugList: owo.plugList,
-      animateList: Array.from(owo.animateList),
-      pageAnimationList: Array.from(owo.pageAnimationList),
-      storage: Storage
+      storage: storage
     })
   })
   app.get('/getStorage', function (req, res) {

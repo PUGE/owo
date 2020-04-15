@@ -63,10 +63,12 @@
         this.data.originalConfig = JSON.stringify(res.config)
         this.data.config = res.config
         this.data.logInfo = res.log
-        this.data.plugList = res.plugList
-        this.data.animateList = res.animateList
-        this.data.pageAnimationList = res.pageAnimationList
+        
+        
         this.data.storage = res.storage
+        this.data.animateList = res.storage.animateList
+        this.data.plugList = res.storage.plugList
+        this.data.pageAnimationList = res.storage.pageAnimationList
         setTimeout(() => {
           console.log(res)
           owo.tool.emit('changeData', res.config)

@@ -1,5 +1,5 @@
 
-/* if="this.plugList.has('route')" */
+/* if="Storage.plugList.has('route')" */
 // 特殊类型
 function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
@@ -111,9 +111,9 @@ _owo.setActiveRouteClass = function (viewInfo) {
   owo.activeView = viewInfo._viewName
   owo.activeRoute = viewInfo._activeName
 }
-/* end="this.plugList.has('route')" */
+/* end="Storage.plugList.has('route')" */
 
-/* if="this.plugList.has('route') || this.plugList.has('go') || this.config.pageList.length > 1" */
+/* if="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
 owo.go = function (config) {
   if (!config) return
   var paramString = ''
@@ -130,11 +130,11 @@ owo.go = function (config) {
   // 待优化 不需要这段代码的情况不打包这段代码
   if (!config.inAnimation && !config.outAnimation) {
     if (owo.globalAni) {
-      if (owo.globalAni.in) config.inAnimation =  owo.globalAni.in
+      if (owo.globalAni["in"]) config.inAnimation =  owo.globalAni["in"]
       if (owo.globalAni.out) config.outAnimation = owo.globalAni.out
     }
     if (owo.pageAni && owo.pageAni[activePageName]) {
-      if (owo.pageAni[activePageName].in) config.inAnimation = owo.pageAni[activePageName].in
+      if (owo.pageAni[activePageName]["in"]) config.inAnimation = owo.pageAni[activePageName]["in"]
       if (owo.pageAni[activePageName].out) config.outAnimation = owo.pageAni[activePageName].out
     }
   }
@@ -185,8 +185,8 @@ owo.go = function (config) {
     }
   }
 }
-/* end="this.plugList.has('route') || this.plugList.has('go') || this.config.pageList.length > 1" */
-/* if="this.plugList.has('go')" */
+/* end="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
+/* if="Storage.plugList.has('go')" */
 var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
@@ -202,4 +202,4 @@ for (var index = 0; index < toList.length; index++) {
     })
   }
 }
-/* end="this.plugList.has('go')" */
+/* end="Storage.plugList.has('go')" */

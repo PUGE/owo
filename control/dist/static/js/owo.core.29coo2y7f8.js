@@ -1,13 +1,14 @@
-// Sun Apr 12 2020 21:35:10 GMT+0800 (GMT+08:00)
+// Wed Apr 15 2020 14:48:21 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
+  isIE: (window.navigator.userAgent.indexOf("MSIE") >= 1),
   // 支持IE的事件绑定
   addEventListener: function (dom, name, func) {
-    if (window.addEventListener) {    
-      dom.addEventListener(name, func, false);      
-    } else if (dom.attachEvent) {
-      dom.attachEvent(name, func);
+    if (_owo.isIE) {
+      dom.attachEvent('on' + name, func);      
+    } else {
+      dom.addEventListener(name, func, false);
     }
   }
 }
@@ -134,6 +135,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
         var eventName = attribute.name.slice(2)
         switch (eventName) {
           case 'if':
+          case 'hover':
             break
           case 'tap': {
             // 根据手机和PC做不同处理
@@ -265,10 +267,14 @@ _owo.cutStringArray = function (original, before, after, index, inline) {
 }
 
 // 页面切换
-
+/* if="Storage.pageAnimationList.size > 0 || Storage.plugList.has('route') || Storage.plugList.has('showcase')" */
 _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
-  // 没有动画处理
-  if (!animationIn || !animationOut) {
+  if (!oldDom || !newDom) {
+    console.error('错误的页面切换!', oldDom, newDom)
+    return
+  }
+  // 没有动画处理 如果没有某些必须方法也不使用动画(IE)
+  if (!animationIn || !animationOut || _owo.isIE) {
     if (oldDom) {
       // 隐藏掉旧的节点
       oldDom.style.display = 'none'
@@ -363,7 +369,7 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   }
   owo.state._animation = null
 }
-
+/* end="Storage.pageAnimationList.size > 0 || Storage.plugList.has('route')" */
 
 
 
@@ -439,6 +445,8 @@ function owoPageInit () {
     }
     this.view._list = temp
   }
+  
+
   
 }
 
@@ -694,11 +702,11 @@ owo.go = function (config) {
   // 待优化 不需要这段代码的情况不打包这段代码
   if (!config.inAnimation && !config.outAnimation) {
     if (owo.globalAni) {
-      if (owo.globalAni.in) config.inAnimation =  owo.globalAni.in
+      if (owo.globalAni["in"]) config.inAnimation =  owo.globalAni["in"]
       if (owo.globalAni.out) config.outAnimation = owo.globalAni.out
     }
     if (owo.pageAni && owo.pageAni[activePageName]) {
-      if (owo.pageAni[activePageName].in) config.inAnimation = owo.pageAni[activePageName].in
+      if (owo.pageAni[activePageName]["in"]) config.inAnimation = owo.pageAni[activePageName]["in"]
       if (owo.pageAni[activePageName].out) config.outAnimation = owo.pageAni[activePageName].out
     }
   }
@@ -778,6 +786,7 @@ function shaheRun (code) {
     return undefined
   }
 }
+
 
 /*
  * 传递函数给whenReady()

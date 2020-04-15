@@ -1,11 +1,12 @@
 /* 方法合集 */
 var _owo = {
+  isIE: (window.navigator.userAgent.indexOf("MSIE") >= 1),
   // 支持IE的事件绑定
   addEventListener: function (dom, name, func) {
-    if (window.addEventListener) {    
-      dom.addEventListener(name, func, false);      
-    } else if (dom.attachEvent) {
-      dom.attachEvent(name, func);
+    if (_owo.isIE) {
+      dom.attachEvent('on' + name, func);      
+    } else {
+      dom.addEventListener(name, func, false);
     }
   }
 }
@@ -132,6 +133,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
         var eventName = attribute.name.slice(2)
         switch (eventName) {
           case 'if':
+          case 'hover':
             break
           case 'tap': {
             // 根据手机和PC做不同处理
@@ -188,7 +190,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
             }
             break
           }
-          /* if="this.plugList.has('active')" */
+          /* if="Storage.plugList.has('active')" */
           case 'active': {
             var value = shaheRun.apply(moudleScript, [eventFor])
             if (Boolean(value)) {
@@ -197,7 +199,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
               tempDom.classList.remove('active')
             }
           }
-          /* end="this.plugList.has('active')" */
+          /* end="Storage.plugList.has('active')" */
           default: {
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
@@ -214,11 +216,11 @@ _owo.addEvent = function (tempDom, moudleScript) {
 
 
 
-/* if="this.plugList.has('route')" */
+/* if="Storage.plugList.has('route')" */
 window.addEventListener("popstate", function(e) { 
   _owo.getViewChange()
 }, false);
-/* end="this.plugList.has('route')" */
+/* end="Storage.plugList.has('route')" */
 
 _owo.cutString = function (original, before, after, index) {
   index = index || 0

@@ -2,11 +2,11 @@ function Page(pageScript, parentScript) {
   for (var key in pageScript) {
     this[key] = pageScript[key]
   }
-  /* if="this.plugList.has('special_data')" */
+  /* if="Storage.plugList.has('special_data')" */
   if (typeof this.data === 'function') {
     this.data = this.data()
   }
-  /* end="this.plugList.has('special_data')" */
+  /* end="Storage.plugList.has('special_data')" */
   // 处理页面引用的模板
   for (var key in pageScript.template) {
     pageScript.template[key].$el = pageScript.$el.querySelector('[template="' + key + '"]')
@@ -25,7 +25,7 @@ function owoPageInit () {
     var templateScript = this.template[key]
     _owo.runCreated(templateScript)
   }
-  /* if="this.plugList.has('route')" */
+  /* if="Storage.plugList.has('route')" */
   // 判断页面中是否有路由
   if (this.view) {
     owo.state.urlVariable = _owo.getQueryVariable()
@@ -46,25 +46,19 @@ function owoPageInit () {
     }
     this.view._list = temp
   }
-  /* end="this.plugList.has('route')" */
+  /* end="Storage.plugList.has('route')" */
 
-  /* if="this.plugList.has('showList')" */
-  if (!this.showList) this.showList = {}
-  var showListEL = this.$el.querySelectorAll('[showList]')
-  for (const key in showListEL) {
-    if (showListEL.hasOwnProperty(key)) {
-      var element = showListEL[key]
-      var name = element.getAttribute('showList')
-      this.showList[name] = {
-        name: name,
-        activeIndex: 0
-      }
-      // 显示第一条
-      element.children[0].style.display = 'block'
-    }
+  /* if="Storage.plugList.has('showcase')" */
+  if (!this.showcase) this.showcase = {}
+  var showcaseEL = this.$el.querySelectorAll('[showcase]')
+  for (var index = 0; index < showcaseEL.length; index++) {
+    var element = showcaseEL[index];
+    var name = element.getAttribute('showcase')
+    this.showcase[name] = new Showcase(element)
+    // 显示第一条
+    element.children[0].style.display = 'block'
   }
-  
-  /* end="this.plugList.has('showList')" */
+  /* end="Storage.plugList.has('showcase')" */
 }
 
 _owo.recursion = function (tempDom, callBack) {
@@ -99,12 +93,12 @@ function handleEvent (moudleScript, enterDom) {
   }
   if (!enterDom) return
   var tempDom = enterDom
-  /* if="this.plugList.has('if')" */
+  /* if="Storage.plugList.has('if')" */
   // sdsddddddd
   if(!_owo._event_if(tempDom, moudleScript)) return
-  /* end="this.plugList.has('if')" */
+  /* end="Storage.plugList.has('if')" */
   
-  /* if="this.plugList.has('for')" */
+  /* if="Storage.plugList.has('for')" */
   if (moudleScript['forList']) {
     // 处理o-for
     for (var key in moudleScript['forList']) {
@@ -120,10 +114,10 @@ function handleEvent (moudleScript, enterDom) {
   }
   // 先处理o-for
   _owo.recursion(tempDom, function (tempDom) {
-    /* if="this.plugList.has('if')" */
+    /* if="Storage.plugList.has('if')" */
     // dd
     if(!_owo._event_if(tempDom, moudleScript)) return true
-    /* end="this.plugList.has('if')" */
+    /* end="Storage.plugList.has('if')" */
     var forValue = tempDom.getAttribute('o-for')
     if (forValue) {
       // console.log(new Function('a', 'b', 'return a + b'))
@@ -159,13 +153,13 @@ function handleEvent (moudleScript, enterDom) {
       tempDom.outerHTML = outHtml + ''
     }
   })
-  /* end="this.plugList.has('for')" */
+  /* end="Storage.plugList.has('for')" */
   _owo.recursion(tempDom, function (childrenDom) {
     if (childrenDom.hasAttribute('o-for')) return true
-    /* if="this.plugList.has('if')" */
+    /* if="Storage.plugList.has('if')" */
     // 22222
     if(!_owo._event_if(childrenDom, moudleScript)) return true
-    /* end="this.plugList.has('if')" */
+    /* end="Storage.plugList.has('if')" */
     _owo.addEvent(childrenDom, moudleScript)
   })
   // 递归处理子模板

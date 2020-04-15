@@ -17,10 +17,10 @@
     .title 使用到的插件
     ul
       li(o-for="owo.script.home.data.plugList") {value}
-  .plug-list.card-box(o-if="owo.script.home.data.animateList.length > 0")
+  .plug-list.card-box(o-if="owo.script.home.data.storage.animateList.length > 0")
     .title 使用到的动画
     ul
-      li(o-for="owo.script.home.data.animateList") {value}
+      li(o-for="owo.script.home.data.storage.animateList") {value}
   .plug-list.card-box(o-if="owo.script.home.data.storage.animationList.length > 0")
     .title 使用到的效果
     ul

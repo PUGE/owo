@@ -22,7 +22,7 @@
   <meta name="x5-page-mode" content="app" />
 
   <!-- 页面主样式文件 -->
-  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.gegmzmwh00p.css">
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.29coo2y7f8.css">
 
   <!-- 附属css文件 -->
   <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
@@ -104,10 +104,10 @@
               <li o-for="owo.script.home.data.plugList">{value}</li>
             </ul>
           </div>
-          <div class="plug-list card-box" o-if="owo.script.home.data.animateList.length > 0">
+          <div class="plug-list card-box" o-if="owo.script.home.data.storage.animateList.length > 0">
             <div class="title">使用到的动画</div>
             <ul>
-              <li o-for="owo.script.home.data.animateList">{value}</li>
+              <li o-for="owo.script.home.data.storage.animateList">{value}</li>
             </ul>
           </div>
           <div class="plug-list card-box" o-if="owo.script.home.data.storage.animationList.length > 0">
@@ -369,7 +369,7 @@
     console.log('ss1')
   </script>
   <!-- 框架script文件 -->
-  <script src="./static/js/owo.core.gegmzmwh00p.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/owo.core.29coo2y7f8.js" type="text/javascript" charset="UTF-8"></script>
   <script type="text/javascript" charset="UTF-8">
     // 模块 pageList 的script代码
     console.log('sdsd');
@@ -395,10 +395,10 @@
             _this.data.originalConfig = JSON.stringify(res.config);
             _this.data.config = res.config;
             _this.data.logInfo = res.log;
-            _this.data.plugList = res.plugList;
-            _this.data.animateList = res.animateList;
-            _this.data.pageAnimationList = res.pageAnimationList;
             _this.data.storage = res.storage;
+            _this.data.animateList = res.storage.animateList;
+            _this.data.plugList = res.storage.plugList;
+            _this.data.pageAnimationList = res.storage.pageAnimationList;
             setTimeout(function() {
               console.log(res);
               owo.tool.emit('changeData', res.config);

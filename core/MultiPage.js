@@ -90,7 +90,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   
   if (!newDom) {console.error('页面不存在!'); return}
 
-  setTimeout(() => {
+  setTimeout(function () {
     window.owo.activePage = newPage
     window.owo.script[newPage].$el = newDom
     window.owo.script[newPage].owoPageInit()
@@ -100,7 +100,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
   }, 0)
 
-  /* if="this.pageAnimationList.size > 0" */
+  /* if="Storage.pageAnimationList.size > 0" */
   // 判断是否有动画效果
   if (!owo.state._animation) owo.state._animation = {}
   // 直接.in会在ie下报错
@@ -111,11 +111,11 @@ function switchPage (oldUrlParam, newUrlParam) {
   var isForward = window.owo.script[newPage]._index > window.owo.script[oldPage]._index
   if (!animationIn && !animationOut) {
     if (owo.globalAni) {
-      if (owo.globalAni.in) animationIn =  isForward ? owo.globalAni.in : owo.globalAni.backIn
+      if (owo.globalAni["in"]) animationIn =  isForward ? owo.globalAni["in"] : owo.globalAni.backIn
       if (owo.globalAni.out) animationOut = isForward ? owo.globalAni.out : owo.globalAni.backOut
     }
     if (owo.pageAni && owo.pageAni[owo.activePage]) {
-      if (owo.pageAni[owo.activePage].in) animationIn = isForward ? owo.pageAni[owo.activePage].in : owo.pageAni[owo.activePage].backIn
+      if (owo.pageAni[owo.activePage]["in"]) animationIn = isForward ? owo.pageAni[owo.activePage]["in"] : owo.pageAni[owo.activePage].backIn
       if (owo.pageAni[owo.activePage].out) animationOut = isForward ? owo.pageAni[owo.activePage].out : owo.pageAni[owo.activePage].backOut
     }
   }
@@ -130,7 +130,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     _owo.animation(oldDom, newDom, animationIn.split('&&'), animationOut.split('&&'), forward)
     return
   }
-  /* end="this.pageAnimationList.size > 0" */
+  /* end="Storage.pageAnimationList.size > 0" */
   
   if (oldDom) {
     // 隐藏掉旧的节点

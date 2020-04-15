@@ -1,8 +1,12 @@
 // 页面切换
-/* if="this.pageAnimationList.size > 0 || this.plugList.has('route')" */
+/* if="Storage.pageAnimationList.size > 0 || Storage.plugList.has('route') || Storage.plugList.has('showcase')" */
 _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
-  // 没有动画处理
-  if (!animationIn || !animationOut) {
+  if (!oldDom || !newDom) {
+    console.error('错误的页面切换!', oldDom, newDom)
+    return
+  }
+  // 没有动画处理 如果没有某些必须方法也不使用动画(IE)
+  if (!animationIn || !animationOut || _owo.isIE) {
     if (oldDom) {
       // 隐藏掉旧的节点
       oldDom.style.display = 'none'
@@ -97,5 +101,5 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   }
   owo.state._animation = null
 }
-/* end="this.pageAnimationList.size > 0 || this.plugList.has('route')" */
+/* end="Storage.pageAnimationList.size > 0 || Storage.plugList.has('route')" */
 
