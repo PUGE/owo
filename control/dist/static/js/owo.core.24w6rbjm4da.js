@@ -1,4 +1,4 @@
-// Wed Apr 15 2020 16:26:47 GMT+0800 (GMT+08:00)
+// Thu Apr 16 2020 00:35:32 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -734,7 +734,7 @@ owo.go = function (config) {
   }
   // 防止在同一个页面刷新
   if (!paramString && !pageString) return
-  owo.state._animation = null
+  // owo.state._animation = null
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
     if (config.noBack) {
@@ -759,6 +759,7 @@ owo.go = function (config) {
 }
 
 
+// 待修复 跳转返回没有了
 var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]

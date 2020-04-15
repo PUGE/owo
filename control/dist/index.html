@@ -22,7 +22,7 @@
   <meta name="x5-page-mode" content="app" />
 
   <!-- 页面主样式文件 -->
-  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.c0cd5v5bqvw.css">
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.core.24w6rbjm4da.css">
 
   <!-- 附属css文件 -->
   <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
@@ -124,7 +124,7 @@
           </div>
         </div>
         <div class="page router-item" o-if="owo.script.home.data.config" route="else">
-          <table class="key-value-list" o-if="owo.script.home.data.config" template="headKeyValueList">
+          <table class="key-value-list" o-if="owo.script.home.data.config" _src="./src/module/headKeyValueList.owo" _name="headKeyValueList" template="headKeyValueList">
             <tbody>
               <tr>
                 <th>键名</th>
@@ -151,17 +151,21 @@
               </tr>
             </tbody>
           </table>
-          <table class="style-list" template="styleList">
+          <table class="style-list" _src="./src/module/styleList.owo" _name="styleList" template="styleList">
             <tbody>
               <tr>
                 <th>脚本名</th>
                 <th>脚本路径</th>
+                <th>Less处理</th>
                 <th width="70px">资源处理</th>
                 <th>操作</th>
               </tr>
               <tr class="key-value-item" o-for="owo.script.home.data.config.styleList">
                 <td class="name">{value.name}</td>
                 <td class="value">{value.src}</td>
+                <td class="less">
+                  <input type="checkbox" o-value="owo.script.home.data.config.styleList[{key}].less">
+                </td>
                 <td class="resource icon {value.resource ? 'check' : ''}" ind="{key}" o-tap="resourceChange">{value.resource ? '' : ''}</td>
                 <td class="tool">
                   <span class="icon" o-tap="delete({key})"></span>
@@ -179,7 +183,7 @@
               </tr>
             </tbody>
           </table>
-          <table class="scrip-list" template="scriptList">
+          <table class="scrip-list" _src="./src/module/scriptList.owo" _name="scriptList" template="scriptList">
             <tbody>
               <tr>
                 <th>脚本名</th>
@@ -245,7 +249,7 @@
               </tr>
             </tbody>
           </table>
-          <table class="page-list" template="pageList">
+          <table class="page-list" _src="./src/module/pageList.owo" _name="pageList" template="pageList">
             <tbody>
               <tr>
                 <th>页面名</th>
@@ -319,7 +323,7 @@
           <ul></ul>
         </div>
         <div class="resource-box router-item" route="resource">
-          <div class="no-data" o-if="this.data.resInfo.length == 0">
+          <div class="no-data" o-if="this.data.resInfo.length == 0" _name="noData" _src="./src/module/noData.owo">
             <span>暂无数据</span>
           </div>
           <div class="resource-data" o-if="this.data.resInfo.length > 0">
@@ -369,7 +373,7 @@
     console.log('ss1')
   </script>
   <!-- 框架script文件 -->
-  <script src="./static/js/owo.core.c0cd5v5bqvw.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/owo.core.24w6rbjm4da.js" type="text/javascript" charset="UTF-8"></script>
   <script type="text/javascript" charset="UTF-8">
     // 模块 pageList 的script代码
     console.log('sdsd');

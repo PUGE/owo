@@ -3,11 +3,14 @@ table.style-list
   tr
     th 脚本名
     th 脚本路径
+    th Less处理
     th(width="70px") 资源处理
     th 操作
   tr.key-value-item(o-for="owo.script.home.data.config.styleList")
     td.name {value.name}
     td.value {value.src}
+    td.less
+      input(type="checkbox" o-value="owo.script.home.data.config.styleList[{key}].less")
     td.resource.icon(class="{value.resource ? 'check' : ''}" ind='{key}' o-tap='resourceChange') {value.resource ? '&#xE661;' : '&#xE614;'}
     td.tool
       span.icon(o-tap='delete({key})') &#xE645;
