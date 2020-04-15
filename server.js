@@ -54,9 +54,21 @@ function Server (config, app, owo) {
     })
   })
   app.get('/getStorage', function (req, res) {
+    let storage = {}
+    for (const key in Storage) {
+      if (Storage.hasOwnProperty(key)) {
+        const element = Storage[key];
+        // 判断是否为Set
+        if (element.constructor === Set) {
+          storage[key] = Array.from(element)
+        } else {
+          storage[key] = element
+        }
+      }
+    }
     res.send({
       err: 0,
-      storage: Storage
+      storage: storage
     })
   })
   app.post('/setControl', (req, res) => {
