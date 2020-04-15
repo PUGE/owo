@@ -162,7 +162,7 @@ owo.go = function (config) {
   }
   // 防止在同一个页面刷新
   if (!paramString && !pageString) return
-  owo.state._animation = null
+  // owo.state._animation = null
   // 判断是否支持history模式
   if (window.history && window.history.pushState) {
     if (config.noBack) {
@@ -187,6 +187,7 @@ owo.go = function (config) {
 }
 /* end="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
 /* if="Storage.plugList.has('go')" */
+// 待修复 跳转返回没有了
 var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
