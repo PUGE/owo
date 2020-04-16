@@ -19,6 +19,8 @@ table.style-list
       input.nameInput(type='text', placeholder='新增样式名称')
     td
       input.srcInput(placeholder='新增样式路径', type='text')
+    td
+      input(type="checkbox" o-value="this.add.less")
     td.icon.icon-box.resource-check(width='70px', o-tap='addNewResourceChange') &#xE614;
     td.tool.icon(o-tap='add') &#xE600;
 </template>
@@ -26,7 +28,8 @@ table.style-list
 <script>
   module.exports = {
     data: {
-      addNewNeedResource: false
+      addNewNeedResource: false,
+      add: {}
     },
     broadcast: {
       changeData: function (value) {
@@ -62,6 +65,7 @@ table.style-list
         owo.script.home.data.config.styleList.push({
           name,
           src,
+          less: this.add.less,
           resource: this.data.addNewNeedResource 
         })
       }
