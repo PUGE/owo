@@ -60,17 +60,7 @@ View.prototype.showName = function (name) {
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
-// 获取URL中的参数
-_owo.getQueryVariable = function () {
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  var temp = {}
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split("=");
-    temp[pair[0]] = pair[1];
-  }
-  return temp;
-}
+
 _owo.getViewChange = function () {
   var activeScript = owo.script[owo.activePage]
   // 路由列表
@@ -149,16 +139,8 @@ owo.go = function (config) {
     if (!owo.script[config.page]) {console.error("导航到不存在的页面: " + config.page); return}
     if (config.page != owo.activePage) pageString = '#' + config.page
   }
-  if (config.route) {
-    if (activeScript.$el.querySelector('[view]')) {
-      
-      var activeViewName = config.view ? config.view : activeScript.$el.querySelector('[view]').attributes['view'].value
-      if ((activeViewName !== owo.activeView) || (config.route !== owo.activeRoute)) {
-        paramString = '?view-' + activeViewName + '=' + config.route
-      }
-    } else {
-      console.error('页面中找不到路由组件!')
-    }
+  if (config.paramString) {
+    paramString = '?' + config.paramString
   }
   // 防止在同一个页面刷新
   if (!paramString && !pageString) return
@@ -195,11 +177,10 @@ for (var index = 0; index < toList.length; index++) {
     var target = this.attributes['go'].value.split('/')
     owo.go({
       page: target[0],
-      view: target[1],
-      route: target[2],
-      inAnimation: target[3],
-      outAnimation: target[4],
-      noBack: target[5],
+      paramString: target[1],
+      inAnimation: target[2],
+      outAnimation: target[3],
+      noBack: target[4],
     })
   }
 }

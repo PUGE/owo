@@ -15,17 +15,11 @@ var _owo = {
 _owo.runCreated = function (pageFunction) {
   try {
     // console.log(pageFunction)
-    if (pageFunction.show) {
-      pageFunction.show.apply(pageFunction)
-    }
+    if (pageFunction.show) {pageFunction.show.apply(pageFunction)}
     if (pageFunction["_isCreated"]) return
-
     // 确保created事件只被执行一次
     pageFunction._isCreated = true
-    
-    if (pageFunction.created) {
-      pageFunction.created.apply(pageFunction)
-    }
+    if (pageFunction.created) {pageFunction.created.apply(pageFunction)}
   } catch (e) {
     console.error(e)
   }
@@ -263,3 +257,18 @@ _owo.cutStringArray = function (original, before, after, index, inline) {
   }
   return aa;
 }
+
+
+/* if="Storage.plugList.has('route') || Storage.plugList.has('showcase')" */
+// 获取URL中的参数
+_owo.getQueryVariable = function () {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  var temp = {}
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    temp[pair[0]] = pair[1];
+  }
+  return temp;
+}
+/* end="Storage.plugList.has('route') || Storage.plugList.has('showcase')" */

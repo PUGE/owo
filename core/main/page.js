@@ -49,15 +49,7 @@ function owoPageInit () {
   /* end="Storage.plugList.has('route')" */
 
   /* if="Storage.plugList.has('showcase')" */
-  if (!this.showcase) this.showcase = {}
-  var showcaseEL = this.$el.querySelectorAll('[showcase]')
-  for (var index = 0; index < showcaseEL.length; index++) {
-    var element = showcaseEL[index];
-    var name = element.getAttribute('showcase')
-    this.showcase[name] = new Showcase(element)
-    // 显示第一条
-    element.children[0].style.display = 'block'
-  }
+  showcaseInit(this)
   /* end="Storage.plugList.has('showcase')" */
 }
 
