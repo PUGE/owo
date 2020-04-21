@@ -37,7 +37,14 @@ ul.plug
           file: "clear.css",
           type: 'style',
           url: "https://cunchu.site/owo/plug/clear.css"
-        }
+        },
+        {
+          name: "html2canvas",
+          info: "html2canvas",
+          file: "html2canvas.min.js",
+          type: 'script',
+          url: "https://cunchu.site/owo/script/html2canvas.min.js"
+        },
       ]
     },
     addPlug: function (ind) {

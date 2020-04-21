@@ -101,5 +101,5 @@ _owo.animation = function (oldDom, newDom, animationIn, animationOut, forward) {
   }
   owo.state._animation = null
 }
-/* end="Storage.pageAnimationList.size > 0 || Storage.plugList.has('route')" */
+/* end="Storage.pageAnimationList.size > 0 || Storage.plugList.has('route') || Storage.plugList.has('showcase')" */
 

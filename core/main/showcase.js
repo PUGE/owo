@@ -9,18 +9,21 @@ function Showcase(showcaseEL) {
     var newActive = this.activeIndex + 1
     if (newActive >= (this.count - 1)) newActive = 0
     _owo.animation(this.children[this.activeIndex], this.children[newActive])
-    this.activeIndex = newActiveIndex
+    this.activeIndex = newActive
+    if (this.onChange) this.onChange(this)
   }
   this.prev = function () {
     var newActive = this.activeIndex - 1
     if (newActive <= 0) newActive = this.count - 1
     _owo.animation(this.children[this.activeIndex], this.children[newActive])
-    this.activeIndex = newActiveIndex
+    this.activeIndex = newActive
+    if (this.onChange) this.onChange(this)
   },
   this.go = function (newActiveIndex) {
     newActiveIndex = parseInt(newActiveIndex)
     _owo.animation(this.children[this.activeIndex], this.children[newActiveIndex])
     this.activeIndex = newActiveIndex
+    if (this.onChange) this.onChange(this)
   }
 }
 
