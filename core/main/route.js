@@ -109,7 +109,6 @@ owo.go = function (config) {
   var paramString = ''
   var pageString = ''
   var activePageName = config.page || owo.activePage
-  var activeScript = owo.script[activePageName]
   
   // 处理动画缩写
   if (config['ani']) {
@@ -140,7 +139,15 @@ owo.go = function (config) {
     if (config.page != owo.activePage) pageString = '#' + config.page
   }
   if (config.paramString) {
-    paramString = '?' + config.paramString
+    var search = _owo.getQueryVariable()
+    var addSEarch = config.paramString.split('=')
+    search[addSEarch[0]] = addSEarch[1]
+    paramString = '?'
+    for (var key in search) {
+      // 待优化 怎么前面多了个&
+      var value = search[key]
+      if (value) paramString += '&' + key + '=' + value
+    }
   }
   // 防止在同一个页面刷新
   if (!paramString && !pageString) return
@@ -158,7 +165,7 @@ owo.go = function (config) {
     }
 
     if (config.page) _owo.hashchange()
-    if (config.route) _owo.getViewChange()
+    if (config.paramString) _owo.getViewChange()
   } else {
     if (config.noBack) {
       location.replace(paramString + pageString)
