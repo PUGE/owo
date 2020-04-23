@@ -8,7 +8,7 @@ table.page-list
   tr(o-for="owo.script.home.data.config.pageList")
     td.name {value.name}
     td.value {value.src}
-    td.type
+    td.type.full
       select(o-value="owo.script.home.data.config.pageList[{key}].type")
         option(value="page") 页面
         option(value="block") 插件
@@ -83,6 +83,7 @@ td {
   padding: 0 10px;
   color: #333;
 }
+
 .tool {
   text-align: center;
   color: #009fe9;

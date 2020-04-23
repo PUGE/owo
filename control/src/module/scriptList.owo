@@ -20,7 +20,7 @@ table.scrip-list
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].defer")
     td.input-td
       input(type="checkbox" o-value="owo.script.home.data.config.scriptList[{key}].afterbody")
-    td.merge.input-td
+    td.merge.input-td.full
       select(o-value="owo.script.home.data.config.scriptList[{key}].merge")
         option(value="") 外部引用
         option(value="html") 合并到HTML中
@@ -40,8 +40,11 @@ table.scrip-list
       input(type="checkbox" o-value="this.data.defer")
     td.input-td
       input(type="checkbox" o-value="this.data.afterbody")
-    td.input-td
-      input(type="checkbox" o-value="this.data.merge")
+    td.input-td.full
+      select(o-value="this.data.merge")
+        option(value="") 外部引用
+        option(value="html") 合并到HTML中
+        option(value="core") 合并到核心文件中
     td.tool
       span.icon(o-tap="add") &#xe600;
 </template>
