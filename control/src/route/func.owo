@@ -137,11 +137,19 @@
           type: 'script',
           url: "https://cunchu.site/owo/tool/remind.js"
         },
+        {
+          name: "particleImage",
+          info: "沙子凝聚成图片",
+          file: "particleImage.js",
+          group: '样式效果',
+          use: "particleImage(imageEL, canvasEL)",
+          type: 'script',
+          url: "https://cunchu.site/owo/tool/particleImage.js"
+        },
       ],
       showList: []
     },
     created: function () {
-      console.log('asdssssss')
       this.data.plugList.forEach(element => {
         if (!this.data.typeList.includes(element.group)) {
           this.data.typeList.push(element.group)

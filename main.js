@@ -9,9 +9,6 @@ const Server = require('./server.js')
 // 命令行运行目录
 const runPath = process.cwd()
 
-// 创建模块下载文件夹(owo_modules目录)
-Tool.creatDirIfNotExist(path.join(process.cwd(), 'owo_modules'))
-
 
 // 判断运行目录下是否包含配置文件
 if (!fs.existsSync(path.join(runPath, 'owo.json'))) {
@@ -19,7 +16,7 @@ if (!fs.existsSync(path.join(runPath, 'owo.json'))) {
   return
 }
 // 配置文件检测
-const checkConfig = require('./lib/tool/checkConfig')
+const checkConfig = require('./checkConfig')
 
 function getConfig () {
   // 读取配置文件
