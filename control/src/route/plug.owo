@@ -45,6 +45,13 @@ ul.plug
           type: 'script',
           url: "https://cunchu.site/owo/script/html2canvas.min.js"
         },
+        {
+          name: "swiper3D",
+          info: "3D轮播图",
+          file: "swiper3D.js",
+          type: 'script',
+          url: "https://cunchu.site/owo/script/swiper3D.js"
+        },
       ]
     },
     addPlug: function (ind) {
