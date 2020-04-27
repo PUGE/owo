@@ -9,7 +9,7 @@ _owo.showPage = function() {
   if (firstPageList) {
     owo.entry = firstPageList.getAttribute('template')
     // 查找入口
-    if (!owo.script[owo.entry].$el) {
+    if (!owo.script[owo.entry] || !owo.script[owo.entry].$el) {
       console.error('找不到页面入口!')
     } else {
       owo.activePage = owo.entry
