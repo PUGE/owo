@@ -1,6 +1,6 @@
 <template lang="pug">
 .resource-box
-  plug(o-if="this.data.resInfo.length == 0" _name="noData" _src="./src/module/noData.owo")
+  plug(o-if="this.$parent.data.resInfo.length == 0" _name="noData" _src="./src/module/noData.owo")
   .resource-data(o-if="this.data.resInfo.length > 0")
     .title
       .left#picNumber

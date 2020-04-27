@@ -7,31 +7,31 @@
   .content-box
     //- 左侧菜单
     .menu
-      .menu-item(go="/view-content=info")
+      .menu-item(go="/view-content=info" o-class-active="owo.activeRoute == 'info'")
         .icon &#xe659;
         .text 页面概况
-      .menu-item(go="/view-content=else")
+      .menu-item(go="/view-content=else" o-class-active="owo.activeRoute == 'else'")
         .icon &#xe730;
         .text 页面管理
-      .menu-item(go="/view-content=plug")
+      .menu-item(go="/view-content=plug" o-class-active="owo.activeRoute == 'plug'")
         .icon &#xe646;
         .text 插件管理
-      .menu-item(go="/view-content=func")
+      .menu-item(go="/view-content=func" o-class-active="owo.activeRoute == 'func'")
         .icon &#xe607;
         .text 脚本管理
-      .menu-item(go="/view-content=build")
+      .menu-item(go="/view-content=build" o-class-active="owo.activeRoute == 'build'")
         .icon &#xe662;
         .text 打包配置
-      .menu-item(go="/view-content=log")
+      .menu-item(go="/view-content=log" o-class-active="owo.activeRoute == 'log'")
         .icon &#xe601;
         .text 日志管理
-      .menu-item(go="/view-content=resource")
+      .menu-item(go="/view-content=resource" o-class-active="owo.activeRoute == 'resource'")
         .icon &#xe7b0;
         .text 资源管理
-      .menu-item(go="/view-content=animation")
+      .menu-item(go="/view-content=animation" o-class-active="owo.activeRoute == 'animation'")
         .icon &#xe61d;
         .text 动画管理
-      .menu-item(go="/view-content=code")
+      .menu-item(go="/view-content=code" o-class-active="owo.activeRoute == 'code'")
         .icon &#xe60b;
         .text 原始数据
     view.router(name="content" o-if="this.data.config")

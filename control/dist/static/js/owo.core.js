@@ -1,4 +1,4 @@
-// Sun Apr 26 2020 00:31:27 GMT+0800 (GMT+08:00)
+// Mon Apr 27 2020 22:14:35 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -176,7 +176,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 if (activeOpt) {
                   activeOpt.setAttribute('selected', 'selected')
                 } else {
-                  console.error('找不到应该活跃的选项: ' + value);
+                  console.error('找不到应该活跃的选项: ' + value + '\r\nDOM元素为: ', tempDom);
                 }
                 tempDom.onchange = inputEventHandle
                 break;
@@ -185,18 +185,21 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 break;
             }
             break
-          }
-          
-          case 'active': {
-            var value = shaheRun.apply(moudleScript, [eventFor])
-            if (Boolean(value)) {
-              tempDom.classList.add('active')
-            } else {
-              tempDom.classList.remove('active')
-            }
-          }
-          
+          }   
           default: {
+            
+            if (attribute.name.slice(0, 8) == 'o-class-') {
+              var bindClassName = attribute.name.slice(8)
+              if (bindClassName) {
+                var value = shaheRun.apply(moudleScript, [eventFor])
+                if (Boolean(value)) {
+                  tempDom.classList.add(bindClassName)
+                } else {
+                  tempDom.classList.remove(bindClassName)
+                }
+              }
+            }
+            
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
         }
@@ -563,6 +566,7 @@ function handleEvent (moudleScript, enterDom) {
   // 递归处理子模板
   for (var key in moudleScript.template) {
     moudleScript.template[key].$el = tempDom.querySelector('[template="' + key + '"]')
+    moudleScript.template[key].$parent = moudleScript
     handleEvent(moudleScript.template[key])
   }
 }
@@ -839,7 +843,7 @@ _owo.showPage = function() {
   if (firstPageList) {
     owo.entry = firstPageList.getAttribute('template')
     // 查找入口
-    if (!owo.script[owo.entry].$el) {
+    if (!owo.script[owo.entry] || !owo.script[owo.entry].$el) {
       console.error('找不到页面入口!')
     } else {
       owo.activePage = owo.entry
@@ -863,4 +867,21 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
+
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
+    }
+  }
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
+}
 

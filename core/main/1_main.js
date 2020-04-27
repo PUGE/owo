@@ -174,7 +174,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 if (activeOpt) {
                   activeOpt.setAttribute('selected', 'selected')
                 } else {
-                  console.error('找不到应该活跃的选项: ' + value);
+                  console.error('找不到应该活跃的选项: ' + value + '\r\nDOM元素为: ', tempDom);
                 }
                 tempDom.onchange = inputEventHandle
                 break;
@@ -183,18 +183,21 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 break;
             }
             break
-          }
-          /* if="Storage.plugList.has('active')" */
-          case 'active': {
-            var value = shaheRun.apply(moudleScript, [eventFor])
-            if (Boolean(value)) {
-              tempDom.classList.add('active')
-            } else {
-              tempDom.classList.remove('active')
-            }
-          }
-          /* end="Storage.plugList.has('active')" */
+          }   
           default: {
+            /* if="Storage.plugList.has('class')" */
+            if (attribute.name.slice(0, 8) == 'o-class-') {
+              var bindClassName = attribute.name.slice(8)
+              if (bindClassName) {
+                var value = shaheRun.apply(moudleScript, [eventFor])
+                if (Boolean(value)) {
+                  tempDom.classList.add(bindClassName)
+                } else {
+                  tempDom.classList.remove(bindClassName)
+                }
+              }
+            }
+            /* end="Storage.plugList.has('class')" */
             _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
           }
         }
