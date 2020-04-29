@@ -52,6 +52,13 @@ ul.plug
           type: 'script',
           url: "https://cunchu.site/owo/script/swiper3D.js"
         },
+        {
+          name: "iscroll-lite",
+          info: "滚动组件",
+          file: "iscroll-lite.js",
+          type: 'script',
+          url: "https://cunchu.site/owo/script/iscroll-lite.js"
+        },
       ]
     },
     addPlug: function (ind) {

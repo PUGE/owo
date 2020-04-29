@@ -1,4 +1,4 @@
-// Mon Apr 27 2020 22:14:35 GMT+0800 (GMT+08:00)
+// Wed Apr 29 2020 20:29:25 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -596,7 +596,7 @@ function View(routeList, viewName, entryDom, pageScript) {
     this._list[routeInd]._index = routeInd
     this._list[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
     // 默认隐藏route
-    this._list[routeInd].$el.setAttribute('route-active', 'false')
+    this._list[routeInd].$el.style.display = 'none'
     // 错误处理
     if (!this._list[routeInd].$el) {
       console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
@@ -609,16 +609,27 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 View.prototype.showIndex = function (ind) {
-  if (this._list.length - 1 < ind) {console.error('导航到不存在的页面: ' + ind);return;}
-  if (this._activeIndex) {
-    this._list[this._activeIndex].$el.setAttribute('route-active', 'false')
-  }
-  var element = this._list[ind]
-  element.$el.setAttribute('route-active', 'true')
-  element.owoPageInit()
-  element.handleEvent()
-  this["_activeName"] = element._name
+  this._activeIndex = this._activeIndex || 0
+  var oldRoute = this._list[this._activeIndex]
+  var newRoute = this._list[ind]
+  if (!newRoute) {console.error('导航到不存在的页面: ' + ind);return;}
+  
+  this["_activeName"] = newRoute._name
   this["_activeIndex"] = ind
+  newRoute.owoPageInit()
+  newRoute.handleEvent()
+  
+  if (owo.state._animation || owo.globalAni) {
+    var animationValue = owo.state._animation || owo.globalAni
+    if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
+    else _owo.animation(oldRoute.$el, newRoute.$el, animationValue.backIn, animationValue.backOut)
+  } else {
+    _owo.animation(oldRoute.$el, newRoute.$el)
+  }
+  if (oldRoute) {
+    oldRoute.$el.removeAttribute('route-active')
+  }
+  newRoute.$el.setAttribute('route-active', 'true')
   _owo.setActiveRouteClass(this)
 }
 
@@ -631,8 +642,7 @@ View.prototype.showName = function (name) {
   this["_activeIndex"] = newRoute._index
   newRoute.owoPageInit()
   newRoute.handleEvent()
-  newRoute.$el.setAttribute('route-active', 'true')
-  oldRoute.$el.removeAttribute('route-active')
+  
   if (owo.state._animation || owo.globalAni) {
     var animationValue = owo.state._animation || owo.globalAni
     if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
@@ -640,7 +650,8 @@ View.prototype.showName = function (name) {
   } else {
     _owo.animation(oldRoute.$el, newRoute.$el)
   }
-  
+  newRoute.$el.setAttribute('route-active', 'true')
+  oldRoute.$el.removeAttribute('route-active')
   _owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
@@ -729,9 +740,8 @@ owo.go = function (config) {
     search[addSEarch[0]] = addSEarch[1]
     paramString = '?'
     for (var key in search) {
-      // 待优化 怎么前面多了个&
       var value = search[key]
-      if (value) paramString += '&' + key + '=' + value
+      if (value) paramString += (paramString == '?' ?  '' : '&') + key + '=' + value
     }
   }
   // 防止在同一个页面刷新
@@ -867,21 +877,4 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
-
-
-// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
-if ("WebSocket" in window) {
-  // 打开一个 web socket
-  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
-  window._owo.ws.onmessage = function (evt) { 
-    if (evt.data == 'reload') {
-      location.reload()
-    }
-  }
-  window._owo.ws.onclose = function() { 
-    console.info('与服务器断开连接')
-  }
-} else {
-  console.error('浏览器不支持WebSocket')
-}
 
