@@ -1,4 +1,4 @@
-// Wed Apr 29 2020 20:29:25 GMT+0800 (GMT+08:00)
+// Thu Apr 30 2020 23:39:29 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -439,26 +439,16 @@ function owoPageInit () {
   
   // 判断页面中是否有路由
   if (this.view) {
-    owo.state.urlVariable = _owo.getQueryVariable()
     temp = []
     for (var viewName in this.view) {
       var routeList = this.view[viewName]
       this.view[viewName] = new View(routeList, viewName, this['$el'], this)
-      // 标识是否没有指定显示哪个路由
-      // 从url中获取路由信息
-      var urlViewName = owo.state.urlVariable['view-' + viewName]
-      // 判断url中是否有路由信息，如果没有显示第一个路由
-      var activeRouteIndex = urlViewName ? this.view[viewName][urlViewName]._index : 0
-
-      // 激活对应路由
-      this.view[viewName].showIndex(activeRouteIndex)
-      var activeView = this.view[viewName]._list[activeRouteIndex]
+      _owo.getViewChange()
       temp.push(this.view[viewName])
     }
     this.view._list = temp
   }
   
-
   
 }
 
@@ -596,7 +586,7 @@ function View(routeList, viewName, entryDom, pageScript) {
     this._list[routeInd]._index = routeInd
     this._list[routeInd].$el = entryDom.querySelector('[view="' + viewName +'"] [route="' + routeItem._name +'"]')
     // 默认隐藏route
-    this._list[routeInd].$el.style.display = 'none'
+    this._list[routeInd].$el.setAttribute('route-active', 'false')
     // 错误处理
     if (!this._list[routeInd].$el) {
       console.error('找不到视窗 ' + viewName + ' 中的路由: ' + routeItem._name)
@@ -611,6 +601,11 @@ function View(routeList, viewName, entryDom, pageScript) {
 View.prototype.showIndex = function (ind) {
   this._activeIndex = this._activeIndex || 0
   var oldRoute = this._list[this._activeIndex]
+  // 如果新旧路由和旧路由是一样的那么不做处理
+  if (this._activeIndex == ind) {
+    setTimeout(function() {oldRoute.$el.setAttribute('route-active', 'true')}, 0);
+    return
+  }
   var newRoute = this._list[ind]
   if (!newRoute) {console.error('导航到不存在的页面: ' + ind);return;}
   
@@ -618,16 +613,18 @@ View.prototype.showIndex = function (ind) {
   this["_activeIndex"] = ind
   newRoute.owoPageInit()
   newRoute.handleEvent()
-  
-  if (owo.state._animation || owo.globalAni) {
-    var animationValue = owo.state._animation || owo.globalAni
-    if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
-    else _owo.animation(oldRoute.$el, newRoute.$el, animationValue.backIn, animationValue.backOut)
-  } else {
-    _owo.animation(oldRoute.$el, newRoute.$el)
-  }
   if (oldRoute) {
-    oldRoute.$el.removeAttribute('route-active')
+    if (owo.state._animation || owo.globalAni) {
+      var animationValue = owo.state._animation || owo.globalAni
+      if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
+      else _owo.animation(oldRoute.$el, newRoute.$el, animationValue.backIn, animationValue.backOut)
+    } else {
+      _owo.animation(oldRoute.$el, newRoute.$el)
+    }
+    // 加个延时隐藏不然直接隐藏动画效果不好
+    setTimeout(() => {
+      oldRoute.$el.setAttribute('route-active', 'false')
+    }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
   _owo.setActiveRouteClass(this)
@@ -640,18 +637,25 @@ View.prototype.showName = function (name) {
   // 根据index
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
+  // 如果没有旧路由，那么直接显示新路由就行
+  
   newRoute.owoPageInit()
   newRoute.handleEvent()
-  
-  if (owo.state._animation || owo.globalAni) {
-    var animationValue = owo.state._animation || owo.globalAni
-    if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
-    else _owo.animation(oldRoute.$el, newRoute.$el, animationValue.backIn, animationValue.backOut)
-  } else {
-    _owo.animation(oldRoute.$el, newRoute.$el)
+  if (oldRoute) {
+    if (owo.state._animation || owo.globalAni) {
+      var animationValue = owo.state._animation || owo.globalAni
+      if (newRoute._index > oldRoute._index) _owo.animation(oldRoute.$el, newRoute.$el, animationValue.in, animationValue.out)
+      else _owo.animation(oldRoute.$el, newRoute.$el, animationValue.backIn, animationValue.backOut)
+    } else {
+      _owo.animation(oldRoute.$el, newRoute.$el)
+    }
+    // 加个延时隐藏不然直接隐藏动画效果不好
+    setTimeout(() => {
+      oldRoute.$el.setAttribute('route-active', 'false')
+    }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
-  oldRoute.$el.removeAttribute('route-active')
+  
   _owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
@@ -877,4 +881,21 @@ _owo.showPage = function() {
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
 
+
+
+// 这是用于代码调试的自动刷新代码，他不应该出现在正式上线版本!
+if ("WebSocket" in window) {
+  // 打开一个 web socket
+  if (!window._owo.ws) window._owo.ws = new WebSocket("ws://" + window.location.host)
+  window._owo.ws.onmessage = function (evt) { 
+    if (evt.data == 'reload') {
+      location.reload()
+    }
+  }
+  window._owo.ws.onclose = function() { 
+    console.info('与服务器断开连接')
+  }
+} else {
+  console.error('浏览器不支持WebSocket')
+}
 

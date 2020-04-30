@@ -5,6 +5,9 @@ const fs = require('fs')
 const path = require('path')
 const Tool = require('./lib/tool/tool')
 const Server = require('./server.js')
+const Storage = require('./lib/storage')
+// 注册事件回调
+const register = require('./lib/register')
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -128,37 +131,35 @@ if (config.watcherEnable) {
       isPacking = false
     }, 100)
   })
-  fs.watch(path.join(runPath, 'owo_modules'), {recursive: false}, (type, fileName) => {
-    
-    if (isPacking) return
-    isPacking = true
-    setTimeout(() => {
-      fileName = path.join(runPath, 'owo_modules', fileName)
-      startPackTime = new Date().getTime()
-      log.clear()
-      log.info(`file change: ${fileName}`)
-      // 重新打包
-      pack.pack(fileName)
-      isPacking = false
-    }, 100);
-  })
 
   const outPutPath = path.join(runPath, config.outFolder)
   fs.watch(watcherFolder, {recursive: true}, (type, fileName) => {
+    // 防止一次修改多个文件造成多次刷新
     if (isPacking) return
     isPacking = true
     setTimeout(() => {
       // 忽略掉输出目录
-      fileName = path.join(watcherFolder, fileName)
-      if (fileName.startsWith(outPutPath)) {
+      let changePath = path.join(watcherFolder, fileName)
+      if (changePath.startsWith(outPutPath)) {
         isPacking = false
         return
       }
       startPackTime = new Date().getTime()
       log.clear()
       log.info(`file change: ${fileName}`)
+      // 统一路径为左斜线
+      changePath = changePath.replace(/\\/g, '/')
+      const watcherFileItem = Storage.watcherFile[changePath]
+      // 如果不是监听目录 那么什么也不做
+      if (!watcherFileItem) return
+      // 如果是owo页面文件 需要重新打包
+      if (watcherFileItem.type !== 'page' && watcherFileItem.type !== 'block' && watcherFileItem.type !== 'plug') {
+        register.fileChange(changePath, this)
+        log.info(`刷新模式,变化目录: ${changePath}`)
+        return
+      }
       // 重新打包
-      pack.pack(fileName)
+      pack.pack(true)
       isPacking = false
     }, 100);
   })

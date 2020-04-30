@@ -28,26 +28,16 @@ function owoPageInit () {
   /* if="Storage.plugList.has('route')" */
   // 判断页面中是否有路由
   if (this.view) {
-    owo.state.urlVariable = _owo.getQueryVariable()
     temp = []
     for (var viewName in this.view) {
       var routeList = this.view[viewName]
       this.view[viewName] = new View(routeList, viewName, this['$el'], this)
-      // 标识是否没有指定显示哪个路由
-      // 从url中获取路由信息
-      var urlViewName = owo.state.urlVariable['view-' + viewName]
-      // 判断url中是否有路由信息，如果没有显示第一个路由
-      var activeRouteIndex = urlViewName ? this.view[viewName][urlViewName]._index : 0
-
-      // 激活对应路由
-      this.view[viewName].showIndex(activeRouteIndex)
-      var activeView = this.view[viewName]._list[activeRouteIndex]
+      _owo.getViewChange()
       temp.push(this.view[viewName])
     }
     this.view._list = temp
   }
   /* end="Storage.plugList.has('route')" */
-
   /* if="Storage.plugList.has('showcase')" */
   showcaseInit(this)
   /* end="Storage.plugList.has('showcase')" */
