@@ -52,7 +52,6 @@ View.prototype.showIndex = function (ind) {
     }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
-  _owo.setActiveRouteClass(this)
 }
 
 View.prototype.showName = function (name) {
@@ -85,11 +84,11 @@ View.prototype.showName = function (name) {
     }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
-  
-  _owo.setActiveRouteClass(this)
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
+
+owo.onViewChange = function () {}
 
 _owo.getViewChange = function () {
   var activeScript = owo.script[owo.activePage]
@@ -107,30 +106,9 @@ _owo.getViewChange = function () {
       activeScript.view[viewName].showIndex(0)
     }
   }
+  owo.onViewChange()
 }
 
-_owo.setActiveRouteClass = function (viewInfo) {
-  var goList = owo.query('[go]')
-  for (var index = 0; index < goList.length; index++) {
-    var element = goList[index];
-    var goValue = element.getAttribute('go').split('/')
-    if (goValue[0] && goValue[0] !== owo.activePage) {
-      element.classList.remove('active')
-      continue
-    }
-    if (goValue[1] && goValue[1] !== viewInfo._viewName) {
-      element.classList.remove('active')
-      continue
-    }
-    if (goValue[2] && goValue[2] !== viewInfo._activeName) {
-      element.classList.remove('active')
-      continue
-    }
-    element.classList.add('active')
-  }
-  owo.activeView = viewInfo._viewName
-  owo.activeRoute = viewInfo._activeName
-}
 /* end="Storage.plugList.has('route')" */
 
 /* if="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
