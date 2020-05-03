@@ -28,7 +28,7 @@ View.prototype.showIndex = function (ind) {
   var oldRoute = this._list[this._activeIndex]
   // 如果新旧路由和旧路由是一样的那么不做处理
   if (this._activeIndex == ind) {
-    setTimeout(function() {oldRoute.$el.setAttribute('route-active', 'true')}, 0);
+    oldRoute.$el.setAttribute('route-active', 'true')
     return
   }
   var newRoute = this._list[ind]
@@ -59,6 +59,11 @@ View.prototype.showName = function (name) {
   var oldRoute = this[this._activeName]
   var newRoute = this[name]
   if (!newRoute) {console.error('导航到不存在的页面: ' + name);return;}
+  // 如果新旧路由和旧路由是一样的那么不做处理
+  if (this._activeName == name) {
+    oldRoute.$el.setAttribute('route-active', 'true')
+    return
+  }
   // 根据index
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = newRoute._index
@@ -146,16 +151,22 @@ owo.go = function (config) {
     if (owo.globalAni) {
       if (owo.globalAni["in"]) config.inAnimation =  owo.globalAni["in"]
       if (owo.globalAni.out) config.outAnimation = owo.globalAni.out
+      if (owo.globalAni["backIn"]) config.backInAnimation = owo.globalAni["backIn"]
+      if (owo.globalAni["backOut"]) config.backOutAnimation = owo.globalAni["backOut"]
     }
     if (owo.pageAni && owo.pageAni[activePageName]) {
       if (owo.pageAni[activePageName]["in"]) config.inAnimation = owo.pageAni[activePageName]["in"]
-      if (owo.pageAni[activePageName].out) config.outAnimation = owo.pageAni[activePageName].out
+      if (owo.pageAni[activePageName]["out"]) config.outAnimation = owo.pageAni[activePageName]["out"]
+      if (owo.pageAni[activePageName]["backIn"]) config.backInAnimation = owo.globalAni["backIn"]
+      if (owo.pageAni[activePageName]["backOut"]) config.backOutAnimation = owo.globalAni["backOut"]
     }
   }
   if (config.inAnimation && config.outAnimation) {
     owo.state._animation = {
       "in": config.inAnimation,
       "out": config.outAnimation,
+      "backIn": config.backInAnimation,
+      "backOut": config.backOutAnimation,
       "forward": true
     }
   }
