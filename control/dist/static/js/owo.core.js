@@ -1,4 +1,4 @@
-// Sun May 03 2020 20:43:56 GMT+0800 (GMT+08:00)
+// Tue May 05 2020 17:53:17 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -627,6 +627,7 @@ View.prototype.showIndex = function (ind) {
     }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
+  owo.onViewChange()
 }
 
 View.prototype.showName = function (name) {
@@ -659,6 +660,7 @@ View.prototype.showName = function (name) {
     }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
+  owo.onViewChange()
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
@@ -681,7 +683,6 @@ _owo.getViewChange = function () {
       activeScript.view[viewName].showIndex(0)
     }
   }
-  owo.onViewChange()
 }
 
 

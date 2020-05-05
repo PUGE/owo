@@ -2,9 +2,9 @@
 .func
   .type-list
     .title 脚本分类
-    .item(o-tap="changeGroup()" o-active="this.data.activeType == ''")
+    .item(o-tap="changeGroup()" o-class-active="this.data.activeType == ''")
       span 全部分类
-    .item(o-for="this.data.typeList" o-tap="changeGroup('{value}')" o-active="this.data.activeType == '{value}'")
+    .item(o-for="this.data.typeList" o-tap="changeGroup('{value}')" o-class-active="this.data.activeType == '{value}'")
       span {value}
   ul
     li(o-for="this.data.showList")

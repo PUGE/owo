@@ -52,6 +52,7 @@ View.prototype.showIndex = function (ind) {
     }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
+  owo.onViewChange()
 }
 
 View.prototype.showName = function (name) {
@@ -84,6 +85,7 @@ View.prototype.showName = function (name) {
     }, 800);
   }
   newRoute.$el.setAttribute('route-active', 'true')
+  owo.onViewChange()
 }
 View.prototype.owoPageInit = owoPageInit
 View.prototype.handleEvent = handleEvent
@@ -106,7 +108,6 @@ _owo.getViewChange = function () {
       activeScript.view[viewName].showIndex(0)
     }
   }
-  owo.onViewChange()
 }
 
 /* end="Storage.plugList.has('route')" */
