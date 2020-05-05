@@ -2,9 +2,9 @@
 .home
   .title-bar
     embed.logo(src="@|logo.svg|" type="image/svg+xml")
-    .save-button
+    .save-button(o-tap="seveConfig")
       .icon &#xea6f;
-      span(o-tap="seveConfig") 发送
+      span 发送
   .content-box
     //- 左侧菜单
     .menu
@@ -107,14 +107,12 @@
       .then(response => response.json()) // parses response to JSON
     },
     seveConfig: function () {
-      console.log('发送数据:')
-      console.log(this.data.config)
       this.postData('../setControl', {
         config: this.data.config,
         needCreatFile: this.data.needCreatFile,
         needDownloadFile: this.data.needDownloadFile
       }).then((res) => {
-        console.log(res)
+        owo.tool.notice('数据保存成功!')
       })
     }
   }

@@ -46,6 +46,7 @@ function Server (config, app, owo) {
         }
       }
     }
+    storage.fileCache = Object.keys(storage.fileCache)
     res.send({
       err: 0,
       config: JSON.parse(fs.readFileSync(path.join(runPath, 'owo.json'), 'utf8')),
@@ -57,11 +58,15 @@ function Server (config, app, owo) {
     const data = req.body
     // 创建文件
     data.needCreatFile.forEach(element => {
-      const filePath = path.join(runPath, element.src)
+      let filePath = path.join(runPath, element.src)
+      // 统一路径为左斜线
+      filePath = filePath.replace(/\\/g, '/')
       // 判断不存在才创建
       if (!fs.existsSync(filePath)) {
         console.log(`创建文件: ${filePath}`)
-        fs.writeFileSync(filePath, `<template lang="pug">\r\n.${element.name}\r\n    \r\n</template>\r\n<script>\r\nmodule.exports = {\r\n}\r\n</script>\r\n<style lang="less">\r\n</style>`)
+        // 添加监视
+        Storage.watcherFile[filePath] = { name: element.name, type: 'page' }
+        fs.writeFileSync(filePath, `<template lang="pug">\r\n.${element.name}\r\n  \r\n</template>\r\n<script>\r\nmodule.exports = {\r\n}\r\n</script>\r\n<style lang="less">\r\n</style>`)
       }
     })
     // 下载文件

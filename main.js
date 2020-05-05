@@ -99,25 +99,6 @@ if (config.watcherEnable) {
 
   // 文件变动检测
   let isPacking = false
-  function rePack(type, fileName) {
-    if (isPacking) return
-    isPacking = true
-    setTimeout(() => {
-      startPackTime = new Date().getTime()
-      log.clear()
-      log.info(`file change: ${fileName}`)
-      // 判断是否为配置文件变更
-      if (fileName === 'owo.json') {
-        console.log('配置文件被改变!')
-        pack = new owo(getConfig(), owoCallBack)
-        pack.pack()
-      } else {
-        // 重新打包
-        pack.pack(fileName)
-      }
-      isPacking = false
-    }, 100)
-  }
   // 监控工程文件夹
   fs.watch(path.join(runPath, 'owo.json'), {recursive: false}, (type, fileName) => {
     if (isPacking) return
@@ -125,6 +106,7 @@ if (config.watcherEnable) {
     setTimeout(() => {
       startPackTime = new Date().getTime()
       log.clear()
+      Storage.clear()
       console.log('配置文件被改变!')
       pack = new owo(getConfig(), owoCallBack)
       pack.pack()
@@ -151,12 +133,13 @@ if (config.watcherEnable) {
       changePath = changePath.replace(/\\/g, '/')
       const watcherFileItem = Storage.watcherFile[changePath]
       // 如果不是监听目录 那么什么也不做
-      if (!watcherFileItem) return
+      if (!watcherFileItem) {isPacking = false; return null;}
       // 如果是owo页面文件 需要重新打包
       if (watcherFileItem.type !== 'page' && watcherFileItem.type !== 'block' && watcherFileItem.type !== 'plug') {
         register.fileChange(changePath, this)
         log.info(`刷新模式,变化目录: ${changePath}`)
         pack.pack()
+        isPacking = false
         return
       }
       // 重新打包

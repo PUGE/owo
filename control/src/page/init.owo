@@ -1,0 +1,10 @@
+<template lang="pug">
+.init
+  
+</template>
+<script>
+module.exports = {
+}
+</script>
+<style lang="less">
+</style>
