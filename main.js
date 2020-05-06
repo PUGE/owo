@@ -136,7 +136,7 @@ if (config.watcherEnable) {
       if (!watcherFileItem) {isPacking = false; return null;}
       // 如果是owo页面文件 需要重新打包
       if (watcherFileItem.type !== 'page' && watcherFileItem.type !== 'block' && watcherFileItem.type !== 'plug') {
-        register.fileChange(changePath, this)
+        register.fileChange(changePath, pack)
         log.info(`刷新模式,变化目录: ${changePath}`)
         pack.pack()
         isPacking = false
