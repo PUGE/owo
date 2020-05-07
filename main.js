@@ -138,7 +138,6 @@ if (config.watcherEnable) {
       if (watcherFileItem.type !== 'page' && watcherFileItem.type !== 'block' && watcherFileItem.type !== 'plug') {
         register.fileChange(changePath, pack)
         log.info(`刷新模式,变化目录: ${changePath}`)
-        pack.pack()
         isPacking = false
         return
       }
