@@ -1,9 +1,14 @@
 <template lang="pug">
 .init
-  
+  .button(o-tap="init") 初始化
 </template>
 <script>
 module.exports = {
+  init: function () {
+    postData('../init', {}).then((res) => {
+      owo.tool.notice('数据保存成功!')
+    })
+  }
 }
 </script>
 <style lang="less">

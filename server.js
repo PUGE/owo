@@ -86,17 +86,10 @@ function Server (config, app, owo) {
       res.send(JSON.stringify({err: 0, config: data.config, log}))
     })
   })
-  app.post('/downloadFile', (req, res) => {
+  app.post('/init', (req, res) => {
     const data = req.body
-    const modulesPath = path.join(process.cwd(), 'owo_modules', data.file)
-    if (fs.existsSync(modulesPath)) {
-      res.send(JSON.stringify({err: 0}))
-    } else {
-      request(data.url, () => {
-        res.send(JSON.stringify({err: 0}))
-      }).pipe(fs.createWriteStream(modulesPath))
-    }
-    
+    console.log(data)
+    res.send(JSON.stringify({err: 0}))
   })
 }
 module.exports = Server

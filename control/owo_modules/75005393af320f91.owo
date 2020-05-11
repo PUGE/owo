@@ -1,0 +1,238 @@
+<template lang="pug">
+.login
+  .login-title-bar
+    img.back(src="https://cunchu.site/puge/login/back.png" go="/view-loginContent=login/moveToRight/moveFromLeft/true")
+    .register(go="/view-loginContent=register/moveToLeft/moveFromRight/true") 注册
+  view.router(name="loginContent")
+    .view-login(route="login")
+      .image-box
+        img(src="https://cunchu.site/puge/login/image-box.png")
+      .hellow-text 嗨，欢迎回来!
+      .user-name-bar.input-bar
+        img.bar-icon(src="https://cunchu.site/puge/login/user.png")
+        input(type="text" o-value="this.data.userName" placeholder="用户名")
+      .pass-word-bar.input-bar
+        img.bar-icon(src="https://cunchu.site/puge/login/password.png")
+        input(type="password" o-value="this.data.passWord" placeholder="密码")
+      .button(o-tap="login" o-hover="radial-out") 登录
+      .tool-bar
+        .left
+        .right(go-route="") 忘记密码
+    .view-register(route="register")
+      //- 装饰背景
+      img.bg-1(src="https://cunchu.site/puge/login/art.png")
+      p 欢迎注册PUGE账号
+      input.register-input(type="text" o-value="this.data.registerUserName" placeholder="用户名")
+      input.register-input(type="password" o-value="this.data.registerPassWord" placeholder="密码")
+      input.register-input(type="password" o-value="this.data.registerPassWordR" placeholder="确认密码")
+      input.register-input(type="text" o-value="this.data.registerEMail" placeholder="邮箱")
+      .button(o-tap="register") 注册
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      userName: "puge",
+      passWord: "mmit7750",
+      registerUserName: "",
+      registerPassWord: "",
+      registerPassWordR: "",
+      registerEMail: ""
+    },
+    created: function () {
+      // 全局路由动画设置
+      owo.state.go = {
+        animationIn: "moveToRight",
+        animationOut: "moveFromLeft",
+        forward: false
+      }
+    },
+    login: function () {
+      fetch(`http://154.8.196.163:8006/login?username=${this.data.userName}&password=${this.data.passWord}&type=supervisor`).then((response) => {return response.json();}).then((res) => {
+        if (res.err === 0) {
+          if (owo.tool.toast) owo.tool.toast('登陆成功')
+          else alert('登陆成功')
+          // do something
+        }
+      })
+    },
+    register: function () {
+      if (!this.data.registerUserName) {
+        if (owo.tool.toast) owo.tool.toast('用户名不能为空哦!')
+        else alert('用户名不能为空哦!')
+        return
+      }
+      if (!this.data.registerPassWord) {
+        owo.tool.toast('密码不能为空哦!')
+        return
+      }
+      if (!this.data.registerPassWordR) {
+        owo.tool.toast('重复密码不能为空哦!')
+        return
+      }
+      if (!this.data.registerEMail) {
+        owo.tool.toast('邮箱地址不能为空哦!')
+        return
+      }
+      if (this.data.registerPassWord !== this.data.registerPassWordR) {
+        owo.tool.toast('两次输入的密码不一致哦!')
+        return
+      }
+      fetch(`http://154.8.196.163:8006/register?username=${this.data.registerUserName}&password=${this.data.registerPassWord}&mail=${this.data.registerPassWord}`).then((response) => {return response.json();}).then((res) => {
+        if (res.err === 0) {
+          owo.tool.toast('注册成功!')
+        } else {
+          owo.tool.toast(`注册失败: ${res.message}`)
+        }
+      })
+    }
+  }
+</script>
+
+
+<style lang="less">
+.login {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+.login-title-bar {
+  display: flex;
+  justify-content: space-between;
+  height: 45px;
+  align-items: center;
+  .back {
+    width: 12px;
+    margin: 13px;
+    display: block;
+  }
+  .register {
+    font-size: 20px;
+    line-height: 45px;
+    padding-right: 10px;
+  }
+  .active {
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+.image-box img {
+  height: 160px;
+  display: block;
+  margin: 40px auto;
+}
+.hellow-text {
+  color: #5fccff;
+  font-size: 22px;
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+}
+.button {
+  background-color: #5fccff;
+  line-height: 50px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  width: 84%;
+  margin: 0 auto;
+  border-radius: 25px;
+  display: block;
+  margin-top: 30px;
+}
+input {
+  border: none;
+  display: block;
+  width: 83%;
+  font-size: 18px;
+  border-radius: 25px;
+  outline: none;
+}
+.view-login {
+  input {
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    padding-left: 17%;
+    display: block;
+    width: 83%;
+    font-size: 18px;
+    border-radius: 25px;
+    outline: none;
+  }
+  input:active {
+    box-shadow: 1px 1px 5px #ccc;
+  }
+  .input-bar {
+    background-color: #f7f8fa;
+    height: 50px;
+    border-radius: 25px;
+    width: 84%;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    .bar-icon {
+      width: 20px;
+      position: absolute;
+      left: 20px;
+      top: 0px;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}
+
+.tool-bar {
+  line-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 84%;
+  margin: 0 auto;
+  color: #262626;
+  font-size: 14px;
+}
+.router {
+  height: calc(100% - 45px);
+  overflow: hidden;
+  width: 100%;
+  [route] {
+    width: 100%;
+    height: 100%;
+  }
+}
+.view-register {
+  width: 100%;
+  height: 100%;
+  .bg-1 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 47vw;
+  }
+  p {
+    line-height: 40px;
+    font-size: 23px;
+    padding-top: 60px;
+    z-index: 99;
+    background-image: url(https://cunchu.site/puge/login/Signup.png);
+    background-size: 91vw;
+    background-repeat: no-repeat;
+    background-position-y: 15px;
+    padding-left: 20px;
+    font-weight: bold;
+  }
+  .register-input {
+    height: 50px;
+    background-color: #f7f7fb;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0 5vw;
+    width: 73vw;
+  }
+  .button {
+    background-color: #fa4169;
+  }
+}
+</style>

@@ -1,4 +1,4 @@
-// Mon May 11 2020 21:00:49 GMT+0800 (GMT+08:00)
+// Mon May 11 2020 23:42:04 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -860,7 +860,7 @@ _owo.showPage = function() {
   // 从配置项中取出程序入口
   var page = pageArg ? pageArg : owo.entry
   if (page) {
-    if (!owo.script[page].$el) {
+    if (!owo.script[page] || !owo.script[page].$el) {
       console.error('入口文件设置错误,错误值为: ', page)
       page = owo.script[page].$el.getAttribute('template')
       window.location.replace('#' + page)
