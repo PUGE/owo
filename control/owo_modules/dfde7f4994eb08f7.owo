@@ -1,0 +1,36 @@
+<template>
+  <footer>
+    <div class="info-box">
+      <p>专题策划：周雷刚  ｜  人民日报社新疆分社记者：杨明方 韩立群 胡仁巴 李亚楠 ｜  频道编辑：周雷刚 韩婷 李晓啸 徐蒙 冉波 阿通古丽 杨睿 刘依 马冰倩 郭彦伟（实习）</p>
+      <p>设计：XX  编辑：XXX</p>
+      <p>人 民 网 版 权 所 有 ，未 经 书 面 授 权 禁 止 使 用</p>
+      <p>Copyright &copy; 1997-2019 by www.people.com.cn. all rights reserved</p>
+    </div>
+  </footer>
+</template>
+
+<style lang="less">
+footer {
+  height: 170px;
+  position: relative;
+  background-color: #074282;
+}
+.info-box {
+  height: 120px;
+  width: 1000px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  color: white;
+  p {
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+    font-family: "SimSun";
+    margin: 0;
+  }
+}
+</style>

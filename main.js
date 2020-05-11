@@ -114,21 +114,18 @@ if (config.watcherEnable) {
     }, 100)
   })
 
-  const outPutPath = path.join(runPath, config.outFolder)
-  fs.watch(watcherFolder, {recursive: true}, (type, fileName) => {
+  function onFileChange (changePath) {
     // 防止一次修改多个文件造成多次刷新
     if (isPacking) return
     isPacking = true
     setTimeout(() => {
       // 忽略掉输出目录
-      let changePath = path.join(watcherFolder, fileName)
       if (changePath.startsWith(outPutPath)) {
         isPacking = false
         return
       }
       startPackTime = new Date().getTime()
-      log.clear()
-      log.info(`file change: ${fileName}`)
+      log.info(`file change: ${changePath}`)
       // 统一路径为左斜线
       changePath = changePath.replace(/\\/g, '/')
       const watcherFileItem = Storage.watcherFile[changePath]
@@ -145,6 +142,14 @@ if (config.watcherEnable) {
       pack.pack(true)
       isPacking = false
     }, 100);
+  }
+
+  const outPutPath = path.join(runPath, config.outFolder)
+  fs.watch(watcherFolder, {recursive: true}, (type, fileName) => {
+    onFileChange(path.join(watcherFolder, fileName))
+  })
+  fs.watch(path.join(runPath, "owo_modules"), {recursive: true}, (type, fileName) => {
+    onFileChange(path.join(runPath, "owo_modules", fileName))
   })
 }
 // 判断是否启用静态文件服务

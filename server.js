@@ -58,9 +58,7 @@ function Server (config, app, owo) {
     const data = req.body
     // 创建文件
     data.needCreatFile.forEach(element => {
-      let filePath = path.join(runPath, element.src)
-      // 统一路径为左斜线
-      filePath = filePath.replace(/\\/g, '/')
+      let filePath = path.join(runPath, element.src).replace(/\\/g, '/')
       // 判断不存在才创建
       if (!fs.existsSync(filePath)) {
         console.log(`创建文件: ${filePath}`)
