@@ -24,7 +24,7 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 View.prototype.showIndex = function (ind) {
-  this._activeIndex = this._activeIndex || 0
+  this._activeIndex = this._activeIndex
   var oldRoute = this._list[this._activeIndex]
   // 如果新旧路由和旧路由是一样的那么不做处理
   if (this._activeIndex == ind) {
@@ -33,7 +33,6 @@ View.prototype.showIndex = function (ind) {
   }
   var newRoute = this._list[ind]
   if (!newRoute) {console.error('导航到不存在的页面: ' + ind);return;}
-  
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = ind
   newRoute.owoPageInit()

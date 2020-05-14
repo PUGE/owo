@@ -1,4 +1,4 @@
-// Mon May 11 2020 23:42:04 GMT+0800 (GMT+08:00)
+// Thu May 14 2020 23:47:36 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -599,7 +599,7 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 View.prototype.showIndex = function (ind) {
-  this._activeIndex = this._activeIndex || 0
+  this._activeIndex = this._activeIndex
   var oldRoute = this._list[this._activeIndex]
   // 如果新旧路由和旧路由是一样的那么不做处理
   if (this._activeIndex == ind) {
@@ -608,7 +608,6 @@ View.prototype.showIndex = function (ind) {
   }
   var newRoute = this._list[ind]
   if (!newRoute) {console.error('导航到不存在的页面: ' + ind);return;}
-  
   this["_activeName"] = newRoute._name
   this["_activeIndex"] = ind
   newRoute.owoPageInit()
