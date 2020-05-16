@@ -115,11 +115,6 @@
 			"name": "home",
 			"src": "./src/page/home.owo",
 			"type": "page"
-		},
-		{
-			"name": "init",
-			"src": "/src/page/init.owo",
-			"type": "page"
 		}
 	],
 	"mode": {
