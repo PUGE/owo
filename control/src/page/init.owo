@@ -5,7 +5,13 @@
 <script>
 module.exports = {
   init: function () {
-    postData('../init', {}).then((res) => {
+    const sendData = [
+      {
+        type: 'file',
+        path: 'owo.json',
+      }
+    ]
+    postData('../init', sendData).then((res) => {
       owo.tool.notice('数据保存成功!')
     })
   }

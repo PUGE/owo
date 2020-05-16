@@ -89,6 +89,14 @@ function Server (config, app, owo) {
   app.post('/init', (req, res) => {
     const data = req.body
     console.log(data)
+    for (var index = 0; index < data.length; index++) {
+      const element = data[index];
+      // var filePath = path.join(runPath, element.src).replace(/\\/g, '/')
+      var filePath = path.join('C:/Users/mail/Desktop/test', element.path).replace(/\\/g, '/')
+      console.log(filePath)
+    }
+    // 循环遍历目录结构
+    
     res.send(JSON.stringify({err: 0}))
   })
 }
