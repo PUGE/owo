@@ -68,7 +68,8 @@ _owo.hashchange = function () {
   // 如果旧页面不存在则为默认页面
   if (!owo.state.oldUrlParam) owo.state.oldUrlParam = owo.entry;
   var newUrlParam = owo.state.newUrlParam;
-
+  // 如果新页面和旧页面一样那么不执行跳转
+  if (owo.state.oldUrlParam == newUrlParam) return
   // 如果没有跳转到任何页面则跳转到主页
   if (newUrlParam === undefined) {
     newUrlParam = owo.entry;

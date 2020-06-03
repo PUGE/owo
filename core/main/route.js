@@ -116,7 +116,7 @@ _owo.getViewChange = function () {
 owo.go = function (config) {
   if (!config) return
   var paramString = ''
-  var pageString = ''
+  var pageString = '#' + owo.activePage
   var activePageName = config.page || owo.activePage
   
   // 处理动画缩写
