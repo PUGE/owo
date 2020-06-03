@@ -115,6 +115,7 @@ if (config.watcherEnable) {
   })
 
   function onFileChange (changePath) {
+    
     // 防止一次修改多个文件造成多次刷新
     if (isPacking) return
     isPacking = true
@@ -128,11 +129,12 @@ if (config.watcherEnable) {
       log.info(`file change: ${changePath}`)
       // 统一路径为左斜线
       changePath = changePath.replace(/\\/g, '/')
+      
       const watcherFileItem = Storage.watcherFile[changePath]
       // 如果不是监听目录 那么什么也不做
       if (!watcherFileItem) {isPacking = false; return null;}
       // 如果是owo页面文件 需要重新打包
-      if (watcherFileItem.type !== 'page' && watcherFileItem.type !== 'block' && watcherFileItem.type !== 'plug') {
+      if (watcherFileItem.type !== 'page' && watcherFileItem.type !== 'block' && watcherFileItem.type !== 'plug' && watcherFileItem.type !== 'route') {
         register.fileChange(changePath, pack)
         log.info(`刷新模式,变化目录: ${changePath}`)
         isPacking = false
