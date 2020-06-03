@@ -27,14 +27,17 @@ function owoPageInit () {
   }
   /* if="Storage.plugList.has('route')" */
   // 判断页面中是否有路由
-  if (this.view) {
+  if (this.view && !this.view._isCreated) {
+    this.view._isCreated = true
     temp = []
     for (var viewName in this.view) {
+      // 跳过系统添加的字段
+      if (viewName[0] == '_') continue
       var routeList = this.view[viewName]
       this.view[viewName] = new View(routeList, viewName, this['$el'], this)
-      _owo.getViewChange()
       temp.push(this.view[viewName])
     }
+    _owo.getViewChange()
     this.view._list = temp
   }
   /* end="Storage.plugList.has('route')" */

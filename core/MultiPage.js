@@ -98,7 +98,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     window.owo.script[newPage].handleEvent()
     
     // 显示路由
-    if (window.owo.script[newPage].view) window.owo.script[newPage].view._list[0].showIndex(0)
+    // if (window.owo.script[newPage].view) _owo.getViewChange()
   }, 0)
 
   /* if="Storage.pageAnimationList.size > 0" */

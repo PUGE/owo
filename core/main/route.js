@@ -4,7 +4,6 @@
 function View(routeList, viewName, entryDom, pageScript) {
   this._list = []
   this._viewName = viewName
-  console.log(pageScript)
   this.$el = entryDom.querySelector('[view="' + viewName +'"]')
   for (var routeInd = 0; routeInd < routeList.length; routeInd++) {
     var routeItem = routeList[routeInd]
@@ -202,6 +201,8 @@ for (var index = 0; index < toList.length; index++) {
       inAnimation: target[2],
       outAnimation: target[3],
       noBack: target[4],
+      backInAnimation: target[5],
+      backOutAnimation: target[6],
     })
   }
 }
