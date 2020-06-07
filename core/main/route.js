@@ -112,8 +112,18 @@ _owo.getViewChange = function () {
 /* end="Storage.plugList.has('route')" */
 
 /* if="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
-owo.go = function (config) {
-  if (!config) return
+owo.go = function (aniStr) {
+  if (!aniStr) return
+  var target = aniStr.split('/')
+  var config = {
+    page: target[0],
+    paramString: target[1],
+    inAnimation: target[2],
+    outAnimation: target[3],
+    noBack: target[4],
+    backInAnimation: target[5],
+    backOutAnimation: target[6],
+  }
   var paramString = ''
   var pageString = '#' + owo.activePage
   var activePageName = config.page || owo.activePage
@@ -194,16 +204,7 @@ var toList = document.querySelectorAll('[go]')
 for (var index = 0; index < toList.length; index++) {
   var element = toList[index]
   element.onclick = function () {
-    var target = this.attributes['go'].value.split('/')
-    owo.go({
-      page: target[0],
-      paramString: target[1],
-      inAnimation: target[2],
-      outAnimation: target[3],
-      noBack: target[4],
-      backInAnimation: target[5],
-      backOutAnimation: target[6],
-    })
+    owo.go(this.attributes['go'].value)
   }
 }
 /* end="Storage.plugList.has('go')" */
