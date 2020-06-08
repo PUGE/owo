@@ -27,18 +27,26 @@ function owoPageInit () {
   }
   /* if="Storage.plugList.has('route')" */
   // 判断页面中是否有路由
-  if (this.view && !this.view._isCreated) {
-    this.view._isCreated = true
-    temp = []
-    for (var viewName in this.view) {
-      // 跳过系统添加的字段
-      if (viewName[0] == '_') continue
-      var routeList = this.view[viewName]
-      this.view[viewName] = new View(routeList, viewName, this['$el'], this)
-      temp.push(this.view[viewName])
-    }
-    _owo.getViewChange()
-    this.view._list = temp
+  if (this.view) {
+    if (!this.view._isCreated) {
+      this.view._isCreated = true
+      temp = []
+      for (var viewName in this.view) {
+        // 跳过系统添加的字段
+        if (viewName[0] == '_') continue
+        var routeList = this.view[viewName]
+        this.view[viewName] = new View(routeList, viewName, this['$el'], this)
+        temp.push(this.view[viewName])
+      }
+      _owo.getViewChange()
+      this.view._list = temp
+    } else {
+      // 运行每个激活路由的show方法
+      for (var index in this.view._list) {
+        var routeItem = this.view._list[index]
+        if (routeItem[routeItem._activeName].show) routeItem[routeItem._activeName].show()
+      }
+    } 
   }
   /* end="Storage.plugList.has('route')" */
   /* if="Storage.plugList.has('showcase')" */
