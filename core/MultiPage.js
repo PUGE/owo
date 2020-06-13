@@ -141,8 +141,7 @@ function switchPage (oldUrlParam, newUrlParam) {
   newDom.style.display = ''
 }
 
-// ios的QQ有BUG 无法触发onhashchange事件
-if(/iPhone\sOS.*QQ[^B]/.test(navigator.userAgent)) {window.onpopstate = _owo.hashchange;} else {window.onhashchange = _owo.hashchange;}
-
+// 防止有些平台不支持onhashchange
+if (window.onhashchange) {window.onhashchange = _owo.hashchange;} else {window.onpopstate = _owo.hashchange;}
 // 执行页面加载完毕方法
 _owo.ready(_owo.showPage)
