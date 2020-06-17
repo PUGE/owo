@@ -31,6 +31,10 @@ img {
   border: none;
 }
 
+[route-active="false"] {
+  display: none;
+}
+
 /* 清除浮动 */
 .clear:after {
   content: "";
