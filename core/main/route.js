@@ -24,6 +24,9 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 View.prototype.showIndex = function (ind) {
+  // 防止来回快速切换页面出问题
+  if (owo.state[this._viewName + '_changeing']) return
+  owo.state[this._viewName + '_changeing'] = true
   this._activeIndex = this._activeIndex
   var oldRoute = this._list[this._activeIndex]
   // 如果新旧路由和旧路由是一样的那么不做处理
@@ -47,14 +50,21 @@ View.prototype.showIndex = function (ind) {
     }
     // 加个延时隐藏不然直接隐藏动画效果不好
     setTimeout(() => {
+      owo.state[this._viewName + '_changeing'] = false
       oldRoute.$el.setAttribute('route-active', 'false')
     }, 800);
+  } else {
+    owo.state[this._viewName + '_changeing'] = false
   }
   newRoute.$el.setAttribute('route-active', 'true')
   owo.onViewChange()
 }
 
 View.prototype.showName = function (name) {
+  // 防止来回快速切换页面出问题
+  if (owo.state[this._viewName + '_changeing']) return
+  owo.state[this._viewName + '_changeing'] = true
+
   var oldRoute = this[this._activeName]
   var newRoute = this[name]
   if (!newRoute) {console.error('导航到不存在的页面: ' + name);return;}
@@ -80,8 +90,11 @@ View.prototype.showName = function (name) {
     }
     // 加个延时隐藏不然直接隐藏动画效果不好
     setTimeout(() => {
+      owo.state[this._viewName + '_changeing'] = false
       oldRoute.$el.setAttribute('route-active', 'false')
     }, 800);
+  } else {
+    owo.state[this._viewName + '_changeing'] = false
   }
   newRoute.$el.setAttribute('route-active', 'true')
   owo.onViewChange()

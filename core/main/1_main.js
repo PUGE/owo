@@ -150,7 +150,9 @@ _owo.addEvent = function (tempDom, moudleScript) {
                     tempDom.value = value
                     tempDom.oninput = function (e) {
                       var eventFor = e.target.getAttribute('o-value')
-                      shaheRun.apply(moudleScript, [eventFor + '=' + e.target.value])
+                      var value = e.target.value
+                      if (value == '') value = '""'
+                      shaheRun.apply(moudleScript, [eventFor + '=' + value])
                     }
                     break;
                   case 'password':
