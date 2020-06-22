@@ -32,6 +32,7 @@ View.prototype.showIndex = function (ind) {
   // 如果新旧路由和旧路由是一样的那么不做处理
   if (this._activeIndex == ind) {
     oldRoute.$el.setAttribute('route-active', 'true')
+    owo.state[this._viewName + '_changeing'] = false
     return
   }
   var newRoute = this._list[ind]
@@ -71,6 +72,7 @@ View.prototype.showName = function (name) {
   // 如果新旧路由和旧路由是一样的那么不做处理
   if (this._activeName == name) {
     oldRoute.$el.setAttribute('route-active', 'true')
+    owo.state[this._viewName + '_changeing'] = false
     return
   }
   // 根据index
