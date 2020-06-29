@@ -61,6 +61,14 @@ _owo.showPage = function() {
 
 // url发生改变事件
 _owo.hashchange = function () {
+  // 判断是否正在忙碌
+  if (owo.state.hashchange) {
+    setTimeout(function () {
+      _owo.hashchange()
+    }, 300);
+    return
+  }
+  owo.state.hashchange = true
   // 这样处理而不是直接用event中的URL，是因为需要兼容IE
   owo.state.oldUrlParam = owo.state.newUrlParam;
   owo.state.newUrlParam = _owo.getarg(document.URL); 
@@ -96,7 +104,9 @@ function switchPage (oldUrlParam, newUrlParam) {
     window.owo.script[newPage].$el = newDom
     window.owo.script[newPage].owoPageInit()
     window.owo.script[newPage].handleEvent()
-    
+    setTimeout(function () {
+      owo.state.hashchange = false
+    }, 1000);
     // 显示路由
     // if (window.owo.script[newPage].view) _owo.getViewChange()
   }, 0)

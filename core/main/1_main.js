@@ -219,8 +219,10 @@ _owo.addEvent = function (tempDom, moudleScript) {
 /* if="Storage.plugList.has('route')" */
 window.addEventListener("popstate", function(e) {
   // 修复有时候hash和view会同时变化无法刷新的问题
-  if (_owo.getarg(document.URL) !== owo.activePage) _owo.hashchange()
-  _owo.getViewChange()
+  setTimeout(function () {
+    if (_owo.getarg(document.URL) !== owo.activePage) _owo.hashchange()
+    _owo.getViewChange()
+  }, 200);
 }, false);
 /* end="Storage.plugList.has('route')" */
 
