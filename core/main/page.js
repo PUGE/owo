@@ -44,7 +44,8 @@ function owoPageInit () {
       // 运行每个激活路由的show方法
       for (var index in this.view._list) {
         var routeItem = this.view._list[index]
-        if (routeItem[routeItem._activeName].show) routeItem[routeItem._activeName].show()
+        var pageObj = routeItem[routeItem._activeName]
+        if (pageObj.show && pageObj.$el) routeItem[routeItem._activeName].show()
       }
     } 
   }
