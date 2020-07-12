@@ -18,13 +18,16 @@ function Page(pageScript, parentScript) {
 }
 
 function owoPageInit () {
-  // console.log(entryDom)
-  // console.log(this)
   _owo.runCreated(this)
-  for (var key in this.template) {
-    var templateScript = this.template[key]
-    _owo.runCreated(templateScript)
+  // 递归处理
+  function recursion (entry) {
+    for (var key in entry.template) {
+      var templateScript = entry.template[key]
+      _owo.runCreated(templateScript)
+      recursion(templateScript)
+    }
   }
+  recursion(this)
   /* if="Storage.plugList.has('route')" */
   // 判断页面中是否有路由
   if (this.view) {

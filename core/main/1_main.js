@@ -14,7 +14,10 @@ var _owo = {
 /* 运行页面初始化方法 */
 _owo.runCreated = function (pageFunction) {
   // 如果dom已经被删掉那么不会运行对应的方法
-  if (!pageFunction.$el) return;
+  if (!pageFunction.$el) {
+    console.info('dom元素不存在!')
+    return;
+  }
   try {
     // console.log(pageFunction)
     if (pageFunction.show) {pageFunction.show.apply(pageFunction)}
