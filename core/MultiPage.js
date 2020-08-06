@@ -79,7 +79,10 @@ _owo.hashchange = function () {
   if (!owo.state.oldUrlParam) owo.state.oldUrlParam = owo.entry;
   var newUrlParam = owo.state.newUrlParam;
   // 如果新页面和旧页面一样那么不执行跳转
-  if (owo.state.oldUrlParam == newUrlParam) return
+  if (owo.state.oldUrlParam == newUrlParam) {
+    owo.state.hashchange = false
+    return
+  }
   // 如果没有跳转到任何页面则跳转到主页
   if (newUrlParam === undefined) {
     newUrlParam = owo.entry;
