@@ -64,8 +64,6 @@ _owo.hashchange = function () {
   // 判断是否正在忙碌
   if (owo.state.hashchange) {
     setTimeout(function () {
-      if (owo.state.hashchange === 1) return
-      owo.state.hashchange = 1
       _owo.hashchange()
     }, 300);
     return
