@@ -12,6 +12,7 @@ _owo.showPage = function() {
     owo.script[key].$el = document.querySelector('.page[template="' + key + '"]')
     owo.script[key] = new Page(owo.script[key])
     owo.script[key]._index = _index++
+    owo.script[key]._name = key
   }
   owo.entry = document.querySelector('[template]').getAttribute('template')
   // 取出URL地址判断当前所在页面
