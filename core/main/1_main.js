@@ -160,6 +160,7 @@ _owo.addEvent = function (tempDom, moudleScript) {
                       shaheRun.apply(moudleScript, [eventFor + '=' + value])
                     }
                     break;
+                  case 'color':
                   case 'password':
                   case 'text':
                     if (value == undefined) value = ''
