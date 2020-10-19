@@ -1,4 +1,4 @@
-// Wed May 20 2020 00:16:01 GMT+0800 (GMT+08:00)
+// Fri Oct 09 2020 21:52:46 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {
@@ -573,6 +573,18 @@ Page.prototype.queryAll = function (str) {
 owo.query = function (str) {
   return document.querySelectorAll('.page[template=' + owo.activePage +'] ' + str)
 }
+_owo.addHTMLElementFun = function (name, func) {
+  if (window.HTMLElement) {
+    HTMLElement.prototype[name] = func
+  } else {
+    for (var ind=0; ind < document.all.length; ind++) {
+      document.all[ind][name] = func
+    }
+  }
+}
+_owo.addHTMLElementFun('query', function(str) {
+  return this.querySelector(str)
+})
 
 
 // 特殊类型

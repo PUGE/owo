@@ -12,7 +12,6 @@ const register = require('./lib/register')
 // 命令行运行目录
 const runPath = process.cwd()
 
-
 // 判断运行目录下是否包含配置文件
 if (!fs.existsSync(path.join(runPath, 'owo.json'))) {
   console.error('当前目录下找不到owo配置文件哦!')
@@ -33,7 +32,11 @@ function getConfig () {
     if (configTemp.mode && configTemp.mode[processArgv]) {
       // 深拷贝
       const processConfig = JSON.parse(JSON.stringify(configTemp.mode[processArgv]))
+      processConfig['scriptList'].forEach(element => {
+        configTemp['scriptList'].push(element)
+      });
       configTemp = Object.assign(processConfig, configTemp)
+      
     } else {
       console.error(`config name ${processArgv} not found in owo.json!`)
       return
