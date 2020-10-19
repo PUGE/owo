@@ -32,9 +32,12 @@ function getConfig () {
     if (configTemp.mode && configTemp.mode[processArgv]) {
       // 深拷贝
       const processConfig = JSON.parse(JSON.stringify(configTemp.mode[processArgv]))
-      processConfig['scriptList'].forEach(element => {
-        configTemp['scriptList'].push(element)
-      });
+      if (processConfig['scriptList']) {
+        processConfig['scriptList'].forEach(element => {
+          configTemp['scriptList'].push(element)
+        });
+      }
+      
       configTemp = Object.assign(processConfig, configTemp)
       
     } else {
