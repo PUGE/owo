@@ -7,6 +7,10 @@
 owo.animate = function (name, dom, delay) {
   // 都使用IE了效果还重要吗
   if (_owo.isIE) return
+  var owoAni = dom.getAttribute('o-animation')
+  if (owoAni) {
+    dom.setAttribute('o-animation', owoAni + '-suspend')
+  }
   dom.classList.add(name)
   dom.classList.add('owo-animated')
   if (delay) {
@@ -18,6 +22,9 @@ owo.animate = function (name, dom, delay) {
     dom.classList.remove('owo-animated')
     if (delay) {
       dom.style.animationDelay = ''
+    }
+    if (owoAni) {
+      dom.setAttribute('o-animation', owoAni)
     }
   }
 }
