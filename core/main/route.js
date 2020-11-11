@@ -23,7 +23,11 @@ function View(routeList, viewName, entryDom, pageScript) {
   }
 }
 
+var routeBusy = false
+
 View.prototype.showIndex = function (ind) {
+  if (routeBusy) return
+  routeBusy = true
   // 防止来回快速切换页面出问题
   if (owo.state[this._viewName + '_changeing']) return
   owo.state[this._viewName + '_changeing'] = true
@@ -33,6 +37,7 @@ View.prototype.showIndex = function (ind) {
   if (this._activeIndex == ind) {
     oldRoute.$el.setAttribute('route-active', 'true')
     owo.state[this._viewName + '_changeing'] = false
+    routeBusy = false
     return
   }
   var newRoute = this._list[ind]
@@ -62,6 +67,8 @@ View.prototype.showIndex = function (ind) {
 }
 
 View.prototype.showName = function (name) {
+  if (routeBusy) return
+  routeBusy = true
   // 防止来回快速切换页面出问题
   if (owo.state[this._viewName + '_changeing']) return
   owo.state[this._viewName + '_changeing'] = true
@@ -94,6 +101,7 @@ View.prototype.showName = function (name) {
     setTimeout(() => {
       owo.state[this._viewName + '_changeing'] = false
       oldRoute.$el.setAttribute('route-active', 'false')
+      routeBusy = false
     }, 800);
   } else {
     owo.state[this._viewName + '_changeing'] = false
