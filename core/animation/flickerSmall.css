@@ -1,0 +1,24 @@
+@-webkit-keyframes flickerSmall {
+  from {
+    opacity: 100%;
+  }
+
+  to {
+    opacity: 70%;
+  }
+}
+
+@keyframes flickerSmall {
+  from {
+    opacity: 100%;
+  }
+
+  to {
+    opacity: 70%;
+  }
+}
+
+[o-animation="flickerSmall"] {
+  -webkit-animation: flickerSmall 4s linear 0s infinite alternate;
+  animation: flickerSmall 4s linear 0s infinite alternate;
+}
