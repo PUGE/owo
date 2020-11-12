@@ -177,6 +177,16 @@ _owo.addEvent = function (tempDom, moudleScript) {
                   
                 }
                 break;
+              case 'TEXTAREA':
+                if (value == undefined) value = ''
+                tempDom.value = value
+                tempDom.onchange = function (e) {
+                  var eventFor = e.target.getAttribute('o-value')
+                  var value = e.target.value
+                  if (value == '') value = '""'
+                  shaheRun.apply(moudleScript, [eventFor + '="' + value + '"'])
+                }
+                break;
               case 'SELECT':
                 if (value == null || value == undefined) value = ''
                 var activeOpt = tempDom.querySelector('[value="' + value + '"]')
