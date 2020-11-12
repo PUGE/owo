@@ -4,7 +4,7 @@
  * @param  {string} name 动画效果名称
  * @param  {dom} dom 节点
  */
-owo.animate = function (name, dom, delay) {
+owo.animate = function (name, dom, delay, callBack) {
   // 都使用IE了效果还重要吗
   if (_owo.isIE) return
   var owoAni = dom.getAttribute('o-animation')
@@ -18,6 +18,7 @@ owo.animate = function (name, dom, delay) {
   }
   dom.addEventListener('animationend', animateEnd)
   function animateEnd () {
+    if (callBack) callBack(dom)
     dom.classList.remove(name)
     dom.classList.remove('owo-animated')
     if (delay) {
