@@ -64,6 +64,7 @@ View.prototype.showIndex = function (ind) {
   }
   newRoute.$el.setAttribute('route-active', 'true')
   owo.onViewChange()
+  owo.state.routeBusy = false
 }
 
 View.prototype.showName = function (name) {
