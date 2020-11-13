@@ -183,7 +183,9 @@ _owo.addEvent = function (tempDom, moudleScript) {
                 tempDom.onchange = function (e) {
                   var eventFor = e.target.getAttribute('o-value')
                   var value = e.target.value
-                  if (value == '') value = '""'
+                  value = value.replace(/\"/g, '\\"')
+                  value = value.replace(/\r/g, '')
+                  value = value.replace(/\n/g, '')
                   shaheRun.apply(moudleScript, [eventFor + '="' + value + '"'])
                 }
                 break;
