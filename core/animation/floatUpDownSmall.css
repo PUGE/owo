@@ -13,31 +13,31 @@
 }
 
 @-webkit-keyframes floatUpDownSmall {
-  0% { transform: translateY(-2px);}
-  50% {transform: translateY(2px);}
-  100% {transform: translateY(-2px);}
+  0% { transform: translateY(-4px);}
+  50% {transform: translateY(4px);}
+  100% {transform: translateY(-4px);}
 }
 
 @-moz-keyframes floatUpDownSmall {
-  0% { transform: translateY(-2px);}
-  50% {transform: translateY(2px);}
-  100% {transform: translateY(-2px);}
+  0% { transform: translateY(-4px);}
+  50% {transform: translateY(4px);}
+  100% {transform: translateY(-4px);}
 }
 
 @-ms-keyframes floatUpDownSmall {
-  0% { transform: translateY(-2px);}
-  50% {transform: translateY(2px);}
-  100% {transform: translateY(-2px);}
+  0% { transform: translateY(-4px);}
+  50% {transform: translateY(4px);}
+  100% {transform: translateY(-4px);}
 }
 
 @-o-keyframes floatUpDownSmall {
-  0% { transform: translateY(-2px);}
-  50% {transform: translateY(2px);}
-  100% {transform: translateY(-2px);}
+  0% { transform: translateY(-4px);}
+  50% {transform: translateY(4px);}
+  100% {transform: translateY(-4px);}
 }
 
 @keyframes floatUpDownSmall {
-  0% { transform: translateY(-2px);}
-  50% {transform: translateY(2px);}
-  100% {transform: translateY(-2px);}
+  0% { transform: translateY(-4px);}
+  50% {transform: translateY(4px);}
+  100% {transform: translateY(-4px);}
 }
