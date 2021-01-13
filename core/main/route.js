@@ -88,6 +88,7 @@ View.prototype.showName = function (name) {
   if (this._activeName == name) {
     oldRoute.$el.setAttribute('route-active', 'true')
     owo.state[viewName + '_changeing'] = false
+    owo.state.routeBusy = false
     return
   }
   // 根据index
