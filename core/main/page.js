@@ -137,15 +137,14 @@ function handleEvent (moudleScript, enterDom) {
         tempNode.setAttribute('otemp-for', forValue)
         var temp = tempNode.outerHTML
         var value = forEle[key];
+        if (value == undefined) continue
         var tempCopy = temp
         // 获取模板插值
         var varList = _owo.cutStringArray(tempCopy, '{', '}')
         varList.forEach(element => {
-          if (element) {
-            var forValue = new Function('value', 'key', 'return ' + element)
-            // 默认变量
-            tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
-          }
+          const forValue = new Function('value', 'key', 'if (' + element + ') {return ' + element + '} else {return ""}')
+          // 默认变量
+          tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
         })
         outHtml += tempCopy
       }
