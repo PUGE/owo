@@ -141,9 +141,11 @@ function handleEvent (moudleScript, enterDom) {
         // 获取模板插值
         var varList = _owo.cutStringArray(tempCopy, '{', '}')
         varList.forEach(element => {
-          var forValue = new Function('value', 'key', 'return ' + element)
-          // 默认变量
-          tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
+          if (element) {
+            var forValue = new Function('value', 'key', 'return ' + element)
+            // 默认变量
+            tempCopy = tempCopy.replace('{' + element + '}', forValue.apply(moudleScript, [value, key]))
+          }
         })
         outHtml += tempCopy
       }
