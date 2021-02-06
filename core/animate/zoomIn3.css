@@ -1,0 +1,14 @@
+@keyframes zoomIn3 {
+  from {
+    opacity: 0;
+    transform: scale3d(5, 5, 5);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn2 {
+  animation-name: zoomIn3;
+}
