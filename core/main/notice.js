@@ -8,7 +8,7 @@ owo.notice = function (str) {
           element.notice[str].apply(element)
         }
         if (element.template) check(element.template)
-        console.log(element)
+        // console.log(element)
       }
     }
   }
