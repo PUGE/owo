@@ -146,13 +146,17 @@ function switchPage (oldUrlParam, newUrlParam) {
     return
   }
   /* end="Storage.pageAnimationList.size > 0" */
-  
+  // 离开事件
+  if (window.owo.script[oldPage].leave) {
+    window.owo.script[oldPage].leave.call(window.owo.script[oldPage])
+  }
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'
   }
   // 查找页面跳转后的page
   newDom.style.display = ''
+  
 }
 
 // 防止有些平台不支持onhashchange
