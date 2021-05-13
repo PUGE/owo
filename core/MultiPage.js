@@ -114,7 +114,10 @@ function switchPage (oldUrlParam, newUrlParam) {
     // 显示路由
     // if (window.owo.script[newPage].view) _owo.getViewChange()
   }, 0)
-
+  // 离开事件
+  if (window.owo.script[oldPage].leave) {
+    window.owo.script[oldPage].leave.call(window.owo.script[oldPage])
+  }
   /* if="Storage.pageAnimationList.size > 0" */
   // 判断是否有动画效果
   if (!owo.state._animation) owo.state._animation = {}
@@ -146,10 +149,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     return
   }
   /* end="Storage.pageAnimationList.size > 0" */
-  // 离开事件
-  if (window.owo.script[oldPage].leave) {
-    window.owo.script[oldPage].leave.call(window.owo.script[oldPage])
-  }
+  
   if (oldDom) {
     // 隐藏掉旧的节点
     oldDom.style.display = 'none'
