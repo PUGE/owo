@@ -104,6 +104,7 @@ _owo.bindEvent = function (eventName, eventFor, tempDom, moudleScript) {
         // 清零
         startTime = 0;
         isMove = false
+        event.preventDefault()
       }
       break;
   
