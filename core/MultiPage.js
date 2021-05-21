@@ -115,7 +115,7 @@ function switchPage (oldUrlParam, newUrlParam) {
     // if (window.owo.script[newPage].view) _owo.getViewChange()
   }, 0)
   // 离开事件
-  if (window.owo.script[oldPage].leave) {
+  if (window.owo.script[oldPage] && window.owo.script[oldPage].leave) {
     window.owo.script[oldPage].leave.call(window.owo.script[oldPage])
   }
   /* if="Storage.pageAnimationList.size > 0" */
