@@ -1,8 +1,7 @@
 "use strict"
 
-const path = require('path')
-const Tool = require('./lib/tool/tool')
-const log = require('./lib/tool/log')
+import path from 'path'
+import Tool from './lib/tool/tool.js'
 
 function checkConfig (config) {
   // 判断并创建资源目录
@@ -12,4 +11,4 @@ function checkConfig (config) {
   return true
 }
 
-module.exports = checkConfig
+export default checkConfig

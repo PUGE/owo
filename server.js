@@ -1,11 +1,11 @@
 
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 // 配置输出插件
-const log = require('./lib/tool/log')
-const Tool = require('./lib/tool/tool')
-const request = require('request')
-const Storage = require('./lib/storage')
+import log from './lib/tool/log.js'
+import request from 'request'
+import Storage from './lib/storage.js'
+
 
 // 命令行运行目录
 const runPath = process.cwd()
@@ -100,4 +100,5 @@ function Server (config, app, owo) {
     res.send(JSON.stringify({err: 0}))
   })
 }
-module.exports = Server
+
+export default Server

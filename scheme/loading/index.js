@@ -1,4 +1,5 @@
-module.exports = {
+const __dirname = path.resolve(path.dirname(''));
+export default {
   init: function (config, scheme) {
     // console.log(config)
     config.phoneEnter = 'owo_scheme_loading'

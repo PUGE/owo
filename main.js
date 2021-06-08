@@ -1,24 +1,22 @@
 #!/usr/bin/env node
 
 'use strict'
-const fs = require('fs')
-const path = require('path')
-const Tool = require('./lib/tool/tool')
-const Server = require('./server.js')
-const Storage = require('./lib/storage')
-// 注册事件回调
-const register = require('./lib/register')
+import fs from 'fs'
+import path from 'path'
+import Tool from './lib/tool/tool.js'
+import Server from './server.js'
+import Storage from './lib/storage.js'
+import register from './lib/register.js'
 
 // 命令行运行目录
 const runPath = process.cwd()
 
 // 判断运行目录下是否包含配置文件
 if (!fs.existsSync(path.join(runPath, 'owo.json'))) {
-  console.error('当前目录下找不到owo配置文件哦!')
-  return
+  throw Error('当前目录下找不到owo配置文件哦!')
 }
 // 配置文件检测
-const checkConfig = require('./checkConfig')
+import checkConfig from './checkConfig.js'
 
 function getConfig () {
   // 读取配置文件
@@ -57,12 +55,12 @@ function getConfig () {
 let config = getConfig()
 
 // 加载框架SDK
-const owo = require('./lib')
+import owo from './lib/index.js'
 
 // 配置输出插件
-const log = require('./lib/tool/log')
+import log from './lib/tool/log.js'
 
-
+const __dirname = path.resolve(path.dirname(''));
 // 记录开始打包时间
 let startPackTime = new Date().getTime()
 // 添加解决方案
@@ -165,7 +163,6 @@ if (config.server) {
   // Web 框架
   const express = require('express')
   const app = express()
-  const path = require('path')
   const bodyParser = require('body-parser')
   wsServe = require('express-ws')(app)
   app.use(bodyParser.json())

@@ -11,7 +11,7 @@
 > 配置中的entry代表入口页面为哪一个页面
 
 ```
-module.exports = {
+export default {
     // 项目入口文件
     entry: "home",
     // 页面清单
@@ -48,7 +48,7 @@ module.exports = {
 </template>
 
 <script>
-  module.exports = {
+  export default {
     created: function () {
       console.log('my name is pack!')
     }
@@ -113,7 +113,7 @@ module.exports = {
 </template>
 
 <script>
-module.exports = {
+export default {
   hide: function () {
     this.$el.style.display = 'none'
     window.history.go(-1)
@@ -151,7 +151,7 @@ module.exports中的字段可以直接被template使用，例如
 </template>
 
 <script>
-  module.exports = {
+  export default {
     data: {
       text: "模板插值"
     },
@@ -177,7 +177,7 @@ module.exports中的字段可以直接被template使用，例如
 </template>
 
 <script>
-  module.exports = {
+  export default {
     created: function () {
       console.log(this)
       console.log(`my name is ${this.prop.text}!`) 

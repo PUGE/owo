@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  module.exports = {
+  export default {
     created: function () {
       const mum = owo.query('.progress-num')[0]
       this.preloadImages(this.prop.imgList, (e) => {
