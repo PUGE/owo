@@ -8,6 +8,11 @@ import Server from './server.js'
 import Storage from './lib/storage.js'
 import register from './lib/register.js'
 
+// Web 框架
+import express from 'express'
+import bodyParser from 'body-parser'
+import ws from 'express-ws'
+
 // 命令行运行目录
 const runPath = process.cwd()
 
@@ -60,7 +65,7 @@ import owo from './lib/index.js'
 // 配置输出插件
 import log from './lib/tool/log.js'
 
-const __dirname = path.resolve(path.dirname(''));
+const __dirname = path.resolve(process.argv[1], '../')
 // 记录开始打包时间
 let startPackTime = new Date().getTime()
 // 添加解决方案
@@ -160,11 +165,8 @@ if (config.watcherEnable) {
 }
 // 判断是否启用静态文件服务
 if (config.server) {
-  // Web 框架
-  const express = require('express')
   const app = express()
-  const bodyParser = require('body-parser')
-  wsServe = require('express-ws')(app)
+  wsServe = ws(app)
   app.use(bodyParser.json())
   // 设置静态目录
   app.use(express.static(path.join(runPath, config.outFolder)))

@@ -1,4 +1,4 @@
-const __dirname = path.resolve(path.dirname(''));
+const __dirname = path.resolve(process.argv[1], '../')
 export default {
   init: function (config, scheme) {
     // console.log(config)
