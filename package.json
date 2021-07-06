@@ -32,7 +32,7 @@
     "minimum-png": "8.0.1",
     "postcss": "8.3.5",
     "pug": "3.0.2",
-    "urllib-sync": "^1.1.4"
+    "sync-request": "^6.1.0"
   },
   "browserslist": [
     "last 2 versions",
