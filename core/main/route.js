@@ -148,6 +148,14 @@ _owo.getViewChange = function () {
 
 /* if="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
 owo.go = function (aniStr) {
+  // 判断是否正在忙碌
+  if (owo.state.routeBusy) {
+    setTimeout(() => {
+      owo.go(aniStr)
+      return
+    }, 100);
+  }
+  owo.state.routeBusy = true
   if (!aniStr || typeof aniStr !== 'string')  {
     console.error('owo.go的正确使用方法为: owo.go("页面名/URL参数/入场动画/离场动画/是否允许返回/返回入场动画/返回离场动画")')
     return
@@ -234,6 +242,9 @@ owo.go = function (aniStr) {
       window.location.href = paramString + pageString
     }
   }
+  setTimeout(() => {
+    owo.state.routeBusy = false
+  }, 500);
 }
 /* end="Storage.plugList.has('route') || Storage.plugList.has('go') || this.config.pageList.length > 1" */
 /* if="Storage.plugList.has('go')" */
