@@ -1,6 +1,7 @@
 /* 方法合集 */
 var _owo = {
   isIE: (window.navigator.userAgent.indexOf("MSIE") >= 1),
+  owoPC: navigator.userAgent.toLowerCase().indexOf('electron') >= 0,
   // 支持IE的事件绑定
   addEventListener: function (dom, name, func) {
     if (_owo.isIE) {
@@ -137,7 +138,8 @@ _owo.addEvent = function (tempDom, moudleScript) {
             break
           case 'tap': {
             // 根据手机和PC做不同处理
-            if (_owo.isMobi) _owo.bindEvent('tap', eventFor, tempDom, moudleScript)
+            // electron需要特殊处理
+            if (_owo.isMobi && !_owo.owoPC) _owo.bindEvent('tap', eventFor, tempDom, moudleScript)
             else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
             break
           }
