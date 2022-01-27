@@ -24,11 +24,11 @@ function View(routeList, viewName, entryDom, pageScript) {
 }
 
 owo.state.routeBusy = false
-
+owo.state.viewBusy = false
 View.prototype.showIndex = function (ind) {
   var viewName = this._viewName
-  if (owo.state.routeBusy) return
-  owo.state.routeBusy = true
+  if (owo.state.viewBusy) return
+  owo.state.viewBusy = true
   // 防止来回快速切换页面出问题
   if (owo.state[viewName + '_changeing']) return
   owo.state[viewName + '_changeing'] = true
@@ -38,7 +38,7 @@ View.prototype.showIndex = function (ind) {
   if (this._activeIndex == ind) {
     oldRoute.$el.setAttribute('route-active', 'true')
     owo.state[viewName + '_changeing'] = false
-    owo.state.routeBusy = false
+    owo.state.viewBusy = false
     return
   }
   var newRoute = this._list[ind]
@@ -51,7 +51,7 @@ View.prototype.showIndex = function (ind) {
     function clearRoute () {
       owo.state[viewName + '_changeing'] = false
       oldRoute.$el.setAttribute('route-active', 'false')
-      owo.state.routeBusy = false
+      owo.state.viewBusy = false
     }
     var animationValue = owo.state._animation || owo.globalAni
     if (animationValue) {
@@ -70,13 +70,13 @@ View.prototype.showIndex = function (ind) {
   }
   newRoute.$el.setAttribute('route-active', 'true')
   owo.onViewChange()
-  owo.state.routeBusy = false
+  owo.state.viewBusy = false
 }
 
 View.prototype.showName = function (name) {
   var viewName = this._viewName
-  if (owo.state.routeBusy) return
-  owo.state.routeBusy = true
+  if (owo.state.viewBusy) return
+  owo.state.viewBusy = true
   // 防止来回快速切换页面出问题
   if (owo.state[viewName + '_changeing']) return
   owo.state[viewName + '_changeing'] = true
@@ -88,7 +88,7 @@ View.prototype.showName = function (name) {
   if (this._activeName == name) {
     oldRoute.$el.setAttribute('route-active', 'true')
     owo.state[viewName + '_changeing'] = false
-    owo.state.routeBusy = false
+    owo.state.viewBusy = false
     return
   }
   // 根据index
@@ -101,7 +101,7 @@ View.prototype.showName = function (name) {
     function clearRoute () {
       owo.state[viewName + '_changeing'] = false
       oldRoute.$el.setAttribute('route-active', 'false')
-      owo.state.routeBusy = false
+      owo.state.viewBusy = false
     }
     var animationValue = owo.state._animation || owo.globalAni
     if (animationValue) {
@@ -116,7 +116,7 @@ View.prototype.showName = function (name) {
     
   } else {
     owo.state[viewName + '_changeing'] = false
-    owo.state.routeBusy = false
+    owo.state.viewBusy = false
   }
   newRoute.$el.setAttribute('route-active', 'true')
   owo.onViewChange()
